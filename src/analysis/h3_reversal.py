@@ -8,7 +8,7 @@ from typing import Optional, Tuple
 import numpy as np
 from numpy.typing import NDArray
 
-from .supt import inversion_pvalue, two_sided_bands
+from .supt import conservative_pvalue, inversion_pvalue, two_sided_bands
 
 
 @dataclass(frozen=True)
@@ -33,15 +33,16 @@ def reversal_test(
     if estimates.size < 2:
         return ReversalResult(1.0, 1.0, 1.0, False, None)
 
-    p_pos = inversion_pvalue(
-        estimates, standard_error, studentized, threshold=0.0
+    # Confirmatory H3 p-values carry the §8 tail-conservatism factor.
+    p_pos = conservative_pvalue(
+        inversion_pvalue(estimates, standard_error, studentized, threshold=0.0)
     )
-    p_neg = inversion_pvalue(
-        -estimates, standard_error, -np.asarray(studentized), threshold=0.0
+    p_neg = conservative_pvalue(
+        inversion_pvalue(
+            -estimates, standard_error, -np.asarray(studentized), threshold=0.0
+        )
     )
-    bands = two_sided_bands(
-        estimates, standard_error, studentized, alpha=alpha
-    )
+    bands = two_sided_bands(estimates, standard_error, studentized, alpha=alpha)
     return ReversalResult(
         p_pos=p_pos,
         p_neg=p_neg,

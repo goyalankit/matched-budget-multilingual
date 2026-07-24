@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-from math import ceil, floor
+from math import ceil
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -17,6 +17,7 @@ from src.analysis.h3_reversal import reversal_test
 from src.analysis.holm import holm_step_down
 from src.analysis.mcb import mcb_intervals
 from src.analysis.supt import (
+    conservative_pvalue,
     inversion_pvalue,
     one_sided_lower_bounds,
 )
@@ -46,30 +47,20 @@ def _trace(
 ) -> tuple[str, bool]:
     answer = gold if completed_correct else gold + 1
     answer_line = f"#### {answer}\n"
-    opening = (
-        "=== TRANSLATION END ===\n"
-        if arm == "translate_act"
-        else "Reasoning.\n"
-    )
+    opening = "=== TRANSLATION END ===\n" if arm == "translate_act" else "Reasoning.\n"
     emission_index = max(1, int(ceil(emission)))
     if emission_index > MAX_GENERATION_TOKENS:
         return (opening + "x" * MAX_GENERATION_TOKENS)[:MAX_GENERATION_TOKENS], False
     emission_index = max(emission_index, len(opening) + len(answer_line))
     padding_length = emission_index - len(opening) - len(answer_line)
-    padding = (
-        ""
-        if padding_length == 0
-        else "x" * (padding_length - 1) + "\n"
-    )
+    padding = "" if padding_length == 0 else "x" * (padding_length - 1) + "\n"
     return opening + padding + answer_line, True
 
 
 def _record_id(
     model_id: str, language: str, arm: str, item_id: str, sample_index: int
 ) -> str:
-    return "\x1f".join(
-        (model_id, language, arm, item_id, str(sample_index))
-    )
+    return "\x1f".join((model_id, language, arm, item_id, str(sample_index)))
 
 
 def materialize_synthetic_ledger(
@@ -108,9 +99,7 @@ def materialize_synthetic_ledger(
         gold = 100 + item_index
         for language_index, language in enumerate(power["languages"]):
             for arm_index, arm in enumerate(power["arms"]):
-                prompt = (
-                    f"Solve {item_id} in {language} with strategy {arm}."
-                )
+                prompt = f"Solve {item_id} in {language} with strategy {arm}."
                 input_ids = list(prompt.encode("utf-8"))
                 for sample_index in range(int(study["k"])):
                     record_id = _record_id(
@@ -214,9 +203,7 @@ def evaluate_frames(
             )
 
             mapped = (
-                flores_prefix(
-                    int(budget), float(study["premiums"][record["language"]])
-                )
+                flores_prefix(int(budget), float(study["premiums"][record["language"]]))
                 if record["arm"] == "native"
                 else int(budget)
             )
@@ -278,9 +265,7 @@ def _mean_checkpoints(data: NDArray[np.float64]) -> NDArray[np.float64]:
 def _bootstrap_deltas(
     frames: Mapping[str, NDArray[np.float64]], study: Mapping[str, Any]
 ) -> tuple[BootstrapResult, BootstrapResult]:
-    checkpoint_index = list(study["token_checkpoints"]).index(
-        int(study["b_star"])
-    )
+    checkpoint_index = list(study["token_checkpoints"]).index(int(study["b_star"]))
     native_token = frames["token"][:, :, 0, checkpoint_index, :].mean(axis=2)
     native_flores = frames["flores"][:, :, 0, checkpoint_index, :].mean(axis=2)
     item_deltas = native_flores - native_token
@@ -315,16 +300,12 @@ def _accuracy_curves(
                     str(budget): (
                         None
                         if np.isnan(
-                            outcomes[
-                                :, language_index, arm_index, index, :
-                            ]
+                            outcomes[:, language_index, arm_index, index, :]
                         ).all()
                         else float(
                             100
                             * np.nanmean(
-                                outcomes[
-                                    :, language_index, arm_index, index, :
-                                ]
+                                outcomes[:, language_index, arm_index, index, :]
                             )
                         )
                     )
@@ -340,23 +321,29 @@ def analyze_confirmatory(
 ) -> dict[str, Any]:
     """Run the complete six-test confirmatory sequence."""
     delta_bootstrap, h2_bootstrap = _bootstrap_deltas(frames, study)
-    p_zero = inversion_pvalue(
-        delta_bootstrap.estimate,
-        delta_bootstrap.standard_error,
-        delta_bootstrap.studentized,
-        0.0,
+    p_zero = conservative_pvalue(
+        inversion_pvalue(
+            delta_bootstrap.estimate,
+            delta_bootstrap.standard_error,
+            delta_bootstrap.studentized,
+            0.0,
+        )
     )
-    p_five = inversion_pvalue(
-        delta_bootstrap.estimate,
-        delta_bootstrap.standard_error,
-        delta_bootstrap.studentized,
-        0.05,
+    p_five = conservative_pvalue(
+        inversion_pvalue(
+            delta_bootstrap.estimate,
+            delta_bootstrap.standard_error,
+            delta_bootstrap.studentized,
+            0.05,
+        )
     )
-    p_h2 = inversion_pvalue(
-        h2_bootstrap.estimate,
-        h2_bootstrap.standard_error,
-        h2_bootstrap.studentized,
-        0.0,
+    p_h2 = conservative_pvalue(
+        inversion_pvalue(
+            h2_bootstrap.estimate,
+            h2_bootstrap.standard_error,
+            h2_bootstrap.studentized,
+            0.0,
+        )
     )
 
     h3_bootstraps: dict[str, BootstrapResult | None] = {}
@@ -375,14 +362,11 @@ def analyze_confirmatory(
                 "common_support": support_indices.tolist(),
             }
             continue
-        item_contrasts = (
-            frames["dollar"][
-                :, language_index, 0, support_indices, :
-            ].mean(axis=2)
-            - frames["dollar"][
-                :, language_index, 1, support_indices, :
-            ].mean(axis=2)
-        )
+        item_contrasts = frames["dollar"][
+            :, language_index, 0, support_indices, :
+        ].mean(axis=2) - frames["dollar"][
+            :, language_index, 1, support_indices, :
+        ].mean(axis=2)
         clustered = item_contrasts[:, np.newaxis, np.newaxis, :, np.newaxis]
         bootstrap = paired_cluster_bootstrap(
             clustered,
@@ -402,8 +386,7 @@ def analyze_confirmatory(
             "p_reversal": raw.p_reversal,
             "sufficient_support": True,
             "common_support": [
-                int(study["token_checkpoints"][index])
-                for index in support_indices
+                int(study["token_checkpoints"][index]) for index in support_indices
             ],
         }
 
@@ -465,9 +448,7 @@ def analyze_confirmatory(
                 alpha=decision.local_alpha,
             )
             assert adjusted.bands is not None
-            result["estimate_points"] = (
-                100 * bootstrap.estimate
-            ).tolist()
+            result["estimate_points"] = (100 * bootstrap.estimate).tolist()
             result["simultaneous_band_points"] = {
                 "low": (100 * adjusted.bands[0]).tolist(),
                 "high": (100 * adjusted.bands[1]).tolist(),
@@ -547,9 +528,7 @@ def _mcb_rows(
                             "language": language,
                             "budget": budget,
                             "strategy": interval.strategy,
-                            "accuracy_points": float(
-                                100 * accuracies[arm_index]
-                            ),
+                            "accuracy_points": float(100 * accuracies[arm_index]),
                             "deficit_points": 100 * interval.deficit,
                             "ci_low_points": 100 * interval.ci_low,
                             "ci_high_points": 100 * interval.ci_high,
@@ -612,14 +591,10 @@ def run_rehearsal(
     all_rows = []
     for scenario in ("null", "alternative"):
         ledger_path = runs_root / scenario / "shard-000.jsonl"
-        materialize_synthetic_ledger(
-            study, power, scenario, ledger_path
-        )
+        materialize_synthetic_ledger(study, power, scenario, ledger_path)
         records = read_ledger(ledger_path)
         frames = evaluate_frames(records, study, power)
-        report["scenarios"][scenario] = analyze_confirmatory(
-            frames, study, power
-        )
+        report["scenarios"][scenario] = analyze_confirmatory(frames, study, power)
         all_rows.extend(_mcb_rows(scenario, frames, study, power))
     output_root.mkdir(parents=True, exist_ok=True)
     confirmatory_path = output_root / "rehearsal_confirmatory.json"

@@ -15,7 +15,7 @@ Tracks `implementation-plan.md` (which implements prereg v0.5). Check items only
 - [ ] seeds.py + known-answer tests; base_seed.txt frozen
 - [ ] Price snapshot captured → configs/prices.json; dollar grid c_1..c_4 derived
 - [x] FLORES premiums measured, all 6 values (Qwen de/th/sw 1.559/2.551/1.936; Llama 1.582/2.194/1.931); B*=1024
-- [ ] power_sim.py full run (imports real analysis code); achieved power at k=8 reported; results deposited (k=8 fixed unconditionally, compute not binding)
+- [x] power_sim corrected (1.3x tail-conservatism, verified type-I 0.0066<=nominal); full deposit run regenerating; achieved power k=8 = 1.0
 - [ ] §14 protocol-freeze fields all filled from configs (no placeholders)
 - [ ] Protocol frozen: commit + tag `protocol-freeze` (no OSF — decision 2026-07-24)
 - [ ] GATE: no study generation before the protocol-freeze tag exists

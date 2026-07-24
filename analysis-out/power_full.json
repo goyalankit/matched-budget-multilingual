@@ -4,7 +4,7 @@
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
         "de": 1.0,
-        "sw": 1.0,
+        "sw": 0.999,
         "th": 1.0
       },
       "h1_existence_rejection_rate": 0.0,
@@ -12,11 +12,11 @@
       "k": 4,
       "mean_delta_points": {
         "de": 0.0,
-        "sw": 0.0,
+        "sw": 9.999999999999999e-05,
         "th": 0.0
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.2,
       "scenario": "null"
     },
@@ -27,16 +27,16 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.0,
+      "h1_existence_rejection_rate": 0.009,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 4,
       "mean_delta_points": {
-        "de": 0.9625,
-        "sw": -0.012500000000000011,
-        "th": 0.8624999999999999
+        "de": 0.15819999999999995,
+        "sw": 0.014299999999999974,
+        "th": -0.05710000000000003
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "native_straddling_probability": {
         "de": 0.1183461733171981,
         "sw": 0.1353345234042963,
@@ -48,40 +48,40 @@
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
+        "de": 0.997,
         "sw": 1.0,
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.011,
       "k": 4,
       "mean_delta_points": {
-        "de": 0.0,
+        "de": 0.00030000000000000003,
         "sw": 0.0,
-        "th": 5.3
+        "th": 5.2760999999999845
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.2,
       "scenario": "alternative"
     },
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
-        "th": 1.0
+        "de": 0.999,
+        "sw": 0.995,
+        "th": 0.998
       },
       "h1_existence_rejection_rate": 0.0,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 0.0
+        "de": 4.9999999999999996e-05,
+        "sw": 0.00025,
+        "th": 9.999999999999999e-05
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.2,
       "scenario": "null"
     },
@@ -92,16 +92,16 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.0,
+      "h1_existence_rejection_rate": 0.013,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.8562500000000001,
-        "sw": 0.14375,
-        "th": 0.018749999999999975
+        "de": 0.08879999999999992,
+        "sw": 0.029849999999999967,
+        "th": -0.01925
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "native_straddling_probability": {
         "de": 0.1183461733171981,
         "sw": 0.1353345234042963,
@@ -113,20 +113,20 @@
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
+        "de": 0.997,
+        "sw": 0.999,
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.026,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 5.51875
+        "de": 0.00015000000000000001,
+        "sw": 4.9999999999999996e-05,
+        "th": 5.293299999999979
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.2,
       "scenario": "alternative"
     },
@@ -135,7 +135,7 @@
       "degenerate_delta_dataset_rate_by_language": {
         "de": 1.0,
         "sw": 1.0,
-        "th": 1.0
+        "th": 0.999
       },
       "h1_existence_rejection_rate": 0.0,
       "h1_sesoi_rejection_rate": 0.0,
@@ -143,10 +143,10 @@
       "mean_delta_points": {
         "de": 0.0,
         "sw": 0.0,
-        "th": 0.0
+        "th": 9.999999999999999e-05
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.4,
       "scenario": "null"
     },
@@ -157,16 +157,16 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.0,
+      "h1_existence_rejection_rate": 0.012,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 4,
       "mean_delta_points": {
-        "de": -0.9875,
-        "sw": -0.012500000000000054,
-        "th": 0.8624999999999999
+        "de": -0.0254,
+        "sw": -0.05920000000000003,
+        "th": 0.0189
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "native_straddling_probability": {
         "de": 0.1183461733171981,
         "sw": 0.1353345234042963,
@@ -178,40 +178,40 @@
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
+        "de": 0.999,
+        "sw": 0.998,
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.006,
       "k": 4,
       "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 5.137499999999999
+        "de": 9.999999999999999e-05,
+        "sw": 0.00019999999999999998,
+        "th": 5.098499999999982
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.4,
       "scenario": "alternative"
     },
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
-        "th": 1.0
+        "de": 0.999,
+        "sw": 0.999,
+        "th": 0.998
       },
       "h1_existence_rejection_rate": 0.0,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 0.0
+        "de": 4.9999999999999996e-05,
+        "sw": 4.9999999999999996e-05,
+        "th": 9.999999999999999e-05
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.4,
       "scenario": "null"
     },
@@ -222,16 +222,16 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.0,
+      "h1_existence_rejection_rate": 0.014,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.37500000000000006,
-        "sw": -0.9500000000000002,
-        "th": 0.4125000000000001
+        "de": 0.03390000000000001,
+        "sw": -0.013250000000000005,
+        "th": -0.008250000000000014
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "native_straddling_probability": {
         "de": 0.1183461733171981,
         "sw": 0.1353345234042963,
@@ -243,20 +243,20 @@
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
+        "de": 0.999,
+        "sw": 0.999,
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.008,
       "k": 8,
       "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 4.975
+        "de": 4.9999999999999996e-05,
+        "sw": 4.9999999999999996e-05,
+        "th": 5.1089999999999725
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.4,
       "scenario": "alternative"
     },
@@ -264,7 +264,7 @@
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
         "de": 1.0,
-        "sw": 1.0,
+        "sw": 0.999,
         "th": 1.0
       },
       "h1_existence_rejection_rate": 0.0,
@@ -272,11 +272,11 @@
       "k": 4,
       "mean_delta_points": {
         "de": 0.0,
-        "sw": 0.0,
+        "sw": 9.999999999999999e-05,
         "th": 0.0
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.6,
       "scenario": "null"
     },
@@ -287,81 +287,16 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.0,
+      "h1_existence_rejection_rate": 0.009,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 4,
       "mean_delta_points": {
-        "de": -0.075,
-        "sw": -0.8624999999999999,
-        "th": -0.5000000000000001
+        "de": -0.05710000000000003,
+        "sw": 0.0701,
+        "th": 0.1158
       },
-      "n_boot": 199,
-      "n_sims": 8,
-      "native_straddling_probability": {
-        "de": 0.1183461733171981,
-        "sw": 0.1353345234042963,
-        "th": 0.1422400125237132
-      },
-      "rho": 0.6,
-      "scenario": "null_calibration"
-    },
-    {
-      "degenerate_delta_dataset_rate": 1.0,
-      "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
-        "th": 0.0
-      },
-      "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.0,
-      "k": 4,
-      "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 4.975
-      },
-      "n_boot": 199,
-      "n_sims": 8,
-      "rho": 0.6,
-      "scenario": "alternative"
-    },
-    {
-      "degenerate_delta_dataset_rate": 1.0,
-      "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
-        "th": 1.0
-      },
-      "h1_existence_rejection_rate": 0.0,
-      "h1_sesoi_rejection_rate": 0.0,
-      "k": 8,
-      "mean_delta_points": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 0.0
-      },
-      "n_boot": 199,
-      "n_sims": 8,
-      "rho": 0.6,
-      "scenario": "null"
-    },
-    {
-      "degenerate_delta_dataset_rate": 0.0,
-      "degenerate_delta_dataset_rate_by_language": {
-        "de": 0.0,
-        "sw": 0.0,
-        "th": 0.0
-      },
-      "h1_existence_rejection_rate": 0.0,
-      "h1_sesoi_rejection_rate": 0.0,
-      "k": 8,
-      "mean_delta_points": {
-        "de": -0.21875000000000003,
-        "sw": -0.71875,
-        "th": 0.15624999999999992
-      },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
       "native_straddling_probability": {
         "de": 0.1183461733171981,
         "sw": 0.1353345234042963,
@@ -373,38 +308,102 @@
     {
       "degenerate_delta_dataset_rate": 1.0,
       "degenerate_delta_dataset_rate_by_language": {
-        "de": 1.0,
-        "sw": 1.0,
+        "de": 0.999,
+        "sw": 0.999,
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.003,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 9.999999999999999e-05,
+        "sw": 9.999999999999999e-05,
+        "th": 4.922999999999979
+      },
+      "n_boot": 10000,
+      "n_sims": 1000,
+      "rho": 0.6,
+      "scenario": "alternative"
+    },
+    {
+      "degenerate_delta_dataset_rate": 1.0,
+      "degenerate_delta_dataset_rate_by_language": {
+        "de": 1.0,
+        "sw": 0.999,
+        "th": 0.998
+      },
+      "h1_existence_rejection_rate": 0.0,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
         "de": 0.0,
-        "sw": 0.0,
-        "th": 5.15625
+        "sw": 4.9999999999999996e-05,
+        "th": 9.999999999999999e-05
       },
-      "n_boot": 199,
-      "n_sims": 8,
+      "n_boot": 10000,
+      "n_sims": 1000,
+      "rho": 0.6,
+      "scenario": "null"
+    },
+    {
+      "degenerate_delta_dataset_rate": 0.0,
+      "degenerate_delta_dataset_rate_by_language": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "h1_existence_rejection_rate": 0.008,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.01945,
+        "sw": 0.026450000000000005,
+        "th": 0.004200000000000002
+      },
+      "n_boot": 10000,
+      "n_sims": 1000,
+      "native_straddling_probability": {
+        "de": 0.1183461733171981,
+        "sw": 0.1353345234042963,
+        "th": 0.1422400125237132
+      },
+      "rho": 0.6,
+      "scenario": "null_calibration"
+    },
+    {
+      "degenerate_delta_dataset_rate": 1.0,
+      "degenerate_delta_dataset_rate_by_language": {
+        "de": 0.997,
+        "sw": 0.997,
+        "th": 0.0
+      },
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.003,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.00015000000000000001,
+        "sw": 0.00015000000000000001,
+        "th": 4.918849999999975
+      },
+      "n_boot": 10000,
+      "n_sims": 1000,
       "rho": 0.6,
       "scenario": "alternative"
     }
   ],
   "fixed_alpha": 0.008333333333333333,
-  "mode": "smoke",
+  "mode": "full",
   "sesoi_caveat": "Power for a lower bound exceeding a true five-point effect is expected to be low and is not the design target.",
   "validation": {
     "alternative_exceeds_null": true,
     "alternative_mean_rejection_rate": 1.0,
     "calibration_degenerate_dataset_rate": 0.0,
-    "calibration_mean_rejection_rate": 0.0,
+    "calibration_mean_rejection_rate": 0.010833333333333334,
     "legacy_null_degenerate_dataset_rate": 1.0,
     "legacy_null_mean_rejection_rate": 0.0,
-    "monte_carlo_se": 0.013121141408118878,
-    "null_consistent_with_nominal": true,
-    "null_mean_rejection_rate": 0.0,
+    "null_consistent_with_nominal": false,
+    "null_mean_rejection_rate": 0.010833333333333334,
     "null_validation_scenario": "null_calibration",
-    "upper_tolerance": 0.026242282816237757
+    "two_se_smoke_half_width": 0.0023471811304752897
   }
 }

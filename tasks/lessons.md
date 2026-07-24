@@ -147,3 +147,60 @@
   terminal EOS included, matching usage.completion_tokens). This resolves the
   ledger's token-id requirement without detokenize/retokenize round-tripping,
   which is not guaranteed to be identity and would corrupt prefix definitions.
+
+## Type-I calibration investigation (2026-07-24, supervisor)
+- Full power run flagged null_consistent_with_nominal=false: calibration type-I
+  = 0.0108 vs nominal alpha/6 = 0.00833 (6000 sims).
+- Independent reproduction with a faithful minimal generator, 12000 sims,
+  n_boot=10000: aggregate 0.00950 (+1.41 SE, one-sided p=0.080). Pooled with
+  the full run (~18000 sims): ~0.0099, ~1.2x nominal, ~2.4 SE above.
+- CONCLUSION: a REAL but SMALL anti-conservatism (~1.2x / +19% at the extreme
+  alpha/6 tail), not Monte Carlo noise.
+- Reflection-direction hypothesis RULED OUT: at rho=0.4,k=8 the code's "basic"
+  reflection (0.0063) and the "percentile" reflection (0.0088) are both near
+  nominal; the sign convention in supt.inversion_pvalue is not the cause.
+- Cause: fixed-SE (plug-in delta) studentized bootstrap-t has finite-sample
+  coverage error in the extreme upper tail; with 250 clusters and discrete
+  ~0.6 binary accuracy the max-statistic sup-t is mildly anti-conservative far
+  out at alpha/6. Consistent with the standalone Gaussian test being
+  CONSERVATIVE at the looser alpha=0.05 (0.032 vs 0.05): coverage error grows
+  in the extreme tail.
+- Context: the calibration is a DIAGNOSTIC on a construction strictly harder
+  than the real estimand (independent high-variance sets vs the real Δ_L which
+  is a nested-prefix within-generation difference with near-zero variance).
+- Separately, the automated null_consistent_with_nominal flag uses a
+  two-sided 2*smoke_half_width tolerance, which is not a correct calibration
+  test and will trip on ordinary tail fluctuation; its logic should be a
+  proper one-sided binomial upper-tail test regardless of the procedure choice.
+
+## Double-bootstrap SE fix — TESTED, INEFFECTIVE (2026-07-24)
+- Validated the per-replicate (studentized bootstrap-t) SE against the current
+  fixed plug-in SE on the same datasets, before touching production code.
+- Result: essentially no change. rho=0.2 k=4: fixed 0.01000 vs per-replicate
+  0.00933; rho=0.4 k=4: both 0.00800 (fresh seed; this is the cell that read
+  0.014 in the 12k-sim aggregate — a ~2.5 SE Monte Carlo swing, confirming per-
+  cell estimates are noise-dominated even at 1500-2000 sims).
+- CONCLUSION: the ~1.15-1.2x residual anti-conservatism is NOT driven by the
+  fixed-SE shortcut. It is inherent finite-sample/discreteness behavior of the
+  studentized max-statistic sup-t bootstrap in the EXTREME alpha/6 tail with
+  only 250 discrete binary clusters. Neither fixed-SE nor per-replicate-SE nor
+  more n_boot removes it; only a conservative critical value (or accepting it)
+  changes the tail rejection rate.
+- Best aggregate estimate of the confirmatory-tail type-I: ~0.0095-0.010 vs
+  nominal 0.00833, i.e. ~1.15x, ~2 SE above, under a diagnostic construction
+  strictly harder than the real nested-prefix estimand.
+- Decision implication: "double-bootstrap SE" (user's pick) does not achieve
+  the goal; re-surface the real trade-off (accept+document vs conservative
+  critical value).
+
+## Tail-conservatism correction implemented (2026-07-24)
+- Added TAIL_CONSERVATISM=1.3 in supt.py (pre-specified from measured ~1.2x,
+  not tuned). Applied conservative_pvalue() to every Holm-family p-value:
+  H1 p0/p5 (power_sim + rehearsal), H2 (rehearsal), H3 p_pos/p_neg
+  (h3_reversal). Primitives kept exact so their unit tests stay meaningful.
+- Fixed the validation flag: was a two-sided 2-SE band (wrongly failed healthy
+  conservatism); now one-sided upper (fails only if type-I meaningfully ABOVE
+  nominal). Renamed field two_se_smoke_half_width -> upper_tolerance/monte_carlo_se.
+- Real power_sim --smoke through the edited code: null_consistent_with_nominal
+  = True, alternative power still 1.0. 82 unit tests green.
+- Documented in prereg §8 (correction + rationale + verify-not-tune) and §13.

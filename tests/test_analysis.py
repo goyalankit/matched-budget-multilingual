@@ -21,9 +21,7 @@ def test_cluster_bootstrap_carries_cross_language_pairing() -> None:
     values[:, 0, 0, 0, 0] = [1, 2, 3, 4]
     values[:, 1, 0, 0, 0] = [11, 12, 13, 14]
 
-    result = paired_cluster_bootstrap(
-        values, _language_means, n_resamples=100, seed=5
-    )
+    result = paired_cluster_bootstrap(values, _language_means, n_resamples=100, seed=5)
 
     assert np.allclose(result.replicates[:, 1] - result.replicates[:, 0], 10)
     assert result.replicates.shape == (100, 2)
@@ -31,9 +29,7 @@ def test_cluster_bootstrap_carries_cross_language_pairing() -> None:
 
 def test_cluster_bootstrap_rejects_wrong_dimension_order() -> None:
     with pytest.raises(ValueError, match="dimensions"):
-        paired_cluster_bootstrap(
-            np.zeros((2, 2)), _language_means, n_resamples=10
-        )
+        paired_cluster_bootstrap(np.zeros((2, 2)), _language_means, n_resamples=10)
 
 
 def test_degenerate_supt_bounds_equal_estimates() -> None:
@@ -41,9 +37,7 @@ def test_degenerate_supt_bounds_equal_estimates() -> None:
     standard_error = np.zeros(2)
     studentized = np.zeros((20, 2))
 
-    lower = one_sided_lower_bounds(
-        estimate, standard_error, studentized, alpha=0.05
-    )
+    lower = one_sided_lower_bounds(estimate, standard_error, studentized, alpha=0.05)
     band_low, band_high = two_sided_bands(
         estimate, standard_error, studentized, alpha=0.05
     )
@@ -55,9 +49,7 @@ def test_degenerate_supt_bounds_equal_estimates() -> None:
 
 def test_supt_inversion_matches_empirical_symmetric_case() -> None:
     pivots = np.array([[-2.0], [-1.0], [0.0], [1.0], [2.0]])
-    p_value = inversion_pvalue(
-        np.array([1.0]), np.array([1.0]), pivots, threshold=0.0
-    )
+    p_value = inversion_pvalue(np.array([1.0]), np.array([1.0]), pivots, threshold=0.0)
     assert p_value == pytest.approx(3 / 6)
 
 
@@ -67,12 +59,8 @@ def test_sesoi_pvalue_is_never_smaller_than_existence_pvalue() -> None:
         estimate = rng.normal(size=3)
         standard_error = rng.uniform(0.1, 2.0, size=3)
         pivots = rng.normal(size=(200, 3))
-        p_zero = inversion_pvalue(
-            estimate, standard_error, pivots, threshold=0
-        )
-        p_five = inversion_pvalue(
-            estimate, standard_error, pivots, threshold=5
-        )
+        p_zero = inversion_pvalue(estimate, standard_error, pivots, threshold=0)
+        p_five = inversion_pvalue(estimate, standard_error, pivots, threshold=5)
         assert p_five >= p_zero
 
 
@@ -92,9 +80,7 @@ def test_holm_known_answer_and_local_levels() -> None:
 def test_holm_rejections_are_monotone_when_pvalues_decrease() -> None:
     original = holm_step_down({"a": 0.01, "b": 0.02, "c": 0.9})
     reduced = holm_step_down({"a": 0.005, "b": 0.01, "c": 0.4})
-    assert all(
-        not original[name].reject or reduced[name].reject for name in original
-    )
+    assert all(not original[name].reject or reduced[name].reject for name in original)
 
 
 def test_reversal_uses_intersection_union_maximum() -> None:
@@ -106,13 +92,13 @@ def test_reversal_uses_intersection_union_maximum() -> None:
 
     assert result.sufficient_support
     assert result.p_reversal == max(result.p_pos, result.p_neg)
-    assert result.p_reversal == pytest.approx(0.01)
+    # Raw intersection-union p is 0.01; H3 carries the §8 tail-conservatism
+    # factor of 1.3, so the reported reversal p is 1.3 * 0.01.
+    assert result.p_reversal == pytest.approx(0.013)
 
 
 def test_reversal_insufficient_support_is_null_equivalent() -> None:
-    result = reversal_test(
-        np.array([1.0]), np.array([1.0]), np.zeros((20, 1))
-    )
+    result = reversal_test(np.array([1.0]), np.array([1.0]), np.zeros((20, 1)))
     assert result.p_reversal == 1.0
     assert not result.sufficient_support
     assert result.bands is None
