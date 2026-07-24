@@ -1,0 +1,11 @@
+You will be given a math problem written in German.
+
+First, translate the problem into English. When your translation is complete, write this exact line by itself:
+=== TRANSLATION END ===
+
+Then solve the translated problem. Think step by step and write all of your reasoning in English.
+Write the final answer as the last line, in the format:
+#### <number>
+
+Problem:
+{problem}

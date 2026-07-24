@@ -1,0 +1,8 @@
+Löse die folgende Mathematikaufgabe.
+
+Denke Schritt für Schritt und schreibe deine gesamte Begründung auf Deutsch.
+Schreibe die endgültige Antwort als letzte Zeile im Format:
+#### <Zahl>
+
+Aufgabe:
+{problem}

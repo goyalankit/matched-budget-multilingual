@@ -9,7 +9,7 @@ Tracks `implementation-plan.md` (which implements prereg v0.5). Check items only
 - [ ] GPU sanity run (10 gens/model @ 4096 tokens); throughput recorded
 
 ## Phase 1 — Protocol-freeze artifacts (Wk 1)
-- [ ] 12 prompt templates written and frozen with SHA-256 manifest
+- [x] 12 prompt templates written and frozen with SHA-256 manifest
 - [ ] Locale answer grammars (de/th/sw/en) in configs/locales/
 - [ ] parser.py + golden-case unit tests green (incl. malformed-grouping REJECT)
 - [ ] seeds.py + known-answer tests; base_seed.txt frozen

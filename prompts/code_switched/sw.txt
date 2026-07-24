@@ -1,0 +1,8 @@
+You will be given a math problem written in Swahili.
+
+Think step by step. Write your reasoning in English, but keep every name, entity, and specific term from the problem in its original Swahili form — do not translate them.
+Write the final answer as the last line, in the format:
+#### <number>
+
+Problem:
+{problem}

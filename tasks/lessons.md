@@ -69,3 +69,20 @@
   0.1313 (sw). Validation now fails explicitly if any calibration language has
   zero item-level Delta variance; the degenerate legacy null is reported but is
   not used to set `null_consistent_with_nominal`.
+- The protocol does not specify zero-shot vs few-shot prompting. The 12 frozen
+  templates are **zero-shot**: no worked exemplars, with an explicit
+  `#### <number>` format instruction carrying the parse contract. Rationale:
+  few-shot would require authoring and freezing 12 sets of native exemplars,
+  and native-language exemplars strongly boost trace-language compliance —
+  which is itself a measured outcome (prereg §6), so exemplars would partly
+  manufacture the compliance result the study reports. Tradeoff accepted:
+  zero-shot risks lower parse and compliance rates; the §10 pilot governance
+  (>10% parse-failure or missing-delimiter in any cell) is the designed
+  escape hatch and permits amending the answer-format instruction before
+  full runs.
+- Instruction language is keyed to each arm's instructed trace language:
+  NATIVE instructions are written in L; TRANSLATE-ACT, PIVOT, and
+  CODE-SWITCHED instructions are in English, with PIVOT explicitly requesting
+  the final answer in L (so it parses under L's locale grammar per prereg §4)
+  and CODE-SWITCHED requesting preservation of source-language names and terms
+  inside English reasoning.
