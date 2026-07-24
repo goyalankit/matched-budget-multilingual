@@ -53,7 +53,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.011,
+      "h1_sesoi_rejection_rate": 0.008,
       "k": 4,
       "mean_delta_points": {
         "de": 0.00030000000000000003,
@@ -92,7 +92,7 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.013,
+      "h1_existence_rejection_rate": 0.012,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
@@ -118,7 +118,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.026,
+      "h1_sesoi_rejection_rate": 0.021,
       "k": 8,
       "mean_delta_points": {
         "de": 0.00015000000000000001,
@@ -157,7 +157,7 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.012,
+      "h1_existence_rejection_rate": 0.01,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 4,
       "mean_delta_points": {
@@ -183,7 +183,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.006,
+      "h1_sesoi_rejection_rate": 0.003,
       "k": 4,
       "mean_delta_points": {
         "de": 9.999999999999999e-05,
@@ -222,7 +222,7 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.014,
+      "h1_existence_rejection_rate": 0.012,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
@@ -248,7 +248,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.008,
+      "h1_sesoi_rejection_rate": 0.004,
       "k": 8,
       "mean_delta_points": {
         "de": 4.9999999999999996e-05,
@@ -287,7 +287,7 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.009,
+      "h1_existence_rejection_rate": 0.007,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 4,
       "mean_delta_points": {
@@ -313,7 +313,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.003,
+      "h1_sesoi_rejection_rate": 0.002,
       "k": 4,
       "mean_delta_points": {
         "de": 9.999999999999999e-05,
@@ -352,7 +352,7 @@
         "sw": 0.0,
         "th": 0.0
       },
-      "h1_existence_rejection_rate": 0.008,
+      "h1_existence_rejection_rate": 0.005,
       "h1_sesoi_rejection_rate": 0.0,
       "k": 8,
       "mean_delta_points": {
@@ -378,7 +378,7 @@
         "th": 0.0
       },
       "h1_existence_rejection_rate": 1.0,
-      "h1_sesoi_rejection_rate": 0.003,
+      "h1_sesoi_rejection_rate": 0.002,
       "k": 8,
       "mean_delta_points": {
         "de": 0.00015000000000000001,
@@ -398,12 +398,13 @@
     "alternative_exceeds_null": true,
     "alternative_mean_rejection_rate": 1.0,
     "calibration_degenerate_dataset_rate": 0.0,
-    "calibration_mean_rejection_rate": 0.010833333333333334,
+    "calibration_mean_rejection_rate": 0.009166666666666665,
     "legacy_null_degenerate_dataset_rate": 1.0,
     "legacy_null_mean_rejection_rate": 0.0,
-    "null_consistent_with_nominal": false,
-    "null_mean_rejection_rate": 0.010833333333333334,
+    "monte_carlo_se": 0.0011735905652376448,
+    "null_consistent_with_nominal": true,
+    "null_mean_rejection_rate": 0.009166666666666665,
     "null_validation_scenario": "null_calibration",
-    "two_se_smoke_half_width": 0.0023471811304752897
+    "upper_tolerance": 0.0023471811304752897
   }
 }

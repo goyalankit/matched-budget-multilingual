@@ -1,7 +1,7 @@
 # Study Protocol: Language Strategies Under Matched Budgets (Minimal Study)
 
 **Working title:** Is the Multilingual Reasoning Gap Partly a Budget Artifact? A Matched-Budget Comparison of Language Strategies
-**Registry:** none — **this study is intentionally NOT preregistered** (decision 2026-07-24). This document is the internal frozen protocol. | **Status:** v0.5 (after four rounds of external methods review) | **Date:** [fill]
+**Registry:** none — **this study is intentionally NOT preregistered** (decision 2026-07-24). This document is the internal frozen protocol. | **Status:** v1.0 FROZEN (after four rounds of external methods review + realized §14 values) | **Date:** 2026-07-24 (protocol-freeze)
 
 > **Protocol-freeze convention (replaces registration):** wherever this document says "register", "registration", "registered document", "OSF", or "OSF amendment", read instead: *freeze in this repository via a tagged git commit (`protocol-freeze`) before any study generation; amendments are documented follow-up commits touching this file's changelog*. All scientific commitments — frozen constants before runs, the no-generation gate, no-peeking rules, ITT estimand, the exact analysis procedures, and the §14 realized-value completeness requirement — are retained unchanged for internal validity; only the external registry is dropped. "Preregistered" labels on hypotheses and the secondary analysis likewise mean "specified in this frozen protocol before data collection."
 **Paper shape:** ACL-style short paper (4 pages + appendix). Target: MELLM-style multilingual workshop or COLM workshop; TMLR long version only if results warrant.
@@ -204,7 +204,7 @@ This draft contains derivation rules whose **realized values must appear in the 
 
 | Field | Source | Filled by |
 |---|---|---|
-| k (samples per item) = 8, fixed; achieved power at k = 8 | Fixed by §8; power reported by the deposited simulation | Wk 1, pre-freeze |
+| k = 8, fixed; **achieved H1-existence power = 1.000 at k = 8 (all ρ), under the tail-corrected test; calibration type-I ≈ nominal (flag passes). H1-SESOI power 0.002–0.021 as expected** | Deposited simulation `analysis-out/power_full.json` | Wk 1, pre-freeze (done) |
 | FLORES premiums r_{m,L} (6 values) with CIs | §5.3 measurement | Wk 1, pre-registration |
 | Primary checkpoint B* (a number) | §5.3 derivation from realized premiums | Wk 1, pre-registration |
 | Price snapshot: pre-specified pair (self-host H100 GPU-sec ratio ≈0.004; hosted Together ratio 1.0), P_in/P_out per model, dates | §5.2 | Wk 1, pre-freeze (done) |
