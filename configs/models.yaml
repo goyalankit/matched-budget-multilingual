@@ -1,6 +1,18 @@
 # Model identity and serving configuration (prereg §10, §14 fields).
 # Values here are FROZEN at the protocol-freeze tag; nothing may change after it.
 
+# Verified request/response contract for the ledger (vLLM 0.17.0, both models):
+#   request : {"return_token_ids": true, "seed": <seed(i,s)>, "temperature": 0.6,
+#              "max_tokens": 4096, "chat_template_kwargs": {"enable_thinking": false}}
+#   output token ids : choices[0].token_ids   (list; includes the terminal EOS)
+#   input token count: usage.prompt_tokens    (prompt_token_ids also available)
+#   eos vs censored  : choices[0].finish_reason  ("stop" -> eos, "length" -> censored)
+# n_i (observed output length, §5.2) := len(choices[0].token_ids) == completion_tokens,
+# i.e. the terminal EOS IS counted, matching what a host would bill — the dollar
+# frame prices output tokens, so billing semantics govern.
+# NOTE: do NOT reconstruct token boundaries by detokenizing then retokenizing the
+# text; that is not guaranteed to be identity and would corrupt prefix definitions.
+
 shared:
   max_output_tokens: 4096          # prereg §4 generation cap
   temperature: 0.6                 # prereg §4
@@ -44,7 +56,7 @@ models:
 
   qwen3_8b:
     role: CONFIRMATORY PRIMARY (prereg §3 — all confirmatory hypotheses)
-    status: PENDING — not yet served
+    status: SERVED — identity and thinking-mode suppression verified 2026-07-24
     hf_repo: Qwen/Qwen3-8B          # POST-TRAINED model. NOT Qwen/Qwen3-8B-Base.
     # Distinguishing check (fetched from HF config.json 2026-07-24):
     #   Qwen/Qwen3-8B       eos_token_id 151645 (<|im_end|>)    <- post-trained, ChatML
@@ -53,10 +65,12 @@ models:
     # following (trace language, '#### <number>' format). A raw base model
     # would collapse compliance and parse rates and make the arms
     # indistinguishable, measuring nothing.
-    revision: TBD                   # read from /v1/models served path once up
-    endpoint: TBD
+    revision: 2069b3fae1114555f3c020c81410e51fa0f656f2
+    served_path: REDACTED (internal mount; model identified by hf_repo + revision)
+    endpoint: http://[::1]:9002
     engine: vLLM
-    engine_version: TBD
+    engine_version: 0.17.0
+    max_model_len_served: 40960
     torch_dtype: bfloat16           # confirmed from HF config.json
     required_serving_flags:
       enable_thinking: false        # prereg §10 — CRITICAL
@@ -65,7 +79,20 @@ models:
       # visible, budgeted channel, because budgets are defined as token
       # prefixes of the visible trace (§4). Reasoning in a hidden channel would
       # make every budget number measure the wrong thing.
-      # To be verified EMPIRICALLY on a test generation, not trusted from the flag.
+      # VERIFIED EMPIRICALLY 2026-07-24 (not merely trusted from the flag):
+      #   default request      -> content opens with "<think>", consumed all 220
+      #                           max_tokens on reasoning, finish_reason "length",
+      #                           NO answer produced at all
+      #   enable_thinking=false -> no "<think>", direct answer in 85 tokens,
+      #                           finish_reason "stop"
+      # Also checked: message.reasoning_content is ABSENT in both cases, i.e. no
+      # vLLM reasoning-parser is configured on this deployment, so thinking (when
+      # on) is inline and visible rather than a hidden channel. It is disabled
+      # regardless, since it would consume the budget before any answer and would
+      # almost certainly reason in English, destroying NATIVE-arm trace-language
+      # compliance (§6).
+      # Transport: pass chat_template_kwargs={"enable_thinking": false} on every
+      # /v1/chat/completions request. There is no server-side default to rely on.
     min_max_model_len: 8192         # prompt (short) + 4096 output cap
     # Confirmed from HF config.json (2026-07-24):
     architecture: Qwen3ForCausalLM

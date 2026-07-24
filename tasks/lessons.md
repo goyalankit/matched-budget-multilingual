@@ -128,3 +128,22 @@
   trace as censored. Rule recorded in configs/models.yaml.
 - Served Llama config.json confirms torch_dtype bfloat16, satisfying the
   prereg §10 "bf16, no quantization" requirement for the secondary model.
+- Qwen3 thinking mode is NOT off by default and the difference is dramatic.
+  Empirical test (port 9002, 2026-07-24): a default /v1/chat/completions
+  request opened with "<think>", consumed the entire 220-token budget on
+  reasoning, finished with reason "length", and produced NO answer.
+  With chat_template_kwargs={"enable_thinking": false} the same prompt and
+  seed answered directly in 85 tokens with finish_reason "stop". Under the
+  study's hard-truncation, prefix-only scoring this would score as incorrect
+  at every small budget purely because reasoning ate the budget. The flag must
+  be sent on EVERY request; there is no server-side default to rely on.
+- `message.reasoning_content` is absent on this deployment, so no vLLM
+  reasoning-parser is configured and thinking (when enabled) stays inline in
+  `content` rather than in a hidden channel. Thinking is still disabled,
+  because it would consume budget and would almost certainly reason in
+  English, destroying NATIVE-arm trace-language compliance (§6).
+- vLLM 0.17.0 accepts the `return_token_ids` extension and returns raw output
+  token ids in `choices[0].token_ids` (verified: "1000" -> [16,15,15,15,151645],
+  terminal EOS included, matching usage.completion_tokens). This resolves the
+  ledger's token-id requirement without detokenize/retokenize round-tripping,
+  which is not guaranteed to be identity and would corrupt prefix definitions.
