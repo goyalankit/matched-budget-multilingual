@@ -207,7 +207,7 @@ This draft contains derivation rules whose **realized values must appear in the 
 | k (samples per item) = 8, fixed; achieved power at k = 8 | Fixed by §8; power reported by the deposited simulation | Wk 1, pre-freeze |
 | FLORES premiums r_{m,L} (6 values) with CIs | §5.3 measurement | Wk 1, pre-registration |
 | Primary checkpoint B* (a number) | §5.3 derivation from realized premiums | Wk 1, pre-registration |
-| Price snapshot: host, model listings used, P_in/P_out per model, retrieval date | §5.2 | Wk 1, pre-registration |
+| Price snapshot: pre-specified pair (self-host H100 GPU-sec ratio ≈0.004; hosted Together ratio 1.0), P_in/P_out per model, dates | §5.2 | Wk 1, pre-freeze (done) |
 | Dollar grid c_1…c_4 (4 numbers) | c_j = P_out^Qwen × B_j from the snapshot | Wk 1, pre-registration |
 | Model HF commit hashes; vLLM version; chat templates | §10 | Wk 1, pre-registration |
 | base_seed (decimal constant) | §4 | Wk 1, pre-registration |
