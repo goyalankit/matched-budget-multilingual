@@ -13,7 +13,7 @@ Tracks `implementation-plan.md` (which implements prereg v0.5). Check items only
 - [ ] Locale answer grammars (de/th/sw/en) in configs/locales/
 - [ ] parser.py + golden-case unit tests green (incl. malformed-grouping REJECT)
 - [ ] seeds.py + known-answer tests; base_seed.txt frozen
-- [ ] Price snapshot captured → configs/prices.json; dollar grid c_1..c_4 derived
+- [x] Price snapshot: Modal H100 GPU-sec + measured single-stream throughput -> P_out ~$7/1M, P_in ~$0.03/1M; dollar grid derived
 - [x] FLORES premiums measured, all 6 values (Qwen de/th/sw 1.559/2.551/1.936; Llama 1.582/2.194/1.931); B*=1024
 - [x] power_sim corrected (1.3x tail-conservatism, verified type-I 0.0066<=nominal); full deposit run regenerating; achieved power k=8 = 1.0
 - [ ] §14 protocol-freeze fields all filled from configs (no placeholders)

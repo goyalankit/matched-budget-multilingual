@@ -204,3 +204,20 @@
 - Real power_sim --smoke through the edited code: null_consistent_with_nominal
   = True, alternative power still 1.0. 82 unit tests green.
 - Documented in prereg §8 (correction + rationale + verify-not-tune) and §13.
+
+## Price snapshot: self-hosted H100 GPU-second basis (2026-07-24)
+- Modal is per-GPU-second, not per-token. For a self-hosted study the honest
+  per-token rate = GPU $/sec / measured throughput. H100 = $0.001097/sec (Modal),
+  cross-checked against betonai.net which states on-prem cost ~= GPU-hour equiv.
+- Measured single-stream throughput on the live vLLM servers (real hardware,
+  real models): Qwen3-8B decode 154 tps / prefill 39.4k tps; Llama decode 166 /
+  prefill 28.5k. -> P_out ~$6.6-7.1/1M, P_in ~$0.03-0.04/1M.
+- CONSEQUENCE (documented in prices.json + should reach the write-up): P_in/P_out
+  ~= 0.004, so input tokens are ~250x cheaper than output. For MGSM's short
+  prompts the matched-DOLLAR frame nearly coincides with the matched-TOKEN frame.
+  This affects only H3 (dollar-frame crossover) and the dollar deliverable table;
+  H1/H2 (token vs FLORES) do not use the price snapshot at all. Not a blocker,
+  but H3 has little room to diverge from a token-frame comparison under GPU-sec
+  self-host pricing.
+- Single-stream regime chosen (reproducible, conservative). Batched serving
+  would lower P_out and raise P_in/P_out; recorded as a modeling choice.

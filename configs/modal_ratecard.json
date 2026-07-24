@@ -1,0 +1,15 @@
+{
+  "host": "Modal (modal.com)",
+  "url": "https://modal.com/pricing",
+  "retrieved_utc": "2026-07-24",
+  "http_status": 200,
+  "billing_model": "per-GPU-second (serverless compute), NOT per-token",
+  "gpu_usd_per_sec": {
+    "B300": 0.001972, "B200": 0.001736, "H200": 0.001261, "H100": 0.001097,
+    "RTX_PRO_6000": 0.000842, "A100_80GB": 0.000694, "A100_40GB": 0.000583,
+    "L40S": 0.000542, "A10": 0.000306, "L4": 0.000222, "T4": 0.000164
+  },
+  "cpu_usd_per_core_sec": 0.0000131,
+  "memory_usd_per_gib_sec": 0.00000222,
+  "note": "Per-token P_in/P_out for prereg 5.2 are NOT published by Modal; they must be DERIVED as gpu_usd_per_sec / throughput_tokens_per_sec (prefill throughput for P_in, decode throughput for P_out). Absolute GPU rate cancels in the analysis (dollar grid is c_j = P_out*B_j); only P_in/P_out = decode_tps/prefill_tps affects results."
+}

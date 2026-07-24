@@ -1,0 +1,44 @@
+{
+  "status": "COMPLETE (prereg \u00a714) \u2014 self-hosted H100 GPU-second basis",
+  "host": "Modal (modal.com) GPU-second rate card",
+  "rate_card_url": "https://modal.com/pricing",
+  "cross_reference": "betonai.net AI Pricing Watch 2026 (confirms on-prem cost ~= GPU-hour equivalent)",
+  "retrieved_utc": "2026-07-24",
+  "gpu": "NVIDIA H100",
+  "gpu_usd_per_sec": 0.001097,
+  "gpu_usd_per_hr": 3.9492,
+  "derivation": "per-token rate = GPU $/sec / measured single-stream throughput (tok/s) on the live vLLM 0.17.0 servers; prefill throughput -> P_in, decode throughput -> P_out",
+  "throughput_regime": "single-stream (concurrency 1) \u2014 deterministic, reproducible, conservative (highest per-token cost). Batched serving would lower P_out and raise P_in/P_out; recorded as a documented modeling choice.",
+  "models": {
+    "qwen3_8b": {
+      "role": "confirmatory primary",
+      "decode_tps": 154.4,
+      "prefill_tps": 39363.6,
+      "P_out_usd_per_tok": 7.104922279792746e-06,
+      "P_in_usd_per_tok": 2.786838602160372e-08,
+      "P_out_usd_per_1M": 7.1049,
+      "P_in_usd_per_1M": 0.0279,
+      "ratio_Pin_over_Pout": 0.00392
+    },
+    "llama_3_1_8b_instruct": {
+      "role": "secondary",
+      "decode_tps": 165.7,
+      "prefill_tps": 28485.4,
+      "P_out_usd_per_tok": 6.620398310199156e-06,
+      "P_in_usd_per_tok": 3.851095648999137e-08,
+      "P_out_usd_per_1M": 6.6204,
+      "P_in_usd_per_1M": 0.0385,
+      "ratio_Pin_over_Pout": 0.00582
+    }
+  },
+  "dollar_grid_usd": {
+    "basis": "c_j = P_out(Qwen) * B_j for B_j in {512,1024,2048,4096}",
+    "c": [
+      0.00363772,
+      0.00727544,
+      0.01455088,
+      0.02910176
+    ]
+  },
+  "consequence_note": "P_in/P_out ~= 0.004 (input ~250x cheaper than output). Input cost is therefore negligible for MGSM's short prompts, so the matched-dollar frame nearly coincides with the matched-token frame. This affects only H3 (dollar-frame crossover) and the dollar deliverable table; H1/H2 (token-vs-FLORES) do not use the price snapshot at all."
+}
