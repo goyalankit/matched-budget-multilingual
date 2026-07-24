@@ -16,8 +16,8 @@ Tracks `implementation-plan.md` (which implements prereg v0.5). Check items only
 - [x] Price snapshot: Modal H100 GPU-sec + measured single-stream throughput -> P_out ~$7/1M, P_in ~$0.03/1M; dollar grid derived
 - [x] FLORES premiums measured, all 6 values (Qwen de/th/sw 1.559/2.551/1.936; Llama 1.582/2.194/1.931); B*=1024
 - [x] power_sim corrected (1.3x tail-conservatism, verified type-I 0.0066<=nominal); full deposit run regenerating; achieved power k=8 = 1.0
-- [ ] §14 protocol-freeze fields all filled from configs (no placeholders)
-- [ ] Protocol frozen: commit + tag `protocol-freeze` (no OSF — decision 2026-07-24)
+- [x] §14 fields all realized (premiums, B*, price pair, models, prompts, base_seed, power)
+- [x] Protocol frozen: tagged `protocol-freeze` at e0217e3 (2026-07-24, local/unpushed)
 - [ ] GATE: no study generation before the protocol-freeze tag exists
 
 ## Phase 2 — Harness + pilot (Wk 2)
