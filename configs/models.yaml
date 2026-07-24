@@ -45,12 +45,19 @@ models:
   qwen3_8b:
     role: CONFIRMATORY PRIMARY (prereg §3 — all confirmatory hypotheses)
     status: PENDING — not yet served
-    hf_repo: Qwen/Qwen3-8B          # ungated; tokenizer already pulled for §5.3 premiums
+    hf_repo: Qwen/Qwen3-8B          # POST-TRAINED model. NOT Qwen/Qwen3-8B-Base.
+    # Distinguishing check (fetched from HF config.json 2026-07-24):
+    #   Qwen/Qwen3-8B       eos_token_id 151645 (<|im_end|>)    <- post-trained, ChatML
+    #   Qwen/Qwen3-8B-Base  eos_token_id 151643 (<|endoftext|>) <- raw pretrained, DO NOT USE
+    # All four arms are prompt-level policies (§4) that depend on instruction
+    # following (trace language, '#### <number>' format). A raw base model
+    # would collapse compliance and parse rates and make the arms
+    # indistinguishable, measuring nothing.
     revision: TBD                   # read from /v1/models served path once up
     endpoint: TBD
     engine: vLLM
     engine_version: TBD
-    torch_dtype: bfloat16
+    torch_dtype: bfloat16           # confirmed from HF config.json
     required_serving_flags:
       enable_thinking: false        # prereg §10 — CRITICAL
       # Qwen3 is a hybrid reasoning model that by default emits a separate
@@ -60,4 +67,11 @@ models:
       # make every budget number measure the wrong thing.
       # To be verified EMPIRICALLY on a test generation, not trusted from the flag.
     min_max_model_len: 8192         # prompt (short) + 4096 output cap
-    eos_token_ids: TBD              # record from served config; apply the finish_reason rule above
+    # Confirmed from HF config.json (2026-07-24):
+    architecture: Qwen3ForCausalLM
+    vocab_size: 151936
+    num_hidden_layers: 36
+    max_position_embeddings: 40960  # ample for the 8192 requirement
+    bos_token_id: 151643
+    eos_token_ids: [151645]         # single terminator, unlike Llama's three;
+                                    # the finish_reason rule above still applies
