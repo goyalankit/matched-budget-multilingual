@@ -1,0 +1,21 @@
+{
+  "model_id": "synthetic-primary",
+  "n_items": 250,
+  "k": 4,
+  "rho": 0.4,
+  "n_boot": 199,
+  "base_seed": 20260724,
+  "b_star": 1024,
+  "token_checkpoints": [512, 1024, 2048, 4096],
+  "premiums": {"de": 1.2, "th": 2.0, "sw": 1.8},
+  "prices": {"input": 0.01, "output": 1.0},
+  "dollar_grid": [512.0, 1024.0, 2048.0, 4096.0],
+  "six_tests": [
+    "h1_existence",
+    "h1_sesoi",
+    "h2",
+    "h3_de",
+    "h3_th",
+    "h3_sw"
+  ]
+}

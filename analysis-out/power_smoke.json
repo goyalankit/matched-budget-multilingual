@@ -1,0 +1,182 @@
+{
+  "cells": [
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.2,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 5.375
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.2,
+      "scenario": "alternative"
+    },
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.2,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 4.949999999999999
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.2,
+      "scenario": "alternative"
+    },
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.4,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 4.65
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.4,
+      "scenario": "alternative"
+    },
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.4,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 4.824999999999999
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.4,
+      "scenario": "alternative"
+    },
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.6,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 4,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 4.8374999999999995
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.6,
+      "scenario": "alternative"
+    },
+    {
+      "h1_existence_rejection_rate": 0.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.00625,
+        "th": 0.0
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.6,
+      "scenario": "null"
+    },
+    {
+      "h1_existence_rejection_rate": 1.0,
+      "h1_sesoi_rejection_rate": 0.0,
+      "k": 8,
+      "mean_delta_points": {
+        "de": 0.0,
+        "sw": 0.0,
+        "th": 4.656249999999999
+      },
+      "n_boot": 199,
+      "n_sims": 8,
+      "rho": 0.6,
+      "scenario": "alternative"
+    }
+  ],
+  "fixed_alpha": 0.008333333333333333,
+  "mode": "smoke",
+  "sesoi_caveat": "Power for a lower bound exceeding a true five-point effect is expected to be low and is not the design target.",
+  "validation": {
+    "alternative_exceeds_null": true,
+    "alternative_mean_rejection_rate": 1.0,
+    "null_consistent_with_nominal": true,
+    "null_mean_rejection_rate": 0.0,
+    "two_se_smoke_half_width": 0.06428020258558963
+  }
+}

@@ -3,8 +3,8 @@
 from math import floor
 from typing import List, Optional, Tuple
 
-_TOKEN_CHECKPOINTS = (512, 1024, 2048, 4096)
-_MAX_GENERATION_TOKENS = 4096
+TOKEN_CHECKPOINTS = (512, 1024, 2048, 4096)
+MAX_GENERATION_TOKENS = 4096
 
 
 def token_checkpoint_prefix(output_token_count: int, B: int, eos: bool) -> int:
@@ -28,11 +28,11 @@ def dollar_prefix(
 def flores_prefix(B: int, r: float) -> Optional[int]:
     """Map a normalized budget per prereg §5.3, without clamping."""
     prefix_length = floor(r * B)
-    if prefix_length > _MAX_GENERATION_TOKENS:
+    if prefix_length > MAX_GENERATION_TOKENS:
         return None
     return prefix_length
 
 
 def dollar_grid(p_out: float) -> List[float]:
     """Construct the deterministic output-price grid from prereg §5.2."""
-    return [p_out * checkpoint for checkpoint in _TOKEN_CHECKPOINTS]
+    return [p_out * checkpoint for checkpoint in TOKEN_CHECKPOINTS]

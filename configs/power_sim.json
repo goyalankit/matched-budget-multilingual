@@ -1,0 +1,47 @@
+{
+  "base_seed": 20260724,
+  "n_items": 250,
+  "n_sims": 1000,
+  "n_boot": 10000,
+  "smoke_n_sims": 8,
+  "smoke_n_boot": 199,
+  "alpha": 0.05,
+  "b_star": 1024,
+  "languages": ["de", "th", "sw"],
+  "arms": ["native", "translate_act", "pivot", "code_switched"],
+  "premiums": {"de": 1.2, "th": 2.0, "sw": 1.8},
+  "rho_sweep": [0.2, 0.4, 0.6],
+  "k_sweep": [4, 8],
+  "tau_by_rho": {"0.2": 0.8, "0.4": 1.4, "0.6": 2.2},
+  "mu": {
+    "native": {"de": 0.8, "th": 0.55, "sw": 0.35},
+    "translate_act": {"de": 0.9, "th": 0.75, "sw": 0.55},
+    "pivot": {"de": 0.75, "th": 0.6, "sw": 0.4},
+    "code_switched": {"de": 0.7, "th": 0.5, "sw": 0.3}
+  },
+  "emission": {
+    "native": {
+      "de": {"mu": 5.3, "sigma": 0.35},
+      "th": {"mu": 5.3, "sigma": 0.35},
+      "sw": {"mu": 5.3, "sigma": 0.35}
+    },
+    "translate_act": {
+      "de": {"mu": 5.7, "sigma": 0.4},
+      "th": {"mu": 5.7, "sigma": 0.4},
+      "sw": {"mu": 5.7, "sigma": 0.4}
+    },
+    "pivot": {
+      "de": {"mu": 5.5, "sigma": 0.4},
+      "th": {"mu": 5.5, "sigma": 0.4},
+      "sw": {"mu": 5.5, "sigma": 0.4}
+    },
+    "code_switched": {
+      "de": {"mu": 5.6, "sigma": 0.4},
+      "th": {"mu": 5.6, "sigma": 0.4},
+      "sw": {"mu": 5.6, "sigma": 0.4}
+    }
+  },
+  "alternative_emission_overrides": {
+    "native": {"th": {"mu": 6.25, "sigma": 0.5}}
+  }
+}

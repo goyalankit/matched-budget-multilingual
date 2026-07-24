@@ -12,3 +12,43 @@
 - The premium CI is described only as a bootstrap CI. The implementation uses
   the standard paired percentile interval at the 2.5th and 97.5th percentiles;
   each resample carries both parallel sentences together.
+- Prereg §7 requires replicate-level studentization but permits a delta method
+  without selecting a specific estimator. The bootstrap uses the outer
+  item-clustered standard error as a plug-in delta estimate for every replicate,
+  avoiding a computationally prohibitive nested bootstrap while retaining
+  studentized sup-t pivots.
+- Empirical bootstrap p-values use the standard plus-one correction
+  `(exceedances + 1) / (replicates + 1)`, so finite simulations never report an
+  exact zero p-value.
+- The registered MCB deficit excludes the strategy itself, making the unique
+  best strategy's deficit negative. Results therefore distinguish `best`
+  (interval below zero), `tie` (contains zero), and `non_best` (above zero);
+  descriptive regret separately uses the nonnegative all-arm maximum.
+- Prereg §8 does not provide numeric calibration from target sample correlation
+  rho to logistic random-effect tau. The synthetic config freezes an explicit
+  monotone `tau_by_rho` map (0.8, 1.4, 2.2); it is a deterministic simulation
+  anchor, not a claim of an analytic rho-to-tau identity.
+- The five-point alternative is induced by a frozen Thai NATIVE lognormal
+  emission override. Because completed correctness is stochastic, five points
+  is the generative target rather than an exact finite-run sample constraint;
+  the smoke run realized a 4.88-point mean Thai delta.
+- `EngineProtocol` intentionally does not prescribe prompt tokenization. The
+  ledger runner accepts an injected tokenizer and uses UTF-8 bytes only as the
+  deterministic MockEngine fallback; a real backend must inject its pinned
+  model tokenizer.
+- A missing TRANSLATE-ACT delimiter means the whole trace is reasoning under
+  prereg §4, so COMET receives no translation segment (`None` score plus an
+  explicit missing flag) rather than incorrectly scoring the reasoning text.
+- Language-ID validation agreement retains indeterminate predictions in the
+  fixed 20-trace cell denominator. The indeterminate exclusion applies to the
+  downstream compliance denominator, not to whether a classifier prediction
+  agrees with a blind validation label.
+- Synthetic output IDs are Unicode code points, making character slices exact
+  token-prefix slices for the MockEngine rehearsal. This is deliberately a mock
+  tokenization contract; real runs retain and decode the pinned model's IDs.
+- The MCB deliverable spans every available cell in all three frames. A
+  FLORES-normalized point that exceeds 4096 is unavailable by design and is
+  omitted from the table rather than represented as a clamped or imputed cell.
+- Synthetic ledger timestamps are fixed constants so a rehearsal is byte-level
+  reproducible apart from JSONL append order, while seeds retain the registered
+  item/sample pairing across every language and arm.
