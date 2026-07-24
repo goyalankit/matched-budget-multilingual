@@ -67,7 +67,11 @@ Output-token prefix checkpoints B ∈ {512, 1024, 2048, 4096} as generated.
 
 ### 5.2 Matched-dollar (notional hosted-equivalent cost)
 
-**Price snapshot (frozen at registration; exact values in appendix):** one named host, retrieval date, input and output per-token USD rates for each model, no caching assumed, rates recorded to the host's published precision. **Fallback mapping frozen now:** if the host does not serve the exact checkpoint at snapshot time, the price of the pre-named fallback listing is used — Qwen3-8B → the host's Qwen3-8B listing, else its Qwen2.5-7B-Instruct listing; Llama-3.1-8B-Instruct → the host's Llama-3.1-8B-Instruct listing. If a pre-named fallback is also unavailable, the model's dollar frame is reported as unavailable rather than substituting a different host or model. The registered snapshot lists host, model listings actually used, prices, and date.
+**Price snapshot — pre-specified sensitivity pair (frozen before the protocol freeze; exact values in `configs/prices.json`).** Only the input:output price ratio P_in/P_out affects any result: the dollar grid is defined as c_j = P_out × B_j, so the absolute rate cancels. Because the deployment is self-hosted (no per-token invoice) and the honest per-token cost depends on the serving regime, two dated named snapshots bracketing the ratio are frozen now, and **H3 and the dollar deliverable table are reported under BOTH** — pre-committed, with no post-hoc vendor selection:
+- **Primary — self-host H100 GPU-second** (Modal rate card, H100 $0.001097/sec, retrieved 2026-07-24; per-token rate = GPU $/sec ÷ measured single-stream throughput on the live vLLM 0.17.0 servers). Ratio P_in/P_out ≈ 0.004 (input ≈ 250× cheaper than output). This matches the actual deployment.
+- **Sensitivity — hosted per-token, symmetric** (Together AI, retrieved 2026-07-24: Qwen2.5-7B-Instruct-Turbo $0.30/1M, Llama-3-8B-Instruct-Lite $0.14/1M; input = output). Ratio P_in/P_out = 1.0.
+
+Both snapshots record host, model listings actually used, per-token input/output rates, retrieval date, and no caching. If a listing is unavailable at snapshot time the pre-named fallback is used (Qwen3-8B → host's Qwen3-8B listing, else Qwen2.5-7B-Instruct; Llama-3.1-8B-Instruct → host's Llama-3.1-8B-Instruct listing); if a fallback is also unavailable, that model's dollar frame is reported unavailable rather than substituting a different host or model. Confirmatory H1/H2 do not use the price snapshot at all. Because arm input lengths are small and similar (~90–125 tokens vs outputs up to 4096), the H3 NATIVE-vs-TRANSLATE-ACT contrast is expected to be nearly invariant across the pair; reporting both makes that robustness explicit rather than assumed.
 
 **Dollar checkpoint grid (deterministic, outcome-independent):** c_j = P_out^Qwen × B_j for B_j ∈ {512, 1024, 2048, 4096}, where P_out^Qwen is the primary model's snapshot output rate. The grid is thus fixed by the price snapshot alone, before any generation.
 
@@ -183,7 +187,7 @@ Frame construction is analysis, not new inference; all frames come from the same
 ## 13. Known limitations to state upfront
 
 - Hard truncation punishes verbose arms and arms that state the answer late; prefix-only scoring makes this explicit rather than masking it with an extraction step. Budget-forcing untested here
-- Dollar frame is notional hosted-equivalent cost from a dated single-host snapshot (appendix sensitivity note only)
+- Dollar frame is notional hosted-equivalent cost; self-hosting has no per-token invoice, so a pre-specified pair of dated snapshots (self-host GPU-second, ratio ≈ 0.004; hosted per-token, ratio 1.0) brackets the input:output ratio and H3 is reported under both. Only the ratio is analysis-relevant (absolute cancels); the dollar frame stays close to the token frame under both because arm input lengths are small and similar
 - FLORES normalization is a parallel-prose proxy for reasoning-trace premiums, not literal content matching; trace-level validation is exploratory
 - Self-translation confounds translator and solver quality (cheap-translator arm is exploratory)
 - H2 is an ordered contrast across three languages; it cannot identify premium mediation, and no mediation claim is made

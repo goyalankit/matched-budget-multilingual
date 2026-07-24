@@ -1,44 +1,75 @@
 {
-  "status": "COMPLETE (prereg \u00a714) \u2014 self-hosted H100 GPU-second basis",
-  "host": "Modal (modal.com) GPU-second rate card",
-  "rate_card_url": "https://modal.com/pricing",
-  "cross_reference": "betonai.net AI Pricing Watch 2026 (confirms on-prem cost ~= GPU-hour equivalent)",
+  "status": "COMPLETE (prereg \u00a714) \u2014 pre-specified sensitivity PAIR frozen before protocol-freeze",
+  "design": "Only P_in/P_out affects any result (absolute cancels: grid = P_out*B_j). The two snapshots below bracket the input:output ratio across serving regimes; H3 and the dollar deliverable table are reported under BOTH, committed before freeze, no post-hoc choice. H1/H2 do not use price. Primary = self-host (matches deployment); sensitivity = hosted per-token.",
   "retrieved_utc": "2026-07-24",
-  "gpu": "NVIDIA H100",
-  "gpu_usd_per_sec": 0.001097,
-  "gpu_usd_per_hr": 3.9492,
-  "derivation": "per-token rate = GPU $/sec / measured single-stream throughput (tok/s) on the live vLLM 0.17.0 servers; prefill throughput -> P_in, decode throughput -> P_out",
-  "throughput_regime": "single-stream (concurrency 1) \u2014 deterministic, reproducible, conservative (highest per-token cost). Batched serving would lower P_out and raise P_in/P_out; recorded as a documented modeling choice.",
-  "models": {
-    "qwen3_8b": {
-      "role": "confirmatory primary",
-      "decode_tps": 154.4,
-      "prefill_tps": 39363.6,
-      "P_out_usd_per_tok": 7.104922279792746e-06,
-      "P_in_usd_per_tok": 2.786838602160372e-08,
-      "P_out_usd_per_1M": 7.1049,
-      "P_in_usd_per_1M": 0.0279,
-      "ratio_Pin_over_Pout": 0.00392
+  "primary_snapshot": {
+    "label": "self-host H100 GPU-second (Modal rate card / measured single-stream throughput)",
+    "host": "Modal (modal.com)",
+    "url": "https://modal.com/pricing",
+    "gpu": "NVIDIA H100",
+    "gpu_usd_per_sec": 0.001097,
+    "regime": "single-stream (concurrency 1)",
+    "models": {
+      "qwen3_8b": {
+        "P_in_usd_per_tok": 2.786838602160372e-08,
+        "P_out_usd_per_tok": 7.104922279792746e-06,
+        "P_in_usd_per_1M": 0.0279,
+        "P_out_usd_per_1M": 7.1049,
+        "ratio_Pin_over_Pout": 0.00392
+      },
+      "llama_3_1_8b_instruct": {
+        "P_in_usd_per_tok": 3.851095648999137e-08,
+        "P_out_usd_per_tok": 6.620398310199156e-06,
+        "P_in_usd_per_1M": 0.0385,
+        "P_out_usd_per_1M": 6.6204,
+        "ratio_Pin_over_Pout": 0.00582
+      }
     },
-    "llama_3_1_8b_instruct": {
-      "role": "secondary",
-      "decode_tps": 165.7,
-      "prefill_tps": 28485.4,
-      "P_out_usd_per_tok": 6.620398310199156e-06,
-      "P_in_usd_per_tok": 3.851095648999137e-08,
-      "P_out_usd_per_1M": 6.6204,
-      "P_in_usd_per_1M": 0.0385,
-      "ratio_Pin_over_Pout": 0.00582
+    "dollar_grid_usd": {
+      "basis": "c_j = P_out(Qwen) * {512,1024,2048,4096}",
+      "c": [
+        0.0036377202,
+        0.0072754404,
+        0.0145508808,
+        0.0291017617
+      ]
     }
   },
-  "dollar_grid_usd": {
-    "basis": "c_j = P_out(Qwen) * B_j for B_j in {512,1024,2048,4096}",
-    "c": [
-      0.00363772,
-      0.00727544,
-      0.01455088,
-      0.02910176
-    ]
+  "sensitivity_snapshot": {
+    "label": "hosted per-token, symmetric input=output (ratio 1.0)",
+    "host": "Together AI",
+    "url": "https://www.together.ai/pricing",
+    "retrieved_utc": "2026-07-24",
+    "listings_used": {
+      "qwen": "Qwen2.5-7B-Instruct-Turbo $0.30/1M (the \u00a75.2 Qwen fallback listing)",
+      "llama": "Llama-3-8B-Instruct-Lite $0.14/1M"
+    },
+    "cross_reference": "betonai.net confirms symmetric input=output pricing for hosted open-weight models",
+    "models": {
+      "qwen3_8b": {
+        "P_in_usd_per_tok": 3e-07,
+        "P_out_usd_per_tok": 3e-07,
+        "P_in_usd_per_1M": 0.3,
+        "P_out_usd_per_1M": 0.3,
+        "ratio_Pin_over_Pout": 1.0
+      },
+      "llama_3_1_8b_instruct": {
+        "P_in_usd_per_tok": 1.4e-07,
+        "P_out_usd_per_tok": 1.4e-07,
+        "P_in_usd_per_1M": 0.14,
+        "P_out_usd_per_1M": 0.14,
+        "ratio_Pin_over_Pout": 1.0
+      }
+    },
+    "dollar_grid_usd": {
+      "basis": "c_j = P_out(Qwen) * {512,1024,2048,4096}",
+      "c": [
+        0.0001536,
+        0.0003072,
+        0.0006144,
+        0.0012288
+      ]
+    }
   },
-  "consequence_note": "P_in/P_out ~= 0.004 (input ~250x cheaper than output). Input cost is therefore negligible for MGSM's short prompts, so the matched-dollar frame nearly coincides with the matched-token frame. This affects only H3 (dollar-frame crossover) and the dollar deliverable table; H1/H2 (token-vs-FLORES) do not use the price snapshot at all."
+  "consequence_note": "Ratio brackets: primary ~0.004 (input ~250x cheaper), sensitivity 1.0 (input=output). Because arm input lengths are similar (~92-123 tokens) and small vs output, the NATIVE vs TRANSLATE-ACT dollar contrast (H3) is nearly invariant across the pair; the dollar frame stays close to the token frame under both. Reporting both pre-commits the comparison and removes any post-hoc vendor choice."
 }

@@ -221,3 +221,19 @@
   self-host pricing.
 - Single-stream regime chosen (reproducible, conservative). Batched serving
   would lower P_out and raise P_in/P_out; recorded as a modeling choice.
+
+## Price snapshot -> pre-registered sensitivity PAIR (2026-07-24)
+- Single-stream self-host P_out ($7/1M) does NOT align with hosted 8B rates
+  ($0.14-0.30/1M live from Together: Llama-3-8B-Lite $0.14, Qwen2.5-7B-Turbo
+  $0.30). Gap is concurrency: single-stream idles the H100; batched ~24x would
+  give ~$0.30/1M, in the hosted ballpark. Absolute cancels in analysis anyway.
+- Only P_in/P_out matters. Self-host ~0.004 (input cheap); hosted symmetric 1.0.
+  To remove any post-hoc vendor choice, froze BOTH as a pre-specified pair in
+  configs/prices.json (primary self-host, sensitivity hosted); H3 + dollar table
+  reported under both. H1/H2 never use price.
+- Arm input lengths measured 92-123 tokens (small, similar), so the H3 contrast
+  is nearly invariant across the pair -> dollar frame ~ token frame under both.
+- Implication of changing price later: mechanically trivial (re-price stored
+  ledger, no regen); scientifically near-cosmetic (only H3/dollar table, and
+  those barely move); the real cost is procedural (post-freeze = deviation).
+  The pre-registered pair pre-empts this entirely.
