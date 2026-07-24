@@ -64,10 +64,10 @@ Package `src/analysis/` (make `src/` importable as needed — add `__init__.py` 
 
 ## STOP points (never attempt; list in progress.md)
 
-- Authoring the 12 frozen prompt templates (§14 registration artifact)
+- Authoring the 12 frozen prompt templates (§14 protocol-freeze artifact)
 - Price snapshot capture; real FLORES premium measurement; real model downloads
 - Full-scale power simulation run and k decision
-- OSF registration
+- Protocol-freeze tagging (supervisor decision; no OSF — study is not preregistered)
 - Real GPU generation runs; GlotLID/COMET real backends; human labeling
 
 ## Definition of done

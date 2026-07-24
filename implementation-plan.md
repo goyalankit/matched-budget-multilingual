@@ -1,12 +1,12 @@
 # Implementation Plan — Matched-Budget Language Strategies Study
 
-Implements preregistration `prereg-matched-budgets.md` v0.5. Every component cites the prereg section it implements; nothing here changes the design. Ordering follows the prereg timeline: pre-registration artifacts (Wk 1) → harness + pilot (Wk 2) → full runs (Wk 3) → analysis + paper (Wk 4–6).
+Implements the frozen study protocol `prereg-matched-budgets.md` v0.5. Every component cites the prereg section it implements; nothing here changes the design. Ordering follows the prereg timeline: protocol-freeze artifacts (Wk 1) → harness + pilot (Wk 2) → full runs (Wk 3) → analysis + paper (Wk 4–6).
 
 ## Repository layout
 
 ```
 language-research/
-  prereg-matched-budgets.md          # frozen design (v0.5 → registered v1.0)
+  prereg-matched-budgets.md          # frozen protocol (v0.5 → tagged protocol-freeze; no OSF)
   pyproject.toml                     # uv-managed; all versions pinned
   configs/
     models.yaml                      # HF repo + commit hash, dtype, vLLM args (§10, §14)
@@ -44,9 +44,9 @@ language-research/
 - Download model snapshots at fixed commits (`configs/models.yaml`); verify `enable_thinking=False` renders correctly in the Qwen3 chat template by inspecting one rendered prompt (§10).
 - GPU sanity run: 10 generations per model at max_tokens=4096, confirm throughput. Budget check: ~100M output tokens at k=4; at a conservative 2.5k tok/s aggregate on one A100-class GPU ≈ 11 GPU-hours per model — one to two days wall-clock including retries; double if the power sim sets k=8.
 
-## Phase 1 — Pre-registration artifacts (Wk 1)
+## Phase 1 — Protocol-freeze artifacts (Wk 1)
 
-Everything in this phase produces a §14 registration field. Order matters: prices → premiums → B* → power sim → fill registration.
+Everything in this phase produces a §14 protocol-freeze field. Order matters: prices → premiums → B* → power sim → fill the frozen protocol.
 
 1. **Prompts** (`prompts/`): write the 4 × 3 templates. Each must contain: the `#### <number>` answer-format instruction in the instructed trace language; TRANSLATE-ACT's `=== TRANSLATION END ===` delimiter instruction (§4). Freeze with a SHA-256 manifest.
 2. **Locale grammars** (`configs/locales/`): per-arm answer grammars — plain integer, legally grouped integer, all-zero-fraction decimal; grouping/decimal chars per locale; Thai digit map (§4). Keyed by *instructed answer language*: NATIVE/PIVOT → L, TRANSLATE-ACT/CODE-SWITCHED → EN.
@@ -55,9 +55,9 @@ Everything in this phase produces a §14 registration field. Order matters: pric
 5. **Price snapshot** (`configs/prices.json`): pick the host (first choice: one serving both exact checkpoints), record listings/rates/date per the frozen fallback chain (§5.2). Derive dollar grid c_j = P_out^Qwen × B_j and store it in the same file.
 6. **`premiums.py`**: FLORES-200 devtest, both tokenizers, NFC only; total-token ratio + sentence-pair bootstrap CI → `configs/premiums.json` (§5.3). Derive **B\*** (largest B ∈ {512,1024} with ⌊B·r⌋ ≤ 4096 for all L) and store it.
 7. **`power_sim.py`** (§8): generation-level (correct\*, E) model exactly as frozen — logistic correct\* with b_i, u_{i,a,L}; lognormal E per (arm, language); accuracy at prefix t = correct\*·1[E ≤ t]; H1-existence at fixed α/6 via the same sup-t machinery as the real analysis (import from `analysis/`, not a reimplementation — this doubles as a test of the analysis code). Sweep ρ ∈ {0.2, 0.4, 0.6}; output: power at k=4 and k=8, the k decision, H1-SESOI power with its caveat. Deposit code + config + results.
-8. **Fill §14 and register**: script assembles the registration document from the config files so no field can be a placeholder; file on OSF with the four review rounds + response memos as supplementary files.
+8. **Fill §14 and freeze** (no OSF — decision 2026-07-24): script assembles the frozen protocol from the config files so no field can be a placeholder; commit and tag `protocol-freeze` (the four review rounds + response memos stay in-repo as the audit trail).
 
-**Gate: no generation of study data before OSF registration is filed.**
+**Gate: no generation of study data before the `protocol-freeze` git tag exists.**
 
 ## Phase 2 — Harness + pilot (Wk 2)
 
@@ -65,7 +65,7 @@ Everything in this phase produces a §14 registration field. Order matters: pric
 2. **`prefixes.py`**: given a record, evaluates accuracy at: token checkpoints {512,1024,2048,4096}; dollar prefixes t_i(c_j) = min(n_i, ⌊(c_j − P_in·x_i)/P_out⌋) with infeasibility flag (§5.2); FLORES prefixes ⌊r·B⌋ with unavailable-point handling (§5.3). Pure function of the stored record + configs — analysis never re-invokes a model.
 3. **Determinism check** (§10): regenerate 50 instances, assert bitwise-identical token IDs. If vLLM nondeterminism breaks this, document it in the appendix; the design tolerates it (budgets are definitional prefixes of the *stored* generation) but the check result must be reported honestly.
 4. **`langid_check.py`**: strip digits/LaTeX/`####` lines; GlotLID classify; indeterminate rule (<20 alphabetic chars); balanced 240-trace validation sample generator + labeling sheet; pass/fail computation (≥95% overall AND ≥90% per cell) with the human-labeling fallback path stubbed (§6).
-5. **Pilot** (§10 governance): 20 items/cell. The pilot report computes **only** parse-failure and missing-delimiter rates per cell — accuracy code paths are physically disabled in the pilot entrypoint. If any cell >10%: amend prompt formatting/parser per governance, file OSF amendment, discard-and-rerun affected pilot generations.
+5. **Pilot** (§10 governance): 20 items/cell. The pilot report computes **only** parse-failure and missing-delimiter rates per cell — accuracy code paths are physically disabled in the pilot entrypoint. If any cell >10%: amend prompt formatting/parser per governance, document the amendment in a follow-up commit, discard-and-rerun affected pilot generations.
 
 ## Phase 3 — Full runs (Wk 3)
 
@@ -103,7 +103,7 @@ Everything in this phase produces a §14 registration field. Order matters: pric
 
 | End of | Deliverable |
 |---|---|
-| Wk 1 | OSF registration filed with all §14 fields realized; power sim deposited; k fixed |
+| Wk 1 | `protocol-freeze` tag created with all §14 fields realized; power sim deposited; k fixed |
 | Wk 2 | Harness + tests green; pilot report (parse/delimiter rates only); determinism + MGSM-parallelism checks done |
 | Wk 3 | Full ledger complete, frozen, manifest hashed; compliance + COMET computed |
 | Wk 4 | Analysis validated on simulation; confirmatory JSON produced |

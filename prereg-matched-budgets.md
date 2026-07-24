@@ -1,7 +1,9 @@
-# Preregistration: Language Strategies Under Matched Budgets (Minimal Study)
+# Study Protocol: Language Strategies Under Matched Budgets (Minimal Study)
 
 **Working title:** Is the Multilingual Reasoning Gap Partly a Budget Artifact? A Matched-Budget Comparison of Language Strategies
-**Registry:** OSF | **Status:** Draft v0.5 (revised after four rounds of external methods review; reviewer verdict: ready to register once §14 fields are filled) | **Date:** [fill]
+**Registry:** none — **this study is intentionally NOT preregistered** (decision 2026-07-24). This document is the internal frozen protocol. | **Status:** v0.5 (after four rounds of external methods review) | **Date:** [fill]
+
+> **Protocol-freeze convention (replaces registration):** wherever this document says "register", "registration", "registered document", "OSF", or "OSF amendment", read instead: *freeze in this repository via a tagged git commit (`protocol-freeze`) before any study generation; amendments are documented follow-up commits touching this file's changelog*. All scientific commitments — frozen constants before runs, the no-generation gate, no-peeking rules, ITT estimand, the exact analysis procedures, and the §14 realized-value completeness requirement — are retained unchanged for internal validity; only the external registry is dropped. "Preregistered" labels on hypotheses and the secondary analysis likewise mean "specified in this frozen protocol before data collection."
 **Paper shape:** ACL-style short paper (4 pages + appendix). Target: MELLM-style multilingual workshop or COLM workshop; TMLR long version only if results warrant.
 
 ---
@@ -172,7 +174,7 @@ Frame construction is analysis, not new inference; all frames come from the same
 
 ## 12. Timeline
 
-- Wk 1: measure FLORES premiums; freeze prompts, parser, locale tables, seed base, and price snapshot; **run and deposit the power simulation and fix k (§8); fill every §14 registration field with its realized value; then register**
+- Wk 1: measure FLORES premiums; freeze prompts, parser, locale tables, seed base, and price snapshot; **run and deposit the power simulation and fix k (§8); fill every §14 field with its realized value; then tag the `protocol-freeze` commit — no study generation before the tag exists**
 - Wk 2: harness (adapt substrate-study cost-accounting ledger); prefix-determinism check (§10); GlotLID validation on 240 labeled traces (§6); pilot 20 items/cell under the governance rules in §10
 - Wk 3: full runs
 - Wk 4–6: analysis, short-paper draft
@@ -190,9 +192,9 @@ Frame construction is analysis, not new inference; all frames come from the same
 - The headline H1-SESOI test is intentionally conservative; at a true artifact of exactly 5 points it is not expected to have high power (§8), so a tier-(a)-only outcome is a likely result even when a practically significant artifact exists
 - FLORES premiums r_{m,L} are measured once before registration and treated as fixed constants thereafter; confirmatory uncertainty is conditional on the measured premiums and does not propagate normalizer uncertainty. The reported FLORES bootstrap CIs (§5.3) and the trace-level ratio robustness analysis (§11) contextualize this choice
 
-## 14. Registration completeness (no procedural placeholders in the registered version)
+## 14. Protocol-freeze completeness (no procedural placeholders in the frozen version)
 
-This draft contains derivation rules whose **realized values must appear in the registered document itself**; a registration is not filed until every field below holds a concrete value. The rules above exist to make each value's derivation outcome-independent, but the registered text states the values, not the rules alone:
+This draft contains derivation rules whose **realized values must appear in the frozen protocol itself**; the `protocol-freeze` tag is not created until every field below holds a concrete value. The rules above exist to make each value's derivation outcome-independent, but the frozen text states the values, not the rules alone:
 
 | Field | Source | Filled by |
 |---|---|---|
@@ -205,4 +207,4 @@ This draft contains derivation rules whose **realized values must appear in the 
 | base_seed (decimal constant) | §4 | Wk 1, pre-registration |
 | Archived prompt files + SHA-256 hashes | §10 | Wk 1, pre-registration |
 | Parser grammar tables per locale | §4 appendix | Wk 1, pre-registration |
-| Registration date | — | At filing |
+| Protocol-freeze tag date | — | At tagging |
