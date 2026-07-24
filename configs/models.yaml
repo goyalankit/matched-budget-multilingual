@@ -1,0 +1,63 @@
+# Model identity and serving configuration (prereg §10, §14 fields).
+# Values here are FROZEN at the protocol-freeze tag; nothing may change after it.
+
+shared:
+  max_output_tokens: 4096          # prereg §4 generation cap
+  temperature: 0.6                 # prereg §4
+  k_samples_per_item: 8            # prereg §4 (fixed unconditionally)
+  dtype: bfloat16                  # prereg §10: bf16, no quantization
+  quantization: none
+
+  # EOS-vs-censored determination (prereg §4/§5.2). The `eos` ledger flag
+  # distinguishes a completed trace from one truncated at the 4096 cap, and it
+  # drives both the constant-prefix rule (§4) and the censoring semantics of
+  # the dollar frame (§5.2).
+  #
+  # RULE: eos MUST be derived from the engine's finish_reason
+  #   finish_reason == "stop"   -> eos = true   (completed)
+  #   finish_reason == "length" -> eos = false  (censored at cap)
+  # It must NOT be derived by comparing the final token id against a single
+  # EOS constant: Llama-3.1-Instruct has THREE terminators (see below) and the
+  # usual one in practice is 128009 (<|eot_id|>), not 128001. A single-constant
+  # check would misclassify nearly every completed trace as censored.
+
+models:
+
+  llama_3_1_8b_instruct:
+    role: secondary analysis (prereg §3 — no confirmatory claims)
+    status: SERVED — identity confirmed
+    hf_repo: meta-llama/Meta-Llama-3.1-8B-Instruct
+    hf_repo_renamed_upstream_to: meta-llama/Llama-3.1-8B-Instruct   # same weights/tokenizer
+    revision: 07eb05b21d191a58c577b4a45982fe0c049d0693
+    served_path: REDACTED (internal mount; model identified by hf_repo + revision)
+    endpoint: http://[::1]:9001    # port 9001 answers on both IPv4 and IPv6
+    engine: vLLM
+    engine_version: 0.17.0
+    architecture: LlamaForCausalLM
+    torch_dtype: bfloat16          # confirmed from served config.json
+    vocab_size: 128256
+    max_position_embeddings: 131072
+    max_model_len_served: 131072
+    bos_token_id: 128000
+    eos_token_ids: [128001, 128008, 128009]   # <|end_of_text|>, <|eom_id|>, <|eot_id|>
+    transformers_version_at_export: 4.42.3
+
+  qwen3_8b:
+    role: CONFIRMATORY PRIMARY (prereg §3 — all confirmatory hypotheses)
+    status: PENDING — not yet served
+    hf_repo: Qwen/Qwen3-8B          # ungated; tokenizer already pulled for §5.3 premiums
+    revision: TBD                   # read from /v1/models served path once up
+    endpoint: TBD
+    engine: vLLM
+    engine_version: TBD
+    torch_dtype: bfloat16
+    required_serving_flags:
+      enable_thinking: false        # prereg §10 — CRITICAL
+      # Qwen3 is a hybrid reasoning model that by default emits a separate
+      # <think>...</think> channel. The protocol requires all reasoning in the
+      # visible, budgeted channel, because budgets are defined as token
+      # prefixes of the visible trace (§4). Reasoning in a hidden channel would
+      # make every budget number measure the wrong thing.
+      # To be verified EMPIRICALLY on a test generation, not trusted from the flag.
+    min_max_model_len: 8192         # prompt (short) + 4096 output cap
+    eos_token_ids: TBD              # record from served config; apply the finish_reason rule above

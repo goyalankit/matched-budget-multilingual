@@ -117,3 +117,14 @@
   German and Swahili are near-identical across models; interpretation in the
   write-up must not treat this as "Qwen tokenizes Thai worse" without
   checking absolute per-language token counts.
+- Llama-3.1-8B-Instruct declares THREE EOS ids (128001 <|end_of_text|>,
+  128008 <|eom_id|>, 128009 <|eot_id|>), and the terminator an instruct model
+  actually emits is normally 128009 — not the "obvious" 128001. The ledger's
+  `eos` flag separates a completed trace from one censored at the 4096 cap and
+  drives both the constant-prefix rule (§4) and the dollar-frame censoring
+  semantics (§5.2), so it must be derived from the engine's `finish_reason`
+  ("stop" vs "length"), never from comparing the last token id to a single EOS
+  constant. A single-constant check would mark nearly every completed Llama
+  trace as censored. Rule recorded in configs/models.yaml.
+- Served Llama config.json confirms torch_dtype bfloat16, satisfying the
+  prereg §10 "bf16, no quantization" requirement for the secondary model.
