@@ -48,7 +48,7 @@ Falsification is publishable: "the multilingual gap survives budget correction" 
   4. CODE-SWITCHED — EN scaffolding with L entities/terms preserved (Language-Mixed CoT prompt)
 - **Task (1):** MGSM, all 250 items per language
 
-**Sampling:** k samples per item at temperature 0.6, where **k is fixed definitively by the power simulation deposited before registration (§8); k = 4 unless the simulation mandates 8. No mid-study adaptation.** Seeds are item- and sample-specific: seed(i, s) = first 64 bits of SHA-256(base_seed ‖ MGSM_item_id_i ‖ s), with base_seed frozen in the appendix. The same seed(i, s) is reused across all arms, languages, and models (pairing); seeds are never reused across (i, s) pairs.
+**Sampling:** **k = 8 samples per item** at temperature 0.6, fixed unconditionally before the protocol freeze (§8; rationale: compute is not a binding constraint for this study, so the strictly more precise option is taken rather than the cheapest sufficient one). **No mid-study adaptation.** Seeds are item- and sample-specific: seed(i, s) = first 64 bits of SHA-256(base_seed ‖ MGSM_item_id_i ‖ s), with base_seed frozen in the appendix. The same seed(i, s) is reused across all arms, languages, and models (pairing); seeds are never reused across (i, s) pairs.
 
 **Budget levels (definitional prefix evaluation, single generation pass):** each instance is generated once with max_tokens = 4096. A token-frame budget level B ∈ {512, 1024, 2048, 4096} is *defined* as the evaluation of the first B output tokens of that stored generation — budgets are prefix functionals of one generation, so no distributional equivalence to separately capped runs is assumed or needed. If the model emits EOS before 4096 tokens, the completed trace is treated as a constant prefix at all later checkpoints. Generations that hit 4096 without EOS are **censored**; censoring rates enter the dollar-frame support rule (§5).
 
@@ -56,7 +56,7 @@ Falsification is publishable: "the multilingual gap survives budget correction" 
 
 **Numeric normalization (frozen before runs; full table in appendix):** separator rules are keyed to the **instructed answer language of the arm**, not the input language — NATIVE and PIVOT parse the final answer under L's locale rules; TRANSLATE-ACT and CODE-SWITCHED under English rules. Rules cover: sign characters; Unicode digit normalization (e.g., Thai digits ๐–๙ → ASCII). After digit normalization, the parser accepts **only** strings that are syntactically valid under the arm's locale grammar: a plain integer, a correctly grouped integer (grouping separators in the locale's legal positions only), or a decimal form whose fractional part is all zeros (`1.0`, `1,0` under the respective locale ≡ 1). **Malformed grouping is rejected and scored incorrect — there is no separator-stripping fallback** (stripping could silently convert a malformed decimal into a different integer). MGSM gold answers are integers; comparison is on canonical integer value. Multiple `####` lines: last one wins (predefined). The full grammar per locale is frozen in the appendix.
 
-**Run count:** 250 × 3 × 4 × 2 × k generations = 24,000 at k = 4 (48,000 if the power simulation sets k = 8). All local inference.
+**Run count:** 250 × 3 × 4 × 2 × 8 = **48,000 generations**. All local inference.
 
 ## 5. Budget frames (constructed post hoc from per-instance logs)
 
@@ -139,7 +139,7 @@ Frame construction is analysis, not new inference; all frames come from the same
   - E lognormal per (a, L), parameters anchored to published MGSM token-length distributions; E and correct* drawn independently given the cell (frozen simplification, stated in the deposited config). μ_{a,L} anchored to published MGSM accuracies; exact values in the deposited config.
   - **Null configuration:** Δ_L = 0 for all languages. **Alternative:** Δ_Thai = 5 points, Δ_German = Δ_Swahili = 0 (single-language artifact, the hardest detectable case consistent with H2), induced through the E distributions: for the affected NATIVE cells, answer emission falls **after B\* but by ⌊r·B\*⌋**, so the correct answer is present at the FLORES-mapped prefix and absent at the matched-token prefix, producing the stated positive Δ.
   - **Power definition:** probability of rejecting H1-existence at α/6 under the alternative. **Power for H1-SESOI at a true effect of exactly 5 points is also reported, with the explicit caveat that it is expected to be low** (a lower confidence bound exceeding the true effect size is not a high-probability event); H1-SESOI power is informational, not a design target.
-  - Decision rule: k = 4 if H1-existence power ≥ 80% at ρ = 0.4, else k = 8; the simulation report notes explicitly that k buys little when uncertainty is item-cluster-dominated, and the achieved power at the chosen k is stated in the registration.
+  - **k is fixed at 8 unconditionally** (changed before the protocol freeze, 2026-07-24, from the earlier conditional rule "k = 4 if H1-existence power ≥ 80% at ρ = 0.4, else k = 8"). Rationale: the conditional rule existed only to avoid paying for samples that power analysis showed were unnecessary; compute is not a binding constraint for this study, so the strictly more precise option is taken unconditionally and the design no longer depends on a threshold decision. The simulation is still run and deposited, and now serves to **report** achieved power at k = 8 rather than to select k. It continues to note explicitly that k buys little when uncertainty is item-cluster-dominated: at ρ = 0.4 the effective sample size rises only from n·k/(1+(k−1)ρ) = 454 at k = 4 to 526 at k = 8, i.e. roughly 7% narrower intervals. The achieved power at k = 8 is stated in §14.
 - Simulation code, config, and results are deposited with the registration before any study generation is run.
 
 ## 9. Exclusion and quality rules (set before runs)
@@ -188,7 +188,7 @@ Frame construction is analysis, not new inference; all frames come from the same
 - H2 is an ordered contrast across three languages; it cannot identify premium mediation, and no mediation claim is made
 - MGSM only: conclusions scoped to mathematical reasoning; decision table is per-task-family by construction
 - Confirmatory scope is a single 8B model; the Llama arm is a preregistered secondary analysis, not a generalization claim
-- With 250 item clusters, precision is cluster-dominated; the deposited power simulation quantifies this and fixes k accordingly
+- With 250 item clusters, precision is cluster-dominated; k = 8 is fixed unconditionally (§8) and the deposited power simulation quantifies how little the extra samples buy (≈7% narrower intervals at ρ = 0.4)
 - The headline H1-SESOI test is intentionally conservative; at a true artifact of exactly 5 points it is not expected to have high power (§8), so a tier-(a)-only outcome is a likely result even when a practically significant artifact exists
 - FLORES premiums r_{m,L} are measured once before registration and treated as fixed constants thereafter; confirmatory uncertainty is conditional on the measured premiums and does not propagate normalizer uncertainty. The reported FLORES bootstrap CIs (§5.3) and the trace-level ratio robustness analysis (§11) contextualize this choice
 
@@ -198,7 +198,7 @@ This draft contains derivation rules whose **realized values must appear in the 
 
 | Field | Source | Filled by |
 |---|---|---|
-| k (samples per item) and achieved power | Deposited power simulation (§8) | Wk 1, pre-registration |
+| k (samples per item) = 8, fixed; achieved power at k = 8 | Fixed by §8; power reported by the deposited simulation | Wk 1, pre-freeze |
 | FLORES premiums r_{m,L} (6 values) with CIs | §5.3 measurement | Wk 1, pre-registration |
 | Primary checkpoint B* (a number) | §5.3 derivation from realized premiums | Wk 1, pre-registration |
 | Price snapshot: host, model listings used, P_in/P_out per model, retrieval date | §5.2 | Wk 1, pre-registration |

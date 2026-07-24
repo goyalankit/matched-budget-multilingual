@@ -42,7 +42,7 @@ language-research/
 
 - `uv init`; pin Python, vLLM, transformers, datasets, GlotLID, unbabel-comet, numpy/scipy/pandas. Record exact versions in `pyproject.toml` → §10/§14 fields.
 - Download model snapshots at fixed commits (`configs/models.yaml`); verify `enable_thinking=False` renders correctly in the Qwen3 chat template by inspecting one rendered prompt (§10).
-- GPU sanity run: 10 generations per model at max_tokens=4096, confirm throughput. Budget check: ~100M output tokens at k=4; at a conservative 2.5k tok/s aggregate on one A100-class GPU ≈ 11 GPU-hours per model — one to two days wall-clock including retries; double if the power sim sets k=8.
+- GPU sanity run: 10 generations per model at max_tokens=4096, confirm throughput. Budget check: k = 8 fixed (48,000 generations, ~200M output tokens); at a conservative 2.5k tok/s aggregate on one A100-class GPU ≈ 22 GPU-hours per model — two to four days wall-clock on a single GPU including retries, less if sharded across GPUs.
 
 ## Phase 1 — Protocol-freeze artifacts (Wk 1)
 
@@ -54,7 +54,7 @@ Everything in this phase produces a §14 protocol-freeze field. Order matters: p
 4. **`seeds.py`**: SHA-256(UTF-8 fields joined by 0x1F), first 8 bytes big-endian u64 (§4, §10). Freeze `base_seed.txt`.
 5. **Price snapshot** (`configs/prices.json`): pick the host (first choice: one serving both exact checkpoints), record listings/rates/date per the frozen fallback chain (§5.2). Derive dollar grid c_j = P_out^Qwen × B_j and store it in the same file.
 6. **`premiums.py`**: FLORES-200 devtest, both tokenizers, NFC only; total-token ratio + sentence-pair bootstrap CI → `configs/premiums.json` (§5.3). Derive **B\*** (largest B ∈ {512,1024} with ⌊B·r⌋ ≤ 4096 for all L) and store it.
-7. **`power_sim.py`** (§8): generation-level (correct\*, E) model exactly as frozen — logistic correct\* with b_i, u_{i,a,L}; lognormal E per (arm, language); accuracy at prefix t = correct\*·1[E ≤ t]; H1-existence at fixed α/6 via the same sup-t machinery as the real analysis (import from `analysis/`, not a reimplementation — this doubles as a test of the analysis code). Sweep ρ ∈ {0.2, 0.4, 0.6}; output: power at k=4 and k=8, the k decision, H1-SESOI power with its caveat. Deposit code + config + results.
+7. **`power_sim.py`** (§8): generation-level (correct\*, E) model exactly as frozen — logistic correct\* with b_i, u_{i,a,L}; lognormal E per (arm, language); accuracy at prefix t = correct\*·1[E ≤ t]; H1-existence at fixed α/6 via the same sup-t machinery as the real analysis (import from `analysis/`, not a reimplementation — this doubles as a test of the analysis code). Sweep ρ ∈ {0.2, 0.4, 0.6}; output: power at k=4 and k=8 (k is fixed at 8 by §8; the k=4 arm is retained as the reported contrast showing how little k buys), H1-SESOI power with its caveat. Deposit code + config + results.
 8. **Fill §14 and freeze** (no OSF — decision 2026-07-24): script assembles the frozen protocol from the config files so no field can be a placeholder; commit and tag `protocol-freeze` (the four review rounds + response memos stay in-repo as the audit trail).
 
 **Gate: no generation of study data before the `protocol-freeze` git tag exists.**
@@ -96,7 +96,7 @@ Everything in this phase produces a §14 protocol-freeze field. Order matters: p
 - **Qwen3 thinking-mode leakage** (thinking tokens despite flag) → pilot inspects raw traces; if `<think>` blocks appear, that is a prompt-formatting failure under §10 governance (visible-channel requirement), fixable pre-run with amendment.
 - **Host lacks a listing at snapshot time** → frozen fallback chain in §5.2; terminal state "dollar frame unavailable" is acceptable and reportable.
 - **GlotLID validation failure** → predefined human-labeling fallback (§6); budget ~2 annotator-days for the 10% sample worst case.
-- **k=8 doubles compute** → still <1 GPU-week; schedule slack in Wk 3.
+- **k=8 is the fixed design** (compute not binding) → 48,000 generations, still <1 GPU-week; schedule slack in Wk 3.
 - **MGSM item-ID parallelism assumption** → verify once in Phase 2 that MGSM's per-language files share item ordering/IDs with GSM8K originals (the clustered bootstrap depends on it, §7); trivial to check, catastrophic to assume wrongly.
 
 ## Milestones
