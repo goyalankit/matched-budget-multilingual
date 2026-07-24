@@ -1,0 +1,21 @@
+[project]
+name = "language-research"
+version = "0.1.0"
+description = "Harness for matched-budget language-strategy research"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+]
+
+[dependency-groups]
+test = [
+    "pytest",
+]
+
+[project.optional-dependencies]
+# generation = ["vllm==<pin>", "transformers==<pin>"]
+# language-id = ["glotlid==<pin>"]
+# translation-eval = ["unbabel-comet==<pin>"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
