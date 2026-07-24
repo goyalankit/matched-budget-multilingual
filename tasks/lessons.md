@@ -98,3 +98,22 @@
   `datasets` 4.x. The devtest sentences were taken from the canonical
   upstream tarball at dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz
   (1012 pairs per language).
+- The hosted vLLM server binds IPv6 loopback only: `http://[::1]:8000` serves
+  vLLM, while IPv4 `http://127.0.0.1:8000` is a DIFFERENT service returning
+  404. `curl` prefers IPv6 and succeeds; Python `urllib` prefers IPv4 and
+  404s, so `localhost` behaves differently per client. All harness code that
+  talks to the server must use the explicit `[::1]` address (or the resolved
+  IPv6 literal), never bare `localhost`.
+- Llama-3.1-8B-Instruct premiums were measured without HuggingFace gated-repo
+  access by calling the hosted vLLM `/tokenize` endpoint with
+  `add_special_tokens=false` (verified: "Hello world" -> 2 tokens raw vs 3
+  with BOS). This yields the model's own tokenizer counts, which is exactly
+  what prereg §5.3 requires; the gated download is therefore not on the
+  critical path for premiums.
+- The token premium is a WITHIN-model ratio (language tokens / that model's
+  own English tokens), so a higher premium can reflect more efficient English
+  tokenization rather than worse target-language tokenization. Qwen3-8B shows
+  a markedly higher Thai premium than Llama-3.1-8B (2.551 vs 2.194) while
+  German and Swahili are near-identical across models; interpretation in the
+  write-up must not treat this as "Qwen tokenizes Thai worse" without
+  checking absolute per-language token counts.

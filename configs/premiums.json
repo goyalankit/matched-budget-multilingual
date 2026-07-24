@@ -1,27 +1,60 @@
 {
-  "b_star": 1024,
-  "llama_3_1_8b_instruct": "PENDING: meta-llama/Llama-3.1-8B-Instruct is a gated repo; needs an HF token with accepted license before the protocol-freeze tag (prereg \u00a714 requires 6 values)",
-  "model": "Qwen/Qwen3-8B",
+  "status": "COMPLETE \u2014 all 6 premiums measured (prereg \u00a714)",
+  "source": "FLORES-200 devtest, 1012 parallel sentence pairs per language, NFC normalization only",
+  "source_provenance": "canonical upstream tarball dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz (HF mirrors are gated or script-based)",
+  "estimator": "total-token ratio vs parallel English; paired percentile bootstrap over sentence pairs",
   "n_resamples": 10000,
-  "normalization": "NFC only",
-  "premiums": {
-    "de": {
-      "ci_high": 1.575043,
-      "ci_low": 1.543246,
-      "ratio": 1.558886
+  "seed": 20260724,
+  "measured_utc_date": "2026-07-24",
+  "models": {
+    "qwen3_8b": {
+      "role": "confirmatory primary",
+      "hf_repo": "Qwen/Qwen3-8B",
+      "tokenizer_source": "local transformers AutoTokenizer",
+      "premiums": {
+        "de": {
+          "ratio": 1.558886,
+          "ci_low": 1.543246,
+          "ci_high": 1.575043
+        },
+        "th": {
+          "ratio": 2.550777,
+          "ci_low": 2.517358,
+          "ci_high": 2.584205
+        },
+        "sw": {
+          "ratio": 1.936317,
+          "ci_low": 1.916428,
+          "ci_high": 1.956805
+        }
+      }
     },
-    "sw": {
-      "ci_high": 1.956805,
-      "ci_low": 1.916428,
-      "ratio": 1.936317
-    },
-    "th": {
-      "ci_high": 2.584205,
-      "ci_low": 2.517358,
-      "ratio": 2.550777
+    "llama_3_1_8b_instruct": {
+      "role": "secondary analysis",
+      "served_path": "REDACTED (internal mount; model identified by hf_repo + revision)",
+      "hf_repo": "meta-llama/Meta-Llama-3.1-8B-Instruct (renamed upstream to meta-llama/Llama-3.1-8B-Instruct; same weights/tokenizer)",
+      "revision": "07eb05b21d191a58c577b4a45982fe0c049d0693",
+      "tokenizer_source": "hosted vLLM 0.17.0 /tokenize endpoint, add_special_tokens=false",
+      "premiums": {
+        "de": {
+          "ratio": 1.581613,
+          "ci_low": 1.565903,
+          "ci_high": 1.597644
+        },
+        "th": {
+          "ratio": 2.194178,
+          "ci_low": 2.168562,
+          "ci_high": 2.219884
+        },
+        "sw": {
+          "ratio": 1.930809,
+          "ci_low": 1.911655,
+          "ci_high": 1.950275
+        }
+      }
     }
   },
-  "seed": 20260724,
-  "source": "FLORES-200 devtest (1012 sentence pairs)",
-  "status": "INCOMPLETE \u2014 Qwen3-8B (confirmatory primary) measured; Llama-3.1-8B-Instruct pending HF gated-repo access"
+  "b_star": 1024,
+  "b_star_derivation": "largest B in {512,1024} with floor(B*r) <= 4096 for all languages and both models; max floor(1024*r) = 2611 (Qwen Thai)",
+  "h2_ordering_check": "r_Thai > r_German holds for both models (Qwen 2.551>1.559; Llama 2.194>1.582); prereg \u00a73 failed-ordering contingency NOT triggered"
 }
