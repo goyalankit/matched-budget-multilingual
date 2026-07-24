@@ -1,0 +1,27 @@
+{
+  "b_star": 1024,
+  "llama_3_1_8b_instruct": "PENDING: meta-llama/Llama-3.1-8B-Instruct is a gated repo; needs an HF token with accepted license before the protocol-freeze tag (prereg \u00a714 requires 6 values)",
+  "model": "Qwen/Qwen3-8B",
+  "n_resamples": 10000,
+  "normalization": "NFC only",
+  "premiums": {
+    "de": {
+      "ci_high": 1.575043,
+      "ci_low": 1.543246,
+      "ratio": 1.558886
+    },
+    "sw": {
+      "ci_high": 1.956805,
+      "ci_low": 1.916428,
+      "ratio": 1.936317
+    },
+    "th": {
+      "ci_high": 2.584205,
+      "ci_low": 2.517358,
+      "ratio": 2.550777
+    }
+  },
+  "seed": 20260724,
+  "source": "FLORES-200 devtest (1012 sentence pairs)",
+  "status": "INCOMPLETE \u2014 Qwen3-8B (confirmatory primary) measured; Llama-3.1-8B-Instruct pending HF gated-repo access"
+}

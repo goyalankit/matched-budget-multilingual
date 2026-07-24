@@ -14,7 +14,7 @@ Tracks `implementation-plan.md` (which implements prereg v0.5). Check items only
 - [ ] parser.py + golden-case unit tests green (incl. malformed-grouping REJECT)
 - [ ] seeds.py + known-answer tests; base_seed.txt frozen
 - [ ] Price snapshot captured → configs/prices.json; dollar grid c_1..c_4 derived
-- [ ] FLORES premiums measured → configs/premiums.json; B* derived
+- [~] FLORES premiums measured (Qwen3-8B done: de 1.559, th 2.551, sw 1.936; B*=1024). Llama-3.1-8B BLOCKED on HF gated-repo access
 - [ ] power_sim.py run (imports real analysis code); k fixed; results deposited
 - [ ] §14 protocol-freeze fields all filled from configs (no placeholders)
 - [ ] Protocol frozen: commit + tag `protocol-freeze` (no OSF — decision 2026-07-24)

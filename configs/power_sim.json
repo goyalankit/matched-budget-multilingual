@@ -1,58 +1,173 @@
 {
-  "base_seed": 20260724,
-  "n_items": 250,
-  "n_sims": 1000,
-  "n_boot": 10000,
-  "smoke_n_sims": 8,
-  "smoke_n_boot": 199,
   "alpha": 0.05,
-  "b_star": 1024,
-  "languages": ["de", "th", "sw"],
-  "arms": ["native", "translate_act", "pivot", "code_switched"],
-  "scenarios": ["null", "null_calibration", "alternative"],
-  "premiums": {"de": 1.2, "th": 2.0, "sw": 1.8},
-  "rho_sweep": [0.2, 0.4, 0.6],
-  "k_sweep": [4, 8],
-  "tau_by_rho": {"0.2": 0.8, "0.4": 1.4, "0.6": 2.2},
-  "mu": {
-    "native": {"de": 0.8, "th": 0.55, "sw": 0.35},
-    "translate_act": {"de": 0.9, "th": 0.75, "sw": 0.55},
-    "pivot": {"de": 0.75, "th": 0.6, "sw": 0.4},
-    "code_switched": {"de": 0.7, "th": 0.5, "sw": 0.3}
-  },
-  "emission": {
+  "alternative_emission_overrides": {
     "native": {
-      "de": {"mu": 5.3, "sigma": 0.35},
-      "th": {"mu": 5.3, "sigma": 0.35},
-      "sw": {"mu": 5.3, "sigma": 0.35}
-    },
-    "translate_act": {
-      "de": {"mu": 5.7, "sigma": 0.4},
-      "th": {"mu": 5.7, "sigma": 0.4},
-      "sw": {"mu": 5.7, "sigma": 0.4}
-    },
-    "pivot": {
-      "de": {"mu": 5.5, "sigma": 0.4},
-      "th": {"mu": 5.5, "sigma": 0.4},
-      "sw": {"mu": 5.5, "sigma": 0.4}
-    },
-    "code_switched": {
-      "de": {"mu": 5.6, "sigma": 0.4},
-      "th": {"mu": 5.6, "sigma": 0.4},
-      "sw": {"mu": 5.6, "sigma": 0.4}
+      "th": {
+        "mu": 6.25,
+        "sigma": 0.5
+      }
     }
   },
-  "alternative_emission_overrides": {
-    "native": {"th": {"mu": 6.25, "sigma": 0.5}}
+  "arms": [
+    "native",
+    "translate_act",
+    "pivot",
+    "code_switched"
+  ],
+  "b_star": 1024,
+  "base_seed": 20260724,
+  "emission": {
+    "code_switched": {
+      "de": {
+        "mu": 5.6,
+        "sigma": 0.4
+      },
+      "sw": {
+        "mu": 5.6,
+        "sigma": 0.4
+      },
+      "th": {
+        "mu": 5.6,
+        "sigma": 0.4
+      }
+    },
+    "native": {
+      "de": {
+        "mu": 5.3,
+        "sigma": 0.35
+      },
+      "sw": {
+        "mu": 5.3,
+        "sigma": 0.35
+      },
+      "th": {
+        "mu": 5.3,
+        "sigma": 0.35
+      }
+    },
+    "pivot": {
+      "de": {
+        "mu": 5.5,
+        "sigma": 0.4
+      },
+      "sw": {
+        "mu": 5.5,
+        "sigma": 0.4
+      },
+      "th": {
+        "mu": 5.5,
+        "sigma": 0.4
+      }
+    },
+    "translate_act": {
+      "de": {
+        "mu": 5.7,
+        "sigma": 0.4
+      },
+      "sw": {
+        "mu": 5.7,
+        "sigma": 0.4
+      },
+      "th": {
+        "mu": 5.7,
+        "sigma": 0.4
+      }
+    }
   },
+  "k_sweep": [
+    4,
+    8
+  ],
+  "languages": [
+    "de",
+    "th",
+    "sw"
+  ],
+  "mu": {
+    "code_switched": {
+      "de": 0.7,
+      "sw": 0.3,
+      "th": 0.5
+    },
+    "native": {
+      "de": 0.8,
+      "sw": 0.35,
+      "th": 0.55
+    },
+    "pivot": {
+      "de": 0.75,
+      "sw": 0.4,
+      "th": 0.6
+    },
+    "translate_act": {
+      "de": 0.9,
+      "sw": 0.55,
+      "th": 0.75
+    }
+  },
+  "n_boot": 10000,
+  "n_items": 250,
+  "n_sims": 1000,
   "null_calibration": {
     "contrast": "independent_equal_flores_prefix",
     "emission_overrides": {
       "native": {
-        "de": {"mu": 6.4, "sigma": 0.5},
-        "th": {"mu": 6.4, "sigma": 0.5},
-        "sw": {"mu": 6.4, "sigma": 0.5}
+        "de": {
+          "mu": 6.4,
+          "sigma": 0.5
+        },
+        "sw": {
+          "mu": 6.4,
+          "sigma": 0.5
+        },
+        "th": {
+          "mu": 6.4,
+          "sigma": 0.5
+        }
       }
     }
+  },
+  "premium_provenance": {
+    "ci": {
+      "de": [
+        1.5432,
+        1.575
+      ],
+      "sw": [
+        1.9164,
+        1.9568
+      ],
+      "th": [
+        2.5174,
+        2.5842
+      ]
+    },
+    "measured_utc_date": "2026-07-24",
+    "n_resamples": 10000,
+    "seed": 20260724,
+    "source": "FLORES-200 devtest, 1012 sentence pairs, NFC normalization only",
+    "tokenizer": "Qwen/Qwen3-8B"
+  },
+  "premiums": {
+    "de": 1.5589,
+    "sw": 1.9363,
+    "th": 2.5508
+  },
+  "rho_sweep": [
+    0.2,
+    0.4,
+    0.6
+  ],
+  "scenarios": [
+    "null",
+    "null_calibration",
+    "alternative"
+  ],
+  "smoke_n_boot": 199,
+  "smoke_n_sims": 8,
+  "tau_by_rho": {
+    "0.2": 0.8,
+    "0.4": 1.4,
+    "0.6": 2.2
   }
 }

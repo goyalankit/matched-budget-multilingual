@@ -86,3 +86,15 @@
   the final answer in L (so it parses under L's locale grammar per prereg §4)
   and CODE-SWITCHED requesting preservation of source-language names and terms
   inside English reasoning.
+- Measurement order matters and was initially violated: the power simulation
+  consumes `config["premiums"]` to compute FLORES prefixes, so premiums must be
+  measured BEFORE the deposited power run (prereg §12 orders it this way). A
+  first full run launched against the synthetic premiums (1.2/2.0/1.8) was
+  discarded and relaunched against the measured Qwen values
+  (1.5589/2.5508/1.9363).
+- FLORES-200 is not obtainable from HuggingFace without authentication:
+  `facebook/flores` and `openlanguagedata/flores_plus` are gated, and
+  `Muennighoff/flores200` is a script-based dataset unsupported by
+  `datasets` 4.x. The devtest sentences were taken from the canonical
+  upstream tarball at dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz
+  (1012 pairs per language).
