@@ -103,3 +103,28 @@
 - Definition of done confirmed: the one-command rehearsal resumed both complete
   12,000-record ledgers, regenerated all outputs, conformance passed, frozen
   files have no diff, and no commit was created.
+
+## Supervisor audit follow-up — Type-I calibration
+
+- Finding: Phase C's original null put effectively no NATIVE emission mass
+  between B* and the FLORES-mapped prefix. Its Delta was zero-variance, so the
+  0.0 rejection rate was mechanically guaranteed and did not validate type-I
+  error.
+- Fix: added the `null_calibration` scenario. It compares two independent,
+  exchangeable NATIVE generation sets at the same FLORES-mapped prefix, making
+  true Delta exactly zero while preserving real item-level variance. Configured
+  straddling probabilities are 6.70% (de), 13.67% (th), and 13.13% (sw).
+- Validation reporting now uses `null_calibration`, reports per-language and
+  any-language degeneracy rates, and cannot set
+  `null_consistent_with_nominal=true` when calibration Delta is degenerate. The
+  legacy null remains visible and was correctly flagged 100% degenerate.
+- Direct model-independent calibration: 500 repetitions, 120 correlated
+  mean-zero items, six three-language sup-t families, 199 bootstrap resamples,
+  and Holm at family alpha 0.05. Empirical family rejection was 16/500 = 0.032;
+  this is within the prespecified three-Monte-Carlo-SE tolerance 0.0292 around
+  0.05 and is below, not above, nominal.
+- Refreshed `analysis-out/power_smoke.json`: across 48 calibration datasets,
+  rejection was 0/48 = 0.0 at alpha/6 = 0.00833, with two-SE half-width
+  0.02624 and zero degenerate calibration datasets. The observed rate was not
+  above nominal; the smoke run remains low-resolution by design.
+- Tests: 82 passed, 3 skipped dependency-gated backend tests.

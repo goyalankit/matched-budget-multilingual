@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import dataclass
-from math import floor, sqrt
+from math import erf, floor, log, sqrt
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -16,6 +16,7 @@ from src.analysis.bootstrap import paired_cluster_bootstrap
 from src.analysis.supt import inversion_pvalue
 
 _DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / "configs" / "power_sim.json"
+_DEFAULT_SCENARIOS = ("null", "null_calibration", "alternative")
 
 
 @dataclass(frozen=True)
@@ -31,6 +32,30 @@ def _expit(value: NDArray[np.float64]) -> NDArray[np.float64]:
     return 1.0 / (1.0 + np.exp(-np.clip(value, -40.0, 40.0)))
 
 
+def _normal_cdf(value: float) -> float:
+    return 0.5 * (1.0 + erf(value / sqrt(2.0)))
+
+
+def native_straddling_probabilities(
+    config: Mapping[str, Any],
+) -> dict[str, float]:
+    """Return configured P(B* < E <= floor(B* r)) by language."""
+    b_star = int(config["b_star"])
+    overrides = config["null_calibration"]["emission_overrides"]["native"]
+    probabilities = {}
+    for language in config["languages"]:
+        parameters = dict(config["emission"]["native"][language])
+        parameters.update(overrides[language])
+        sigma = float(parameters["sigma"])
+        if sigma <= 0:
+            raise ValueError("lognormal sigma must be positive")
+        upper = floor(b_star * float(config["premiums"][language]))
+        lower_z = (log(b_star) - float(parameters["mu"])) / sigma
+        upper_z = (log(upper) - float(parameters["mu"])) / sigma
+        probabilities[language] = _normal_cdf(upper_z) - _normal_cdf(lower_z)
+    return probabilities
+
+
 def simulate_generation_draws(
     config: Mapping[str, Any],
     scenario: str,
@@ -39,8 +64,9 @@ def simulate_generation_draws(
     seed: int,
 ) -> SimulationDraws:
     """Draw correct* and E and derive nested-prefix binary outcomes."""
-    if scenario not in {"null", "alternative"}:
-        raise ValueError("scenario must be null or alternative")
+    scenarios = tuple(config.get("scenarios", _DEFAULT_SCENARIOS))
+    if scenario not in scenarios:
+        raise ValueError(f"scenario must be one of {', '.join(scenarios)}")
     languages = list(config["languages"])
     arms = list(config["arms"])
     n_items = int(config["n_items"])
@@ -62,6 +88,8 @@ def simulate_generation_draws(
     )
     b_star = int(config["b_star"])
     overrides = config.get("alternative_emission_overrides", {})
+    calibration = config.get("null_calibration", {})
+    calibration_overrides = calibration.get("emission_overrides", {})
 
     for language_index, language in enumerate(languages):
         flores_prefix = floor(float(config["premiums"][language]) * b_star)
@@ -76,6 +104,10 @@ def simulate_generation_draws(
             parameters = dict(config["emission"][arm][language])
             if scenario == "alternative":
                 parameters.update(overrides.get(arm, {}).get(language, {}))
+            elif scenario == "null_calibration":
+                parameters.update(
+                    calibration_overrides.get(arm, {}).get(language, {})
+                )
             emissions = rng.lognormal(
                 mean=float(parameters["mu"]),
                 sigma=float(parameters["sigma"]),
@@ -83,13 +115,35 @@ def simulate_generation_draws(
             )
             all_correct[:, language_index, arm_index, :] = completed_correct
             all_emissions[:, language_index, arm_index, :] = emissions
-            outcomes[:, language_index, arm_index, 0, :] = (
-                completed_correct & (emissions <= b_star)
-            )
             mapped_prefix = flores_prefix if arm == "native" else b_star
-            outcomes[:, language_index, arm_index, 1, :] = (
-                completed_correct & (emissions <= mapped_prefix)
-            )
+            if scenario == "null_calibration" and arm == "native":
+                if (
+                    calibration.get("contrast")
+                    != "independent_equal_flores_prefix"
+                ):
+                    raise ValueError("unsupported null calibration contrast")
+                comparison_correct = (
+                    rng.random((n_items, k)) < probabilities
+                )
+                comparison_emissions = rng.lognormal(
+                    mean=float(parameters["mu"]),
+                    sigma=float(parameters["sigma"]),
+                    size=(n_items, k),
+                )
+                outcomes[:, language_index, arm_index, 0, :] = (
+                    completed_correct & (emissions <= mapped_prefix)
+                )
+                outcomes[:, language_index, arm_index, 1, :] = (
+                    comparison_correct
+                    & (comparison_emissions <= mapped_prefix)
+                )
+            else:
+                outcomes[:, language_index, arm_index, 0, :] = (
+                    completed_correct & (emissions <= b_star)
+                )
+                outcomes[:, language_index, arm_index, 1, :] = (
+                    completed_correct & (emissions <= mapped_prefix)
+                )
     return SimulationDraws(all_correct, all_emissions, outcomes)
 
 
@@ -111,6 +165,12 @@ def _item_deltas(data: NDArray[np.float64]) -> NDArray[np.float64]:
 
 def _mean_deltas(data: NDArray[np.float64]) -> NDArray[np.float64]:
     return data[:, :, 0, 0, 0].mean(axis=0)
+
+
+def _degenerate_delta_languages(
+    outcomes: NDArray[np.float64],
+) -> NDArray[np.bool_]:
+    return _item_deltas(outcomes).var(axis=0, ddof=1) == 0.0
 
 
 def h1_pvalues(
@@ -140,7 +200,7 @@ def h1_pvalues(
 def run_power_simulation(
     config: Mapping[str, Any], smoke: bool = False
 ) -> dict[str, Any]:
-    """Run the frozen rho/k sweep and summarize null and alternative rates."""
+    """Run the rho/k sweep and summarize power and null calibration."""
     n_sims = int(config["smoke_n_sims"] if smoke else config["n_sims"])
     n_boot = int(config["smoke_n_boot"] if smoke else config["n_boot"])
     alpha = float(config["alpha"])
@@ -148,13 +208,23 @@ def run_power_simulation(
     base_seed = int(config["base_seed"])
     cells = []
     simulation_index = 0
+    scenarios = tuple(config.get("scenarios", _DEFAULT_SCENARIOS))
+    if set(scenarios) != set(_DEFAULT_SCENARIOS):
+        raise ValueError(
+            "power simulation requires null, null_calibration, and alternative"
+        )
+    straddling = native_straddling_probabilities(config)
 
     for rho in config["rho_sweep"]:
         for k in config["k_sweep"]:
-            for scenario in ("null", "alternative"):
+            for scenario in scenarios:
                 rejected_zero = 0
                 rejected_five = 0
                 delta_estimates = []
+                degenerate_counts = np.zeros(
+                    len(config["languages"]), dtype=np.int64
+                )
+                any_degenerate_count = 0
                 for _ in range(n_sims):
                     data_seed = base_seed + simulation_index * 2
                     bootstrap_seed = base_seed + simulation_index * 2 + 1
@@ -162,6 +232,9 @@ def run_power_simulation(
                     outcomes = simulate_dataset(
                         config, scenario, float(rho), int(k), data_seed
                     )
+                    degenerate_languages = _degenerate_delta_languages(outcomes)
+                    degenerate_counts += degenerate_languages
+                    any_degenerate_count += bool(np.any(degenerate_languages))
                     estimates, p_zero, p_five = h1_pvalues(
                         outcomes, n_boot=n_boot, seed=bootstrap_seed
                     )
@@ -169,46 +242,97 @@ def run_power_simulation(
                     rejected_five += p_five <= fixed_alpha
                     delta_estimates.append(estimates)
                 mean_delta = np.mean(delta_estimates, axis=0)
-                cells.append(
-                    {
-                        "scenario": scenario,
-                        "rho": float(rho),
-                        "k": int(k),
-                        "n_sims": n_sims,
-                        "n_boot": n_boot,
-                        "h1_existence_rejection_rate": rejected_zero / n_sims,
-                        "h1_sesoi_rejection_rate": rejected_five / n_sims,
-                        "mean_delta_points": {
-                            language: float(100.0 * mean_delta[index])
-                            for index, language in enumerate(config["languages"])
-                        },
-                    }
-                )
+                cell = {
+                    "scenario": scenario,
+                    "rho": float(rho),
+                    "k": int(k),
+                    "n_sims": n_sims,
+                    "n_boot": n_boot,
+                    "h1_existence_rejection_rate": rejected_zero / n_sims,
+                    "h1_sesoi_rejection_rate": rejected_five / n_sims,
+                    "mean_delta_points": {
+                        language: float(100.0 * mean_delta[index])
+                        for index, language in enumerate(config["languages"])
+                    },
+                    "degenerate_delta_dataset_rate": (
+                        any_degenerate_count / n_sims
+                    ),
+                    "degenerate_delta_dataset_rate_by_language": {
+                        language: float(degenerate_counts[index] / n_sims)
+                        for index, language in enumerate(config["languages"])
+                    },
+                }
+                if scenario == "null_calibration":
+                    cell["native_straddling_probability"] = straddling
+                cells.append(cell)
 
-    null_rates = [
+    legacy_null_cells = [
+        cell for cell in cells if cell["scenario"] == "null"
+    ]
+    calibration_cells = [
+        cell for cell in cells if cell["scenario"] == "null_calibration"
+    ]
+    calibration_rates = [
         cell["h1_existence_rejection_rate"]
-        for cell in cells
-        if cell["scenario"] == "null"
+        for cell in calibration_cells
     ]
     alternative_rates = [
         cell["h1_existence_rejection_rate"]
         for cell in cells
         if cell["scenario"] == "alternative"
     ]
-    null_mean = float(np.mean(null_rates))
+    legacy_null_mean = float(
+        np.mean(
+            [
+                cell["h1_existence_rejection_rate"]
+                for cell in legacy_null_cells
+            ]
+        )
+    )
+    calibration_mean = float(np.mean(calibration_rates))
+    legacy_degenerate_rate = float(
+        np.mean(
+            [
+                cell["degenerate_delta_dataset_rate"]
+                for cell in legacy_null_cells
+            ]
+        )
+    )
+    calibration_degenerate_rate = float(
+        np.mean(
+            [
+                cell["degenerate_delta_dataset_rate"]
+                for cell in calibration_cells
+            ]
+        )
+    )
     alternative_mean = float(np.mean(alternative_rates))
-    smoke_half_width = 2.0 * sqrt(fixed_alpha * (1 - fixed_alpha) / n_sims)
+    calibration_repetitions = sum(
+        int(cell["n_sims"]) for cell in calibration_cells
+    )
+    smoke_half_width = 2.0 * sqrt(
+        fixed_alpha * (1 - fixed_alpha) / calibration_repetitions
+    )
     return {
         "mode": "smoke" if smoke else "full",
         "fixed_alpha": fixed_alpha,
         "cells": cells,
         "validation": {
-            "null_mean_rejection_rate": null_mean,
-            "null_consistent_with_nominal": abs(null_mean - fixed_alpha)
-            <= smoke_half_width,
+            "null_validation_scenario": "null_calibration",
+            "null_mean_rejection_rate": calibration_mean,
+            "calibration_mean_rejection_rate": calibration_mean,
+            "calibration_degenerate_dataset_rate": (
+                calibration_degenerate_rate
+            ),
+            "legacy_null_mean_rejection_rate": legacy_null_mean,
+            "legacy_null_degenerate_dataset_rate": legacy_degenerate_rate,
+            "null_consistent_with_nominal": (
+                calibration_degenerate_rate == 0.0
+                and abs(calibration_mean - fixed_alpha) <= smoke_half_width
+            ),
             "two_se_smoke_half_width": smoke_half_width,
             "alternative_mean_rejection_rate": alternative_mean,
-            "alternative_exceeds_null": alternative_mean > null_mean,
+            "alternative_exceeds_null": alternative_mean > calibration_mean,
         },
         "sesoi_caveat": (
             "Power for a lower bound exceeding a true five-point effect is "

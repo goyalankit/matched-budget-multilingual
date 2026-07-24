@@ -52,3 +52,20 @@
 - Synthetic ledger timestamps are fixed constants so a rehearsal is byte-level
   reproducible apart from JSONL append order, while seeds retain the registered
   item/sample pairing across every language and arm.
+- A nested-prefix contrast cannot provide a genuine straddling point null:
+  `acc(NATIVE, floor(B* r)) - acc(NATIVE, B*)` is nonnegative item by item, so
+  any positive probability of an answer emission between the checkpoints makes
+  its population mean positive. The original null avoided that effect only by
+  putting essentially no mass in the interval, which also made Delta
+  zero-variance and left type-I error unvalidated.
+- The simulation-only `null_calibration` therefore uses the defensible
+  equal-budget construction: two independent, exchangeable NATIVE generation
+  sets are both evaluated at `floor(B* r)`. Their conditional expected
+  difference is exactly zero, while discordant generations produce sampling
+  variance. This calibration statistic does not replace or redefine the
+  confirmatory nested-prefix Delta.
+- Calibration NATIVE emissions use lognormal `mu=6.4, sigma=0.5`, giving
+  analytic checkpoint-straddling probabilities 0.0670 (de), 0.1367 (th), and
+  0.1313 (sw). Validation now fails explicitly if any calibration language has
+  zero item-level Delta variance; the degenerate legacy null is reported but is
+  not used to set `null_consistent_with_nominal`.

@@ -9,6 +9,7 @@
   "b_star": 1024,
   "languages": ["de", "th", "sw"],
   "arms": ["native", "translate_act", "pivot", "code_switched"],
+  "scenarios": ["null", "null_calibration", "alternative"],
   "premiums": {"de": 1.2, "th": 2.0, "sw": 1.8},
   "rho_sweep": [0.2, 0.4, 0.6],
   "k_sweep": [4, 8],
@@ -43,5 +44,15 @@
   },
   "alternative_emission_overrides": {
     "native": {"th": {"mu": 6.25, "sigma": 0.5}}
+  },
+  "null_calibration": {
+    "contrast": "independent_equal_flores_prefix",
+    "emission_overrides": {
+      "native": {
+        "de": {"mu": 6.4, "sigma": 0.5},
+        "th": {"mu": 6.4, "sigma": 0.5},
+        "sw": {"mu": 6.4, "sigma": 0.5}
+      }
+    }
   }
 }
