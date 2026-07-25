@@ -1,122 +1,143 @@
-# Checkpoint Choice Can Flip the Multilingual Strategy Gap: Regime-Dependence in Prefix-Defined Output-Budget Evaluation
-
-*Draft — workshop short paper (ACL-style, ~4 pages + appendix). Study protocol frozen at git tag `protocol-freeze`; all results computed from one stored 4096-token generation per (item, sample). Five ledger-computable audits (automated trace-language ID, COMET translation quality, parser robustness, decoder parity, normalizer sensitivity) are complete; only the frozen 240-trace human GlotLID validation remains outstanding (§5).*
+# Checkpoint Choice Can Flip the Multilingual Strategy Gap: Regime Dependence in Prefix-Defined Output-Budget Evaluation
 
 ---
 
 ## Abstract
 
-When we compare "reason in the native language" against "translate to English, then solve" on a multilingual math benchmark, does the well-known gap between the two reflect reasoning, or the number of tokens each strategy is allowed to spend? We run a matched-budget comparison on MGSM (German, Thai, Swahili) with two 8B models, defining budgets as **prefixes of a single stored 4096-token generation** so that token-matched, length-normalized (FLORES-200), and dollar-matched framings are all re-derived from one ledger. Our prospectively frozen primary test — the budget-artifact estimand at a mechanically-chosen checkpoint B\*=1024 — yields **no confirmatory support** (failure to reject on all six Holm tests) on the confirmatory model (Qwen3-8B), mirrored by the secondary model (Llama-3.1-8B): B\* is effectively non-binding for this estimand, because native-prefix accuracy has already plateaued there. But the *same generations*, swept **retrospectively** across tighter caps (an exploratory analysis), show that **checkpoint choice can change the descriptive answer**: below ~512 tokens, length-normalization changes the measured gap by up to 15–39 points and can *reverse* which strategy scores higher, while above answer-emission the two framings coincide and the residual difference is a **strategy-performance** gap, not an identified reasoning deficit. Automated GlotLID labels indicate "native" traces are overwhelmingly in the native language (92–100%), corroborated by an independent blind LLM adjudication of a 240-trace sample (the registered human validation is pending), and parser/decoder/normalizer audits show the tight-budget effect is robust rather than a scoring artifact. The practical message for multilingual evaluation: a hard output cap is a hidden experimental knob; report the regime, not a single checkpoint.
+When we compare "reason in the native language" against "translate to English, then solve" on a multilingual math benchmark, does the gap reflect strategy performance or the number of output tokens each strategy can spend? We run a matched-budget comparison on MGSM (German, Thai, Swahili) with two 8B models, defining budgets as prefixes of one stored 4096-token generation so token-matched, length-normalized (FLORES-200), and dollar-matched framings are re-derived from one ledger. The prospectively frozen primary test at \(B^*=1024\) yields **no confirmatory support** on Qwen3-8B: all six Holm-family tests fail to reject because native-prefix accuracy is already score-saturated. The secondary Llama-3.1-8B analysis also fails to reject, but for a different reason: native accuracy is near floor and parseable answers often never appear, rather than the Qwen-like moderate-accuracy plateau. A retrospective exploratory sweep of the same generations shows that tighter checkpoints can change the descriptive answer: length normalization changes the measured gap by up to 39 points on Qwen and 2-18 points on Llama, and can reverse which strategy scores higher. Automated GlotLID labels indicate 92-100% native-language compliance, pending the frozen 240-trace human validation. Five ledger audits cover trace-language ID, COMET translation quality, parser robustness, decoder parity, and normalizer sensitivity. COMET also qualifies the strategy comparison: mean quality is only 0.75 for Qwen Swahili, and Llama Thai has a p10 of 0.33. Above answer-emission saturation, the residual difference is a strategy-performance gap, not an identified reasoning deficit. A hard output cap is therefore a hidden experimental knob: report the regime, not a single checkpoint.
 
 ---
 
 ## 1. Introduction
 
-A recurring finding in multilingual LLM evaluation is that models solve reasoning problems better when the problem is first translated into English than when they reason in the original language. This "multilingual reasoning gap" is usually measured at a single generation length. But languages differ in how many tokens they need to express the same content — a tokenizer-mechanical effect — and reasoning strategies differ in *when* they emit their answer (translate-then-solve spends its first tokens writing an English restatement before it starts solving). Under a **hard output cap**, both effects interact with the cap in ways that can masquerade as a difference in reasoning ability.
+A recurring finding in multilingual LLM evaluation is that models solve reasoning problems better when the problem is first translated into English than when they reason in the original language. This "multilingual reasoning gap" is usually measured at one generation length. Languages differ in how many tokens they need to express parallel content, and strategies differ in when they emit their answer. Under a hard output cap, both features interact with the cap in ways that can resemble a strategy-performance difference.
 
-We ask a narrow, falsifiable question: **is the native-vs-translate gap on MGSM a token-budget artifact?** We operationalize "budget artifact" as the difference between the gap measured under a token-matched cap and the gap measured under a length-normalized (FLORES-200 premium-adjusted) cap. If giving the native strategy its language's fair share of extra tokens closes the gap, the gap was (partly) a budgeting artifact; if the gap persists under normalization, it is not.
+We ask a narrow, falsifiable question: is the native-vs-translate gap on MGSM a token-budget artifact? We operationalize a budget artifact as the change in that gap between a token-matched cap and a length-normalized, FLORES-200-premium-adjusted cap. If giving NATIVE its premium-scaled allowance closes the gap, token matching contributed to the measured difference; if the gap persists, this particular correction does not explain it.
 
-Our contribution is **not** a claim about reasoning ability. It is a methodological demonstration:
+Our contribution is methodological:
 
-1. The answer to "is it a budget artifact?" **can depend strongly on the checkpoint** at which you ask. We show this with a prospectively frozen non-rejection at one checkpoint and a retrospective sweep that locates where the effect lives.
-2. Under tight caps, length-normalization does not merely shrink or grow a gap — it can **reverse which strategy looks better**.
-3. We provide the measurement audits (trace-language compliance, parser robustness, decoder parity, normalizer sensitivity) needed to separate genuine behavior from scoring artifacts.
+1. The answer can depend strongly on the checkpoint. We pair a prospectively frozen non-rejection at one checkpoint with a retrospective sweep that localizes the budget-binding regime.
+2. Under tight caps, length normalization can reverse which strategy looks better.
+3. Five ledger-computable audits - trace-language ID, COMET translation quality, parser robustness, decoder parity, and normalizer sensitivity - delimit which interpretations survive.
 
-We deliberately avoid causal "reasoning deficit" language. Prompt language, problem reformulation, answer-format compliance, and reasoning-trace language are confounded in this design; the honest object is a *strategy-performance* comparison under a controlled budget.
+Prompt language, reformulation, answer-format compliance, translation quality, and reasoning-trace language are confounded in this design. The object of inference is therefore strategy performance under controlled prefix budgets, not causal reasoning ability.
+
+## Related Work
+
+This study connects multilingual chain-of-thought evaluation on MGSM [verify bib] with work on test-time compute, output budgeting, and budget-forcing, including s1 [verify bib]. Our length proxy follows the parallel-text setting of FLORES-200 and NLLB [verify bib], while the measurement checks use GlotLID [verify bib] and COMET [verify bib]. The specific intersection - how a prefix checkpoint changes a multilingual strategy contrast after language-length normalization - needs a dedicated citation search. [CITATION NEEDED: prior work on multilingual output-budget normalization and answer-emission timing.]
 
 ## 2. Design and estimands
 
-**Data and strategies.** MGSM (250 items per language) in German (de), Thai (th), and Swahili (sw). Four strategies: NATIVE (reason and answer in language L), TRANSLATE-ACT (translate the problem to English, then solve), PIVOT (English reasoning, answer in L), CODE-SWITCHED (English scaffold). k=8 samples per item. Two models: **Qwen3-8B** (confirmatory) and **Llama-3.1-8B-Instruct** (secondary robustness, *not* a replication). 48,000 stored generations total, all local vLLM on H100.
+Data and strategies. MGSM has 250 items per language in German (de), Thai (th), and Swahili (sw). We evaluate four strategies: NATIVE (reason and answer in language \(L\)); TRANSLATE-ACT (translate the problem to English, then solve); PIVOT (English reasoning, answer in \(L\)); and CODE-SWITCHED (English scaffold). We draw \(k=8\) samples per item from Qwen3-8B (confirmatory) and Llama-3.1-8B-Instruct (secondary, not a replication), for 48,000 stored generations.
 
-**Prefix-defined budgets.** For each (item, sample) we store one 4096-token generation. A "budget B" evaluation scores the length-B **prefix** of that stored generation. This makes the token-matched, FLORES-normalized, and dollar-matched framings three views of *the same* ledger, eliminating between-frame sampling noise. It also scopes our conclusions to *prefix-defined* evaluation; independently capped generations may differ (a limitation we return to in §5).
+Prefix-defined budgets. Each (item, sample) has one stored 4096-token generation. Evaluating budget \(B\) means scoring its length-\(B\) prefix. This removes between-frame sampling noise but limits conclusions to prefix-defined evaluation; independently capped generations may differ. The retrospective regime sweep uses \(B \in \{64,128,192,256,384,512,768,1024\}\); 2048 and 4096 are added only for extended crossover and best-arm checks.
 
-**Scoring.** Strict, prefix-only exact match on `#### <integer>`; intention-to-treat (non-integer, truncated, or non-compliant answers score 0).
+Scoring. We use strict prefix-only exact match on `#### <integer>` under intention to treat; truncated, non-integer, and non-compliant answers score 0.
 
-**Estimand.** With gap(B) = acc(TRANSLATE-ACT, B) − acc(NATIVE, B), the budget-artifact estimand is
+Estimand. Let \(\operatorname{gap}(B)=\operatorname{acc}_T(B)-\operatorname{acc}_N(B)\), and let \(r_{m,L}\) be the FLORES-200 token premium of language \(L\) over English for model \(m\). Then
 
-  Δ_L(B) = gap_token(B) − gap_FLORES(B),
+\[
+\begin{aligned}
+\Delta_L(B)
+&= [\operatorname{acc}_T(B)-\operatorname{acc}_N(B)]
+ - [\operatorname{acc}_T(B)-\operatorname{acc}_N(\lfloor r_{m,L}B\rfloor)] \\
+&= \operatorname{acc}_N(\lfloor r_{m,L}B\rfloor)-\operatorname{acc}_N(B).
+\end{aligned}
+\]
 
-where gap_FLORES(B) gives NATIVE the premium-scaled budget ⌊r_{m,L}·B⌋ (r = FLORES-200 token premium of L over English for model m). Algebraically, TRANSLATE-ACT's accuracy cancels between the two gaps, so **Δ_L(B) is really an estimand of NATIVE's own prefix gain** between B and ⌊rB⌋ — an important interpretive caveat.
+This identity has three direct consequences. First, \(\Delta_L(B)\) is a finite, discrete increment of the NATIVE accuracy curve, not a comparator interaction. Second, its peak location follows the NATIVE answer-emission distribution, while its height depends on the premium-scaled window and the native curve inside that window. Third, \(\Delta_L(B)\to0\) once NATIVE accuracy saturates, so a near-zero value above saturation follows analytically from the estimand.
 
-**Primary test (prospectively frozen).** The registered checkpoint is B\*=1024 (the largest B ∈ {512,1024} with ⌊rB⌋ ≤ 4096). The confirmatory family is six Holm-corrected tests (H1-existence, H1-SESOI — a *directional* test that Δ exceeds a +5-point threshold, H2, H3×3), item-clustered paired bootstrap (10k), studentized sup-t max-statistic, with a pre-specified 1.3× tail-conservatism factor. (The ±5-point *two-sided* equivalence in §3.2 is a separate, exploratory analysis, not this confirmatory test.) This protocol was frozen (git tag `protocol-freeze`) before the confirmatory data were scored. We call it a **prospectively frozen internal protocol**, not a public preregistration.
+Primary test. The frozen checkpoint is \(B^*=1024\), the largest \(B\in\{512,1024\}\) with every \(\lfloor r_{m,L}B\rfloor\le4096\). The confirmatory family contains six Holm-corrected Qwen tests: H1-existence, directional H1-SESOI (\(\Delta_L(B^*)>5\) points), H2, and H3 for three languages. Inference uses an item-clustered paired bootstrap (10,000 resamples), a studentized sup-\(t\) maximum statistic, and a pre-specified 1.3x tail-conservatism factor. The exploratory two-sided equivalence statement below is separate. The protocol was frozen at git tag `protocol-freeze` before confirmatory scoring; it is an internal freeze, not a public preregistration.
 
-FLORES-200 premiums (r_{m,L}): Qwen de 1.56 / th 2.55 / sw 1.94; Llama de 1.58 / th 2.19 / sw 1.93.
+FLORES-200 premiums are Qwen de 1.56 / th 2.55 / sw 1.94 and Llama de 1.58 / th 2.19 / sw 1.93.
 
 ## 3. Regime-dependent results
 
-### 3.1 The frozen primary test yields no confirmatory support — because B\* is effectively non-binding
+### 3.1 The frozen test yields no confirmatory support
 
-At B\*=1024, Δ_L ≈ 0 for every language on the confirmatory model, and **all six Holm-family tests fail to reject** (formal outcome `no_confirmatory_h1_support`):
+At \(B^*=1024\), \(\Delta_L(B^*)\) is near zero for every Qwen language, and all six Holm-family tests fail to reject (formal outcome `no_confirmatory_h1_support`):
 
-- Qwen Δ_L: de 0.00, th 0.15, sw 0.05 pts. H1-existence raw p = 0.060 (Holm-local α = 0.0083). H1-SESOI raw p = 1.0.
-- Llama Δ_L: de/th/sw all 0.00. The mirrored secondary six-test analysis also rejects nothing (Llama sits *outside* the confirmatory family; §2).
+- Qwen \(\Delta_L(B^*)\): de 0.00, th 0.15, sw 0.05 points. H1-existence raw \(p=0.060\) at Holm-local \(\alpha=0.0083\); H1-SESOI raw \(p=1.0\).
+- Llama \(\Delta_L(B^*)\): de/th/sw all 0.00. This procedurally matched secondary analysis is outside the confirmatory family and also rejects nothing.
 
-The mechanism is not "no artifact exists" but "**the test sits above the binding regime for this estimand.**" Because Δ_L algebraically isolates NATIVE's own prefix gain between B and ⌊rB⌋ (§2), what matters is whether native-prefix accuracy has plateaued by B\*. It has: between B\*=1024 and its FLORES cap of 2611 tokens, Qwen Thai NATIVE gains only 3 more correct traces out of 2000. So the extra premium budget reveals nothing new and Δ collapses to ≈0. **The checkpoint, chosen mechanically before seeing the data, happened to sit past the point where native-prefix accuracy stops changing.** (This is not a claim that traces have generally *terminated* by 1024 — some have long, non-emitting tails, §4.)
+The two non-rejections have different descriptive causes. Qwen NATIVE accuracy plateaus at about 79% / 47% / 34% for de/th/sw; between 1024 and the Thai FLORES cap of 2611, only 3 of 2000 traces become newly correct. Llama NATIVE instead plateaus near floor at 13.6% / 3.9% / 29.0%, alongside never-emission rates of 80.2% / 93.2% / 46.0%. Thus Qwen reaches score saturation at moderate accuracy, whereas Llama de/th often never produces a parseable native answer. Neither pattern implies that all traces have terminated.
 
-### 3.2 The same data at tighter caps: the artifact is large, then vanishes
+### 3.2 Tight checkpoints expose a large, then vanishing, artifact
 
-Sweeping B downward (**exploratory, non-confirmatory, and retrospective** — this regime was located after the frozen test, not registered), Δ_L(B) rises to a sharp peak in the binding region and falls below ~1 point by 768 tokens (Qwen; pointwise item-clustered bootstrap 95% CIs):
+The retrospective sweep places the largest \(\Delta_L(B)\) inside the budget-binding regime (pointwise item-clustered bootstrap 95% CIs):
 
-| lang | Δ peak (pts) | at B | Δ @512 | Δ @1024 |
-|---|---|---|---|---|
-| Qwen de | 34.2 [30.2, 38.3] | 192 | 2.25 | 0.00 |
-| Qwen th | 38.9 [34.7, 43.0] | 256 | 8.85 | 0.15 |
-| Qwen sw | 15.0 [12.4, 17.7] | 128 | 0.25 | 0.05 |
-| Llama de | 8.4 [7.0, 9.9] | 256 | 0.15 | 0.00 |
-| Llama th | 2.3 [1.6, 3.1] | 192 | 0.15 | 0.00 |
-| Llama sw | 18.2 [15.9, 20.6] | 256 | 1.60 | 0.00 |
+| model/lang | peak \(\Delta_L(B)\) (pts) | peak \(B\) | NATIVE acc. at \(B\) | TRANSLATE-ACT acc. at \(B\) | \(\Delta_L(512)\) | \(\Delta_L(1024)\) |
+|---|---:|---:|---:|---:|---:|---:|
+| Qwen de | 34.2 [30.2, 38.3] | 192 | 16.10 | 22.60 | 2.25 | 0.00 |
+| Qwen th | 38.9 [34.7, 43.0] | 256 | 6.20 | 47.75 | 8.85 | 0.15 |
+| Qwen sw | 15.0 [12.4, 17.7] | 128 | 8.70 | 0.60 | 0.25 | 0.05 |
+| Llama de | 8.4 [7.0, 9.9] | 256 | 3.85 | 43.10 | 0.15 | 0.00 |
+| Llama th | 2.3 [1.6, 3.1] | 192 | 1.10 | 16.90 | 0.15 | 0.00 |
+| Llama sw | 18.2 [15.9, 20.6] | 256 | 8.25 | 44.60 | 1.60 | 0.00 |
 
-At a 128–256-token cap, the token framing overstates the native deficit by up to ~39 points (Qwen), because premium-correction gives NATIVE the extra tokens to reach its just-past-the-cap emission point. **A referee who evaluated at 192 tokens and a referee who evaluated at 1024 tokens would report opposite descriptive conclusions from identical generations.** Llama's peaks are smaller for de/th but *comparable* for Swahili (18.2 pts, exceeding Qwen's 15.0) — Llama rarely emits a parseable native answer (native never-emit: de 80%, th 93%, sw 46%), so on German and Thai there is little for premium-correction to rescue, whereas Swahili still emits often enough to show a large artifact.
+Qwen German at \(B=192\) is the cleanest peak: both arms have nontrivial token-frame accuracy (16.10% vs 22.60%), while premium-scaling raises NATIVE by 34.2 points. Thai's 38.9-point peak is amplified by the largest premium, \(r=2.550777\): the native cap is 652, so \(\Delta_L(256)\) summarizes gain across the 396-token window \((256,652]\), not a contrast at equal output widths. Qwen Swahili's peak occurs with TRANSLATE-ACT at only 0.60%, so it demonstrates a native-prefix rescue but is not a clean two-arm comparison away from floor. Likewise, the German crossover at \(B=128\) compares 2.55% with 1.15% (§3.3).
 
-**Simultaneous inference and equivalence at B\*.** Pointwise intervals under-cover a selected peak, so across the full 3×8 grid we build max-|t| studentized simultaneous 95% bands per model. Every peak stays far from zero under simultaneous coverage — Qwen de@192 [27.8, 40.6], th@256 [32.3, 45.4], sw@128 [10.7, 19.3] — and the peak location is bootstrap-stable (Qwen th@256 is the argmax in 100% of replicates, de@192 in 90%, sw@128 in 88%). As an exploratory equivalence statement at B\*, the largest language-specific *upper* bound on the budget artifact is **0.32 points (Qwen) / 0.00 points (Llama)**, both far below the ±5-point SESOI — genuine practical equivalence at B\*, not merely non-rejection of the confirmatory test.
+Across the sweep, max-\(|t|\) simultaneous 95% bands keep every Qwen peak away from zero: de@192 [27.8, 40.6], th@256 [32.3, 45.4], sw@128 [10.7, 19.3]. Peak locations are stable in 89.6%, 100.0%, and 87.9% of bootstrap replicates. At \(B^*\), the largest language-specific upper bound is 0.32 points for Qwen and 0.00 for Llama, below the exploratory +/-5-point equivalence margin.
 
-**Normalizer sensitivity.** Because FLORES is a prose proxy for a reasoning-trace premium, we sweep r. The minimum premium that produces a 5-point artifact at any budget is **well below** the FLORES estimate: Qwen r ≈ 1.09 / 1.19 / 1.25 (de/th/sw, vs FLORES 1.56 / 2.55 / 1.94); Llama r ≈ 1.27 / 1.25 (de/sw). The tight-budget conclusion is therefore **robust** — it does not require granting a large premium; even a modest length correction reveals it. The one exception is Llama Thai, whose native accuracy is at floor, where no r up to 1.5× the FLORES estimate reaches 5 points. (These minimum-r values are grid-selected and conditional on the stored traces, not an estimated universal threshold.) We do **not** treat the behavioral trace-length ratio as a normalizer (see §4).
+**Normalizer sensitivity and adverse signal.** All six behavioral trace-ratio-minus-FLORES differences are negative with non-overlapping pointwise intervals: Qwen de -0.092 [-0.144, -0.028], th -0.513 [-0.588, -0.440], sw -0.757 [-0.824, -0.685]; Llama de -0.149 [-0.193, -0.099], th -0.427 [-0.488, -0.365], sw -0.083 [-0.129, -0.021]. FLORES therefore consistently grants a larger premium than this behavioral diagnostic. For Qwen de and th, however, the minimum evaluated premiums producing a 5-point artifact, 1.089 and 1.188, remain below the behavioral ratios 1.467 and 2.038. Swahili is the counterexample: its threshold 1.254 sits above the behavioral ratio 1.179, so substituting that ratio would not produce a 5-point artifact; the 5-point Swahili claim depends on a premium above the behavioral ratio, including the frozen FLORES prose premium. For Llama, the corresponding thresholds are 1.274 for de and 1.253 for sw, both below behavioral ratios 1.432 and 1.848; Thai never reaches 5 points even up to 1.5x FLORES. These grid-selected thresholds are conditional on the stored traces, and the behavioral ratio is not a validated normalizer because it compares traces with different content, correctness, and stopping behavior.
 
-### 3.3 Tight caps reverse strategy rankings (crossover)
+![Qwen NATIVE accuracy curves with peak premium windows shaded](figures/native_curves.png)
 
-The best strategy is **budget-dependent**. At the tightest caps NATIVE *beats* TRANSLATE-ACT on Qwen — at B=128, Qwen German NATIVE scores 2.55% vs TRANSLATE-ACT 1.15%; Swahili NATIVE leads at 64/128/192. This is consistent with TRANSLATE-ACT spending its early tokens writing the English restatement before it begins solving (its answer-emission medians, 247–262 tokens, are similar to NATIVE's), but we do not directly measure the translation-segment length, so we present this as a timing-consistent hypothesis rather than demonstrated mediation. This crossover is **not universal** — it is a Qwen de/sw phenomenon and does not appear on Llama (whose native accuracy is near-floor everywhere). We report the transition region with bootstrap lead-probabilities rather than an interpolated point. On Qwen it is robust: Swahili NATIVE leads TRANSLATE-ACT with bootstrap probability **1.00** at both 128 and 192 tokens (transition region [192, 256]); German NATIVE leads at 128 (P = 0.96; transition [128, 192]). Thai shows no native lead at any budget (native is too weak). On Llama, NATIVE never leads at any budget. The confirmatory H3 test missed the crossover entirely because H3 examined only the 512–4096 grid — itself an instance of the paper's thesis.
+*Figure 1. Qwen NATIVE token-frame accuracy by budget. Shading marks each language's peak window \((B_{\mathrm{peak}},\lfloor rB_{\mathrm{peak}}\rfloor]\), the interval whose native accuracy increment equals the reported peak \(\Delta_L(B)\).*
+
+### 3.3 Tight caps can reverse strategy rankings
+
+Qwen crossover strength follows the left tail of answer-emission timing more closely than the medians:
+
+| lang | NATIVE median \(E\) | TRANSLATE-ACT median \(E\) | NATIVE p10 \(E\) | TRANSLATE-ACT p10 \(E\) | observed crossover |
+|---|---:|---:|---:|---:|---|
+| sw | 206 | 262 | 96 | 170.7 | strongest: NATIVE leads at 64/128/192 |
+| de | 270 | 247 | 160 | 158 | marginal: NATIVE leads at 128 |
+| th | 377 | 250 | 236 | 165 | none |
+
+TRANSLATE-ACT's median emission is earlier than NATIVE's in German and Thai. The p10 ordering is timing-consistent with the crossover: Swahili has a 74.7-token NATIVE early-tail advantage and the strongest native lead; German differs by only 2 tokens and has a narrow lead; Thai NATIVE is 71 tokens later and never leads. These grid-resolved emission summaries do not isolate translation-segment length or establish mediation.
+
+At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered checkpoints.
 
 ## 4. Measurement audits
 
-A regime-dependent scoring claim is only as good as the scoring. We run four audits.
+We distinguish five ledger audits from one diagnostic. Trace-language ID and COMET are reported below; parser and decoder checks are also reported here; normalizer sensitivity appears in §3.2. Verbosity/failure-tail decomposition is a diagnostic, not a sixth audit.
 
-**Trace-language compliance (automated GlotLID).** We classify every trace's reasoning (digits/LaTeX/`####` stripped; <20 alpha chars → indeterminate, excluded from the compliance denominator only) with the fastText GlotLID model. Automated labels indicate **NATIVE reasoning is overwhelmingly in L** — Qwen de 92.1% / sw 94.1% / th 99.4%, Llama de/sw/th ≈100% — and **TRANSLATE-ACT post-delimiter reasoning is overwhelmingly English** (98.4–99.9%, both models). (Swahili is scored at the macrolanguage level: GlotLID's `swh` and `swc` — coastal and Congo Swahili — both count as Swahili; unrelated neighbouring Bantu languages do not. This grouping was validated against blind adjudication and lifts Qwen native Swahili from a `swh`-only 85.8% to 94.1%.) An **independent blind LLM adjudication** of a 240-trace sample (20 per arm×language cell, annotator blind to GlotLID) corroborates GlotLID at **96.7% overall agreement and ≥90% in every cell** — a preliminary pass of the §6 criteria; the **registered 240-trace human validation** (§5) remains the official close-out. A side finding keeps PIVOT and CODE-SWITCHED out of the main story: they violate the "reason in English" instruction in **9 of 12 English-instructed cells** — Qwen often reverts to L (Thai PIVOT 2.6% English; Thai CODE-SWITCHED 0% English), though some cells comply (Qwen Swahili PIVOT 90.1%; Llama German CODE-SWITCHED 86.7%). Only TRANSLATE-ACT's *structural* problem-translation reliably induces English reasoning across all cells.
+**Trace-language ID (automated GlotLID).** Determinate NATIVE traces are classified in \(L\) at Qwen de 92.1% / sw 94.1% / th 99.4% and at approximately 100% for all Llama languages. TRANSLATE-ACT post-delimiter reasoning is 98.4-99.9% English. Swahili is evaluated at the macrolanguage level: GlotLID `swh` and `swc` both map to Swahili, while unrelated neighboring Bantu labels do not. An independent blind LLM adjudication of 240 Qwen traces agrees at 96.7% overall and at least 90% in every cell, but this is preliminary; the frozen human validation remains outstanding. PIVOT and CODE-SWITCHED violate their English instruction in 9 of 12 cells, so they remain outside the main comparison.
 
-**Translation quality (COMET).** We score the TRANSLATE-ACT English translations with reference-based COMET (`Unbabel/wmt22-comet-da`; src = L problem, mt = extracted translation, ref = canonical English MGSM item). Translations are **generally high quality** — Qwen de 0.877 / th 0.858 / sw 0.749, Llama de 0.872 / th 0.783 / sw 0.798 (item-bootstrap 95% CIs in Appendix F) — so TRANSLATE-ACT's advantage is *not* explained away by poor translation. But quality is not uniform: Qwen Swahili is lowest (0.749) and Llama Thai carries a poor tail (p10 = 0.33), confirming that translation quality is a genuine, non-trivial component of the strategy bundle rather than a controlled-away nuisance. This is descriptive only and never conditions any accuracy result.
+**COMET translation quality.** Reference-based COMET means for TRANSLATE-ACT are Qwen de 0.877 / th 0.858 / sw 0.749 and Llama de 0.872 / th 0.783 / sw 0.798 (Appendix E). Quality is generally high but nonuniform: Qwen Swahili is lowest, and Llama Thai has p10 0.325. Translation quality remains part of the strategy bundle; these scores are descriptive and never condition accuracy.
 
-**Parser robustness / rescued cases.** The strict parser accepts an *unterminated* final `#### 42` prefix line, so a tight cutoff could reward a transiently-correct value. We categorize every prefix into mutually-exclusive parse states, add a terminated-line parser (accepts an answer only after a newline/EOS), and count "rescued-correct" and "value-unstable" traces, then recompute Δ(B) under the stricter parser. **The artifact survives decisively.** In the NATIVE peak cells, rescued-correct traces (accepted only because the final `####` line was unterminated at the cap) are ≤0.35% of traces, and value-unstable traces (parse changes on continuation) are ≤0.30%; within the (B, ⌊rB⌋] window that drives the "rescue," **96.8–100% of the native accuracy gain is genuinely terminated** (a handful of English-instructed cells reach 0.45–0.50% rescued-correct, still negligible). Recomputing Δ(B) under the terminated-line parser moves every peak by ≤0.2 points (Qwen de 34.2→34.0, th 38.9→38.9, sw 15.0→15.1; Llama sw 18.2→18.4). The tight-budget effect is genuine late answer-emission, not a prefix-parsing artifact. We treat relaxed parsing as a scoring-recoverability bound, not evidence of correct reasoning.
+**Parser robustness.** In NATIVE peak cells, prefix-only rescued-correct traces are at most 0.35% and value-unstable traces at most 0.30%. Within the \((B,\lfloor rB\rfloor]\) windows, 96.8-100% of native gains are genuinely terminated. Requiring a terminated answer line changes every peak by at most 0.2 points (Qwen de 34.2->34.0, th 38.9->38.9, sw 15.0->15.1; Llama sw 18.2->18.4). The tight-budget effect is therefore late answer emission rather than a prefix-parser artifact.
 
-**Decoder parity.** Qwen is scored via a local tokenizer; Llama via vLLM `/detokenize` (an earlier all-zero Llama bug — literal `<|eot_id|>` on the answer line — makes this non-negotiable). We decode a stratified sample through both paths and compare decoded text, parsed answers, and correctness. **PASS:** parsed-answer and correctness agreement are **100%** after the production special-token normalization (raw exact-string agreement is low — 38% — only because vLLM emits literal `<|...|>` markup that the production policy strips; that markup never touches a parsed integer). Every divergence is special-token cosmetic; none changes a scored answer. The Qwen-vs-Llama comparison is comparable at the level that matters.
+**Decoder parity.** A stratified 2,520-prefix audit finds 37.9% raw exact-string agreement between local and vLLM decoding but 100% agreement after production special-token normalization, including 100% parsed-answer and correctness agreement. All raw divergences are cosmetic special-token markup.
 
-**Verbosity / failure tails (diagnostic).** Qwen Swahili NATIVE has a heavy failure tail (10.6% hit the 4096 cap, 25.1% never emit a parseable answer), a mix of truncation, non-integer/multi-answer, and format non-compliance — a caution against reading its native accuracy as pure reasoning.
+**Verbosity/failure-tail diagnostic.** Qwen Swahili NATIVE has a heavy tail: 10.6% hit the 4096 cap and 25.1% never emit a parseable answer. This mixes truncation, non-integer or multiple answers, and format noncompliance, cautioning against interpreting native accuracy as pure reasoning ability.
 
 ## 5. Scope and implications
 
-**What this is.** A demonstration that multilingual exact-match comparisons under hard output caps are **regime-dependent**: length-normalization matters when answer-emission binds (tight caps) and is irrelevant after score saturation (generous caps), and the choice of a single checkpoint can flip both the measured gap and the apparent best strategy. The prospectively frozen non-rejection at B\*=1024 is an honest negative boundary condition; the retrospective sweep localizes the binding regime.
+This study demonstrates that multilingual exact-match comparisons under hard output caps are regime-dependent: normalization matters in the budget-binding regime and becomes irrelevant after score saturation. The prospectively frozen non-rejection at \(B^*=1024\) is a negative boundary condition; the retrospective sweep localizes where the descriptive sensitivity occurs.
 
-**What this is not.** Evidence of a causal multilingual *reasoning deficit*. At saturated budgets the residual native-vs-translate difference is real and large (Qwen th +41, Llama th +69 points) and best mitigated by translating to English first — but prompt language, reformulation, format compliance, and reasoning language are confounded, so this is a strategy-performance gap, not an identified reasoning gap.
+At saturated budgets the residual native-vs-translate difference is large (Qwen Thai +41 points, Llama Thai +69), but it is a strategy-performance gap. Prompt language, reformulation, format compliance, translation quality, and reasoning language remain confounded.
 
-**Limitations.** (i) Budgets are prefixes of one stored generation, not independently capped decodes; the tight-budget headline is exploratory and retrospective, and a prospective *independently-capped* binding-budget replication is the ceiling on strength here. (ii) vLLM was only 46% bitwise-deterministic on repeat: this preserves the stored-ledger estimand (budgets are prefixes of the *stored* trace) but weakens reproducibility and any interpretation that leans on the shared-seed pairing across arms. (iii) MGSM only, 3 languages, 2 × 8B models. (iv) The frozen 240-trace *human* GlotLID validation remains outstanding, so the automated trace-language labels are not yet validated ground truth — though an independent blind LLM adjudication corroborates them (96.7% overall, ≥90%/cell). Translation quality is now measured (COMET, §4): it is high but non-uniform, so the residual saturated-budget gap still bundles some translation-quality variation and is not cleanly a pure language effect. (v) The registered same-content trace-premium validation (translating identical English traces into each L) was not performed; the behavioral length ratio in Appendix D does not substitute for it. (vi) The calibration is only approximately nominal (corrected type-I 0.00917 vs 0.00833 target), and the 1.3× tail factor is a family-wide safeguard, not a verified family-wise calibration; it changes no decision (Qwen H1 p ≈ 0.060 is far from its 0.0083 threshold regardless). (vii) Δ_L algebraically cancels TRANSLATE-ACT, so throughout, the "budget artifact" is an estimand of NATIVE's own prefix gain, not a two-strategy contrast.
+Limitations. (i) Budgets are prefixes of stored generations, not independently capped decodes; the tight-budget result is retrospective and exploratory. (ii) vLLM repeat generation was only 46% bitwise deterministic, preserving the stored-ledger estimand but weakening reproducibility and shared-seed interpretation. (iii) Scope is MGSM, three languages, and two 8B models. (iv) The frozen human GlotLID validation remains outstanding, despite the preliminary blind LLM agreement. (v) The frozen same-content trace-premium validation was not performed; the behavioral ratio in Appendix C does not substitute for it. (vi) Calibration is only approximately nominal (corrected type-I 0.00917 vs 0.00833 target); the 1.3x factor is a family-wide safeguard, not a verified family-wise calibration.
 
-**Takeaway for practitioners.** When you compare language strategies under a token cap, the cap is a hidden independent variable. Report accuracy across a budget sweep with a length-normalized frame, mark where answer-emission binds, and never let a single checkpoint carry the claim.
+Takeaway. When comparing language strategies under a token cap, treat the cap as an independent variable. Report accuracy across a budget sweep with a length-normalized frame, mark where answer emission binds, and do not let one checkpoint carry the claim.
 
 ---
 
 ## Appendix
 
-**A. Full accuracy curves** (token frame, per model/language/arm/budget) — from `analysis-out/explore_budget_{qwen,llama}.md`.
+A. Full accuracy curves. Token-frame values by model, language, arm, and budget are in `analysis-out/explore_budget_{qwen,llama}.md`.
 
-**B. Best-English-arm.** Re-selecting the empirically best English arm inside each bootstrap replicate reproduces the preselected TRANSLATE-ACT gap almost exactly (Qwen th 41pp, Llama th 69pp; uplift over TRANSLATE-ACT ≈ 0 in most cells) — the confirmatory comparator was well-chosen. This is consistent with the automated compliance finding in §4 (PIVOT/CODE-SWITCHED often revert to L and so behave like NATIVE), pending that audit's human validation.
+B. Best-English-arm. Reselecting the empirically best English arm inside each bootstrap replicate reproduces the preselected TRANSLATE-ACT gap closely (Qwen Thai 41 points, Llama Thai 69; uplift over TRANSLATE-ACT is near zero in most cells).
 
-**C. Dollar frame.** Under self-host H100 pricing (P_in/P_out ≈ 0.004) the dollar and token frames nearly coincide and H3 is near-invariant across a pre-registered price pair; only the price *ratio* matters. Compressed here because it adds little.
+C. Trace-length ratio (not a normalizer). The ratio of median NATIVE output tokens to median TRANSLATE-ACT post-delimiter English-reasoning tokens is Qwen de 1.47 / th 2.04 / sw 1.18. It compares behaviorally different traces and cannot validate or replace FLORES.
 
-**D. Trace-length ratio (not a normalizer).** The ratio of median NATIVE output tokens to median TRANSLATE-ACT English-reasoning tokens (Qwen de 1.47 / th 2.04 / sw 1.18) runs below the FLORES prose premia, but it compares behaviorally different traces (different content, correctness, stopping) and therefore **cannot** validate or replace the FLORES normalizer; included only as a descriptive contrast.
+D. Statistical machinery and the six-test family. See `prereg-matched-budgets.md` and `analysis-out/confirmatory_*.json`.
 
-**E. Statistical machinery, calibration, and the six-test family** — see `prereg-matched-budgets.md` and `analysis-out/confirmatory_*.json`.
+E. TRANSLATE-ACT translation quality (COMET, descriptive). Reference-based `Unbabel/wmt22-comet-da`; one stored full trace per item (sample 0); delimiter-missing traces excluded from this denominator only; pointwise 95% item-bootstrap CIs (10,000 resamples).
 
-**F. TRANSLATE-ACT translation quality (COMET, descriptive).** Reference-based `Unbabel/wmt22-comet-da`; one stored full trace per item (sample 0); delimiter-missing traces excluded from this denominator only; pointwise 95% item bootstrap CIs (10k).
-
-| Model | Lang | n | Missing-delim | COMET mean | median | p10 | p90 | 95% CI |
+| Model | Lang | n | Missing delimiter | COMET mean | median | p10 | p90 | 95% CI |
 |---|---|---:|---:|---:|---:|---:|---:|---|
 | Qwen | de | 250 | 0.0% | 0.877 | 0.878 | 0.834 | 0.921 | [0.872, 0.881] |
 | Qwen | th | 249 | 0.4% | 0.858 | 0.866 | 0.810 | 0.907 | [0.851, 0.865] |
@@ -125,4 +146,4 @@ A regime-dependent scoring claim is only as good as the scoring. We run four aud
 | Llama | th | 244 | 2.4% | 0.783 | 0.850 | 0.325 | 0.895 | [0.759, 0.805] |
 | Llama | sw | 240 | 4.0% | 0.798 | 0.825 | 0.703 | 0.888 | [0.783, 0.811] |
 
-Descriptive only; never conditions, gates, or reweights any accuracy result. (A surface-overlap chrF/BLEU proxy agrees on the ordering; COMET is the primary figure.)
+These scores are descriptive only and never condition, gate, or reweight accuracy.
