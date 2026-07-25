@@ -40,7 +40,9 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 - [x] Analysis pipeline built + validated on power-sim/synthetic (type-I ≤ nominal)
 - [x] Confirmatory analysis on REAL Qwen ledger: H1 null (Δ≈0, no budget artifact); all 6 Holm tests fail to reject; scorer spot-checked vs gold
 - [x] Deliverable table (MCB, both price snapshots): translate/pivot best; native far behind for th/sw at ALL budgets
-- [ ] Exploratory: best-EN-arm, Llama read-through, cheap translator, verbosity, trace-ratio
+- [x] Llama secondary read-through (replicates null; native deficit even larger: th 3.9%/72.5%)
+- [x] Exploratory small-budget: artifact peaks +34/+39/+15pt at 128-256 tok, gone by 1024
+- [ ] Remaining exploratory (optional): best-EN-arm, cheap translator, verbosity decomposition, trace-ratio
 - [ ] Figures + appendix stats
 - [ ] conformance.py green on final commit
 - [ ] Short-paper draft
