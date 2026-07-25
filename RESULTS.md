@@ -63,9 +63,13 @@ A rigorous external review (`analysis-out/results_review_gpt56sol_maxeffort.md`)
 
 **Corrected above (were errors):** "NATIVE trails at all budgets" (false — low-budget crossover exists); "reasoning deficit" (→ strategy-performance gap); "largest for high-premium languages" (unsupported; H2 fails); "type-I ≤ nominal" (→ ≈ nominal within MC tolerance); trace-premium "overstates" (→ behavioral length ratio, not the registered premium).
 
-**Outstanding before a paper (not yet done):**
-- ~~GlotLID trace-language compliance~~ **DONE** (§3 above): NATIVE traces validated in-L (85.8–100%), TRANSLATE-ACT validated English (98–99.9%); confirmatory contrast is real. Still open: **COMET translation quality** of the TRANSLATE-ACT English translations, and the frozen **240-trace blind human validation** of the GlotLID labels.
-- **Full parse-failure category breakdown** by model/language/arm (truncation vs non-integer vs multi-answer vs non-compliance).
-- **Parser prefix-termination sensitivity** — the strict parser accepts an unterminated final `#### n` prefix line; a small-budget cutoff could parse a transiently-correct value. Quantify rescued-correct cases at exact answer-line boundaries.
-- **Prospective binding-budget primary test** (or a simultaneous Δ(B) curve) rather than relabeling the current sweep confirmatory; SESOI equivalence bounds at B\*=1024.
-- **Decoder parity audit** (Qwen local AutoTokenizer with pinned revision vs Llama vLLM /detokenize+regex) before comparing the two models; Llama did not go through the same pilot governance.
+**Audits completed (all four pass; see `PAPER.md` and `analysis-out/`):**
+- ~~GlotLID trace-language compliance~~ **DONE**: NATIVE validated in-L (85.8–100%), TRANSLATE-ACT validated English (98–99.9%); confirmatory contrast is real.
+- ~~Full parse-failure category breakdown~~ **DONE** (`parse_failure_categories.md`): mutually-exclusive parse-state distribution per model/language/arm/budget.
+- ~~Parser prefix-termination sensitivity~~ **DONE — artifact survives** (`parser_termination_sensitivity.md`): rescued-correct ≤0.35% at every peak, value-unstable ≈0%, 96.8–100% of the native gain in (B,⌊rB⌋] genuinely terminated; terminated-parser Δ(B) peaks move ≤0.2 pts.
+- ~~Simultaneous Δ(B) curve + SESOI equivalence at B\*~~ **DONE** (`regime_map_delta_bands.md`): max-|t| bands keep peaks far from 0; B\* largest upper bound 0.32pt (Qwen)/0.00pt (Llama) — practical equivalence. Plus normalizer-r sensitivity (`normalizer_sensitivity.md`: min r for 5pt ≈1.1–1.3, ≪ FLORES) and crossover region (`crossover_region.md`).
+- ~~Decoder parity audit~~ **DONE — PASS** (`decoder_parity.md`): 100% parsed-answer & correctness agreement Qwen local-tokenizer vs vLLM /detokenize after normalization.
+
+**Still outstanding (require new work, noted as paper limitations):**
+- **Prospective binding-budget primary test** — a genuinely independently-capped replication (not prefixes of a stored generation); the ceiling on strength. The simultaneous Δ(B) bands + B\* equivalence strengthen but do not replace it.
+- **COMET translation quality** of the TRANSLATE-ACT English translations, and the frozen **240-trace blind human validation** of the GlotLID labels.
