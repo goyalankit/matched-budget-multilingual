@@ -19,7 +19,11 @@ language-id = [
     "huggingface_hub",
     "numpy<2",
 ]
-# translation-eval = ["unbabel-comet==<pin>"]
+translation-eval = [
+    "huggingface_hub>=0.30,<2",
+    "sacrebleu>=2.5,<3",
+    "unbabel-comet>=2.2,<3",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
