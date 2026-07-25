@@ -1,0 +1,465 @@
+{
+  "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+  "emission_index": {
+    "analysis_label": "EXPLORATORY NON-CONFIRMATORY (preregistration \u00a711)",
+    "cells": {
+      "de": {
+        "code_switched": {
+          "fraction_never_emitted": 0.16649999999999998,
+          "median_e_tokens": 236.0,
+          "n_emitted": 1667,
+          "n_records": 2000,
+          "p10_e_tokens": 154.0,
+          "p90_e_tokens": 368.0
+        },
+        "native": {
+          "fraction_never_emitted": 0.8025,
+          "median_e_tokens": 296.0,
+          "n_emitted": 395,
+          "n_records": 2000,
+          "p10_e_tokens": 230.0,
+          "p90_e_tokens": 424.0
+        },
+        "pivot": {
+          "fraction_never_emitted": 0.22950000000000004,
+          "median_e_tokens": 237.0,
+          "n_emitted": 1541,
+          "n_records": 2000,
+          "p10_e_tokens": 154.0,
+          "p90_e_tokens": 377.0
+        },
+        "translate_act": {
+          "fraction_never_emitted": 0.07350000000000001,
+          "median_e_tokens": 254.0,
+          "n_emitted": 1853,
+          "n_records": 2000,
+          "p10_e_tokens": 174.0,
+          "p90_e_tokens": 391.0
+        }
+      },
+      "sw": {
+        "code_switched": {
+          "fraction_never_emitted": 0.1895,
+          "median_e_tokens": 247.0,
+          "n_emitted": 1621,
+          "n_records": 2000,
+          "p10_e_tokens": 159.0,
+          "p90_e_tokens": 427.0
+        },
+        "native": {
+          "fraction_never_emitted": 0.45999999999999996,
+          "median_e_tokens": 357.0,
+          "n_emitted": 1080,
+          "n_records": 2000,
+          "p10_e_tokens": 196.0,
+          "p90_e_tokens": 515.0
+        },
+        "pivot": {
+          "fraction_never_emitted": 0.15400000000000003,
+          "median_e_tokens": 243.0,
+          "n_emitted": 1692,
+          "n_records": 2000,
+          "p10_e_tokens": 154.0,
+          "p90_e_tokens": 393.0
+        },
+        "translate_act": {
+          "fraction_never_emitted": 0.08350000000000002,
+          "median_e_tokens": 245.0,
+          "n_emitted": 1833,
+          "n_records": 2000,
+          "p10_e_tokens": 169.0,
+          "p90_e_tokens": 388.0
+        }
+      },
+      "th": {
+        "code_switched": {
+          "fraction_never_emitted": 0.18999999999999995,
+          "median_e_tokens": 248.0,
+          "n_emitted": 1620,
+          "n_records": 2000,
+          "p10_e_tokens": 159.0,
+          "p90_e_tokens": 423.10000000000014
+        },
+        "native": {
+          "fraction_never_emitted": 0.9319999999999999,
+          "median_e_tokens": 275.0,
+          "n_emitted": 136,
+          "n_records": 2000,
+          "p10_e_tokens": 151.0,
+          "p90_e_tokens": 495.5
+        },
+        "pivot": {
+          "fraction_never_emitted": 0.11750000000000005,
+          "median_e_tokens": 239.0,
+          "n_emitted": 1765,
+          "n_records": 2000,
+          "p10_e_tokens": 153.0,
+          "p90_e_tokens": 408.60000000000014
+        },
+        "translate_act": {
+          "fraction_never_emitted": 0.07350000000000001,
+          "median_e_tokens": 251.0,
+          "n_emitted": 1853,
+          "n_records": 2000,
+          "p10_e_tokens": 169.0,
+          "p90_e_tokens": 388.79999999999995
+        }
+      }
+    },
+    "definition": "E is the first evaluated output-token prefix whose parsed answer equals the answer parsed from the full token-decoded trace.",
+    "grid_note": "Prefixes are evaluated every 16 tokens and at full trace length; E is therefore grid-resolved rather than an exact token boundary.",
+    "grid_resolution_tokens": 16,
+    "model_key": "llama_3_1_8b_instruct"
+  },
+  "small_budget": {
+    "analysis_label": "EXPLORATORY NON-CONFIRMATORY (preregistration \u00a711)",
+    "bootstrap": {
+      "ci": "pointwise 95%",
+      "method": "paired item-clustered percentile bootstrap",
+      "n_resamples": 10000,
+      "seed": 20260724
+    },
+    "budgets_tokens": [
+      64,
+      128,
+      192,
+      256,
+      384,
+      512,
+      768,
+      1024
+    ],
+    "delta_points": {
+      "de": {
+        "1024": {
+          "ci_95": [
+            0.0,
+            0.0
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.0
+        },
+        "128": {
+          "ci_95": [
+            0.05,
+            0.6
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 0.3
+        },
+        "192": {
+          "ci_95": [
+            6.550000000000001,
+            9.6
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 8.05
+        },
+        "256": {
+          "ci_95": [
+            6.950000000000001,
+            9.85
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 8.35
+        },
+        "384": {
+          "ci_95": [
+            1.25,
+            2.6
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 1.9
+        },
+        "512": {
+          "ci_95": [
+            0.0,
+            0.4
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.15
+        },
+        "64": {
+          "ci_95": [
+            0.0,
+            0.15
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.05
+        },
+        "768": {
+          "ci_95": [
+            0.0,
+            0.0
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.0
+        }
+      },
+      "sw": {
+        "1024": {
+          "ci_95": [
+            0.0,
+            0.0
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.0
+        },
+        "128": {
+          "ci_95": [
+            5.6000000000000005,
+            9.45
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 7.449999999999999
+        },
+        "192": {
+          "ci_95": [
+            12.35,
+            16.901249999999983
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 14.6
+        },
+        "256": {
+          "ci_95": [
+            15.9,
+            20.549999999999997
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 18.2
+        },
+        "384": {
+          "ci_95": [
+            7.5,
+            11.35
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 9.35
+        },
+        "512": {
+          "ci_95": [
+            1.05,
+            2.1999999999999997
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 1.6
+        },
+        "64": {
+          "ci_95": [
+            0.0,
+            0.15
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.05
+        },
+        "768": {
+          "ci_95": [
+            0.0,
+            0.15
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.05
+        }
+      },
+      "th": {
+        "1024": {
+          "ci_95": [
+            0.0,
+            0.0
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.0
+        },
+        "128": {
+          "ci_95": [
+            1.4500000000000002,
+            3.05
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 2.1999999999999997
+        },
+        "192": {
+          "ci_95": [
+            1.6,
+            3.05
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 2.3
+        },
+        "256": {
+          "ci_95": [
+            1.35,
+            2.7
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 2.0
+        },
+        "384": {
+          "ci_95": [
+            0.4,
+            1.2
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 0.75
+        },
+        "512": {
+          "ci_95": [
+            0.0,
+            0.35000000000000003
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.15
+        },
+        "64": {
+          "ci_95": [
+            0.05,
+            0.7000000000000001
+          ],
+          "descriptive_signal_ci_excludes_zero": true,
+          "estimate": 0.35000000000000003
+        },
+        "768": {
+          "ci_95": [
+            0.0,
+            0.0
+          ],
+          "descriptive_signal_ci_excludes_zero": false,
+          "estimate": 0.0
+        }
+      }
+    },
+    "estimand": "delta_L(B) = [acc_translate_act(B) - acc_native(B)]_token - [acc_translate_act(B) - acc_native(floor(r_L * B))]_FLORES",
+    "model_key": "llama_3_1_8b_instruct",
+    "token_accuracy_points": {
+      "de": {
+        "code_switched": {
+          "1024": 66.95,
+          "128": 2.8000000000000003,
+          "192": 22.15,
+          "256": 43.95,
+          "384": 64.45,
+          "512": 66.35,
+          "64": 0.0,
+          "768": 66.85
+        },
+        "native": {
+          "1024": 13.55,
+          "128": 0.05,
+          "192": 0.3,
+          "256": 3.85,
+          "384": 11.600000000000001,
+          "512": 13.4,
+          "64": 0.0,
+          "768": 13.55
+        },
+        "pivot": {
+          "1024": 61.6,
+          "128": 2.35,
+          "192": 21.099999999999998,
+          "256": 41.85,
+          "384": 58.4,
+          "512": 61.150000000000006,
+          "64": 0.0,
+          "768": 61.550000000000004
+        },
+        "translate_act": {
+          "1024": 75.4,
+          "128": 0.5,
+          "192": 15.55,
+          "256": 43.1,
+          "384": 70.1,
+          "512": 74.55000000000001,
+          "64": 0.05,
+          "768": 75.2
+        }
+      },
+      "sw": {
+        "code_switched": {
+          "1024": 57.15,
+          "128": 2.6,
+          "192": 18.15,
+          "256": 36.6,
+          "384": 53.65,
+          "512": 56.10000000000001,
+          "64": 0.0,
+          "768": 57.099999999999994
+        },
+        "native": {
+          "1024": 28.95,
+          "128": 0.1,
+          "192": 3.8,
+          "256": 8.25,
+          "384": 19.55,
+          "512": 27.35,
+          "64": 0.0,
+          "768": 28.9
+        },
+        "pivot": {
+          "1024": 58.650000000000006,
+          "128": 2.3,
+          "192": 20.45,
+          "256": 39.050000000000004,
+          "384": 55.300000000000004,
+          "512": 58.25,
+          "64": 0.0,
+          "768": 58.599999999999994
+        },
+        "translate_act": {
+          "1024": 69.45,
+          "128": 1.15,
+          "192": 17.05,
+          "256": 44.6,
+          "384": 66.05,
+          "512": 69.0,
+          "64": 0.0,
+          "768": 69.39999999999999
+        }
+      },
+      "th": {
+        "code_switched": {
+          "1024": 59.150000000000006,
+          "128": 2.0,
+          "192": 17.1,
+          "256": 38.0,
+          "384": 54.85,
+          "512": 58.45,
+          "64": 0.0,
+          "768": 59.050000000000004
+        },
+        "native": {
+          "1024": 3.85,
+          "128": 0.15,
+          "192": 1.0999999999999999,
+          "256": 1.8499999999999999,
+          "384": 3.1,
+          "512": 3.6999999999999997,
+          "64": 0.0,
+          "768": 3.85
+        },
+        "pivot": {
+          "1024": 66.35,
+          "128": 2.7,
+          "192": 23.799999999999997,
+          "256": 43.3,
+          "384": 63.0,
+          "512": 65.75,
+          "64": 0.0,
+          "768": 66.25
+        },
+        "translate_act": {
+          "1024": 72.5,
+          "128": 1.0,
+          "192": 16.900000000000002,
+          "256": 43.9,
+          "384": 68.45,
+          "512": 71.7,
+          "64": 0.0,
+          "768": 72.3
+        }
+      }
+    },
+    "units": "percentage points"
+  },
+  "warning": "Descriptive \u00a711 exploration only; no confirmatory test or Holm-family inference was run."
+}
