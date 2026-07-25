@@ -30,7 +30,7 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 - [x] Pilot done (Qwen). Caught + fixed sw/native placeholder-echo (75%→15%); residual is genuine truncation/non-integer (not format). See tasks/pilot-governance-note.md
 - [x] Governance amendment applied (3 native prompts, concrete #### 42 example) + documented; native pilot cells discarded+rerun
 
-## Phase 3 — Full runs (48,000 generations, k=8)
+## Phase 3 — Full runs (48,000 generations, k=8) — RUNNER READY
 - [ ] All (model × language × arm) shards complete; verify_ledger green
 - [ ] GlotLID validation labeled; pass/fail (≥95% overall, ≥90%/cell)
 - [ ] COMET scores for TRANSLATE-ACT segments (descriptive)

@@ -275,3 +275,17 @@
   parse failure. The strict §4 parser is unchanged; the remaining roughly 5%
   failures in other cells are genuine non-integer or multi-number answers and
   are correctly rejected.
+- The Phase 3 driver treats its explicit `model_key` as the canonical ledger
+  `model_id` and record-ID component; the vLLM server's discovered model ID is
+  transport metadata owned by `VLLMEngine`. This keeps resume paths and IDs
+  stable even if the served path changes while the frozen model identity does
+  not.
+- Phase 3 uses one in-process lock per shard rather than a global writer queue.
+  Independent arm-language cells can therefore persist concurrently, while
+  each JSONL append is serialized, flushed, and fsynced before a worker reports
+  completion. Resume selection still happens before dispatch, so two separate
+  driver processes must not target the same model/run directory simultaneously.
+- The live concurrency benchmark is capped at 32 total generations. It repeats
+  the same eight fixed German NATIVE units at concurrency 1, 8, 16, and 32;
+  consequently the last two settings can exercise only eight simultaneous
+  requests and are directional rather than saturation measurements.
