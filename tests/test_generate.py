@@ -1,6 +1,6 @@
 import json
 
-from src.engine import MockEngine
+from src.engine import GenerationResult, MockEngine
 from src.generate import generate_shard, read_ledger, verify_ledger
 from src.parser import parse_answer
 from src.prefixes import token_checkpoint_prefix
@@ -74,3 +74,67 @@ def test_ledger_is_jsonl_with_exact_count_fields(tmp_path) -> None:
     assert record["input_token_count"] == len(record["input_token_ids"])
     assert record["output_token_count"] == len(record["output_token_ids"])
 
+
+def test_generation_ledger_uses_engine_prefill_tokenization(tmp_path) -> None:
+    class PrefillEngine:
+        def generate(
+            self, prompt: str, seed: int, max_tokens: int
+        ) -> GenerationResult:
+            return GenerationResult(
+                token_ids=[20, 21],
+                text="ok",
+                eos=True,
+                input_token_ids=[10, 11, 12],
+                input_token_count=3,
+            )
+
+    shard = tmp_path / "shard.jsonl"
+    generate_shard(
+        PrefillEngine(),
+        shard,
+        "real",
+        "en",
+        "native",
+        {"x": "prompt"},
+        1,
+        2,
+        tokenize_prompt=lambda _: (_ for _ in ()).throw(
+            AssertionError("fallback tokenizer should not run")
+        ),
+    )
+
+    record = read_ledger(shard)[0]
+    assert record["input_token_ids"] == [10, 11, 12]
+    assert record["input_token_count"] == 3
+
+
+def test_ledger_accepts_authoritative_prefill_count_without_token_ids(
+    tmp_path,
+) -> None:
+    class CountOnlyPrefillEngine:
+        def generate(
+            self, prompt: str, seed: int, max_tokens: int
+        ) -> GenerationResult:
+            return GenerationResult(
+                token_ids=[20],
+                text="ok",
+                eos=True,
+                input_token_count=4,
+            )
+
+    shard = tmp_path / "shard.jsonl"
+    generate_shard(
+        CountOnlyPrefillEngine(),
+        shard,
+        "real",
+        "en",
+        "native",
+        {"x": "prompt"},
+        1,
+        2,
+    )
+
+    record = read_ledger(shard)[0]
+    assert record["input_token_ids"] == []
+    assert record["input_token_count"] == 4
+    assert verify_ledger(shard, expected_count=1)["record_count"] == 1

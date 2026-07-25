@@ -112,7 +112,7 @@ def generate_shard(
 
     written = 0
     for item_id, prompt in items.items():
-        input_token_ids = list(tokenize_prompt(prompt))
+        fallback_input_token_ids: list[int] | None = None
         for sample_index in range(samples_per_item):
             record_id = _record_id(
                 model_id, language, arm, item_id, sample_index
@@ -123,6 +123,18 @@ def generate_shard(
             started_at = _utc_now()
             result = engine.generate(prompt, generation_seed, max_tokens)
             completed_at = _utc_now()
+            if result.input_token_count is not None:
+                input_token_ids = (
+                    list(result.input_token_ids)
+                    if result.input_token_ids is not None
+                    else []
+                )
+                input_token_count = result.input_token_count
+            else:
+                if fallback_input_token_ids is None:
+                    fallback_input_token_ids = list(tokenize_prompt(prompt))
+                input_token_ids = fallback_input_token_ids
+                input_token_count = len(input_token_ids)
             record = {
                 "record_id": record_id,
                 "model_id": model_id,
@@ -132,7 +144,7 @@ def generate_shard(
                 "sample_index": sample_index,
                 "seed": generation_seed,
                 "input_token_ids": input_token_ids,
-                "input_token_count": len(input_token_ids),
+                "input_token_count": input_token_count,
                 "output_token_ids": list(result.token_ids),
                 "output_token_count": len(result.token_ids),
                 "text": result.text,
@@ -158,7 +170,11 @@ def verify_ledger(path: Path, expected_count: int) -> dict[str, int]:
     if len(set(record_ids)) != len(record_ids):
         raise LedgerVerificationError("duplicate record_id values")
     for record in records:
-        if record["input_token_count"] != len(record["input_token_ids"]):
+        # usage.prompt_tokens remains authoritative when a server omits prefill IDs.
+        if (
+            record["input_token_ids"]
+            and record["input_token_count"] != len(record["input_token_ids"])
+        ):
             raise LedgerVerificationError("input token count mismatch")
         if record["output_token_count"] != len(record["output_token_ids"]):
             raise LedgerVerificationError("output token count mismatch")

@@ -147,6 +147,11 @@
   terminal EOS included, matching usage.completion_tokens). This resolves the
   ledger's token-id requirement without detokenize/retokenize round-tripping,
   which is not guaranteed to be identity and would corrupt prefix definitions.
+- vLLM's `usage.prompt_tokens` is the authoritative billable prefill count.
+  When a compatible server supplies that count but omits `prompt_token_ids`, the
+  ledger stores an empty input-ID list and the real count; verification compares
+  ID length to count only when IDs are present, while retaining all other count
+  invariants.
 
 ## Type-I calibration investigation (2026-07-24, supervisor)
 - Full power run flagged null_consistent_with_nominal=false: calibration type-I
