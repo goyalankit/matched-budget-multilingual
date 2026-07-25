@@ -1,0 +1,609 @@
+{
+  "analysis_label": "Trace-language compliance finding (\u00a76)",
+  "classifier": {
+    "filename": "model.bin",
+    "model_path": "/home/angoyal/.cache/huggingface/hub/models--cis-lmu--glotlid/snapshots/85cd6716494360367b75f642b5bc78667605d0b4/model.bin",
+    "name": "GlotLID",
+    "output_languages": [
+      "de",
+      "th",
+      "sw",
+      "en",
+      "other"
+    ],
+    "repository": "cis-lmu/glotlid"
+  },
+  "compliance_definition": "fraction of determinate traces whose top GlotLID language equals the arm's instructed trace language",
+  "human_validation": {
+    "note": "The frozen blind human-label validation requires manual labels and is outside this autonomous run.",
+    "required_traces": 240,
+    "status": "not_performed"
+  },
+  "indeterminate_rule": "fewer than 20 alphabetic characters after registered stripping; excluded from compliance only, never from accuracy scoring",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "cells": {
+        "de": {
+          "code_switched": {
+            "compliance_rate": 0.867,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.867,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.867
+              },
+              {
+                "language": "de",
+                "share": 0.1325
+              },
+              {
+                "language": "other",
+                "share": 0.0005
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 1.0,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "de",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "de",
+                "share": 1.0
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.7215,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.7215,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.7215
+              },
+              {
+                "language": "de",
+                "share": 0.2775
+              },
+              {
+                "language": "other",
+                "share": 0.001
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.9989994997498749,
+            "determinate_n": 1999,
+            "english_detection_rate": 0.9989994997498749,
+            "indeterminate_rate": 0.0005,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 9,
+            "missing_translation_delimiter_rate": 0.0045,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.9989994997498749
+              },
+              {
+                "language": "other",
+                "share": 0.0010005002501250625
+              }
+            ]
+          }
+        },
+        "sw": {
+          "code_switched": {
+            "compliance_rate": 0.653,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.653,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.653
+              },
+              {
+                "language": "sw",
+                "share": 0.3415
+              },
+              {
+                "language": "other",
+                "share": 0.0055
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 0.9915,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "sw",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "sw",
+                "share": 0.9915
+              },
+              {
+                "language": "other",
+                "share": 0.0085
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.526,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.526,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.526
+              },
+              {
+                "language": "sw",
+                "share": 0.4695
+              },
+              {
+                "language": "other",
+                "share": 0.0045
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.9854854854854855,
+            "determinate_n": 1998,
+            "english_detection_rate": 0.9854854854854855,
+            "indeterminate_rate": 0.001,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 65,
+            "missing_translation_delimiter_rate": 0.0325,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.9854854854854855
+              },
+              {
+                "language": "sw",
+                "share": 0.012012012012012012
+              },
+              {
+                "language": "other",
+                "share": 0.0025025025025025025
+              }
+            ]
+          }
+        },
+        "th": {
+          "code_switched": {
+            "compliance_rate": 0.8185,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.8185,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.8185
+              },
+              {
+                "language": "th",
+                "share": 0.173
+              },
+              {
+                "language": "other",
+                "share": 0.0085
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 1.0,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "th",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "th",
+                "share": 1.0
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.677,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.677,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.677
+              },
+              {
+                "language": "th",
+                "share": 0.318
+              },
+              {
+                "language": "other",
+                "share": 0.005
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.991495747873937,
+            "determinate_n": 1999,
+            "english_detection_rate": 0.991495747873937,
+            "indeterminate_rate": 0.0005,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 43,
+            "missing_translation_delimiter_rate": 0.0215,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.991495747873937
+              },
+              {
+                "language": "th",
+                "share": 0.0080040020010005
+              },
+              {
+                "language": "other",
+                "share": 0.0005002501250625312
+              }
+            ]
+          }
+        }
+      },
+      "missing_translation_delimiter_note": "For TRANSLATE-ACT traces without the exact delimiter, the whole trace is classified and the missing-delimiter count and rate are reported.",
+      "model_key": "llama_3_1_8b_instruct"
+    },
+    "qwen3_8b": {
+      "cells": {
+        "de": {
+          "code_switched": {
+            "compliance_rate": 0.017552657973921765,
+            "determinate_n": 1994,
+            "english_detection_rate": 0.017552657973921765,
+            "indeterminate_rate": 0.003,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "de",
+                "share": 0.9674022066198595
+              },
+              {
+                "language": "en",
+                "share": 0.017552657973921765
+              },
+              {
+                "language": "other",
+                "share": 0.015045135406218655
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 0.9208416833667334,
+            "determinate_n": 1996,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.002,
+            "instructed_trace_language": "de",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "de",
+                "share": 0.9208416833667334
+              },
+              {
+                "language": "other",
+                "share": 0.07915831663326653
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.2455,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.2455,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "de",
+                "share": 0.655
+              },
+              {
+                "language": "en",
+                "share": 0.2455
+              },
+              {
+                "language": "other",
+                "share": 0.0995
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.9955,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.9955,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": 0.0,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.9955
+              },
+              {
+                "language": "other",
+                "share": 0.0045
+              }
+            ]
+          }
+        },
+        "sw": {
+          "code_switched": {
+            "compliance_rate": 0.3099649474211317,
+            "determinate_n": 1997,
+            "english_detection_rate": 0.3099649474211317,
+            "indeterminate_rate": 0.0015,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "sw",
+                "share": 0.6379569354031046
+              },
+              {
+                "language": "en",
+                "share": 0.3099649474211317
+              },
+              {
+                "language": "other",
+                "share": 0.05207811717576365
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 0.8583712696004047,
+            "determinate_n": 1977,
+            "english_detection_rate": 0.035407182599898834,
+            "indeterminate_rate": 0.0115,
+            "instructed_trace_language": "sw",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "sw",
+                "share": 0.8583712696004047
+              },
+              {
+                "language": "other",
+                "share": 0.1062215477996965
+              },
+              {
+                "language": "en",
+                "share": 0.035407182599898834
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.901,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.901,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.901
+              },
+              {
+                "language": "other",
+                "share": 0.075
+              },
+              {
+                "language": "sw",
+                "share": 0.024
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.9904952476238119,
+            "determinate_n": 1999,
+            "english_detection_rate": 0.9904952476238119,
+            "indeterminate_rate": 0.0005,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 3,
+            "missing_translation_delimiter_rate": 0.0015,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.9904952476238119
+              },
+              {
+                "language": "other",
+                "share": 0.009004502251125562
+              },
+              {
+                "language": "sw",
+                "share": 0.0005002501250625312
+              }
+            ]
+          }
+        },
+        "th": {
+          "code_switched": {
+            "compliance_rate": 0.0,
+            "determinate_n": 1980,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.01,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "th",
+                "share": 0.9984848484848485
+              },
+              {
+                "language": "other",
+                "share": 0.0015151515151515152
+              }
+            ]
+          },
+          "native": {
+            "compliance_rate": 0.9935,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.0,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "th",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "th",
+                "share": 0.9935
+              },
+              {
+                "language": "other",
+                "share": 0.0065
+              }
+            ]
+          },
+          "pivot": {
+            "compliance_rate": 0.0255,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.0255,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 0,
+            "missing_translation_delimiter_rate": null,
+            "n": 2000,
+            "non_compliant": true,
+            "top_detected_languages": [
+              {
+                "language": "th",
+                "share": 0.962
+              },
+              {
+                "language": "en",
+                "share": 0.0255
+              },
+              {
+                "language": "other",
+                "share": 0.0125
+              }
+            ]
+          },
+          "translate_act": {
+            "compliance_rate": 0.9835,
+            "determinate_n": 2000,
+            "english_detection_rate": 0.9835,
+            "indeterminate_rate": 0.0,
+            "instructed_trace_language": "en",
+            "missing_translation_delimiter_n": 3,
+            "missing_translation_delimiter_rate": 0.0015,
+            "n": 2000,
+            "non_compliant": false,
+            "top_detected_languages": [
+              {
+                "language": "en",
+                "share": 0.9835
+              },
+              {
+                "language": "other",
+                "share": 0.015
+              },
+              {
+                "language": "th",
+                "share": 0.0015
+              }
+            ]
+          }
+        }
+      },
+      "missing_translation_delimiter_note": "For TRANSLATE-ACT traces without the exact delimiter, the whole trace is classified and the missing-delimiter count and rate are reported.",
+      "model_key": "qwen3_8b"
+    }
+  }
+}

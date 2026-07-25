@@ -16,6 +16,7 @@ from src.explore_budget import delta_vs_budget, emission_index_stats  # noqa: E4
 _MODEL_KEY = "llama_3_1_8b_instruct"
 _BUDGETS = (64, 128, 192, 256, 384, 512, 768, 1024)
 _LABEL = "EXPLORATORY — non-confirmatory (§11)"
+_QWEN_FORMAT_LABEL = "EXPLORATORY NON-CONFIRMATORY (preregistration §11)"
 
 
 def main() -> None:
@@ -33,6 +34,7 @@ def main() -> None:
     decoder = CachedVllmDecoder(
         "http://[::1]:9001",
         output_root / "llama_detokenize_cache.sqlite3",
+        max_workers=64,
     )
     try:
         report = {
@@ -59,8 +61,11 @@ def main() -> None:
         json.dumps(report, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+    markdown = _markdown(report).replace(
+        f"# {_QWEN_FORMAT_LABEL}", f"# {_LABEL}", 1
+    )
     (output_root / "explore_budget_llama.md").write_text(
-        _markdown(report), encoding="utf-8"
+        markdown, encoding="utf-8"
     )
 
     print(_LABEL)

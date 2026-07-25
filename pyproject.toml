@@ -14,7 +14,11 @@ test = [
 
 [project.optional-dependencies]
 # generation = ["vllm==<pin>", "transformers==<pin>"]
-# language-id = ["glotlid==<pin>"]
+language-id = [
+    "fasttext-wheel",
+    "huggingface_hub",
+    "numpy<2",
+]
 # translation-eval = ["unbabel-comet==<pin>"]
 
 [tool.pytest.ini_options]
