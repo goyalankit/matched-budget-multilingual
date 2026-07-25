@@ -18,8 +18,15 @@ class MgsmItem:
     gold: int
 
 
-def load_mgsm(language: str) -> list[MgsmItem]:
-    """Load one language's test split in canonical row order."""
+@dataclass(frozen=True)
+class MgsmQuestion:
+    """One MGSM problem without its canonical answer."""
+
+    item_id: str
+    question: str
+
+
+def _load_test_split(language: str):
     from datasets import load_dataset
 
     dataset = load_dataset(_DATASET_NAME, language, split="test")
@@ -28,6 +35,12 @@ def load_mgsm(language: str) -> list[MgsmItem]:
             f"expected {_EXPECTED_ITEMS} MGSM items for {language}, "
             f"found {len(dataset)}"
         )
+    return dataset
+
+
+def load_mgsm(language: str) -> list[MgsmItem]:
+    """Load one language's test split in canonical row order."""
+    dataset = _load_test_split(language)
 
     return [
         MgsmItem(
@@ -35,6 +48,15 @@ def load_mgsm(language: str) -> list[MgsmItem]:
             question=row["question"],
             gold=int(row["answer_number"]),
         )
+        for index, row in enumerate(dataset)
+    ]
+
+
+def load_mgsm_questions(language: str) -> list[MgsmQuestion]:
+    """Load one language's test questions without reading answer fields."""
+    dataset = _load_test_split(language)
+    return [
+        MgsmQuestion(item_id=str(index), question=row["question"])
         for index, row in enumerate(dataset)
     ]
 

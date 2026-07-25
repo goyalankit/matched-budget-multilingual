@@ -69,6 +69,30 @@ def test_load_mgsm_parses_answer_number_as_int(monkeypatch) -> None:
     assert items[-1].item_id == "249"
 
 
+def test_load_mgsm_questions_never_reads_answer_number(monkeypatch) -> None:
+    class QuestionOnlyRow:
+        def __init__(self, question: str) -> None:
+            self.question = question
+
+        def __getitem__(self, key: str) -> str:
+            if key == "answer_number":
+                raise AssertionError("question-only loader read answer_number")
+            if key == "question":
+                return self.question
+            raise KeyError(key)
+
+    fake_datasets = ModuleType("datasets")
+    fake_datasets.load_dataset = lambda *args, **kwargs: [
+        QuestionOnlyRow(f"problem {index}") for index in range(250)
+    ]
+    monkeypatch.setitem(sys.modules, "datasets", fake_datasets)
+
+    questions = mgsm.load_mgsm_questions("de")
+
+    assert questions[0] == mgsm.MgsmQuestion("0", "problem 0")
+    assert questions[-1] == mgsm.MgsmQuestion("249", "problem 249")
+
+
 def test_load_mgsm_rejects_unexpected_item_count(monkeypatch) -> None:
     fake_datasets = ModuleType("datasets")
     fake_datasets.load_dataset = lambda *args, **kwargs: []

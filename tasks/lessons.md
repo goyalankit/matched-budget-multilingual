@@ -159,6 +159,14 @@
 - The protocol fixes 50 determinism-check instances but not their allocation.
   The diagnostic cycles deterministically across all 12 arm-language cells,
   uses MGSM rows 0-49, and cycles sample indices 0-7.
+- Pilot governance forbids even loading MGSM answer fields, while the original
+  `load_mgsm` interface always materializes them. The pilot therefore uses a
+  separate `load_mgsm_questions` interface whose returned type contains only
+  `item_id` and `question`; importing the gold-bearing loader into the pilot
+  would violate the no-peeking boundary.
+- `EngineProtocol` does not expose a model identifier, but ledger record IDs
+  require one. The pilot uses a real engine's non-empty `model_id` when present
+  and the stable `qwen3_8b` identifier for protocol-only fake engines.
 - The seed derivation produces an unsigned 64-bit integer, but vLLM's OpenAI
   endpoint rejects values above signed-int64 max (HTTP 400) — this hits ~50% of
   seeds. FIX (supervisor, in review): the two's-complement mapping lives in
