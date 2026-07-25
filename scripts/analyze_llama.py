@@ -5,8 +5,12 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+import re
 import sqlite3
 import sys
+
+# Matches Llama special-token markup like <|eot_id|>, <|end_of_text|>.
+_SPECIAL_TOKEN_RE = re.compile(r"<\|[^|>]*\|>")
 from pathlib import Path
 from threading import Lock
 from urllib import request
@@ -47,16 +51,12 @@ class CachedVllmDecoder:
             "(cache_key TEXT PRIMARY KEY, text TEXT NOT NULL)"
         )
 
-    def _request_json(
-        self, endpoint: str, body: dict | None = None
-    ) -> dict:
+    def _request_json(self, endpoint: str, body: dict | None = None) -> dict:
         data = None if body is None else json.dumps(body).encode("utf-8")
         http_request = request.Request(
             f"{self.base_url}{endpoint}",
             data=data,
-            headers=(
-                {"Content-Type": "application/json"} if data is not None else {}
-            ),
+            headers=({"Content-Type": "application/json"} if data is not None else {}),
             method="POST" if data is not None else "GET",
         )
         with request.urlopen(http_request, timeout=self.timeout) as response:
@@ -73,9 +73,9 @@ class CachedVllmDecoder:
         return model
 
     def _cache_key(self, tokens: tuple[int, ...]) -> str:
-        serialized = json.dumps(
-            [self.model, *tokens], separators=(",", ":")
-        ).encode("ascii")
+        serialized = json.dumps([self.model, *tokens], separators=(",", ":")).encode(
+            "ascii"
+        )
         return hashlib.sha256(serialized).hexdigest()
 
     def _remote_decode(self, tokens: tuple[int, ...]) -> str:
@@ -85,23 +85,30 @@ class CachedVllmDecoder:
         text = payload.get("prompt")
         if not isinstance(text, str):
             raise ValueError("vLLM /detokenize response has no prompt text")
-        return text
+        # vLLM /detokenize ignores skip_special_tokens and emits literal special
+        # markup (e.g. the terminal <|eot_id|>), which corrupts the final
+        # '#### <n>' answer line and makes every parse fail. Strip <|...|> markup;
+        # real answer content never contains it. (Qwen used the local tokenizer
+        # with skip_special_tokens=True and did not need this.)
+        return _SPECIAL_TOKEN_RE.sub("", text)
 
     def decode_many(self, sequences: list[list[int]]) -> list[str]:
         token_tuples = [tuple(sequence) for sequence in sequences]
         keys = [self._cache_key(tokens) for tokens in token_tuples]
-        cached = {
-            key: text
-            for key, text in self.connection.execute(
-                f"SELECT cache_key, text FROM detokenized "
-                f"WHERE cache_key IN ({','.join('?' for _ in keys)})",
-                keys,
-            )
-        } if keys else {}
+        cached = (
+            {
+                key: text
+                for key, text in self.connection.execute(
+                    f"SELECT cache_key, text FROM detokenized "
+                    f"WHERE cache_key IN ({','.join('?' for _ in keys)})",
+                    keys,
+                )
+            }
+            if keys
+            else {}
+        )
         missing = {
-            key: tokens
-            for key, tokens in zip(keys, token_tuples)
-            if key not in cached
+            key: tokens for key, tokens in zip(keys, token_tuples) if key not in cached
         }
         if missing:
             with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -109,8 +116,7 @@ class CachedVllmDecoder:
                 additions = list(zip(missing, texts))
             with self._write_lock:
                 self.connection.executemany(
-                    "INSERT OR REPLACE INTO detokenized(cache_key, text) "
-                    "VALUES (?, ?)",
+                    "INSERT OR REPLACE INTO detokenized(cache_key, text) VALUES (?, ?)",
                     additions,
                 )
                 self.connection.commit()
@@ -149,16 +155,11 @@ def main() -> None:
                 decoder,
                 snapshot,
             )
-            (
-                output_root
-                / f"confirmatory_llama_{snapshot_name}.json"
-            ).write_text(
+            (output_root / f"confirmatory_llama_{snapshot_name}.json").write_text(
                 json.dumps(result, indent=2, sort_keys=True) + "\n",
                 encoding="utf-8",
             )
-            study, power = real_study_configuration(
-                "llama_3_1_8b_instruct", snapshot
-            )
+            study, power = real_study_configuration("llama_3_1_8b_instruct", snapshot)
             frames = score_ledger(
                 "llama_3_1_8b_instruct",
                 _ROOT / "runs",
