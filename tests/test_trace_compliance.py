@@ -178,8 +178,7 @@ def test_instructed_trace_language_mapping_for_every_arm(tmp_path: Path) -> None
         "code_switched": "en",
     }
     assert all(
-        cell["compliance_rate"] == 1.0
-        for cell in report["cells"]["sw"].values()
+        cell["compliance_rate"] == 1.0 for cell in report["cells"]["sw"].values()
     )
 
 
@@ -187,8 +186,14 @@ def test_glotlid_iso_script_labels_map_to_study_languages() -> None:
     assert map_glotlid_label("__label__deu_Latn") == "de"
     assert map_glotlid_label("__label__tha_Thai") == "th"
     assert map_glotlid_label("__label__swh_Latn") == "sw"
+    assert (
+        map_glotlid_label("__label__swc_Latn") == "sw"
+    )  # Congo Swahili (macrolanguage swa)
     assert map_glotlid_label("__label__eng_Latn") == "en"
     assert map_glotlid_label("__label__fra_Latn") == "other"
+    assert (
+        map_glotlid_label("__label__kam_Latn") == "other"
+    )  # Kamba: a different Bantu language
 
 
 def test_glotlid_classifier_lazy_loads_model_from_environment(

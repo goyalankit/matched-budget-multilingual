@@ -7,10 +7,17 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Protocol
 
+# Swahili is an ISO-639-3 macrolanguage (swa) whose GlotLID members are swh
+# (coastal / standard Kiswahili) and swc (Congo Swahili). MGSM Swahili traces are
+# frequently coded swc; both are Swahili, so both map to `sw` (macrolanguage
+# grouping; validated against blind adjudication in the §6 packet). Neighbouring
+# Bantu languages (e.g. kdc, kam) are NOT Swahili and remain "other".
 _ISO3_TO_STUDY_LANGUAGE = {
     "deu": "de",
     "eng": "en",
     "swh": "sw",
+    "swc": "sw",
+    "swa": "sw",
     "tha": "th",
 }
 _MODEL_ENV = "GLOTLID_MODEL_PATH"

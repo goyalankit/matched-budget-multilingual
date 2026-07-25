@@ -1,5 +1,12 @@
 # Preliminary validation finding: the native:sw cell and the swh/swc split
 
+> **Resolution: option (A) adopted.** The classifier now maps the Swahili
+> macrolanguage (`swh` + `swc`) → `sw`. Qwen native-Swahili compliance rose 85.8% →
+> **94.1%**; the preliminary AI cross-check now **PASSES** both §6 criteria (overall
+> 96.7%, per-cell min 90.0%, native:sw 90%). The residual native:sw miss is the two
+> genuine `kdc`/`kam` Bantu confusions below, correctly left as "other".
+
+
 The independent LLM adjudication (preliminary cross-check, NOT the registered human
 validation) agrees with GlotLID on **95.42% overall** but only **75% on the native:sw
 cell** — the sole cell below the §6 90% bar. Investigating the 5 disagreements: in
