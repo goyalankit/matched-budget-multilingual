@@ -1,0 +1,1690 @@
+{
+  "agreement": {
+    "correctness_verdict": {
+      "matches": 2520,
+      "rate": 1.0,
+      "total": 2520
+    },
+    "exact_decoded_string": {
+      "matches": 954,
+      "rate": 0.37857142857142856,
+      "total": 2520
+    },
+    "n": 2520,
+    "normalized_decoded_string": {
+      "matches": 2520,
+      "rate": 1.0,
+      "total": 2520
+    },
+    "parsed_answer": {
+      "matches": 2520,
+      "rate": 1.0,
+      "total": 2520
+    }
+  },
+  "agreement_by_cell": {
+    "de": {
+      "code_switched": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 67,
+          "rate": 0.319047619047619,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "native": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 69,
+          "rate": 0.32857142857142857,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "pivot": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 75,
+          "rate": 0.35714285714285715,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "translate_act": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 71,
+          "rate": 0.3380952380952381,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      }
+    },
+    "sw": {
+      "code_switched": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 94,
+          "rate": 0.44761904761904764,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "native": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 79,
+          "rate": 0.3761904761904762,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "pivot": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 79,
+          "rate": 0.3761904761904762,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "translate_act": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 82,
+          "rate": 0.3904761904761905,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      }
+    },
+    "th": {
+      "code_switched": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 81,
+          "rate": 0.38571428571428573,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "native": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 92,
+          "rate": 0.4380952380952381,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "pivot": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 94,
+          "rate": 0.44761904761904764,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      },
+      "translate_act": {
+        "correctness_verdict": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "exact_decoded_string": {
+          "matches": 71,
+          "rate": 0.3380952380952381,
+          "total": 210
+        },
+        "n": 210,
+        "normalized_decoded_string": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        },
+        "parsed_answer": {
+          "matches": 210,
+          "rate": 1.0,
+          "total": 210
+        }
+      }
+    }
+  },
+  "agreement_by_scope": {
+    "1024": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 8,
+        "rate": 0.022222222222222223,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "128": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 346,
+        "rate": 0.9611111111111111,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "256": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 197,
+        "rate": 0.5472222222222223,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "4096": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 8,
+        "rate": 0.022222222222222223,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "512": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 30,
+        "rate": 0.08333333333333333,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "64": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 357,
+        "rate": 0.9916666666666667,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    },
+    "full": {
+      "correctness_verdict": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "exact_decoded_string": {
+        "matches": 8,
+        "rate": 0.022222222222222223,
+        "total": 360
+      },
+      "n": 360,
+      "normalized_decoded_string": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      },
+      "parsed_answer": {
+        "matches": 360,
+        "rate": 1.0,
+        "total": 360
+      }
+    }
+  },
+  "analysis_label": "DECODER-PARITY AUDIT (exploratory, preregistration §11)",
+  "budgets_tokens": [
+    64,
+    128,
+    256,
+    512,
+    1024,
+    4096
+  ],
+  "cause_definitions": {
+    "answer_line_cutoff": "a non-full prefix ends on a line beginning with `####`",
+    "malformed_or_multi_candidate": "a decoded text has multiple `####` candidates or a marker whose final candidate is rejected",
+    "other_decoded_text": "decoded strings differ without one of the named failure modes",
+    "special_tokens": "raw strings differ due to `<|...|>` markup and become equal under the production stripping policy",
+    "unicode_digits": "an answer candidate contains non-ASCII Unicode digits"
+  },
+  "decoder_policies": {
+    "local": "Qwen AutoTokenizer decode/batch_decode with skip_special_tokens=True",
+    "local_tokenizer_class": "Qwen2Tokenizer",
+    "local_tokenizer_commit": "b968826d9c46dd6066d109eabc6255188de91218",
+    "local_tokenizer_name": "Qwen/Qwen3-8B",
+    "scoring_normalization": "strip `<|...|>` special-token markup from both decoded strings",
+    "transformers_version": "5.14.1",
+    "vllm_base_url": "http://[::1]:9002",
+    "vllm_model_id": "/shared/public/elr-models/Qwen/Qwen3-8B/2069b3fae1114555f3c020c81410e51fa0f656f2",
+    "vllm_raw": "Qwen vLLM /detokenize response before markup stripping"
+  },
+  "divergence_breakdown": [
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 2,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "128"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 21,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 2,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "128"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 19,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 16,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 29,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 19,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "de",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 2,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "128"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 12,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 24,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 7,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "128"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 17,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 3,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "64"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 26,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 11,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 10,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 28,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "sw",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 10,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 29,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "code_switched",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 6,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 22,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 4,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 22,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "pivot",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "1024"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 1,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "128"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 18,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "256"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "4096"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "512"
+    },
+    {
+      "arm": "translate_act",
+      "cause": "special_tokens",
+      "correctness_verdict": 0,
+      "exact_decoded_string": 30,
+      "language": "th",
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0,
+      "scope": "full"
+    }
+  ],
+  "divergence_counts_by_cause": {
+    "answer_line_cutoff": {
+      "correctness_verdict": 0,
+      "exact_decoded_string": 0,
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0
+    },
+    "malformed_or_multi_candidate": {
+      "correctness_verdict": 0,
+      "exact_decoded_string": 0,
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0
+    },
+    "other_decoded_text": {
+      "correctness_verdict": 0,
+      "exact_decoded_string": 0,
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0
+    },
+    "special_tokens": {
+      "correctness_verdict": 0,
+      "exact_decoded_string": 1566,
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0
+    },
+    "unicode_digits": {
+      "correctness_verdict": 0,
+      "exact_decoded_string": 0,
+      "normalized_decoded_string": 0,
+      "parsed_answer": 0
+    }
+  },
+  "divergence_examples": [
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "full_length": 239,
+      "gold_answer": 104,
+      "item_id": "29",
+      "language": "de",
+      "local_answer": 104,
+      "local_correct": true,
+      "local_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "local_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "prefix_length": 239,
+      "record_id": "qwen3_8b\u001fde\u001fnative\u001f29\u001f3",
+      "sample_index": 3,
+      "scope": "256",
+      "vllm_answer": 104,
+      "vllm_correct": true,
+      "vllm_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "vllm_raw_tail": "el.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104<|im_end|>"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "full_length": 239,
+      "gold_answer": 104,
+      "item_id": "29",
+      "language": "de",
+      "local_answer": 104,
+      "local_correct": true,
+      "local_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "local_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "prefix_length": 239,
+      "record_id": "qwen3_8b\u001fde\u001fnative\u001f29\u001f3",
+      "sample_index": 3,
+      "scope": "512",
+      "vllm_answer": 104,
+      "vllm_correct": true,
+      "vllm_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "vllm_raw_tail": "el.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104<|im_end|>"
+    },
+    {
+      "arm": "native",
+      "cause": "special_tokens",
+      "full_length": 239,
+      "gold_answer": 104,
+      "item_id": "29",
+      "language": "de",
+      "local_answer": 104,
+      "local_correct": true,
+      "local_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "local_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "prefix_length": 239,
+      "record_id": "qwen3_8b\u001fde\u001fnative\u001f29\u001f3",
+      "sample_index": 3,
+      "scope": "1024",
+      "vllm_answer": 104,
+      "vllm_correct": true,
+      "vllm_normalized_tail": " die Stiefel.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104",
+      "vllm_raw_tail": "el.  \n   - Das bedeutet:  \n     $ \\text{Kosten der Stiefel} = \\text{Gesamtkosten der High Heels} + 5 $  \n     $ \\text{Kosten der Stiefel} = 99 + 5 = 104 $ US-Dollar.\n\n**Antwort:**  \n#### 104<|im_end|>"
+    }
+  ],
+  "model_key": "qwen3_8b",
+  "risk_exposure_counts": {
+    "answer_line_cutoff": 7,
+    "malformed_or_multi_candidate": 75,
+    "special_tokens": 1566,
+    "unicode_digits": 0
+  },
+  "sampling": {
+    "arms": [
+      "native",
+      "translate_act",
+      "pivot",
+      "code_switched"
+    ],
+    "languages": [
+      "de",
+      "sw",
+      "th"
+    ],
+    "method": "deterministic simple random sample within language × arm",
+    "n_cells": 12,
+    "n_sequence_observations": 2520,
+    "n_traces": 360,
+    "sampled_record_ids": {
+      "de/code_switched": [
+        "qwen3_8b\u001fde\u001fcode_switched\u001f3\u001f4",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f13\u001f1",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f19\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f28\u001f2",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f28\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f29\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f29\u001f4",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f38\u001f2",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f38\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f43\u001f1",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f51\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f64\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f84\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f93\u001f1",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f135\u001f3",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f140\u001f2",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f143\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f155\u001f1",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f174\u001f4",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f181\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f184\u001f6",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f191\u001f3",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f195\u001f5",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f207\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f210\u001f3",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f213\u001f7",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f233\u001f3",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f234\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f238\u001f0",
+        "qwen3_8b\u001fde\u001fcode_switched\u001f245\u001f3"
+      ],
+      "de/native": [
+        "qwen3_8b\u001fde\u001fnative\u001f29\u001f3",
+        "qwen3_8b\u001fde\u001fnative\u001f34\u001f1",
+        "qwen3_8b\u001fde\u001fnative\u001f51\u001f2",
+        "qwen3_8b\u001fde\u001fnative\u001f52\u001f1",
+        "qwen3_8b\u001fde\u001fnative\u001f86\u001f2",
+        "qwen3_8b\u001fde\u001fnative\u001f88\u001f5",
+        "qwen3_8b\u001fde\u001fnative\u001f102\u001f0",
+        "qwen3_8b\u001fde\u001fnative\u001f109\u001f1",
+        "qwen3_8b\u001fde\u001fnative\u001f109\u001f0",
+        "qwen3_8b\u001fde\u001fnative\u001f108\u001f6",
+        "qwen3_8b\u001fde\u001fnative\u001f109\u001f4",
+        "qwen3_8b\u001fde\u001fnative\u001f113\u001f2",
+        "qwen3_8b\u001fde\u001fnative\u001f118\u001f6",
+        "qwen3_8b\u001fde\u001fnative\u001f130\u001f6",
+        "qwen3_8b\u001fde\u001fnative\u001f136\u001f0",
+        "qwen3_8b\u001fde\u001fnative\u001f138\u001f3",
+        "qwen3_8b\u001fde\u001fnative\u001f145\u001f7",
+        "qwen3_8b\u001fde\u001fnative\u001f155\u001f6",
+        "qwen3_8b\u001fde\u001fnative\u001f169\u001f4",
+        "qwen3_8b\u001fde\u001fnative\u001f176\u001f4",
+        "qwen3_8b\u001fde\u001fnative\u001f178\u001f3",
+        "qwen3_8b\u001fde\u001fnative\u001f181\u001f0",
+        "qwen3_8b\u001fde\u001fnative\u001f182\u001f4",
+        "qwen3_8b\u001fde\u001fnative\u001f187\u001f1",
+        "qwen3_8b\u001fde\u001fnative\u001f193\u001f0",
+        "qwen3_8b\u001fde\u001fnative\u001f194\u001f2",
+        "qwen3_8b\u001fde\u001fnative\u001f199\u001f5",
+        "qwen3_8b\u001fde\u001fnative\u001f225\u001f3",
+        "qwen3_8b\u001fde\u001fnative\u001f230\u001f5",
+        "qwen3_8b\u001fde\u001fnative\u001f244\u001f6"
+      ],
+      "de/pivot": [
+        "qwen3_8b\u001fde\u001fpivot\u001f13\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f19\u001f3",
+        "qwen3_8b\u001fde\u001fpivot\u001f24\u001f4",
+        "qwen3_8b\u001fde\u001fpivot\u001f30\u001f7",
+        "qwen3_8b\u001fde\u001fpivot\u001f38\u001f3",
+        "qwen3_8b\u001fde\u001fpivot\u001f37\u001f5",
+        "qwen3_8b\u001fde\u001fpivot\u001f42\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f51\u001f5",
+        "qwen3_8b\u001fde\u001fpivot\u001f66\u001f2",
+        "qwen3_8b\u001fde\u001fpivot\u001f91\u001f5",
+        "qwen3_8b\u001fde\u001fpivot\u001f96\u001f1",
+        "qwen3_8b\u001fde\u001fpivot\u001f99\u001f7",
+        "qwen3_8b\u001fde\u001fpivot\u001f109\u001f1",
+        "qwen3_8b\u001fde\u001fpivot\u001f111\u001f1",
+        "qwen3_8b\u001fde\u001fpivot\u001f120\u001f7",
+        "qwen3_8b\u001fde\u001fpivot\u001f125\u001f2",
+        "qwen3_8b\u001fde\u001fpivot\u001f130\u001f5",
+        "qwen3_8b\u001fde\u001fpivot\u001f140\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f142\u001f1",
+        "qwen3_8b\u001fde\u001fpivot\u001f159\u001f1",
+        "qwen3_8b\u001fde\u001fpivot\u001f159\u001f7",
+        "qwen3_8b\u001fde\u001fpivot\u001f161\u001f7",
+        "qwen3_8b\u001fde\u001fpivot\u001f163\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f166\u001f3",
+        "qwen3_8b\u001fde\u001fpivot\u001f176\u001f0",
+        "qwen3_8b\u001fde\u001fpivot\u001f178\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f193\u001f3",
+        "qwen3_8b\u001fde\u001fpivot\u001f203\u001f4",
+        "qwen3_8b\u001fde\u001fpivot\u001f204\u001f6",
+        "qwen3_8b\u001fde\u001fpivot\u001f208\u001f2"
+      ],
+      "de/translate_act": [
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f1\u001f4",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f1\u001f7",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f18\u001f2",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f28\u001f6",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f30\u001f6",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f33\u001f0",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f35\u001f5",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f47\u001f2",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f60\u001f1",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f61\u001f2",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f74\u001f0",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f79\u001f0",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f91\u001f6",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f93\u001f3",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f107\u001f4",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f109\u001f1",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f118\u001f0",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f119\u001f1",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f132\u001f5",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f142\u001f1",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f152\u001f3",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f156\u001f6",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f159\u001f4",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f183\u001f3",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f190\u001f0",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f222\u001f1",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f224\u001f2",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f229\u001f7",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f241\u001f6",
+        "qwen3_8b\u001fde\u001ftranslate_act\u001f249\u001f7"
+      ],
+      "sw/code_switched": [
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f6\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f14\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f18\u001f3",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f32\u001f4",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f27\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f45\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f59\u001f2",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f66\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f69\u001f1",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f70\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f78\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f79\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f80\u001f4",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f88\u001f2",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f108\u001f7",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f109\u001f2",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f128\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f136\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f137\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f140\u001f2",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f140\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f155\u001f3",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f158\u001f5",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f162\u001f1",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f163\u001f6",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f178\u001f4",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f174\u001f1",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f186\u001f4",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f199\u001f0",
+        "qwen3_8b\u001fsw\u001fcode_switched\u001f205\u001f2"
+      ],
+      "sw/native": [
+        "qwen3_8b\u001fsw\u001fnative\u001f18\u001f5",
+        "qwen3_8b\u001fsw\u001fnative\u001f22\u001f5",
+        "qwen3_8b\u001fsw\u001fnative\u001f35\u001f7",
+        "qwen3_8b\u001fsw\u001fnative\u001f55\u001f5",
+        "qwen3_8b\u001fsw\u001fnative\u001f63\u001f5",
+        "qwen3_8b\u001fsw\u001fnative\u001f71\u001f2",
+        "qwen3_8b\u001fsw\u001fnative\u001f94\u001f3",
+        "qwen3_8b\u001fsw\u001fnative\u001f97\u001f2",
+        "qwen3_8b\u001fsw\u001fnative\u001f97\u001f6",
+        "qwen3_8b\u001fsw\u001fnative\u001f99\u001f3",
+        "qwen3_8b\u001fsw\u001fnative\u001f104\u001f7",
+        "qwen3_8b\u001fsw\u001fnative\u001f116\u001f6",
+        "qwen3_8b\u001fsw\u001fnative\u001f111\u001f7",
+        "qwen3_8b\u001fsw\u001fnative\u001f132\u001f0",
+        "qwen3_8b\u001fsw\u001fnative\u001f144\u001f3",
+        "qwen3_8b\u001fsw\u001fnative\u001f146\u001f1",
+        "qwen3_8b\u001fsw\u001fnative\u001f147\u001f4",
+        "qwen3_8b\u001fsw\u001fnative\u001f148\u001f1",
+        "qwen3_8b\u001fsw\u001fnative\u001f164\u001f7",
+        "qwen3_8b\u001fsw\u001fnative\u001f172\u001f0",
+        "qwen3_8b\u001fsw\u001fnative\u001f159\u001f0",
+        "qwen3_8b\u001fsw\u001fnative\u001f159\u001f6",
+        "qwen3_8b\u001fsw\u001fnative\u001f179\u001f1",
+        "qwen3_8b\u001fsw\u001fnative\u001f183\u001f0",
+        "qwen3_8b\u001fsw\u001fnative\u001f196\u001f2",
+        "qwen3_8b\u001fsw\u001fnative\u001f209\u001f2",
+        "qwen3_8b\u001fsw\u001fnative\u001f210\u001f4",
+        "qwen3_8b\u001fsw\u001fnative\u001f214\u001f3",
+        "qwen3_8b\u001fsw\u001fnative\u001f230\u001f1",
+        "qwen3_8b\u001fsw\u001fnative\u001f240\u001f5"
+      ],
+      "sw/pivot": [
+        "qwen3_8b\u001fsw\u001fpivot\u001f2\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f10\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f30\u001f0",
+        "qwen3_8b\u001fsw\u001fpivot\u001f31\u001f2",
+        "qwen3_8b\u001fsw\u001fpivot\u001f34\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f35\u001f0",
+        "qwen3_8b\u001fsw\u001fpivot\u001f40\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f45\u001f4",
+        "qwen3_8b\u001fsw\u001fpivot\u001f48\u001f1",
+        "qwen3_8b\u001fsw\u001fpivot\u001f55\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f63\u001f6",
+        "qwen3_8b\u001fsw\u001fpivot\u001f89\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f92\u001f4",
+        "qwen3_8b\u001fsw\u001fpivot\u001f93\u001f2",
+        "qwen3_8b\u001fsw\u001fpivot\u001f96\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f105\u001f3",
+        "qwen3_8b\u001fsw\u001fpivot\u001f111\u001f6",
+        "qwen3_8b\u001fsw\u001fpivot\u001f115\u001f5",
+        "qwen3_8b\u001fsw\u001fpivot\u001f154\u001f0",
+        "qwen3_8b\u001fsw\u001fpivot\u001f156\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f162\u001f7",
+        "qwen3_8b\u001fsw\u001fpivot\u001f163\u001f2",
+        "qwen3_8b\u001fsw\u001fpivot\u001f164\u001f2",
+        "qwen3_8b\u001fsw\u001fpivot\u001f179\u001f4",
+        "qwen3_8b\u001fsw\u001fpivot\u001f182\u001f3",
+        "qwen3_8b\u001fsw\u001fpivot\u001f185\u001f0",
+        "qwen3_8b\u001fsw\u001fpivot\u001f196\u001f0",
+        "qwen3_8b\u001fsw\u001fpivot\u001f234\u001f2",
+        "qwen3_8b\u001fsw\u001fpivot\u001f233\u001f5",
+        "qwen3_8b\u001fsw\u001fpivot\u001f249\u001f4"
+      ],
+      "sw/translate_act": [
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f28\u001f0",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f31\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f39\u001f0",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f48\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f53\u001f3",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f77\u001f3",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f81\u001f3",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f97\u001f5",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f100\u001f5",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f100\u001f3",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f100\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f115\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f119\u001f5",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f133\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f136\u001f1",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f142\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f144\u001f0",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f149\u001f0",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f161\u001f5",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f173\u001f0",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f174\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f182\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f196\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f199\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f208\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f218\u001f2",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f223\u001f7",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f231\u001f4",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f247\u001f3",
+        "qwen3_8b\u001fsw\u001ftranslate_act\u001f249\u001f2"
+      ],
+      "th/code_switched": [
+        "qwen3_8b\u001fth\u001fcode_switched\u001f0\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f4\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f4\u001f4",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f14\u001f5",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f31\u001f5",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f31\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f34\u001f2",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f39\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f44\u001f1",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f68\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f74\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f80\u001f4",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f85\u001f1",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f91\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f92\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f93\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f99\u001f5",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f108\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f113\u001f2",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f118\u001f2",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f146\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f172\u001f2",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f172\u001f7",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f175\u001f3",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f189\u001f0",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f199\u001f6",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f200\u001f4",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f205\u001f2",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f213\u001f1",
+        "qwen3_8b\u001fth\u001fcode_switched\u001f229\u001f7"
+      ],
+      "th/native": [
+        "qwen3_8b\u001fth\u001fnative\u001f8\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f19\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f35\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f35\u001f6",
+        "qwen3_8b\u001fth\u001fnative\u001f37\u001f1",
+        "qwen3_8b\u001fth\u001fnative\u001f38\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f44\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f51\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f51\u001f4",
+        "qwen3_8b\u001fth\u001fnative\u001f57\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f71\u001f5",
+        "qwen3_8b\u001fth\u001fnative\u001f71\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f70\u001f5",
+        "qwen3_8b\u001fth\u001fnative\u001f77\u001f6",
+        "qwen3_8b\u001fth\u001fnative\u001f79\u001f4",
+        "qwen3_8b\u001fth\u001fnative\u001f84\u001f4",
+        "qwen3_8b\u001fth\u001fnative\u001f87\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f98\u001f5",
+        "qwen3_8b\u001fth\u001fnative\u001f121\u001f7",
+        "qwen3_8b\u001fth\u001fnative\u001f130\u001f3",
+        "qwen3_8b\u001fth\u001fnative\u001f136\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f145\u001f7",
+        "qwen3_8b\u001fth\u001fnative\u001f163\u001f5",
+        "qwen3_8b\u001fth\u001fnative\u001f169\u001f6",
+        "qwen3_8b\u001fth\u001fnative\u001f181\u001f2",
+        "qwen3_8b\u001fth\u001fnative\u001f186\u001f0",
+        "qwen3_8b\u001fth\u001fnative\u001f191\u001f3",
+        "qwen3_8b\u001fth\u001fnative\u001f195\u001f7",
+        "qwen3_8b\u001fth\u001fnative\u001f238\u001f5",
+        "qwen3_8b\u001fth\u001fnative\u001f242\u001f3"
+      ],
+      "th/pivot": [
+        "qwen3_8b\u001fth\u001fpivot\u001f12\u001f6",
+        "qwen3_8b\u001fth\u001fpivot\u001f19\u001f4",
+        "qwen3_8b\u001fth\u001fpivot\u001f41\u001f4",
+        "qwen3_8b\u001fth\u001fpivot\u001f42\u001f7",
+        "qwen3_8b\u001fth\u001fpivot\u001f52\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f53\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f55\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f69\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f87\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f89\u001f4",
+        "qwen3_8b\u001fth\u001fpivot\u001f100\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f102\u001f4",
+        "qwen3_8b\u001fth\u001fpivot\u001f115\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f115\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f116\u001f3",
+        "qwen3_8b\u001fth\u001fpivot\u001f119\u001f6",
+        "qwen3_8b\u001fth\u001fpivot\u001f123\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f131\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f151\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f151\u001f4",
+        "qwen3_8b\u001fth\u001fpivot\u001f167\u001f3",
+        "qwen3_8b\u001fth\u001fpivot\u001f178\u001f1",
+        "qwen3_8b\u001fth\u001fpivot\u001f181\u001f1",
+        "qwen3_8b\u001fth\u001fpivot\u001f204\u001f1",
+        "qwen3_8b\u001fth\u001fpivot\u001f205\u001f5",
+        "qwen3_8b\u001fth\u001fpivot\u001f215\u001f3",
+        "qwen3_8b\u001fth\u001fpivot\u001f226\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f240\u001f0",
+        "qwen3_8b\u001fth\u001fpivot\u001f245\u001f6",
+        "qwen3_8b\u001fth\u001fpivot\u001f246\u001f0"
+      ],
+      "th/translate_act": [
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f3\u001f4",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f18\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f21\u001f4",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f33\u001f1",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f33\u001f2",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f40\u001f2",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f44\u001f1",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f55\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f58\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f59\u001f7",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f64\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f75\u001f1",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f76\u001f4",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f81\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f94\u001f3",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f101\u001f2",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f103\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f111\u001f2",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f111\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f112\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f116\u001f1",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f142\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f143\u001f2",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f177\u001f4",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f184\u001f0",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f204\u001f5",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f222\u001f4",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f237\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f242\u001f6",
+        "qwen3_8b\u001fth\u001ftranslate_act\u001f243\u001f4"
+      ]
+    },
+    "seed": 20260725,
+    "traces_per_cell": 30
+  },
+  "stored_text_full_trace_agreement": {
+    "local_exact": {
+      "matches": 360,
+      "rate": 1.0,
+      "total": 360
+    },
+    "n_full_traces": 360,
+    "vllm_normalized_exact": {
+      "matches": 360,
+      "rate": 1.0,
+      "total": 360
+    },
+    "vllm_raw_exact": {
+      "matches": 8,
+      "rate": 0.022222222222222223,
+      "total": 360
+    }
+  },
+  "verdict": {
+    "criterion": "zero parsed-answer disagreements and zero correctness-verdict disagreements after the production special-token normalization",
+    "cross_model_comparability": "stands with respect to decoder scoring parity",
+    "status": "PASS"
+  }
+}

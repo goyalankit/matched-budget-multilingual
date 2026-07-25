@@ -326,3 +326,10 @@
   decoded token prefix containing the first exact
   `=== TRANSLATION END ===` delimiter. Traces without that decoded delimiter
   are excluded from the denominator and their missing fraction is reported.
+- The requested top-three trace-language shares do not state a denominator.
+  They use determinate traces, matching the §6 compliance denominator, while
+  the indeterminate share is reported separately over all traces.
+- `fasttext-wheel==0.9.2` calls `np.array(..., copy=False)` in `predict`, which
+  fails under NumPy 2.x before returning a label. The `language-id` optional
+  dependency therefore constrains NumPy below 2; the real GlotLID pass ran with
+  NumPy 1.26.4.

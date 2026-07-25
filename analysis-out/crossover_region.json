@@ -1,0 +1,600 @@
+{
+  "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+  "data_source": "existing runs/{qwen3_8b,llama_3_1_8b_instruct} ledgers",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "method": "paired item-clustered bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260724
+      },
+      "budgets": [
+        64,
+        128,
+        192,
+        256,
+        384,
+        512,
+        768,
+        1024,
+        2048,
+        4096
+      ],
+      "contrast": "translate_act accuracy - native accuracy",
+      "languages": {
+        "de": {
+          "first_translate_lead_budget": 64,
+          "last_native_lead_budget": null,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 13.55,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 75.4,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 61.85000000000001
+            },
+            "128": {
+              "native_accuracy_points": 0.05,
+              "native_lead_prob": 0.0044,
+              "tie_prob": 0.0089,
+              "translate_accuracy_points": 0.5,
+              "translate_lead_prob": 0.9867,
+              "translate_minus_native_points": 0.44999999999999996
+            },
+            "192": {
+              "native_accuracy_points": 0.3,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 15.55,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 15.25
+            },
+            "2048": {
+              "native_accuracy_points": 13.55,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 75.44999999999999,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 61.9
+            },
+            "256": {
+              "native_accuracy_points": 3.85,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 43.1,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 39.25
+            },
+            "384": {
+              "native_accuracy_points": 11.600000000000001,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 70.1,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 58.5
+            },
+            "4096": {
+              "native_accuracy_points": 13.55,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 75.44999999999999,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 61.9
+            },
+            "512": {
+              "native_accuracy_points": 13.4,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 74.55000000000001,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 61.150000000000006
+            },
+            "64": {
+              "native_accuracy_points": 0.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.3681,
+              "translate_accuracy_points": 0.05,
+              "translate_lead_prob": 0.6319,
+              "translate_minus_native_points": 0.05
+            },
+            "768": {
+              "native_accuracy_points": 13.55,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 75.2,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 61.650000000000006
+            }
+          },
+          "transition_region": [
+            null,
+            64
+          ]
+        },
+        "sw": {
+          "first_translate_lead_budget": 128,
+          "last_native_lead_budget": null,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 28.95,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 69.45,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.5
+            },
+            "128": {
+              "native_accuracy_points": 0.1,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0002,
+              "translate_accuracy_points": 1.15,
+              "translate_lead_prob": 0.9998,
+              "translate_minus_native_points": 1.05
+            },
+            "192": {
+              "native_accuracy_points": 3.8,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 17.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 13.25
+            },
+            "2048": {
+              "native_accuracy_points": 28.95,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 69.6,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.65
+            },
+            "256": {
+              "native_accuracy_points": 8.25,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 44.6,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 36.35
+            },
+            "384": {
+              "native_accuracy_points": 19.55,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 66.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 46.5
+            },
+            "4096": {
+              "native_accuracy_points": 28.95,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 69.6,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.65
+            },
+            "512": {
+              "native_accuracy_points": 27.35,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 69.0,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 41.65
+            },
+            "64": {
+              "native_accuracy_points": 0.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 1.0,
+              "translate_accuracy_points": 0.0,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": 0.0
+            },
+            "768": {
+              "native_accuracy_points": 28.9,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 69.39999999999999,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.5
+            }
+          },
+          "transition_region": [
+            null,
+            128
+          ]
+        },
+        "th": {
+          "first_translate_lead_budget": 128,
+          "last_native_lead_budget": null,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 3.85,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 72.5,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 68.65
+            },
+            "128": {
+              "native_accuracy_points": 0.15,
+              "native_lead_prob": 0.0002,
+              "tie_prob": 0.0005,
+              "translate_accuracy_points": 1.0,
+              "translate_lead_prob": 0.9993,
+              "translate_minus_native_points": 0.8500000000000001
+            },
+            "192": {
+              "native_accuracy_points": 1.0999999999999999,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 16.900000000000002,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 15.8
+            },
+            "2048": {
+              "native_accuracy_points": 3.85,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 72.55,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 68.7
+            },
+            "256": {
+              "native_accuracy_points": 1.8499999999999999,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 43.9,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 42.05
+            },
+            "384": {
+              "native_accuracy_points": 3.1,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 68.45,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 65.35
+            },
+            "4096": {
+              "native_accuracy_points": 3.85,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 72.6,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 68.75
+            },
+            "512": {
+              "native_accuracy_points": 3.6999999999999997,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 71.7,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 68.0
+            },
+            "64": {
+              "native_accuracy_points": 0.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 1.0,
+              "translate_accuracy_points": 0.0,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": 0.0
+            },
+            "768": {
+              "native_accuracy_points": 3.85,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 72.3,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 68.45
+            }
+          },
+          "transition_region": [
+            null,
+            128
+          ]
+        }
+      },
+      "model_key": "llama_3_1_8b_instruct",
+      "transition_definition": "The region is bounded by the last evaluated budget with an observed native lead and the first later evaluated budget with an observed translate_act lead; no crossover point is interpolated.",
+      "units": "percentage points"
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "method": "paired item-clustered bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260724
+      },
+      "budgets": [
+        64,
+        128,
+        192,
+        256,
+        384,
+        512,
+        768,
+        1024,
+        2048,
+        4096
+      ],
+      "contrast": "translate_act accuracy - native accuracy",
+      "languages": {
+        "de": {
+          "first_translate_lead_budget": 192,
+          "last_native_lead_budget": 128,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 79.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 88.35,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 9.35
+            },
+            "128": {
+              "native_accuracy_points": 2.55,
+              "native_lead_prob": 0.9576,
+              "tie_prob": 0.0041,
+              "translate_accuracy_points": 1.15,
+              "translate_lead_prob": 0.0383,
+              "translate_minus_native_points": -1.4000000000000001
+            },
+            "192": {
+              "native_accuracy_points": 16.1,
+              "native_lead_prob": 0.0002,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 22.6,
+              "translate_lead_prob": 0.9998,
+              "translate_minus_native_points": 6.5
+            },
+            "2048": {
+              "native_accuracy_points": 79.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 88.4,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 9.4
+            },
+            "256": {
+              "native_accuracy_points": 39.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 49.25,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 10.25
+            },
+            "384": {
+              "native_accuracy_points": 67.65,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 81.35,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 13.700000000000001
+            },
+            "4096": {
+              "native_accuracy_points": 79.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 88.4,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 9.4
+            },
+            "512": {
+              "native_accuracy_points": 76.64999999999999,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 87.6,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 10.95
+            },
+            "64": {
+              "native_accuracy_points": 0.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 1.0,
+              "translate_accuracy_points": 0.0,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": 0.0
+            },
+            "768": {
+              "native_accuracy_points": 78.9,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 88.3,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 9.4
+            }
+          },
+          "transition_region": [
+            128,
+            192
+          ]
+        },
+        "sw": {
+          "first_translate_lead_budget": 256,
+          "last_native_lead_budget": 192,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 33.650000000000006,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 57.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 23.400000000000002
+            },
+            "128": {
+              "native_accuracy_points": 8.7,
+              "native_lead_prob": 1.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 0.6,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": -8.1
+            },
+            "192": {
+              "native_accuracy_points": 17.5,
+              "native_lead_prob": 1.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 9.55,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": -7.95
+            },
+            "2048": {
+              "native_accuracy_points": 33.7,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 57.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 23.35
+            },
+            "256": {
+              "native_accuracy_points": 24.65,
+              "native_lead_prob": 0.0118,
+              "tie_prob": 0.0004,
+              "translate_accuracy_points": 29.75,
+              "translate_lead_prob": 0.9878,
+              "translate_minus_native_points": 5.1
+            },
+            "384": {
+              "native_accuracy_points": 31.1,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 52.0,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 20.9
+            },
+            "4096": {
+              "native_accuracy_points": 33.75,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 57.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 23.3
+            },
+            "512": {
+              "native_accuracy_points": 33.4,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 56.15,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 22.75
+            },
+            "64": {
+              "native_accuracy_points": 0.2,
+              "native_lead_prob": 0.8674,
+              "tie_prob": 0.1326,
+              "translate_accuracy_points": 0.0,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": -0.2
+            },
+            "768": {
+              "native_accuracy_points": 33.650000000000006,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 56.99999999999999,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 23.35
+            }
+          },
+          "transition_region": [
+            192,
+            256
+          ]
+        },
+        "th": {
+          "first_translate_lead_budget": 128,
+          "last_native_lead_budget": null,
+          "lead_probabilities": {
+            "1024": {
+              "native_accuracy_points": 47.099999999999994,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 87.85,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.75
+            },
+            "128": {
+              "native_accuracy_points": 0.15,
+              "native_lead_prob": 0.011,
+              "tie_prob": 0.0096,
+              "translate_accuracy_points": 0.8999999999999999,
+              "translate_lead_prob": 0.9794,
+              "translate_minus_native_points": 0.75
+            },
+            "192": {
+              "native_accuracy_points": 2.4,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 20.05,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 17.65
+            },
+            "2048": {
+              "native_accuracy_points": 47.25,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 87.85,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.6
+            },
+            "256": {
+              "native_accuracy_points": 6.2,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 47.75,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 41.55
+            },
+            "384": {
+              "native_accuracy_points": 24.099999999999998,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 81.39999999999999,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 57.3
+            },
+            "4096": {
+              "native_accuracy_points": 47.25,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 87.85,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 40.6
+            },
+            "512": {
+              "native_accuracy_points": 38.35,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 86.75,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 48.4
+            },
+            "64": {
+              "native_accuracy_points": 0.0,
+              "native_lead_prob": 0.0,
+              "tie_prob": 1.0,
+              "translate_accuracy_points": 0.0,
+              "translate_lead_prob": 0.0,
+              "translate_minus_native_points": 0.0
+            },
+            "768": {
+              "native_accuracy_points": 46.35,
+              "native_lead_prob": 0.0,
+              "tie_prob": 0.0,
+              "translate_accuracy_points": 87.75,
+              "translate_lead_prob": 1.0,
+              "translate_minus_native_points": 41.4
+            }
+          },
+          "transition_region": [
+            null,
+            128
+          ]
+        }
+      },
+      "model_key": "qwen3_8b",
+      "transition_definition": "The region is bounded by the last evaluated budget with an observed native lead and the first later evaluated budget with an observed translate_act lead; no crossover point is interpolated.",
+      "units": "percentage points"
+    }
+  },
+  "new_generation": false,
+  "warning": "Exploratory non-confirmatory (\u00a711) analysis. These simultaneous bands strengthen descriptive inference but do not make any result confirmatory."
+}

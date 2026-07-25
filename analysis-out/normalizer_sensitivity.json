@@ -1,0 +1,2275 @@
+{
+  "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+  "data_source": "existing runs/{qwen3_8b,llama_3_1_8b_instruct} ledgers",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "behavioral_trace_length_ratio_used_as_normalizer": false,
+      "estimand": "peak_B delta_L(B; r), where delta_L(B; r) = acc_native(floor(r * B)) - acc_native(B)",
+      "grid_note": "Minimum rescue r is the smallest evaluated r; no interpolation or behavioral trace-length normalizer is used.",
+      "languages": {
+        "de": {
+          "flores_premium": {
+            "ci_high": 1.597644,
+            "ci_low": 1.565903,
+            "ratio": 1.581613
+          },
+          "minimum_r_for_5pt_rescue": 1.274484,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            2.372419
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 2.5,
+              "r": 1.091495,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 4.45,
+              "r": 1.182989,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 5.6000000000000005,
+              "r": 1.274484,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 6.4,
+              "r": 1.365979,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 7.300000000000001,
+              "r": 1.457473,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 8.2,
+              "r": 1.548968,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 8.299999999999999,
+              "r": 1.565903,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 8.35,
+              "r": 1.581613,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 8.399999999999999,
+              "r": 1.597644,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 8.649999999999999,
+              "r": 1.640462,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 9.3,
+              "r": 1.731957,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 10.1,
+              "r": 1.823452,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 10.7,
+              "r": 1.914946,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 11.35,
+              "r": 2.006441,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 11.85,
+              "r": 2.097936,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 12.15,
+              "r": 2.18943,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 12.4,
+              "r": 2.280925,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 12.6,
+              "r": 2.372419,
+              "sources": [
+                "grid"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        },
+        "sw": {
+          "flores_premium": {
+            "ci_high": 1.950275,
+            "ci_low": 1.911655,
+            "ratio": 1.930809
+          },
+          "minimum_r_for_5pt_rescue": 1.252828,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            2.896213
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 384,
+              "peak_delta_points": 3.6500000000000004,
+              "r": 1.126414,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 384,
+              "peak_delta_points": 6.4,
+              "r": 1.252828,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 8.9,
+              "r": 1.379243,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 11.5,
+              "r": 1.505657,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 14.05,
+              "r": 1.632071,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 16.099999999999998,
+              "r": 1.758485,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 17.75,
+              "r": 1.8849,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 17.9,
+              "r": 1.911655,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 18.2,
+              "r": 1.930809,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 18.45,
+              "r": 1.950275,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 19.3,
+              "r": 2.011314,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 19.75,
+              "r": 2.137728,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 20.049999999999997,
+              "r": 2.264142,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 20.9,
+              "r": 2.390557,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 22.2,
+              "r": 2.516971,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 23.35,
+              "r": 2.643385,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 24.000000000000004,
+              "r": 2.769799,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 24.250000000000004,
+              "r": 2.896213,
+              "sources": [
+                "grid"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        },
+        "th": {
+          "flores_premium": {
+            "ci_high": 2.219884,
+            "ci_low": 2.168562,
+            "ratio": 2.194178
+          },
+          "minimum_r_for_5pt_rescue": null,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            3.291267
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 0.75,
+              "r": 1.152751,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 1.0000000000000002,
+              "r": 1.305502,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 1.25,
+              "r": 1.458253,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 1.6,
+              "r": 1.611005,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 1.8499999999999999,
+              "r": 1.763756,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 1.9,
+              "r": 1.916507,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 2.1500000000000004,
+              "r": 2.069258,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 2.3000000000000003,
+              "r": 2.168562,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 2.3000000000000003,
+              "r": 2.194178,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 2.3500000000000005,
+              "r": 2.219884,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 2.3500000000000005,
+              "r": 2.222009,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 2.5,
+              "r": 2.37476,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 2.7,
+              "r": 2.527511,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 2.8,
+              "r": 2.680262,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 2.8499999999999996,
+              "r": 2.833014,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 2.9499999999999997,
+              "r": 2.985765,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 3.2,
+              "r": 3.138516,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 3.25,
+              "r": 3.291267,
+              "sources": [
+                "grid",
+                "grid_upper_1.5x_estimate"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        }
+      },
+      "model_key": "llama_3_1_8b_instruct",
+      "normalizer": "FLORES token premium only",
+      "units": "percentage points"
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "behavioral_trace_length_ratio_used_as_normalizer": false,
+      "estimand": "peak_B delta_L(B; r), where delta_L(B; r) = acc_native(floor(r * B)) - acc_native(B)",
+      "grid_note": "Minimum rescue r is the smallest evaluated r; no interpolation or behavioral trace-length normalizer is used.",
+      "languages": {
+        "de": {
+          "flores_premium": {
+            "ci_high": 1.575043,
+            "ci_low": 1.543246,
+            "ratio": 1.558886
+          },
+          "minimum_r_for_5pt_rescue": 1.089222,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            2.338329
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 6.15,
+              "r": 1.089222,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 12.349999999999998,
+              "r": 1.178444,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 18.65,
+              "r": 1.267666,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 23.55,
+              "r": 1.356888,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 28.049999999999997,
+              "r": 1.44611,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 32.8,
+              "r": 1.535332,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 33.199999999999996,
+              "r": 1.543246,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 34.199999999999996,
+              "r": 1.558886,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 34.8,
+              "r": 1.575043,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 37.9,
+              "r": 1.624554,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 42.449999999999996,
+              "r": 1.713775,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 45.95,
+              "r": 1.802997,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 48.54999999999999,
+              "r": 1.892219,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 50.949999999999996,
+              "r": 1.981441,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 53.449999999999996,
+              "r": 2.070663,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 55.35,
+              "r": 2.159885,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 56.85,
+              "r": 2.249107,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 58.050000000000004,
+              "r": 2.338329,
+              "sources": [
+                "grid",
+                "grid_upper_1.5x_estimate"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        },
+        "sw": {
+          "flores_premium": {
+            "ci_high": 1.956805,
+            "ci_low": 1.916428,
+            "ratio": 1.936317
+          },
+          "minimum_r_for_5pt_rescue": 1.25393,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            2.904476
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 2.5500000000000025,
+              "r": 1.126965,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 5.250000000000002,
+              "r": 1.25393,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 8.05,
+              "r": 1.380895,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 9.700000000000003,
+              "r": 1.50786,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 10.799999999999999,
+              "r": 1.634825,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 12.25,
+              "r": 1.76179,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 14.250000000000002,
+              "r": 1.888755,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 14.700000000000003,
+              "r": 1.916428,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 14.95,
+              "r": 1.936317,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 15.4,
+              "r": 1.956805,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 16.0,
+              "r": 2.01572,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 17.6,
+              "r": 2.142685,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 18.500000000000004,
+              "r": 2.26965,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 19.45,
+              "r": 2.396615,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 20.0,
+              "r": 2.52358,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 21.2,
+              "r": 2.650545,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 21.5,
+              "r": 2.77751,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 128,
+              "peak_delta_points": 22.05,
+              "r": 2.904476,
+              "sources": [
+                "grid",
+                "grid_upper_1.5x_estimate"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        },
+        "th": {
+          "flores_premium": {
+            "ci_high": 2.584205,
+            "ci_low": 2.517358,
+            "ratio": 2.550777
+          },
+          "minimum_r_for_5pt_rescue": 1.188411,
+          "minimum_r_is_grid_resolved": true,
+          "r_range": [
+            1.0,
+            3.826166
+          ],
+          "r_sweep": [
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048,
+                4096
+              ],
+              "peak_budget": 64,
+              "peak_delta_points": 0.0,
+              "r": 1.0,
+              "sources": [
+                "grid",
+                "no_premium"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 384,
+              "peak_delta_points": 8.850000000000001,
+              "r": 1.188411,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 384,
+              "peak_delta_points": 15.350000000000003,
+              "r": 1.376822,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 20.3,
+              "r": 1.565233,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 25.8,
+              "r": 1.753644,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024,
+                2048
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 30.3,
+              "r": 1.942055,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 34.55,
+              "r": 2.130466,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 37.15,
+              "r": 2.318877,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 38.6,
+              "r": 2.507288,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 38.7,
+              "r": 2.517358,
+              "sources": [
+                "grid",
+                "flores_ci_low"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 38.85,
+              "r": 2.550777,
+              "sources": [
+                "grid",
+                "flores_estimate"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 39.0,
+              "r": 2.584205,
+              "sources": [
+                "grid",
+                "flores_ci_high"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 39.5,
+              "r": 2.695699,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 256,
+              "peak_delta_points": 39.95,
+              "r": 2.88411,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 40.8,
+              "r": 3.072521,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 41.949999999999996,
+              "r": 3.260932,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 42.8,
+              "r": 3.449343,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 43.3,
+              "r": 3.637754,
+              "sources": [
+                "grid"
+              ]
+            },
+            {
+              "budgets_evaluated": [
+                64,
+                128,
+                192,
+                256,
+                384,
+                512,
+                768,
+                1024
+              ],
+              "peak_budget": 192,
+              "peak_delta_points": 43.75,
+              "r": 3.826166,
+              "sources": [
+                "grid"
+              ]
+            }
+          ],
+          "rescue_threshold_points": 5.0
+        }
+      },
+      "model_key": "qwen3_8b",
+      "normalizer": "FLORES token premium only",
+      "units": "percentage points"
+    }
+  },
+  "new_generation": false,
+  "warning": "Exploratory non-confirmatory (\u00a711) analysis. These simultaneous bands strengthen descriptive inference but do not make any result confirmatory."
+}

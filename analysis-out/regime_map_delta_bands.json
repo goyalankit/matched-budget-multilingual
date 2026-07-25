@@ -1,0 +1,800 @@
+{
+  "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+  "data_source": "existing runs/{qwen3_8b,llama_3_1_8b_instruct} ledgers",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "method": "paired item-clustered bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260724
+      },
+      "cells": {
+        "de": {
+          "1024": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          },
+          "128": {
+            "estimate_points": 0.3,
+            "pointwise_ci_points": [
+              0.05,
+              0.6
+            ],
+            "simultaneous_ci_points": [
+              -0.13981279656331166,
+              0.7398127965633117
+            ]
+          },
+          "192": {
+            "estimate_points": 8.05,
+            "pointwise_ci_points": [
+              6.550000000000001,
+              9.6
+            ],
+            "simultaneous_ci_points": [
+              5.605090359403649,
+              10.494909640596353
+            ]
+          },
+          "256": {
+            "estimate_points": 8.35,
+            "pointwise_ci_points": [
+              6.950000000000001,
+              9.85
+            ],
+            "simultaneous_ci_points": [
+              6.037633565789684,
+              10.662366434210318
+            ]
+          },
+          "384": {
+            "estimate_points": 1.9,
+            "pointwise_ci_points": [
+              1.25,
+              2.6
+            ],
+            "simultaneous_ci_points": [
+              0.8462837990098506,
+              2.9537162009901494
+            ]
+          },
+          "512": {
+            "estimate_points": 0.15,
+            "pointwise_ci_points": [
+              0.0,
+              0.4
+            ],
+            "simultaneous_ci_points": [
+              -0.19856342501264726,
+              0.4985634250126473
+            ]
+          },
+          "64": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.10473493474801387,
+              0.20473493474801388
+            ]
+          },
+          "768": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "sw": {
+          "1024": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          },
+          "128": {
+            "estimate_points": 7.449999999999999,
+            "pointwise_ci_points": [
+              5.6000000000000005,
+              9.45
+            ],
+            "simultaneous_ci_points": [
+              4.3829375359139835,
+              10.517062464086017
+            ]
+          },
+          "192": {
+            "estimate_points": 14.6,
+            "pointwise_ci_points": [
+              12.35,
+              16.901249999999983
+            ],
+            "simultaneous_ci_points": [
+              10.987978422404657,
+              18.21202157759534
+            ]
+          },
+          "256": {
+            "estimate_points": 18.2,
+            "pointwise_ci_points": [
+              15.9,
+              20.549999999999997
+            ],
+            "simultaneous_ci_points": [
+              14.463840954626816,
+              21.93615904537318
+            ]
+          },
+          "384": {
+            "estimate_points": 9.35,
+            "pointwise_ci_points": [
+              7.5,
+              11.35
+            ],
+            "simultaneous_ci_points": [
+              6.3260264601609855,
+              12.373973539839014
+            ]
+          },
+          "512": {
+            "estimate_points": 1.6,
+            "pointwise_ci_points": [
+              1.05,
+              2.1999999999999997
+            ],
+            "simultaneous_ci_points": [
+              0.7064340612501472,
+              2.4935659387498528
+            ]
+          },
+          "64": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.10641766452055064,
+              0.20641766452055063
+            ]
+          },
+          "768": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.1035947702957467,
+              0.2035947702957467
+            ]
+          }
+        },
+        "th": {
+          "1024": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          },
+          "128": {
+            "estimate_points": 2.1999999999999997,
+            "pointwise_ci_points": [
+              1.4500000000000002,
+              3.05
+            ],
+            "simultaneous_ci_points": [
+              0.9234907550960226,
+              3.4765092449039776
+            ]
+          },
+          "192": {
+            "estimate_points": 2.3,
+            "pointwise_ci_points": [
+              1.6,
+              3.05
+            ],
+            "simultaneous_ci_points": [
+              1.1499999999999997,
+              3.45
+            ]
+          },
+          "256": {
+            "estimate_points": 2.0,
+            "pointwise_ci_points": [
+              1.35,
+              2.7
+            ],
+            "simultaneous_ci_points": [
+              0.9467101351052123,
+              3.0532898648947877
+            ]
+          },
+          "384": {
+            "estimate_points": 0.75,
+            "pointwise_ci_points": [
+              0.4,
+              1.2
+            ],
+            "simultaneous_ci_points": [
+              0.12196741988415193,
+              1.378032580115848
+            ]
+          },
+          "512": {
+            "estimate_points": 0.15,
+            "pointwise_ci_points": [
+              0.0,
+              0.35000000000000003
+            ],
+            "simultaneous_ci_points": [
+              -0.11894487324645786,
+              0.41894487324645785
+            ]
+          },
+          "64": {
+            "estimate_points": 0.35000000000000003,
+            "pointwise_ci_points": [
+              0.05,
+              0.7000000000000001
+            ],
+            "simultaneous_ci_points": [
+              -0.16818403017409525,
+              0.8681840301740953
+            ]
+          },
+          "768": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "equivalence_at_b_star": {
+        "budget": 1024,
+        "critical_value": 0.0,
+        "language_bounds": {
+          "de": {
+            "estimate_points": 0.0,
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ],
+            "upper_bound_abs_points": 0.0
+          },
+          "sw": {
+            "estimate_points": 0.0,
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ],
+            "upper_bound_abs_points": 0.0
+          },
+          "th": {
+            "estimate_points": 0.0,
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ],
+            "upper_bound_abs_points": 0.0
+          }
+        },
+        "largest_language": "de",
+        "largest_upper_bound_abs_points": 0.0,
+        "method": "max-|t| simultaneous bounds across languages at B*",
+        "practically_equivalent": true,
+        "sesoi_points": 5.0
+      },
+      "estimand": "delta_L(B) = gap_token(B) - gap_FLORES(B) = acc_native(floor(r_L * B)) - acc_native(B)",
+      "model_key": "llama_3_1_8b_instruct",
+      "peak_distribution": {
+        "de": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.0,
+            "192": 0.3432,
+            "256": 0.6568,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 8.35,
+          "interval_95_points": [
+            7.1499999999999995,
+            9.950000000000001
+          ],
+          "observed_argmax_budget": 256
+        },
+        "sw": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.0,
+            "192": 0.00025,
+            "256": 0.99975,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 18.2,
+          "interval_95_points": [
+            15.9,
+            20.549999999999997
+          ],
+          "observed_argmax_budget": 256
+        },
+        "th": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.37648333333333345,
+            "192": 0.5257333333333334,
+            "256": 0.09778333333333336,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 2.3,
+          "interval_95_points": [
+            1.7500000000000002,
+            3.15
+          ],
+          "observed_argmax_budget": 192
+        }
+      },
+      "peak_interval_note": "Peak intervals are quantiles of max_B delta(B) in each bootstrap replicate; pointwise intervals are not attached to the selected peak.",
+      "pointwise_source": "explore_budget_llama.json",
+      "simultaneous_family": {
+        "budgets": [
+          64,
+          128,
+          192,
+          256,
+          384,
+          512,
+          768,
+          1024
+        ],
+        "critical_value": 3.1165939614260156,
+        "languages": [
+          "de",
+          "th",
+          "sw"
+        ],
+        "method": "max-|t| studentized two-sided 95% bands",
+        "n_cells": 24
+      },
+      "units": "percentage points"
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY - non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "method": "paired item-clustered bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260724
+      },
+      "cells": {
+        "de": {
+          "1024": {
+            "estimate_points": 0.0,
+            "pointwise_ci_points": [
+              0.0,
+              0.0
+            ],
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ]
+          },
+          "128": {
+            "estimate_points": 16.0,
+            "pointwise_ci_points": [
+              12.9,
+              19.35
+            ],
+            "simultaneous_ci_points": [
+              10.901720036405138,
+              21.098279963594862
+            ]
+          },
+          "192": {
+            "estimate_points": 34.2,
+            "pointwise_ci_points": [
+              30.2,
+              38.3
+            ],
+            "simultaneous_ci_points": [
+              27.804007048987856,
+              40.59599295101215
+            ]
+          },
+          "256": {
+            "estimate_points": 30.7,
+            "pointwise_ci_points": [
+              26.5,
+              34.949999999999996
+            ],
+            "simultaneous_ci_points": [
+              24.046787172754186,
+              37.35321282724581
+            ]
+          },
+          "384": {
+            "estimate_points": 10.7,
+            "pointwise_ci_points": [
+              8.0,
+              13.5
+            ],
+            "simultaneous_ci_points": [
+              6.369028257541472,
+              15.030971742458526
+            ]
+          },
+          "512": {
+            "estimate_points": 2.25,
+            "pointwise_ci_points": [
+              1.0999999999999999,
+              3.55
+            ],
+            "simultaneous_ci_points": [
+              0.29082672003797294,
+              4.209173279962027
+            ]
+          },
+          "64": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.10634284449699434,
+              0.20634284449699436
+            ]
+          },
+          "768": {
+            "estimate_points": 0.1,
+            "pointwise_ci_points": [
+              0.0,
+              0.25
+            ],
+            "simultaneous_ci_points": [
+              -0.11530464804951368,
+              0.3153046480495137
+            ]
+          }
+        },
+        "sw": {
+          "1024": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.10396643480915807,
+              0.20396643480915808
+            ]
+          },
+          "128": {
+            "estimate_points": 14.95,
+            "pointwise_ci_points": [
+              12.35,
+              17.7
+            ],
+            "simultaneous_ci_points": [
+              10.649858209919048,
+              19.25014179008095
+            ]
+          },
+          "192": {
+            "estimate_points": 13.25,
+            "pointwise_ci_points": [
+              10.7,
+              15.950000000000001
+            ],
+            "simultaneous_ci_points": [
+              9.011127436962013,
+              17.488872563037987
+            ]
+          },
+          "256": {
+            "estimate_points": 8.5,
+            "pointwise_ci_points": [
+              6.45,
+              10.75
+            ],
+            "simultaneous_ci_points": [
+              5.110432642410869,
+              11.889567357589131
+            ]
+          },
+          "384": {
+            "estimate_points": 2.55,
+            "pointwise_ci_points": [
+              1.6500000000000001,
+              3.5999999999999996
+            ],
+            "simultaneous_ci_points": [
+              0.9879003010955709,
+              4.112099698904428
+            ]
+          },
+          "512": {
+            "estimate_points": 0.25,
+            "pointwise_ci_points": [
+              0.05,
+              0.5
+            ],
+            "simultaneous_ci_points": [
+              -0.09569264256361196,
+              0.595692642563612
+            ]
+          },
+          "64": {
+            "estimate_points": 7.9,
+            "pointwise_ci_points": [
+              5.55,
+              10.549999999999999
+            ],
+            "simultaneous_ci_points": [
+              3.886613967413641,
+              11.91338603258636
+            ]
+          },
+          "768": {
+            "estimate_points": 0.05,
+            "pointwise_ci_points": [
+              0.0,
+              0.15
+            ],
+            "simultaneous_ci_points": [
+              -0.10396643480915807,
+              0.20396643480915808
+            ]
+          }
+        },
+        "th": {
+          "1024": {
+            "estimate_points": 0.15,
+            "pointwise_ci_points": [
+              0.0,
+              0.35000000000000003
+            ],
+            "simultaneous_ci_points": [
+              -0.11635177180626842,
+              0.4163517718062684
+            ]
+          },
+          "128": {
+            "estimate_points": 14.6,
+            "pointwise_ci_points": [
+              11.75,
+              17.599999999999998
+            ],
+            "simultaneous_ci_points": [
+              10.02652342957745,
+              19.173476570422547
+            ]
+          },
+          "192": {
+            "estimate_points": 33.5,
+            "pointwise_ci_points": [
+              29.65,
+              37.35
+            ],
+            "simultaneous_ci_points": [
+              27.39033729953444,
+              39.60966270046556
+            ]
+          },
+          "256": {
+            "estimate_points": 38.85,
+            "pointwise_ci_points": [
+              34.699999999999996,
+              42.95
+            ],
+            "simultaneous_ci_points": [
+              32.27227336787416,
+              45.42772663212584
+            ]
+          },
+          "384": {
+            "estimate_points": 23.0,
+            "pointwise_ci_points": [
+              19.5,
+              26.551249999999982
+            ],
+            "simultaneous_ci_points": [
+              17.423095239914378,
+              28.57690476008562
+            ]
+          },
+          "512": {
+            "estimate_points": 8.85,
+            "pointwise_ci_points": [
+              6.75,
+              11.05
+            ],
+            "simultaneous_ci_points": [
+              5.430172330301808,
+              12.269827669698191
+            ]
+          },
+          "64": {
+            "estimate_points": 1.55,
+            "pointwise_ci_points": [
+              0.65,
+              2.7
+            ],
+            "simultaneous_ci_points": [
+              -0.06153468327907037,
+              3.16153468327907
+            ]
+          },
+          "768": {
+            "estimate_points": 0.8999999999999999,
+            "pointwise_ci_points": [
+              0.4,
+              1.55
+            ],
+            "simultaneous_ci_points": [
+              -0.038017745737371246,
+              1.8380177457373712
+            ]
+          }
+        }
+      },
+      "equivalence_at_b_star": {
+        "budget": 1024,
+        "critical_value": 2.022596287702258,
+        "language_bounds": {
+          "de": {
+            "estimate_points": 0.0,
+            "simultaneous_ci_points": [
+              0.0,
+              0.0
+            ],
+            "upper_bound_abs_points": 0.0
+          },
+          "sw": {
+            "estimate_points": 0.05,
+            "simultaneous_ci_points": [
+              -0.05,
+              0.15
+            ],
+            "upper_bound_abs_points": 0.15
+          },
+          "th": {
+            "estimate_points": 0.15,
+            "simultaneous_ci_points": [
+              -0.022993400890533283,
+              0.3229934008905333
+            ],
+            "upper_bound_abs_points": 0.3229934008905333
+          }
+        },
+        "largest_language": "th",
+        "largest_upper_bound_abs_points": 0.3229934008905333,
+        "method": "max-|t| simultaneous bounds across languages at B*",
+        "practically_equivalent": true,
+        "sesoi_points": 5.0
+      },
+      "estimand": "delta_L(B) = gap_token(B) - gap_FLORES(B) = acc_native(floor(r_L * B)) - acc_native(B)",
+      "model_key": "qwen3_8b",
+      "peak_distribution": {
+        "de": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.0,
+            "192": 0.896,
+            "256": 0.104,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 34.2,
+          "interval_95_points": [
+            30.65,
+            38.3
+          ],
+          "observed_argmax_budget": 192
+        },
+        "sw": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.87925,
+            "192": 0.12075,
+            "256": 0.0,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 14.95,
+          "interval_95_points": [
+            12.5,
+            17.7
+          ],
+          "observed_argmax_budget": 128
+        },
+        "th": {
+          "argmax_probability": {
+            "1024": 0.0,
+            "128": 0.0,
+            "192": 0.0,
+            "256": 1.0,
+            "384": 0.0,
+            "512": 0.0,
+            "64": 0.0,
+            "768": 0.0
+          },
+          "estimate_points": 38.85,
+          "interval_95_points": [
+            34.699999999999996,
+            42.95
+          ],
+          "observed_argmax_budget": 256
+        }
+      },
+      "peak_interval_note": "Peak intervals are quantiles of max_B delta(B) in each bootstrap replicate; pointwise intervals are not attached to the selected peak.",
+      "pointwise_source": "explore_budget_qwen.json",
+      "simultaneous_family": {
+        "budgets": [
+          64,
+          128,
+          192,
+          256,
+          384,
+          512,
+          768,
+          1024
+        ],
+        "critical_value": 3.1141193947575485,
+        "languages": [
+          "de",
+          "th",
+          "sw"
+        ],
+        "method": "max-|t| studentized two-sided 95% bands",
+        "n_cells": 24
+      },
+      "units": "percentage points"
+    }
+  },
+  "new_generation": false,
+  "warning": "Exploratory non-confirmatory (\u00a711) analysis. These simultaneous bands strengthen descriptive inference but do not make any result confirmatory."
+}

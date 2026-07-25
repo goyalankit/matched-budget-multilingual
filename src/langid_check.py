@@ -9,6 +9,8 @@ from typing import Any, Mapping, Protocol, Sequence
 
 import numpy as np
 
+from src.glotlid_classifier import GlotLIDClassifier
+
 _LATEX = re.compile(r"\$[^$]*\$|\\[A-Za-z]+(?:\{[^}]*\})?")
 
 
@@ -35,13 +37,6 @@ class KeywordClassifier:
             for language, keywords in self.keywords.items()
         }
         return max(scores, key=scores.get) if any(scores.values()) else "unknown"
-
-
-class GlotLIDClassifier:
-    """Dependency-gated placeholder for the registered real classifier."""
-
-    def __init__(self) -> None:
-        raise ImportError("GlotLIDClassifier requires the frozen GlotLID backend")
 
 
 @dataclass(frozen=True)
@@ -120,4 +115,3 @@ def evaluate_validation(
         agreement >= 0.90 for agreement in agreements.values()
     )
     return ValidationResult(passed, overall, agreements)
-
