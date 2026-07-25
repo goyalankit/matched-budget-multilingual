@@ -289,3 +289,18 @@
   the same eight fixed German NATIVE units at concurrency 1, 8, 16, and 32;
   consequently the last two settings can exercise only eight simultaneous
   requests and are directional rather than saturation measurements.
+- `configs/prices.json` stores each snapshot's illustrative `dollar_grid_usd`
+  on a Qwen output-price basis, but the Phase 4 directive defines the analysis
+  grid as each analyzed model's own `P_out * {512,1024,2048,4096}`. The real
+  scorer therefore reconstructs the grid from the selected model entry rather
+  than reusing the snapshot-level Qwen numbers for Llama.
+- The validated `analyze_confirmatory` result contains the legacy descriptive
+  string `"none; synthetic primary model only"` in `model_aggregation`.
+  Phase 4 leaves it untouched because confirmatory logic and output must remain
+  byte-for-byte identical to the type-I-calibrated implementation; consumers
+  should use the output filename/model driver for the real model identity.
+- vLLM's `/detokenize` request schema accepts one token sequence per POST, not
+  a list of token sequences. The Llama driver implements "batched" decoding as
+  bounded concurrent single-sequence POSTs and persists their results in a
+  tuple-derived SQLite cache, rather than sending an unsupported nested token
+  array.

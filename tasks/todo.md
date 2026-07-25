@@ -38,8 +38,8 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 
 ## Phase 4 — Analysis + paper
 - [x] Analysis pipeline built + validated on power-sim/synthetic (type-I ≤ nominal)
-- [ ] Confirmatory JSON on REAL ledger: Δ_L, p(0), p(5), H2, H3×3, Holm-6, tiered outcome
-- [ ] Deliverable table: per-cell MCB, ties, descriptive regret; under BOTH price snapshots
+- [x] Confirmatory analysis on REAL Qwen ledger: H1 null (Δ≈0, no budget artifact); all 6 Holm tests fail to reject; scorer spot-checked vs gold
+- [x] Deliverable table (MCB, both price snapshots): translate/pivot best; native far behind for th/sw at ALL budgets
 - [ ] Exploratory: best-EN-arm, Llama read-through, cheap translator, verbosity, trace-ratio
 - [ ] Figures + appendix stats
 - [ ] conformance.py green on final commit
