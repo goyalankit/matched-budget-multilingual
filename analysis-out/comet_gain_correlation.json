@@ -1,0 +1,355 @@
+{
+  "accuracy_policy": "Translation quality is analyzed only after accuracy scoring and never conditions, gates, excludes, reweights, or otherwise alters any accuracy result.",
+  "analysis_label": "EXPLORATORY - non-confirmatory (section 11; appendix only)",
+  "binary_association": "Point-biserial correlation between COMET and the indicator that TRANSLATE-ACT is correct while NATIVE is wrong.",
+  "bootstrap": {
+    "confidence_level": 0.95,
+    "method": "item percentile bootstrap",
+    "n_resamples": 10000,
+    "seed": 20260725
+  },
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "de": {
+        "correctness_gain_counts": {
+          "-1": 5,
+          "0": 139,
+          "1": 105
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": [
+            0.010951274597079497,
+            0.029170852444208015
+          ],
+          "difference_win_minus_not": 0.02021293084299758,
+          "not_translate_win": 0.8637695850597488,
+          "translate_win": 0.8839825159027463,
+          "valid_bootstrap_resamples": 10000
+        },
+        "missing_delimiter_n": 1,
+        "n_items": 249,
+        "n_total": 250,
+        "peak_budget_tokens": 256,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": [
+            0.15174356523415447,
+            0.3961845635544517
+          ],
+          "estimate": 0.27839964766908754,
+          "valid_bootstrap_resamples": 10000
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            0.15471662693592841,
+            0.39885022124307745
+          ],
+          "estimate": 0.28029934069135487,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.11646586345381527,
+          "mean_bootstrap_ci_95": [
+            0.07630522088353414,
+            0.1566265060240964
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.11186787810232955,
+              0.1237136132558459
+            ],
+            "estimate": 0.005573582285784445,
+            "valid_bootstrap_resamples": 10000
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 105
+      },
+      "sw": {
+        "correctness_gain_counts": {
+          "-1": 6,
+          "0": 136,
+          "1": 98
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": [
+            -0.0387646704385058,
+            0.020502672638565117
+          ],
+          "difference_win_minus_not": -0.007856365990351,
+          "not_translate_win": 0.8007958564959782,
+          "translate_win": 0.7929394905056272,
+          "valid_bootstrap_resamples": 10000
+        },
+        "missing_delimiter_n": 10,
+        "n_items": 240,
+        "n_total": 250,
+        "peak_budget_tokens": 256,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": [
+            -0.15857936071313972,
+            0.10780510420223724
+          ],
+          "estimate": -0.036061218045632934,
+          "valid_bootstrap_resamples": 10000
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            -0.05147226017162252,
+            0.20282633393625285
+          ],
+          "estimate": 0.0744378293583344,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.16666666666666666,
+          "mean_bootstrap_ci_95": [
+            0.12083333333333333,
+            0.21666666666666667
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.17985921931191898,
+              0.09721789085491776
+            ],
+            "estimate": -0.042119059508428563,
+            "valid_bootstrap_resamples": 10000
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 98
+      },
+      "th": {
+        "correctness_gain_counts": {
+          "-1": 0,
+          "0": 210,
+          "1": 34
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": [
+            -0.09245304183942113,
+            0.050532903520288316
+          ],
+          "difference_win_minus_not": -0.016992069025333456,
+          "not_translate_win": 0.7857953368198304,
+          "translate_win": 0.7688032677944969,
+          "valid_bootstrap_resamples": 10000
+        },
+        "missing_delimiter_n": 6,
+        "n_items": 244,
+        "n_total": 250,
+        "peak_budget_tokens": 192,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": [
+            -0.17311301739910992,
+            0.09454128885690824
+          ],
+          "estimate": -0.032461761957517175,
+          "valid_bootstrap_resamples": 10000
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            -0.1288732175367379,
+            0.14624073596363862
+          ],
+          "estimate": 0.009240979943293008,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.03278688524590164,
+          "mean_bootstrap_ci_95": [
+            0.012295081967213115,
+            0.05737704918032787
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.09672901021631423,
+              0.1792223211424303
+            ],
+            "estimate": 0.04574372053292324,
+            "valid_bootstrap_resamples": 9998
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 34
+      }
+    },
+    "qwen3_8b": {
+      "de": {
+        "correctness_gain_counts": {
+          "-1": 14,
+          "0": 212,
+          "1": 24
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": [
+            -0.020118944421957125,
+            0.019647437506550305
+          ],
+          "difference_win_minus_not": 0.001516553218913308,
+          "not_translate_win": 0.876351242308068,
+          "translate_win": 0.8778677955269814,
+          "valid_bootstrap_resamples": 10000
+        },
+        "missing_delimiter_n": 0,
+        "n_items": 250,
+        "n_total": 250,
+        "peak_budget_tokens": 192,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": [
+            -0.1552695930883605,
+            0.17154019486917954
+          ],
+          "estimate": 0.012806850772200673,
+          "valid_bootstrap_resamples": 10000
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            -0.11197441077406176,
+            0.139010727061797
+          ],
+          "estimate": 0.015263836054080188,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.328,
+          "mean_bootstrap_ci_95": [
+            0.272,
+            0.388
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.09925215212967362,
+              0.1466532571534459
+            ],
+            "estimate": 0.02443784281810411,
+            "valid_bootstrap_resamples": 10000
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 24
+      },
+      "sw": {
+        "correctness_gain_counts": {
+          "-1": 21,
+          "0": 229,
+          "1": 0
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": null,
+          "difference_win_minus_not": null,
+          "not_translate_win": 0.7487069875001907,
+          "translate_win": null,
+          "valid_bootstrap_resamples": 0
+        },
+        "missing_delimiter_n": 0,
+        "n_items": 250,
+        "n_total": 250,
+        "peak_budget_tokens": 128,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": null,
+          "estimate": null,
+          "valid_bootstrap_resamples": 0
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            -0.2685819782654481,
+            -0.004497748065369601
+          ],
+          "estimate": -0.14296717585491425,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.132,
+          "mean_bootstrap_ci_95": [
+            0.092,
+            0.176
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.00635794761654067,
+              0.24483269786618192
+            ],
+            "estimate": 0.12092546094724468,
+            "valid_bootstrap_resamples": 10000
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 0
+      },
+      "th": {
+        "correctness_gain_counts": {
+          "-1": 0,
+          "0": 143,
+          "1": 106
+        },
+        "mean_comet": {
+          "difference_bootstrap_ci_95": [
+            0.001308079258249703,
+            0.02719868437858113
+          ],
+          "difference_win_minus_not": 0.013978561171914095,
+          "not_translate_win": 0.8523483422252681,
+          "translate_win": 0.8663269033971822,
+          "valid_bootstrap_resamples": 10000
+        },
+        "missing_delimiter_n": 1,
+        "n_items": 249,
+        "n_total": 250,
+        "peak_budget_tokens": 256,
+        "point_biserial_comet_vs_translate_win": {
+          "bootstrap_ci_95": [
+            0.013615177319028521,
+            0.22640756420925848
+          ],
+          "estimate": 0.12793424447035895,
+          "valid_bootstrap_resamples": 10000
+        },
+        "sample_index": 0,
+        "spearman_comet_vs_correctness_gain": {
+          "bootstrap_ci_95": [
+            0.018766250059085932,
+            0.269205415363854
+          ],
+          "estimate": 0.14565545166650237,
+          "valid_bootstrap_resamples": 10000
+        },
+        "token_frame_gap_contribution": {
+          "mean": 0.357429718875502,
+          "mean_bootstrap_ci_95": [
+            0.2971887550200803,
+            0.41767068273092367
+          ],
+          "spearman_comet_vs_contribution": {
+            "bootstrap_ci_95": [
+              -0.1698934498192613,
+              0.07846653601080802
+            ],
+            "estimate": -0.046633689309505,
+            "valid_bootstrap_resamples": 10000
+          },
+          "valid_mean_bootstrap_resamples": 10000
+        },
+        "translate_win_n": 106
+      }
+    }
+  },
+  "scope": "Appendix-only per-item COMET association at prespecified peak budgets",
+  "scorer": {
+    "checkpoint_attempts": [
+      {
+        "checkpoint": "Unbabel/wmt22-comet-da",
+        "checkpoint_path": "/home/angoyal/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt",
+        "status": "loaded"
+      }
+    ],
+    "metric": "COMET",
+    "name": "Unbabel/wmt22-comet-da",
+    "type": "COMET"
+  },
+  "verdict": "At the prespecified tight/peak budgets, Spearman COMET-versus-correctness-gain correlations ranged from -0.143 to 0.280 across 6 model-language cells. 5 of 6 correlations were positive, and 1 of 6 met the moderate-magnitude threshold (absolute rho >= 0.20); 2 positive and 1 negative bootstrap intervals excluded zero. Mean COMET win-minus-non-win contrasts ranged from -0.017 to 0.020; point-biserial associations ranged from -0.036 to 0.278. Overall, the cells do not show a consistent strong relationship, so the budget-sensitive advantage is not well explained as a translation-quality confound."
+}
