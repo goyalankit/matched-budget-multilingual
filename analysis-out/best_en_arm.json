@@ -1,0 +1,902 @@
+{
+  "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "paired item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "budgets_tokens": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "cells": {
+        "de": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 66.95,
+              "native": 13.55,
+              "pivot": 61.6,
+              "translate_act": 75.4
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.60000000000001,
+                65.95
+              ],
+              "estimate": 61.85000000000001
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.60000000000001,
+                65.95
+              ],
+              "estimate": 61.85000000000001
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 67.05,
+              "native": 13.55,
+              "pivot": 61.650000000000006,
+              "translate_act": 75.44999999999999
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.550000000000004,
+                66.05
+              ],
+              "estimate": 61.9
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.550000000000004,
+                66.05
+              ],
+              "estimate": 61.9
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 67.05,
+              "native": 13.55,
+              "pivot": 61.650000000000006,
+              "translate_act": 75.44999999999999
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.65,
+                66.05
+              ],
+              "estimate": 61.9
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                57.65,
+                66.05
+              ],
+              "estimate": 61.9
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 66.35,
+              "native": 13.4,
+              "pivot": 61.150000000000006,
+              "translate_act": 74.55000000000001
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                56.89999999999999,
+                65.25000000000001
+              ],
+              "estimate": 61.150000000000006
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                56.89999999999999,
+                65.25000000000001
+              ],
+              "estimate": 61.150000000000006
+            }
+          }
+        },
+        "sw": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 57.15,
+              "native": 28.95,
+              "pivot": 58.650000000000006,
+              "translate_act": 69.45
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.15,
+                44.8
+              ],
+              "estimate": 40.5
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.15,
+                44.8
+              ],
+              "estimate": 40.5
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 57.15,
+              "native": 28.95,
+              "pivot": 58.699999999999996,
+              "translate_act": 69.6
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.35,
+                45.0
+              ],
+              "estimate": 40.65
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.35,
+                45.0
+              ],
+              "estimate": 40.65
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 57.15,
+              "native": 28.95,
+              "pivot": 58.699999999999996,
+              "translate_act": 69.6
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.300000000000004,
+                45.05
+              ],
+              "estimate": 40.65
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.300000000000004,
+                45.05
+              ],
+              "estimate": 40.65
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 56.10000000000001,
+              "native": 27.35,
+              "pivot": 58.25,
+              "translate_act": 69.0
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                37.35,
+                46.0
+              ],
+              "estimate": 41.64999999999999
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                37.35,
+                46.0
+              ],
+              "estimate": 41.64999999999999
+            }
+          }
+        },
+        "th": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 59.150000000000006,
+              "native": 3.85,
+              "pivot": 66.35,
+              "translate_act": 72.5
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.60000000000001,
+                72.64999999999999
+              ],
+              "estimate": 68.65
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.60000000000001,
+                72.64999999999999
+              ],
+              "estimate": 68.65
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 59.199999999999996,
+              "native": 3.85,
+              "pivot": 66.35,
+              "translate_act": 72.55
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.60000000000001,
+                72.6
+              ],
+              "estimate": 68.7
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.60000000000001,
+                72.6
+              ],
+              "estimate": 68.7
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 59.199999999999996,
+              "native": 3.85,
+              "pivot": 66.35,
+              "translate_act": 72.6
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.7,
+                72.75
+              ],
+              "estimate": 68.75
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                64.7,
+                72.75
+              ],
+              "estimate": 68.75
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 58.45,
+              "native": 3.6999999999999997,
+              "pivot": 65.75,
+              "translate_act": 71.7
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                63.85000000000001,
+                71.94999999999999
+              ],
+              "estimate": 68.0
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                63.85000000000001,
+                71.94999999999999
+              ],
+              "estimate": 68.0
+            }
+          }
+        }
+      },
+      "confirmatory_comparator_note": "translate_act-minus-native is shown as the preselected-arm comparator; no confirmatory inference is repeated here.",
+      "estimand": "max_{a in {translate_act,pivot,code_switched}} acc_a(B) - acc_native(B), in the token frame",
+      "model_key": "llama_3_1_8b_instruct",
+      "selection_note": "The maximizing English-instructed arm is reselected separately inside every item-clustered bootstrap replicate.",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "paired item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "budgets_tokens": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "cells": {
+        "de": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 87.15,
+              "native": 79.0,
+              "pivot": 86.05000000000001,
+              "translate_act": 88.35
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.899999999999995,
+                12.3
+              ],
+              "estimate": 9.34999999999999
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.200000000000001
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.1487,
+              "pivot": 0.0147,
+              "translate_act": 0.8366
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.550000000000001,
+                12.3
+              ],
+              "estimate": 9.34999999999999
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 87.15,
+              "native": 79.0,
+              "pivot": 86.2,
+              "translate_act": 88.4
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.900000000000006,
+                12.3
+              ],
+              "estimate": 9.399999999999997
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.1500000000000066
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.1421,
+              "pivot": 0.0183,
+              "translate_act": 0.8396
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.599999999999994,
+                12.3
+              ],
+              "estimate": 9.399999999999997
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 87.15,
+              "native": 79.0,
+              "pivot": 86.2,
+              "translate_act": 88.4
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.8500000000000005,
+                12.249999999999995
+              ],
+              "estimate": 9.399999999999997
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.1499999999999955
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.1447,
+              "pivot": 0.0195,
+              "translate_act": 0.8358
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                6.550000000000001,
+                12.249999999999995
+              ],
+              "estimate": 9.399999999999997
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 85.75,
+              "native": 76.64999999999999,
+              "pivot": 82.45,
+              "translate_act": 87.6
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                8.150000000000002,
+                13.950000000000006
+              ],
+              "estimate": 10.950000000000005
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.6000000000000005
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0639,
+              "pivot": 0.0,
+              "translate_act": 0.9361
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                7.950000000000001,
+                13.950000000000006
+              ],
+              "estimate": 10.950000000000005
+            }
+          }
+        },
+        "sw": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 48.3,
+              "native": 33.650000000000006,
+              "pivot": 55.05,
+              "translate_act": 57.05
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                19.050000000000004,
+                28.250000000000004
+              ],
+              "estimate": 23.4
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.7000000000000015
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.1409,
+              "translate_act": 0.8591
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                18.650000000000006,
+                28.250000000000004
+              ],
+              "estimate": 23.4
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 48.3,
+              "native": 33.7,
+              "pivot": 55.15,
+              "translate_act": 57.05
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                19.149999999999995,
+                28.249999999999996
+              ],
+              "estimate": 23.349999999999998
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.9499999999999962
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.1623,
+              "translate_act": 0.8377
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                18.6,
+                28.249999999999996
+              ],
+              "estimate": 23.349999999999998
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 48.3,
+              "native": 33.75,
+              "pivot": 55.15,
+              "translate_act": 57.05
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                19.05,
+                28.150000000000002
+              ],
+              "estimate": 23.299999999999997
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.8500000000000072
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.1623,
+              "translate_act": 0.8377
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                18.55,
+                28.15
+              ],
+              "estimate": 23.299999999999997
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 47.05,
+              "native": 33.4,
+              "pivot": 53.55,
+              "translate_act": 56.15
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                18.299999999999994,
+                27.549999999999997
+              ],
+              "estimate": 22.749999999999996
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                1.3000000000000012
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0918,
+              "translate_act": 0.9082
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                17.95,
+                27.549999999999997
+              ],
+              "estimate": 22.749999999999996
+            }
+          }
+        },
+        "th": {
+          "1024": {
+            "accuracy_points": {
+              "code_switched": 87.0,
+              "native": 47.099999999999994,
+              "pivot": 88.3,
+              "translate_act": 87.85
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                37.2,
+                45.849999999999994
+              ],
+              "estimate": 41.2
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                3.1499999999999972
+              ],
+              "estimate": 0.45000000000000595
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0374,
+              "pivot": 0.5993,
+              "translate_act": 0.3633
+            },
+            "selected_best_english_arm": "pivot",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                36.0,
+                45.4
+              ],
+              "estimate": 40.75
+            }
+          },
+          "2048": {
+            "accuracy_points": {
+              "code_switched": 87.0,
+              "native": 47.25,
+              "pivot": 88.4,
+              "translate_act": 87.85
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                37.2,
+                45.849999999999994
+              ],
+              "estimate": 41.150000000000006
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                3.199999999999992
+              ],
+              "estimate": 0.550000000000006
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0288,
+              "pivot": 0.6234,
+              "translate_act": 0.3478
+            },
+            "selected_best_english_arm": "pivot",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                35.900000000000006,
+                45.3
+              ],
+              "estimate": 40.599999999999994
+            }
+          },
+          "4096": {
+            "accuracy_points": {
+              "code_switched": 87.0,
+              "native": 47.25,
+              "pivot": 88.4,
+              "translate_act": 87.85
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                37.2,
+                45.85
+              ],
+              "estimate": 41.150000000000006
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                3.300000000000003
+              ],
+              "estimate": 0.550000000000006
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0298,
+              "pivot": 0.6276,
+              "translate_act": 0.3426
+            },
+            "selected_best_english_arm": "pivot",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                35.85,
+                45.2
+              ],
+              "estimate": 40.599999999999994
+            }
+          },
+          "512": {
+            "accuracy_points": {
+              "code_switched": 81.55,
+              "native": 38.35,
+              "pivot": 79.05,
+              "translate_act": 86.75
+            },
+            "best_english_minus_native_points": {
+              "bootstrap_ci_95": [
+                43.849999999999994,
+                52.849999999999994
+              ],
+              "estimate": 48.400000000000006
+            },
+            "best_english_uplift_over_translate_act_points": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "bootstrap_selection_fraction": {
+              "code_switched": 0.0,
+              "pivot": 0.0,
+              "translate_act": 1.0
+            },
+            "selected_best_english_arm": "translate_act",
+            "translate_act_minus_native_points": {
+              "bootstrap_ci_95": [
+                43.849999999999994,
+                52.849999999999994
+              ],
+              "estimate": 48.400000000000006
+            }
+          }
+        }
+      },
+      "confirmatory_comparator_note": "translate_act-minus-native is shown as the preselected-arm comparator; no confirmatory inference is repeated here.",
+      "estimand": "max_{a in {translate_act,pivot,code_switched}} acc_a(B) - acc_native(B), in the token frame",
+      "model_key": "qwen3_8b",
+      "selection_note": "The maximizing English-instructed arm is reselected separately inside every item-clustered bootstrap replicate.",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    }
+  },
+  "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+}

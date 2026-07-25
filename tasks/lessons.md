@@ -317,3 +317,12 @@
   percentile intervals from 10,000 paired item-cluster resamples with the
   frozen base seed. These are descriptive intervals only and are not adjusted
   for budgets, languages, or the confirmatory Holm family.
+- For the exploratory best-English-arm comparison, "empirically best" is
+  interpreted separately within each (model, language, token checkpoint).
+  Every item-clustered bootstrap replicate reselects the maximum-accuracy arm
+  from translate_act, pivot, and code_switched in that same cell.
+- For trace-level translate_act reasoning length, "tokens after the delimiter"
+  is defined from stored output IDs as the tokens remaining after the shortest
+  decoded token prefix containing the first exact
+  `=== TRANSLATION END ===` delimiter. Traces without that decoded delimiter
+  are excluded from the denominator and their missing fraction is reported.

@@ -1,0 +1,1176 @@
+{
+  "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "behavioral_measure_note": "Output length and eos=False cap fractions describe model behavior.",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "cells": {
+        "de": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                145.0,
+                153.0
+              ],
+              "estimate": 149.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                91.67855853486283,
+                96.73668590230353
+              ],
+              "estimate": 94.20762221858318
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.565903,
+                1.597644
+              ],
+              "estimate": 1.581613
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0085,
+                0.023
+              ],
+              "estimate": 0.015
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                226.0,
+                247.0
+              ],
+              "estimate": 236.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                358.0,
+                408.0
+              ],
+              "estimate": 380.0
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                192.0,
+                200.0
+              ],
+              "estimate": 196.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                121.39505681857699,
+                126.4531841860177
+              ],
+              "estimate": 123.92412050229734
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.565903,
+                1.597644
+              ],
+              "estimate": 1.581613
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0025,
+                0.009
+              ],
+              "estimate": 0.0055
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                265.0,
+                288.0
+              ],
+              "estimate": 275.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                421.10000000000014,
+                461.0
+              ],
+              "estimate": 442.10000000000014
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                126.0,
+                134.0
+              ],
+              "estimate": 130.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                79.66550603719115,
+                84.72363340463185
+              ],
+              "estimate": 82.1945697209115
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.565903,
+                1.597644
+              ],
+              "estimate": 1.581613
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.009,
+                0.0245
+              ],
+              "estimate": 0.016
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                233.0,
+                252.0
+              ],
+              "estimate": 242.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                374.0,
+                419.0
+              ],
+              "estimate": 395.0
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                157.0,
+                165.0
+              ],
+              "estimate": 161.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                99.26574958602389,
+                104.3238769534646
+              ],
+              "estimate": 101.79481326974425
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.565903,
+                1.597644
+              ],
+              "estimate": 1.581613
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0105,
+                0.0265
+              ],
+              "estimate": 0.018
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                248.0,
+                269.0
+              ],
+              "estimate": 259.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                388.0,
+                443.10000000000014
+              ],
+              "estimate": 418.2000000000003
+            },
+            "samples_per_item": 8
+          }
+        },
+        "sw": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                166.5,
+                179.0
+              ],
+              "estimate": 173.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                86.23328356145015,
+                92.70725379879626
+              ],
+              "estimate": 89.59974808487013
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.911655,
+                1.950275
+              ],
+              "estimate": 1.930809
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.01,
+                0.0235
+              ],
+              "estimate": 0.0165
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                236.0,
+                259.0
+              ],
+              "estimate": 246.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                412.3000000000004,
+                480.0
+              ],
+              "estimate": 447.3000000000004
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                231.5,
+                244.0
+              ],
+              "estimate": 238.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                119.8979287956499,
+                126.37189903299601
+              ],
+              "estimate": 123.26439331906988
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.911655,
+                1.950275
+              ],
+              "estimate": 1.930809
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0025,
+                0.01
+              ],
+              "estimate": 0.006
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                330.5,
+                353.5
+              ],
+              "estimate": 340.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                505.0,
+                547.1000000000001
+              ],
+              "estimate": 520.0
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                147.0,
+                160.0
+              ],
+              "estimate": 154.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                76.13388999119022,
+                82.86681903803017
+              ],
+              "estimate": 79.75931332410404
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.911655,
+                1.950275
+              ],
+              "estimate": 1.930809
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0075,
+                0.022
+              ],
+              "estimate": 0.014
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                237.0,
+                258.5
+              ],
+              "estimate": 248.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                395.0,
+                451.0
+              ],
+              "estimate": 421.0
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                176.5,
+                189.0
+              ],
+              "estimate": 183.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                91.41245975132703,
+                97.88642998867314
+              ],
+              "estimate": 94.77892427474701
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.911655,
+                1.950275
+              ],
+              "estimate": 1.930809
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0095,
+                0.023
+              ],
+              "estimate": 0.016
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                239.0,
+                261.0
+              ],
+              "estimate": 249.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                385.10000000000014,
+                428.10000000000014
+              ],
+              "estimate": 408.0
+            },
+            "samples_per_item": 8
+          }
+        },
+        "th": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                168.0,
+                182.0
+              ],
+              "estimate": 174.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                76.56625852597192,
+                82.94678006980291
+              ],
+              "estimate": 79.52864352846487
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.168562,
+                2.219884
+              ],
+              "estimate": 2.194178
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.014,
+                0.0295
+              ],
+              "estimate": 0.0215
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                238.0,
+                257.5
+              ],
+              "estimate": 248.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                419.10000000000014,
+                488.0
+              ],
+              "estimate": 448.0
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                258.0,
+                272.0
+              ],
+              "estimate": 264.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                117.5838970220283,
+                123.96441856585929
+              ],
+              "estimate": 120.54628202452126
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.168562,
+                2.219884
+              ],
+              "estimate": 2.194178
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.003,
+                0.0115
+              ],
+              "estimate": 0.007
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                317.0,
+                349.0
+              ],
+              "estimate": 334.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                506.0,
+                549.0
+              ],
+              "estimate": 528.0
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                149.5,
+                163.0
+              ],
+              "estimate": 155.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                68.1348550573381,
+                74.28750083174656
+              ],
+              "estimate": 70.86936429040853
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.168562,
+                2.219884
+              ],
+              "estimate": 2.194178
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0125,
+                0.0295
+              ],
+              "estimate": 0.0205
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                234.0,
+                259.5
+              ],
+              "estimate": 245.5
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                408.0,
+                469.0
+              ],
+              "estimate": 435.2000000000003
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                180.0,
+                194.0
+              ],
+              "estimate": 186.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                82.03527699211277,
+                88.41579853594376
+              ],
+              "estimate": 84.99766199460572
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.168562,
+                2.219884
+              ],
+              "estimate": 2.194178
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0095,
+                0.0235
+              ],
+              "estimate": 0.016
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                246.0,
+                268.0
+              ],
+              "estimate": 255.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                387.0,
+                443.0
+              ],
+              "estimate": 410.10000000000014
+            },
+            "samples_per_item": 8
+          }
+        }
+      },
+      "mechanical_reference_note": "MGSM English prompts were not generated. The frozen parallel-prose FLORES ratio is therefore the within-model English-equivalent mechanical reference; actual ledger input medians are also shown.",
+      "model_key": "llama_3_1_8b_instruct",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "behavioral_measure_note": "Output length and eos=False cap fractions describe model behavior.",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "cells": {
+        "de": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                150.0,
+                155.0
+              ],
+              "estimate": 152.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                96.2225589299025,
+                99.42997756089926
+              ],
+              "estimate": 97.50552638230121
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.543246,
+                1.575043
+              ],
+              "estimate": 1.558886
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0025
+              ],
+              "estimate": 0.001
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                209.0,
+                230.0
+              ],
+              "estimate": 219.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                362.0,
+                413.0
+              ],
+              "estimate": 391.0
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                198.0,
+                203.0
+              ],
+              "estimate": 200.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                127.01377778747131,
+                130.22119641846805
+              ],
+              "estimate": 128.29674523987
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.543246,
+                1.575043
+              ],
+              "estimate": 1.558886
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0025
+              ],
+              "estimate": 0.001
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                250.0,
+                279.0
+              ],
+              "estimate": 264.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                401.10000000000014,
+                449.0
+              ],
+              "estimate": 424.10000000000014
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                131.0,
+                136.0
+              ],
+              "estimate": 133.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                84.03436813211486,
+                87.2417867631116
+              ],
+              "estimate": 85.31733558451356
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.543246,
+                1.575043
+              ],
+              "estimate": 1.558886
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0035
+              ],
+              "estimate": 0.0015
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                268.0,
+                297.0
+              ],
+              "estimate": 279.5
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                429.10000000000014,
+                493.0
+              ],
+              "estimate": 451.10000000000014
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                162.0,
+                167.0
+              ],
+              "estimate": 164.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                103.92036364429471,
+                107.12778227529145
+              ],
+              "estimate": 105.2033310966934
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.543246,
+                1.575043
+              ],
+              "estimate": 1.558886
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0025
+              ],
+              "estimate": 0.001
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                234.0,
+                262.0
+              ],
+              "estimate": 250.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                362.0,
+                406.0
+              ],
+              "estimate": 385.0
+            },
+            "samples_per_item": 8
+          }
+        },
+        "sw": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                172.0,
+                185.0
+              ],
+              "estimate": 178.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                88.82843046877139,
+                95.54220719024829
+              ],
+              "estimate": 91.92709664791457
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.916428,
+                1.956805
+              ],
+              "estimate": 1.936317
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0565,
+                0.0895
+              ],
+              "estimate": 0.0725
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                251.5,
+                278.5
+              ],
+              "estimate": 263.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                513.4000000000005,
+                789.0
+              ],
+              "estimate": 601.1000000000001
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                239.0,
+                251.0
+              ],
+              "estimate": 245.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                123.43020280253698,
+                129.62753516082336
+              ],
+              "estimate": 126.52886898168016
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.916428,
+                1.956805
+              ],
+              "estimate": 1.936317
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.085,
+                0.128
+              ],
+              "estimate": 0.1055
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                217.0,
+                247.0
+              ],
+              "estimate": 233.5
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                688.700000000005,
+                4096.0
+              ],
+              "estimate": 4096.0
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                152.5,
+                165.0
+              ],
+              "estimate": 159.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                78.75776538655602,
+                85.21331992643766
+              ],
+              "estimate": 82.11465374729447
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.916428,
+                1.956805
+              ],
+              "estimate": 1.936317
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.002,
+                0.0085
+              ],
+              "estimate": 0.005
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                266.0,
+                286.0
+              ],
+              "estimate": 276.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                435.10000000000014,
+                519.0
+              ],
+              "estimate": 479.10000000000014
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                182.0,
+                195.0
+              ],
+              "estimate": 188.0
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                93.99287410067669,
+                100.7066508221536
+              ],
+              "estimate": 97.09154027981988
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                1.916428,
+                1.956805
+              ],
+              "estimate": 1.936317
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0005,
+                0.006
+              ],
+              "estimate": 0.003
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                253.0,
+                283.0
+              ],
+              "estimate": 269.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                404.0,
+                455.0
+              ],
+              "estimate": 426.10000000000014
+            },
+            "samples_per_item": 8
+          }
+        },
+        "th": {
+          "code_switched": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                190.5,
+                205.0
+              ],
+              "estimate": 197.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                74.68312596514708,
+                80.36766836144437
+              ],
+              "estimate": 77.42738781163543
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.517358,
+                2.584205
+              ],
+              "estimate": 2.550777
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                269.0,
+                300.0
+              ],
+              "estimate": 281.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                449.10000000000014,
+                520.0
+              ],
+              "estimate": 484.0
+            },
+            "samples_per_item": 8
+          },
+          "native": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                319.0,
+                333.0
+              ],
+              "estimate": 325.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                125.05993271854027,
+                130.54845641151695
+              ],
+              "estimate": 127.60817586170802
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.517358,
+                2.584205
+              ],
+              "estimate": 2.550777
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0055
+              ],
+              "estimate": 0.002
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                362.0,
+                391.5
+              ],
+              "estimate": 377.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                560.0,
+                614.0
+              ],
+              "estimate": 586.0
+            },
+            "samples_per_item": 8
+          },
+          "pivot": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                172.0,
+                186.0
+              ],
+              "estimate": 178.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                67.43043394228503,
+                72.91895763526172
+              ],
+              "estimate": 69.97867708545279
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.517358,
+                2.584205
+              ],
+              "estimate": 2.550777
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0025
+              ],
+              "estimate": 0.001
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                336.5,
+                375.0
+              ],
+              "estimate": 356.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                516.0,
+                596.0
+              ],
+              "estimate": 552.0
+            },
+            "samples_per_item": 8
+          },
+          "translate_act": {
+            "actual_input_tokens_median": {
+              "bootstrap_ci_95": [
+                203.0,
+                217.0
+              ],
+              "estimate": 209.5
+            },
+            "flores_implied_english_equivalent_input_tokens_median": {
+              "bootstrap_ci_95": [
+                79.58359354816199,
+                85.07211724113868
+              ],
+              "estimate": 82.13183669132974
+            },
+            "flores_mechanical_input_premium_ratio": {
+              "bootstrap_ci_95": [
+                2.517358,
+                2.584205
+              ],
+              "estimate": 2.550777
+            },
+            "fraction_hitting_4096_cap": {
+              "bootstrap_ci_95": [
+                0.0,
+                0.0015
+              ],
+              "estimate": 0.0005
+            },
+            "n_items": 250,
+            "n_records": 2000,
+            "output_tokens_median": {
+              "bootstrap_ci_95": [
+                241.0,
+                265.0
+              ],
+              "estimate": 252.0
+            },
+            "output_tokens_p90": {
+              "bootstrap_ci_95": [
+                361.10000000000014,
+                404.0
+              ],
+              "estimate": 381.10000000000014
+            },
+            "samples_per_item": 8
+          }
+        }
+      },
+      "mechanical_reference_note": "MGSM English prompts were not generated. The frozen parallel-prose FLORES ratio is therefore the within-model English-equivalent mechanical reference; actual ledger input medians are also shown.",
+      "model_key": "qwen3_8b",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    }
+  },
+  "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+}

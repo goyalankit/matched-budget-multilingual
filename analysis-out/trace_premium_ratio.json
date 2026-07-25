@@ -1,0 +1,368 @@
+{
+  "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "paired item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "cells": {
+        "de": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.565903,
+              1.597644
+            ],
+            "estimate": 1.581613
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.0015,
+              0.0085
+            ],
+            "estimate": 0.0045
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              265.0,
+              288.0
+            ],
+            "estimate": 275.0
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.19332205363475166,
+              -0.09937949746192887
+            ],
+            "estimate": -0.1493213333333332
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.3882909463652482,
+              1.482233502538071
+            ],
+            "estimate": 1.4322916666666667
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -12.223094627747221,
+              -6.283426948433579
+            ],
+            "estimate": -9.441079033450862
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              184.0,
+              200.0
+            ],
+            "estimate": 192.0
+          }
+        },
+        "sw": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.911655,
+              1.950275
+            ],
+            "estimate": 1.930809
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.02,
+              0.0475
+            ],
+            "estimate": 0.0325
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              330.0,
+              354.0
+            ],
+            "estimate": 340.0
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.12866996256684482,
+              -0.021204480225988753
+            ],
+            "estimate": -0.08298291304347827
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.8021390374331552,
+              1.9096045197740112
+            ],
+            "estimate": 1.8478260869565217
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -6.664044064785523,
+              -1.0982173910515591
+            ],
+            "estimate": -4.297831274014063
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              176.0,
+              191.0
+            ],
+            "estimate": 184.0
+          }
+        },
+        "th": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              2.168562,
+              2.219884
+            ],
+            "estimate": 2.194178
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.015,
+              0.028
+            ],
+            "estimate": 0.0215
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              317.0,
+              348.0
+            ],
+            "estimate": 334.0
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.48829564705882356,
+              -0.3653009946524064
+            ],
+            "estimate": -0.42698223280423275
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.7058823529411764,
+              1.8288770053475936
+            ],
+            "estimate": 1.7671957671957672
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -22.25414925584085,
+              -16.648649045446927
+            ],
+            "estimate": -19.459780966003336
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              180.0,
+              197.0
+            ],
+            "estimate": 189.0
+          }
+        }
+      },
+      "delimiter": "=== TRANSLATION END ===",
+      "missing_delimiter_note": "Traces without the exact decoded delimiter are excluded from the translate_act denominator and their fraction is reported.",
+      "model_key": "llama_3_1_8b_instruct",
+      "ratio_definition": "median native output_token_count divided by median translate_act tokens after the first exact decoded translation delimiter",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    },
+    "qwen3_8b": {
+      "analysis_label": "EXPLORATORY \u2014 non-confirmatory (\u00a711)",
+      "bootstrap": {
+        "ci": "pointwise 95%",
+        "method": "paired item-clustered percentile bootstrap",
+        "n_resamples": 10000,
+        "seed": 20260725
+      },
+      "cells": {
+        "de": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.543246,
+              1.575043
+            ],
+            "estimate": 1.558886
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.0,
+              0.0
+            ],
+            "estimate": 0.0
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              250.0,
+              279.0
+            ],
+            "estimate": 264.0
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.14399384428337608,
+              -0.027812553672316387
+            ],
+            "estimate": -0.09221933333333343
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.4148921557166239,
+              1.5310734463276836
+            ],
+            "estimate": 1.4666666666666666
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -9.236970778066912,
+              -1.7841300564836904
+            ],
+            "estimate": -5.915720157428661
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              170.0,
+              189.0
+            ],
+            "estimate": 180.0
+          }
+        },
+        "sw": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.916428,
+              1.956805
+            ],
+            "estimate": 1.936317
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.0,
+              0.004
+            ],
+            "estimate": 0.0015
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              217.4875,
+              247.0
+            ],
+            "estimate": 233.5
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.8243775899076049,
+              -0.6849801016042782
+            ],
+            "estimate": -0.7570240707070708
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.1119394100923952,
+              1.2513368983957218
+            ],
+            "estimate": 1.1792929292929293
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -42.5745159448378,
+              -35.37541123712069
+            ],
+            "estimate": -39.09608141162168
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              185.0,
+              208.0
+            ],
+            "estimate": 198.0
+          }
+        },
+        "th": {
+          "descriptive_comparison": "trace and FLORES pointwise intervals do not overlap",
+          "descriptive_interval_overlap": false,
+          "flores_prose_premium_ratio": {
+            "bootstrap_ci_95": [
+              2.517358,
+              2.584205
+            ],
+            "estimate": 2.550777
+          },
+          "fraction_translate_act_missing_delimiter": {
+            "bootstrap_ci_95": [
+              0.0,
+              0.0045
+            ],
+            "estimate": 0.0015
+          },
+          "n_items": 250,
+          "native_output_tokens_median": {
+            "bootstrap_ci_95": [
+              362.0,
+              392.0
+            ],
+            "estimate": 377.0
+          },
+          "samples_per_item": 8,
+          "trace_minus_flores_ratio": {
+            "bootstrap_ci_95": [
+              -0.5875228893006023,
+              -0.4396658888888889
+            ],
+            "estimate": -0.5129391621621622
+          },
+          "trace_premium_ratio": {
+            "bootstrap_ci_95": [
+              1.9632541106993977,
+              2.111111111111111
+            ],
+            "estimate": 2.037837837837838
+          },
+          "trace_relative_to_flores_percent": {
+            "bootstrap_ci_95": [
+              -23.03309498637483,
+              -17.236547486859454
+            ],
+            "estimate": -20.109133889875995
+          },
+          "translate_act_post_delimiter_tokens_median": {
+            "bootstrap_ci_95": [
+              175.0,
+              195.0
+            ],
+            "estimate": 185.0
+          }
+        }
+      },
+      "delimiter": "=== TRANSLATION END ===",
+      "missing_delimiter_note": "Traces without the exact decoded delimiter are excluded from the translate_act denominator and their fraction is reported.",
+      "model_key": "qwen3_8b",
+      "ratio_definition": "median native output_token_count divided by median translate_act tokens after the first exact decoded translation delimiter",
+      "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+    }
+  },
+  "warning": "Descriptive estimates with pointwise bootstrap confidence intervals only; no confirmatory test, Holm adjustment, or significance claim."
+}
