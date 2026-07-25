@@ -7,3 +7,8 @@ runs-synthetic/
 runs-pilot/
 analysis-out/*.sqlite3
 /qwen.yaml
+paper/*.log
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.out
