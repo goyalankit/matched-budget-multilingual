@@ -5,3 +5,4 @@ runs/
 runs-synthetic/
 .claude/
 runs-pilot/
+analysis-out/*.sqlite3

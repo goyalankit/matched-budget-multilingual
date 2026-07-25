@@ -304,3 +304,16 @@
   bounded concurrent single-sequence POSTs and persists their results in a
   tuple-derived SQLite cache, rather than sending an unsupported nested token
   array.
+- The §11 exploratory request defines answer emission at a token index but
+  explicitly permits a modest evaluation grid. The implementation reports the
+  first matching evaluated prefix on a 16-token grid (plus full trace length),
+  labels E as grid-resolved, and does not imply exact token-boundary precision.
+- "The record's completed answer" is interpreted as the strict parser result
+  from the full token-decoded output IDs, not MGSM gold and not the ledger's
+  stored text. A full-trace parse failure is therefore classified as never
+  emitted, while an emitted but incorrect answer still has an emission index.
+- The exploratory request specifies item-clustered bootstrap 95% CIs but not a
+  bootstrap interval construction. The small-budget analysis uses pointwise
+  percentile intervals from 10,000 paired item-cluster resamples with the
+  frozen base seed. These are descriptive intervals only and are not adjusted
+  for budgets, languages, or the confirmatory Holm family.
