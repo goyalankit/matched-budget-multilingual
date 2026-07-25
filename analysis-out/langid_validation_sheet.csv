@@ -1,0 +1,4633 @@
+row,record_id,text,your_label
+1,qwen3_8bthnative566,"เริ่มต้นด้วยการวิเคราะห์ข้อมูลที่โจทย์ให้มา:
+
+- ราคาตั๋วหนัง   ใบ:     
+- จำนวนเงินที่ปีเตอร์มี:    +      
+
+ขั้นตอนที่  :  
+หาจำนวนครั้งที่ปีเตอร์สามารถไปดูหนังได้โดยใช้เงินทั้งหมด     ÷ $   =    
+
+ดังนั้น ปีเตอร์สามารถไปดูหนังได้   ครั้ง  
+",
+2,qwen3_8bswtranslate_act1345,"
+
+To find out how much money Tom earns in a year from washing cars, we need to calculate his monthly earnings and then multiply by the number of months in a year.
+
+ . Tom washes a car   times a month.
+ . He earns     $
+",
+3,qwen3_8bthnative2401,"เริ่มต้นด้วยการวิเคราะห์ข้อมูลที่โจทย์ให้มา:
+
+ . โจทย์ระบุว่า **จอห์นมีลูกอม    เม็ด**  
+   ดังนั้น เราสามารถเขียนได้ว่า:  
+    
+     =   
+    
+
+ . โจทย์ระบุว่า **จอห์นมีลูกอมมากกว่าโรเบิร์ตสองเท่า**  
+   หมายถึง ลูกอมของจอห์นเท่ากับสองเท่าของลูกอมของโรเบิร์ต  
+   ดังนั้น เราสามารถเขียนสมการได้เป็น:  
+    
+     =      
+    
+
+ . เรารู้ว่าลูกอมของจอห์นคือ    ดังนั้น:  
+    
+      =      
+    
+
+ . แก้สมการเพื่อหาลูกอมของโรเบิร์ต:  
+    
+     =  { } =   
+    
+
+ . โจทย์ระบุว่า **เจมส์มีลูกอมมากกว่าโรเบิร์ต   เม็ด**  
+   ดังนั้น:  
+    
+     =   +   =    +   =   
+    
+
+ . ตอนนี้เรารู้ว่า:  
+   - ลูกอมของจอห์น =     
+   - ลูกอมของเจมส์ =     
+
+   ดังนั้น จอห์นมีลูกอมมากกว่าเจมส์:  
+    
+      -    =   
+    
+
+คำตอบสุดท้าย:  ",
+4,qwen3_8bthtranslate_act2302,"
+
+To find the total amount Mark paid, we need to consider the following:
+
+ . **Revenue from selling cars**:  
+   Each car is sold for       ,    per car for registration, and there are    cars.  
+    
+     =       ,    =   ,   
+    
+
+ . **Total amount paid**:  
+    
+     =   +   +   =    ,    +   ,    +   ,    =    ,   
+    
+",
+5,qwen3_8bswpivot2272,"Okay, let's break down the problem step by step.
+
+ . **Cost of the base meal**:  
+   The base meal costs   .  .
+
+ . **Adding extra rice**:  
+   The extra rice costs   .  .
+
+ . **Adding two scoops of sauce**:  
+   Each scoop of sauce costs   .   ×   =   .  .
+
+So, let's add up all these costs:
+
+- Base meal:   .    
+- Extra rice:   .    
+- Sauce:   .    
+
+Now, sum them all:
+
+  .   =   .   +   .    
+  .   =    .   +    .    
+  .   =    .  .
+
+ . **Applying the discount**:  
+   The person has a    .   -   .  
+
+### Final Answer:",
+6,qwen3_8bswtranslate_act2411,"
+
+To find out how many books Dolly and Pandora will have read in total, we need to add the number of books each of them has:
+
+- Dolly has   books.
+- Pandora has   book.
+
+Adding these together:   (Dolly's books) +   (Pandora's book) =   books.
+",
+7,qwen3_8bthpivot1073,"Let's break down the problem step by step and calculate the total time Frankie spends watching TV each day, then determine how many   -minute episodes he watched on Wednesday.
+
+---
+
+### Step  : Convert all times to the same unit (hours)
+-    minutes =  .  hours
+
+---
+
+### Step  : Calculate the total time spent watching TV each day
+
+-   hour per episode,   episode each night
+- Total time =   hour ×   days = **  hours**
+
+-    minutes per episode (which is  .  hours), let the number of episodes be **x**
+- Total time =  .  × x hours
+
+-   hour per episode (  episode) +    minutes per episode (  episode) =   +  .  = ** .  hours**
+
+-   hour per episode,   episodes =   ×   = **  hours**
+
+---
+
+### Step  : Add up the total time
+We are told that Frankie watched **  hours** of TV in total.
+
+So, we can write the equation:
+
+ 
+    +  . x   +  .    +     =  
+ 
+
+Simplify:
+
+ 
+  +  . x +  .  +   =  
+ 
+
+ 
+ .  +  . x =  
+ 
+
+ 
+ . x =   -  . 
+ 
+
+ 
+ . x =  . 
+ 
+
+ 
+x =  { . } =  
+ 
+
+---
+
+### Final Answer:
+On Wednesday, Frankie watched ** ** episodes of   -minute shows.
+",
+8,qwen3_8bdetranslate_act1296,"
+
+To calculate the profit the hospital makes, we need to determine the total revenue from patients and subtract the total cost paid to the doctors.
+
+ . **Total number of patients per day**:    
+ . **Time spent per patient in minutes**:    minutes
+ . **Convert minutes to hours**:   hours per patient
+ . **Revenue per patient**:   per hour}    .  \,   =    \,         \,        \,   =   ,    \,         \,      .  \,   =    \,         \,        \,   =   ,    \,       ,    \,   -   ,    \,   =   ,    \,   $
+",
+9,qwen3_8bthcode_switched850,"ยีนไปเที่ยวพักผ่อนปีละ   ครั้ง และเขาเริ่มไปเที่ยวพักผ่อนตั้งแต่อายุ    ปี ปัจจุบันเขาอายุ    ปี ดังนั้นเขาได้ไปเที่ยวพักผ่อนรวมทั้งหมด   ปี  
+ในแต่ละปี เขาไปเที่ยวพักผ่อน   ครั้ง ดังนั้นจำนวนบล็อกผ้านวมทั้งหมดคือ   บล็อก  
+",
+10,qwen3_8bthtranslate_act321,"
+
+To find out how many hours John spends taking care of the dogs each week, we can follow these steps:
+
+ . **Determine the daily time spent on one dog:**  
+   Each dog takes  .  hours per day.
+
+ . **Calculate the daily time spent on all    dogs:**  
+    
+
+ . **Calculate the weekly time spent on all    dogs:**  
+   There are   days in a week, so:  
+    
+
+Thus, John spends    hours per week taking care of the dogs.
+",
+11,qwen3_8bdecode_switched2270,"Chad bestellt einen einfachen Burrito, der  ,    , extra Käse für  ,     und   Saucen für jeweils  ,     extra aufzuwerten, wofür Chips und ein Getränk hinzukommen.  
+Er hat eine Geschenkkarte für  ,      
+- Extra Fleisch:  ,      
+- Avocado:  ,     =  ,      
+
+Gesamtkosten:  
+ ,   +  ,   +  ,   +  ,   +  ,   +  ,   =   ,    .  
+Der noch zu zahlende Betrag:  
+  ,   −  ,   =  ,   $  
+",
+12,qwen3_8bdenative2461,"Um die Frage zu lösen, gehen wir Schritt für Schritt vor:
+
+ . **Stunden pro Woche:**  
+   Die Maskenbildnerin benötigt   Stunden pro Tag, um das Make-up zu machen, und das pro Woche   Mal.  
+    
+
+ . **Gesamtstunden über   Wochen:**  
+   Der Film dauert   Wochen.  
+    
+
+ . **Gehalt ohne Rabatt:**  
+   Die Stundensatz beträgt           \,         \,   =   {,}    \,       \%     {,}    =  {,}    \,       {,}    -  {,}    =   {,}    \,   $
+",
+13,qwen3_8bdenative2250,"Um die Aufgabe zu lösen, gehen wir Schritt für Schritt vor:
+
+ . **Zeit mit dem Bus:**  
+   Es dauert   Tage, um mit dem Bus von New Jersey nach Rochester zu reisen.
+
+ . **Zeit mit dem Auto (hin):**  
+   Es dauert halb so viele Tage mit dem Auto wie mit dem Bus.  
+   Halb von   Tagen ist:  
+    
+    { } =    
+    
+
+ . **Zeit mit dem Auto (zurück):**  
+   Da er von Rochester zurück nach New Jersey fährt, dauert die Rückfahrt ebenfalls   Tage.
+
+ . **Gesamte Reisezeit:**  
+   Die Gesamtreise besteht aus der Hinreise mit dem Bus und der Rückreise mit dem Auto:  
+    
+       +     =    
+    
+
+**Antwort:**  ",
+14,qwen3_8bdepivot2220,"Okay, let's break down the problem step by step.
+
+First, we are told that Andy plants    geraniums.  
+So, the number of geraniums =   .
+
+Next, it says he plants    petunias **less than** geraniums.  
+That means the number of petunias = number of geraniums -     
+So, the number of petunias =    -    =   .
+
+Now, to find the total number of flowers he plants, we add the number of geraniums and petunias together:  
+Total = number of geraniums + number of petunias  
+Total =    +    =    .
+
+So, Andy plants a total of     flowers.
+",
+15,qwen3_8bswcode_switched1164,"Katy uses small sugar cones and water cups in the ratio of  :  . She used a total of     small sugar cones and water cups. We are asked to calculate the number of small sugar cones she used.
+
+The ratio of small sugar cones to water cups is  :  . This means that for every   +    =    parts,   parts are small sugar cones.
+
+To find the number of small sugar cones, we calculate:
+
+ 
+  =  {  }      
+ 
+
+ 
+=   
+ 
+",
+16,qwen3_8bdetranslate_act115,"
+
+To find the total cost, we need to calculate the cost for each type of baked good and then add them together.
+
+ . Cost of donuts:  
+ . Cost of mini cupcakes:  
+ . Cost of mini cheesecakes:  
+
+Now, we add these amounts together:
+ 
+",
+17,qwen3_8bswpivot2384,"Let's break down the problem step by step:
+
+ . **Mary is   years younger than Joan**.  
+   So, if Joan's age is J, then Mary's age is J -  .
+
+ . **Joan is   years older than Jessa**.  
+   So, if Jessa's age is   , then Joan's age is    +   =   .
+
+ . **Now we know Joan's age is   **.  
+   Therefore, Mary's age is    -   =   .
+
+ . **We are asked to find the total age of the three girls**: Mary, Joan, and Jessa.  
+   Mary =   , Joan =   , Jessa =   .  
+   Total =    +    +    =   .
+",
+18,qwen3_8bdecode_switched1397,"Wir wissen, dass es    blaue Kaugummikugeln gibt.  
+Die Aufgabe sagt, dass es    rosa Kaugummikugeln mehr als das Vierfache der Anzahl blauer Kaugummikugeln gibt.  
+
+Zuerst berechnen wir das Vierfache der Anzahl blauer Kaugummikugeln:  
+ 
+
+Dann addieren wir die    rosa Kaugummikugeln, die mehr sind:  
+ 
+
+Also gibt es    rosafarbene Kaugummikugeln.  
+",
+19,qwen3_8bswtranslate_act452,"
+
+To solve this problem, we need to determine how many blog posts Meredith wrote each day and then calculate the total hours spent writing them, knowing that each post takes   hours.
+
+Let's break it down step by step:
+
+ . **Let the number of posts on Friday be  .**
+ . **On Saturday, she wrote   more posts than on Friday.**  
+   So, the number of posts on Saturday is  .
+ . **On Sunday, she wrote twice as many posts as she wrote on Saturday.**  
+   So, the number of posts on Sunday is  .
+
+Now, we are told that the total number of posts over the three days is   on Friday and Saturday. This means:
+
+ 
+x +  { }x =  
+ 
+
+Let's solve for  :
+
+ 
+x +  { }x =  { }x +  { }x =  { }x =  
+ 
+
+ 
+x =  {  } =  {  }
+ 
+
+So, the number of posts on Friday is  , on Saturday it is  , and on Sunday it is  .
+
+Now, we find the total number of posts over the three days:
+
+ 
+ {  } +  {  } +  { } =  {  } +  {  } +  {  } =  {  } =  { }
+ 
+
+Each post takes   hours, so the total number of hours spent is:
+
+ 
+ { }     =  { } =  { }     .  
+ 
+",
+20,qwen3_8bdecode_switched1261,"Dylan hat    Geflügelwürstchen gekauft. Er hat   mehr Fischwürstchen als Geflügelwürstchen gekauft, also hat er   Fischwürstchen gekauft. Um die Gesamtanzahl der Würstchen zu berechnen, addieren wir die Anzahl der Geflügelwürstchen und Fischwürstchen:  
+ .  
+",
+21,qwen3_8bswtranslate_act477,"
+
+To solve the problem, we need to determine how much money John spent on beans in total.
+
+ . **Determine the number of white beans John bought:**
+   - The price of each white bean is      on white beans.
+   - So, the number of white beans he bought is:
+      
+      {  } =  
+      
+
+ . **Determine the number of purple beans John bought:**
+   - He bought two times more purple beans than white beans.
+   - He bought   white beans, so he bought:
+      
+           =   
+      
+     purple beans.
+
+ . **Determine the price of purple beans:**
+   - The price of purple beans is   % more than the price of white beans.
+   - The price of white beans is       each.
+   - So, the total cost for purple beans is:
+      
+             =    
+      
+
+ . **Determine the total cost of all beans:**
+   - He spent      on purple beans.
+   - So, the total amount of money he spent is:
+      
+         +     =    
+      
+",
+22,qwen3_8bthnative1347,"ทอมล้างรถ   ครั้งต่อเดือน และการล้างรถแต่ละครั้งมีค่าบริการ $   ดังนั้น ค่าบริการต่อเดือนของทอมคือ:  
+  ×    =    ดอลลาร์  
+
+ในหนึ่งปีมี    เดือน ดังนั้น ค่าบริการทั้งหมดในหนึ่งปีคือ:  
+   ×    =     ดอลลาร์  
+
+ดังนั้น ทอมเสียค่าล้างรถเป็นจำนวน     ดอลลาร์ในหนึ่งปี  
+",
+23,qwen3_8bswnative1882,"Tatizo litakuwa:
+
+Muuzaji ananunua mifuko ya unga ngano kutoka kwa mkulima kwa kiwango cha   , na muuzaji alipata faida ya jumla ya     kila mfuko, aliuza mifuko mingapi?
+
+**Hatua kwa hatua:**
+
+ . **Kuzingatia kila mfuko:**
+   - Bei ya kusafirisha =    
+   - Kiasi cha kufanya =     -    
+
+ . **Kiasi cha kufanya kwa mifuko yote:**
+   - Faida ya jumla =      / $   ≈   .    
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote =   .    
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =    (kwa sababu kiasi cha kufanya kwa mifuko yote kwa namba kamili inaweza kubadilishwa kwa kiasi cha kufanya kwa mifuko yote kwa namba kamili)
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+ . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+   - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+  . **Kiasi cha kufanya kwa mifuko yote kwa namba kamili:**
+    - Kiasi cha kufanya kwa mifuko yote kwa namba kamili =   
+
+**Jibu la mwisho:**
+
+**Jibu la namba kamili:**
+`  `",
+24,qwen3_8bswtranslate_act1452,"
+
+To find out how many corns John can harvest in a year, we need to calculate the number of harvests per year and then multiply by the total number of corns he can harvest in one harvest.
+
+ . **Total number of corns per hectare:**  
+   Each hectare has     corns.
+
+ . **Total number of corns for all hectares:**  
+   John has    hectares.  
+    
+
+ . **Number of harvests per year:**  
+   John can harvest every   months.  
+   A year has    months.  
+    
+
+ . **Total number of corns harvested in a year:**  
+    
+",
+25,qwen3_8bthnative2421,"เรามาแก้โจทย์ทีละขั้นตอน:
+
+ . **จำนวนเพื่อนที่เหลือ:**  
+   ไมค์มีเพื่อนทางจดหมาย   คน เขาเลิกเป็นเพื่อนกับ   คน ดังนั้นเหลือเพื่อนที่ยังคงเป็นเพื่อนทางจดหมาย   -   =   คน
+
+ . **จำนวนฉบับจดหมายที่แต่ละคนส่งต่อสัปดาห์:**  
+   แต่ละคนที่เหลือส่งจดหมาย   ฉบับต่อสัปดาห์ ดังนั้น   คน จะส่งจดหมายทั้งหมด   ×   =   ฉบับต่อสัปดาห์
+
+ . **จำนวนหน้าในแต่ละฉบับจดหมาย:**  
+   แต่ละฉบับมีความยาว   หน้า ดังนั้น   ฉบับจึงมีจำนวนหน้าทั้งหมด   ×   =    หน้าต่อสัปดาห์
+
+ . **เวลาที่ไมค์ใช้ในการเขียนหนึ่งหน้า:**  
+   ไมค์สามารถเขียนได้หนึ่งหน้าทุกๆ   นาที ดังนั้น    หน้าจะใช้เวลา    ×   =     นาทีต่อสัปดาห์
+
+ . **แปลงนาทีเป็นชั่วโมง:**  
+       นาที =     ÷    =   ชั่วโมงต่อสัปดาห์
+
+ดังนั้น ไมค์ใช้เวลาเขียนจดหมาย   ชั่วโมงต่อสัปดาห์
+",
+26,qwen3_8bthtranslate_act184,"
+
+First, we calculate how many days are in   weeks:
+ 
+          =     
+ 
+
+Next, we calculate how many eggs she uses in    days:
+ 
+           =     
+ 
+
+Now, we convert the number of eggs to dozens (  dozen =    eggs):
+ 
+            =    
+ 
+",
+27,qwen3_8bswtranslate_act785,"
+
+To determine how much money Vincent will save, we need to compare the cost of buying    mangoes at the two different prices and find the difference.
+
+First, let's calculate the cost of buying    mangoes at the better price. The better price is    { } =           =     .   for a pack of   mangoes.
+
+- Number of packs of   mangoes needed for    mangoes:  
+- Total cost for   packs:   dollars
+
+Now, find the difference in cost between the two options:
+
+- Difference in cost:   dollars
+",
+28,qwen3_8bswtranslate_act1414,"
+
+Let's denote the number of adult ants as  , the number of baby ants as  , and the number of worker ants as  .
+
+From the problem, we have the following relationships:
+ .   (the number of baby ants is three times the number of adult ants)
+ .   (the number of worker ants is twice the number of baby ants)
+ . The total number of ants is  
+
+First, substitute   into the equation for  :
+ 
+W =  B =  ( A) =  A
+ 
+
+Now, substitute   and   into the total number of ants equation:
+ 
+A + B + W = A +  A +  A =   A =    
+ 
+
+Solve for  :
+ 
+A =  {  } =   
+ 
+
+Now, calculate  :
+ 
+W =  A =        =    
+ 
+",
+29,qwen3_8bswcode_switched1721,"Let's break down the problem step by step:
+
+ . There are three birds in Caboose.  
+ . Sally Two is three years older than Granny Red.  
+ . Granny Red is twice as old as Sally Four.  
+ . Sally Four is the same age as Sally Thirtytwo.  
+ . Sally Thirtytwo is   years old.  
+
+From point  , we know that Sally Thirtytwo is   years old.  
+From point  , since Sally Four is the same age as Sally Thirtytwo, Sally Four is also   years old.  
+From point  , Granny Red is twice as old as Sally Four, so Granny Red is   ×   =    years old.  
+From point  , Sally Two is three years older than Granny Red, so Sally Two is    +   =    years old.  
+
+Now, we add up the ages of the three birds:  
+Sally Two =    years  
+Sally Four =   years  
+Granny Red =    years  
+
+Total age =    +   +    =     
+",
+30,qwen3_8bdetranslate_act2390,"
+
+First, we calculate the number of students who left through entrance A:
+-   % of      students =   students
+
+Now, we subtract the number of students who left through entrance A from the total number of students:
+- Remaining students =   students
+
+Next, we calculate the number of students who left through entrance B:
+-  /  of     students =   students
+
+Now, we subtract the number of students who left through entrance B from the remaining students:
+- Students who left through entrance C =   students
+",
+31,qwen3_8bthcode_switched1410,"ให้พิจารณาปัญหาทีละขั้นตอน:
+
+ . จำนวนผึ้งในรังทั้งหมดคือ     ตัว
+ . จำนวนผึ้งงานเป็นสองเท่าของจำนวนลูกผึ้ง
+ . จำนวนลูกผึ้งเป็นสองเท่าของจำนวนนางพญาผึ้ง
+
+ให้กำหนดตัวแปร:
+- จำนวนนางพญาผึ้ง =  
+- จำนวนลูกผึ้ง =  
+- จำนวนผึ้งงาน =  
+
+ดังนั้น จำนวนผึ้งทั้งหมดในรังคือ:
+ 
+x +  x +  x =  x
+ 
+
+จากโจทย์ จำนวนผึ้งทั้งหมดคือ     ตัว ดังนั้น:
+ 
+ x =    
+ 
+
+แก้สมการเพื่อหา  :
+ 
+x =  { } =    
+ 
+
+ดังนั้น จำนวนผึ้งงานคือ:
+ 
+ x =         =    
+ 
+",
+32,qwen3_8bswcode_switched1831,"Kwa kuzindua timu iliyo na mbio ya haraka zaidi, tunatumia maelezo ya wakimbiaji wazuri katika timu ya mbio ya haraka. Kila mmoja wa wakimbiaji wazuri inakimbia mita     kwa sekunde   . 
+
+Kwa kutumia maelezo haya, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne ambao kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua mbio ya haraka zaidi, timu iliyo na mbio ya haraka zaidi ina wakimbiaji wazuri wanne, kwa sababu kila mmoja atakimbia mita     kwa sekunde   . 
+
+Kwa kuzindua wakimbiaji wazuri, timu iliyo na mbio ya haraka zaidi ina wakimbia",
+33,qwen3_8bdenative1902,"John sammelt Pfirsiche über eine Dauer von   Stunden.  
+Zuerst rechnen wir die Gesamtzeit in Minuten um:  
+  Stunden =   ×    Minuten =     Minuten.
+
+John kann pro Minute   Pfirsiche sammeln.  
+Um die Gesamtanzahl der gesammelten Pfirsiche zu berechnen, multiplizieren wir die Anzahl der Minuten mit der Anzahl der Pfirsiche pro Minute:  
+    Minuten ×   Pfirsiche/Minute =     Pfirsiche.
+",
+34,qwen3_8bdenative2236,"Schritt  : Bestimme den Werbeausgabenbetrag des ersten Jahres.  
+Die Firma gibt im ersten Jahr         ist:  
+ .
+
+Schritt  : Addiere die Werbeausgaben beider Jahre.  
+ .
+
+Die Firma gab insgesamt       $ für Werbung aus.
+",
+35,qwen3_8bthtranslate_act2267,"
+
+First, let's calculate the number of each type of card after the changes:
+
+- Initial number of water cards:   
+- Water cards lost:  
+- Remaining water cards:  
+
+- Initial number of grass cards:   
+- Grass cards bought:   
+- Total grass cards:  
+
+- Fire cards remain unchanged:   
+
+Now, calculate the total number of cards:
+ 
+     +      +      =     
+ 
+
+Next, calculate the probability of drawing a water card:
+ 
+ {  } =  { }    .    
+ 
+
+Convert to a percentage:
+ 
+ .               .  \%
+ 
+
+Round to the nearest whole number:
+ 
+  \%
+ 
+",
+36,qwen3_8bthnative381,"เริ่มต้นด้วยการวิเคราะห์โจทย์:
+
+จอห์นวิ่งสัปดาห์ละ    ไมล์ โดยวิ่ง   วันต่อสัปดาห์  
+- วันแรก: เขาใช้เวลาวิ่ง   ชั่วโมง  
+- วันที่สองและวันที่สาม: เขาใช้เวลาวิ่งในแต่ละวันเป็นครึ่งหนึ่งของวันแรก นั่นคือ  .  ชั่วโมงต่อวัน
+
+ดังนั้น เวลาทั้งหมดที่เขาใช้ในการวิ่งใน   วันคือ:  
+  (วันแรก) +  .  (วันที่สอง) +  .  (วันที่สาม) =   ชั่วโมง
+
+เขาวิ่งได้ทั้งหมด    ไมล์ในเวลา   ชั่วโมง  
+ดังนั้น ความเร็วเฉลี่ยที่เขาวิ่งคือ:  
+   ไมล์ ÷   ชั่วโมง =    ไมล์ต่อชั่วโมง
+
+คำตอบสุดท้าย:  ",
+37,qwen3_8bdecode_switched1505,"Um zu bestimmen, wie lange der Gewinner bei sich zu Hause wartet, bis der Verlierer das Rennen beendet, müssen wir die Zeiten berechnen, die Steve und Tim benötigen, um von der Schule nach Hause zu kommen.
+
+Zuerst berechnen wir die Zeit, die Steve benötigt, um   Meilen zu seinem Zuhause zu fahren. Da Steve mit seinem Fahrrad     Fuß pro Minute fährt, müssen wir die Distanz in Fuß umrechnen.   Meile entspricht      Fuß, also:
+
+- Distanz für Steve:  
+
+- Zeit für Steve:  
+
+Nun berechnen wir die Zeit, die Tim benötigt, um   Meilen zu seinem Zuhause zu fahren. Tim fährt mit seinem Skateboard     Fuß pro Minute:
+
+- Distanz für Tim:  
+
+- Zeit für Tim:  
+
+Da Steve schneller ist, ist er der Gewinner. Er wartet also    Minuten, bis Tim das Rennen beendet. Da Steve    Minuten benötigt, wartet er:
+
+-  
+",
+38,qwen3_8bdenative122,"Um zu berechnen, wie viele Jahre es dauert, bis Carlos mit dem Zitronenbaum Geld verdient, gehen wir Schritt für Schritt vor:
+
+ . **Anschaffungskosten des Baumes:**  
+   Carlos muss    US-Dollar ausgeben, um den Zitronenbaum zu pflanzen.
+
+ . **Jährliche Ernte:**  
+   Jedes Jahr wachsen   Zitronen.  
+   Jede Zitrone wird für  ,   US-Dollar verkauft.  
+   Daher verdient Carlos jährlich:  
+     US-Dollar.
+
+ . **Jährliche Kosten:**  
+   Jedes Jahr kostet es   US-Dollar, den Baum zu gießen und zu düngen.
+
+ . **Nettoertrag pro Jahr:**  
+   Der Nettoertrag pro Jahr ist der Verkaufserlös minus die Kosten:  
+     US-Dollar.
+
+ . **Gesamtgewinn nach n Jahren:**  
+   Nach   Jahren ist der Gesamtgewinn:  
+    .
+
+ . **Zurückgewinnung der Anschaffungskosten:**  
+   Carlos verdient Geld, wenn der Gesamtgewinn die Anschaffungskosten von    US-Dollar übersteigt.  
+   Wir setzen den Ausdruck   und lösen nach   auf:  
+      
+    .
+
+ . **Ergebnis:**  
+   Nach    Jahren hat Carlos noch nicht genug Gewinn, um die Anschaffungskosten zu decken.  
+   Nach    Jahren hat er bereits:  
+     US-Dollar.  
+   Damit hat er das Geld verdient.
+
+**Antwort:**  ",
+39,qwen3_8bthnative1107,"เพื่อแก้โจทย์นี้ เราต้องคำนวณปริมาณผลไม้แห้งแบบแผ่นม้วนทั้งหมดที่มาร์เซลล์และเบียทริซมี แล้วหาค่าเฉลี่ยของปริมาณที่แต่ละคนกิน
+
+### ขั้นตอนที่  : คำนวณปริมาณผลไม้แห้งของเบียทริซ  
+เบียทริซมีผลไม้แห้งแบบแผ่นม้วนที่มีความกว้าง   ยาว     
+ปริมาณของผลไม้แห้งของเบียทริซ = ความกว้าง × ความยาว =   ×    =     
+
+### ขั้นตอนที่  : คำนวณปริมาณผลไม้แห้งของมาร์เซลล์  
+มาร์เซลล์มีผลไม้แห้งแบบแผ่นม้วนที่มีความกว้าง   ยาว     
+ปริมาณของผลไม้แห้งของมาร์เซลล์ = ความกว้าง × ความยาว =   ×    =     
+
+### ขั้นตอนที่  : รวมปริมาณผลไม้แห้งทั้งหมด  
+ปริมาณรวม = ปริมาณของเบียทริซ + ปริมาณของมาร์เซลล์ =    +    =     
+
+### ขั้นตอนที่  : หาค่าเฉลี่ยของปริมาณที่แต่ละคนกิน  
+จำนวนคน =    
+ค่าเฉลี่ย = ปริมาณรวม ÷ จำนวนคน =    ÷   =     
+
+### คำตอบสุดท้าย:  ",
+40,qwen3_8bswpivot1374,"Okay, let's break down the problem step by step.
+
+First, we need to calculate the cost of each item Rory bought:
+
+ . **Sandwiches**:  
+   Rory bought   sandwiches at        .   =   .     .   each.  
+   So, the cost for chips is:  
+    
+
+ . **Biscuits**:  
+   Rory bought   biscuits at        .   =  .       .   +  .   +  .   =   .       \%     .   =  .       .   =  .       .   +  .   =   .     .  .  
+So, the final total amount is:  
+ 
+
+### Final Answer:",
+41,qwen3_8bthtranslate_act687,"
+
+To solve the problem, we start by determining the number of boys in the school. The problem states that there are twice as many boys as girls, and there are    girls.
+
+ 
+  =       =        =    
+ 
+
+Next, we find the total number of students by adding the number of boys and girls:
+
+ 
+  =   +   =     +    =    
+ 
+
+Now, we calculate the number of teachers. The school has one teacher for every   students:
+
+ 
+  =  }{ } =  { } =   
+ 
+",
+42,qwen3_8bdepivot2175,"Okay, let's break this down step by step.  
+
+First, the problem says there are   roses in the vase. So, the number of roses is  .
+
+Next, it says there are   more dahlias than roses. Since there are   roses, we can calculate the number of dahlias by adding   to the number of roses.  
+So, the number of dahlias is  .
+
+Now, to find the total number of flowers in the vase, we add the number of roses and the number of dahlias together.  
+That is  .
+
+Therefore, the total number of flowers in the vase is   .
+",
+43,qwen3_8bthnative2210,"เริ่มต้นด้วยการวิเคราะห์โจทย์ทีละขั้นตอน:
+
+ . ถังเก็บน้ำมีน้ำอยู่เริ่มต้นที่     ลิตร  
+   **เหตุผล:** โจทย์ระบุว่าถังบรรจุน้ำ     ลิตร
+
+ . เซลีนใช้น้ำ    ลิตรเพื่อรดน้ำสวน  
+   **เหตุผล:** โจทย์ระบุว่าเธอใช้น้ำ    ลิตร
+
+ . น้ำที่เหลือในถังหลังจากใช้น้ำ    ลิตรคือ  
+     ลิตร  
+   **เหตุผล:** น้ำที่เหลือ = น้ำเริ่มต้น - น้ำที่ใช้
+
+ . เซลีนสามารถเก็บน้ำฝนได้มากเป็นสองเท่าของน้ำที่เหลือ  
+   **เหตุผล:** โจทย์ระบุว่าเธอเก็บน้ำฝนได้มากเป็นสองเท่าของน้ำที่เหลือ ซึ่งหมายถึงเก็บน้ำฝนเพิ่มขึ้น   เท่าของน้ำที่เหลือ หรือเพิ่ม   ×    =    ลิตร
+
+ . ดังนั้น น้ำในถังตอนนี้คือ  
+     ลิตร  
+   **เหตุผล:** น้ำในถังหลังจากเติมน้ำฝน = น้ำที่เหลือ + น้ำฝนที่เก็บได้
+
+**คำตอบสุดท้าย:**  ",
+44,qwen3_8bdepivot2086,"Wir werden die Anzahl der Kuchen, die Rose an drei aufeinanderfolgenden Tagen gekauft hat, Schritt für Schritt berechnen.
+
+ . **Montag**: Rose kaufte   Kuchen.  
+   Anzahl der Kuchen am Montag =  
+
+ . **Dienstag**: Sie kaufte dreimal so viele Kuchen wie am Montag.  
+   Anzahl der Kuchen am Dienstag =   ×   =   
+
+ . **Mittwoch**: Sie kaufte  -mal so viele Kuchen wie am Dienstag.  
+   Anzahl der Kuchen am Mittwoch =   ×    =   
+
+Nun addieren wir die Anzahl der Kuchen, die sie an allen drei Tagen gekauft hat:
+
+- Gesamtzahl der Kuchen =   (Montag) +    (Dienstag) +    (Mittwoch)  
+- Gesamtzahl der Kuchen =   
+",
+45,qwen3_8bswtranslate_act1466,"
+
+To solve the problem, we need to calculate the total number of lego pieces in all three boxes.
+
+ . The first box has     pieces.
+ . The second box has   times more pieces than the first box, so it has   pieces.
+ . The third box has   of the number of pieces in the first box, so it has   pieces.
+
+Now, we add the number of pieces from all three boxes:
+
+ 
+    +      +     =     
+ 
+",
+46,qwen3_8bswpivot2091,"Okay, let's break this problem down step by step.
+
+First, the problem says: ""Bei ya dazeni ishirini za vikombe ni       kila moja.""
+
+Let's translate and understand the meaning:
+
+- ""Bei ya dazeni ishirini za vikombe ni       kila moja.""
+
+This is a bit complex. Let's parse it:
+
+- ""Dazeni ishirini za vikombe"" =    baskets of fruits.
+- ""Ni       less than the total cost.
+- ""Ya nusu dazeni ya sahani zinazouzwa       each.
+
+So, the total cost of    baskets of fruits is       each.
+
+Let’s define variables:
+
+Let the number of baskets of plates be  .
+
+Then, half the number of baskets of plates is  .
+
+The total cost of half the number of baskets of plates is  .
+
+The total cost of    baskets of fruits is  .
+
+Now, we are asked to find the price per basket of fruits.
+
+Let’s denote the price per basket of fruits as  .
+
+So, the total cost of    baskets of fruits is  .
+
+Therefore, we have the equation:
+
+ 
+  p =  { }        -     
+ 
+
+But we don't know the value of  , the number of baskets of plates. However, the problem is asking for the price per basket of fruits, and it seems we are not given the value of  , so maybe there is a missing piece of information.
+
+Wait, let me re-read the original problem again carefully.
+
+""Bei ya dazeni ishirini za vikombe ni       kila moja.""
+
+So, the total cost of    baskets of fruits is       each.
+
+Let’s assume the number of baskets of plates is the same as the number of baskets of fruits, which is   .
+
+So, half of    is    baskets of plates.
+
+Total cost of    baskets of plates =    ×    ,   
+
+Then, the total cost of    baskets of fruits is       =        .
+
+### Final Answer:",
+47,qwen3_8bthtranslate_act186,"
+
+First, we calculate how many days are in   weeks:
+ 
+          =     
+ 
+
+Next, we find out how many eggs she uses in    days:
+ 
+           =     
+ 
+
+Now, we convert the number of eggs into dozens (  dozen =    eggs):
+ 
+            =    
+ 
+",
+48,qwen3_8bdecode_switched41,"Wendi füttert jedes ihrer Hühner täglich mit drei Tassen gemischtem Hühnerfutter, also insgesamt   Tassen Futter pro Tag.  
+Sie füttert die Hühner in drei separaten Mahlzeiten. Morgens gibt sie    Tassen Futter und nachmittags    Tassen Futter.  
+Um die Menge der letzten Mahlzeit zu berechnen, subtrahiert man die bereits gegebenen Mengen von der Gesamtmenge:  
+  Tassen Futter.  
+",
+49,qwen3_8bswnative2262,"Tatizo lifuatalo la hisabati:
+
+James anahesabu kadi zake za Pokemon. Ana aina    za moto, aina    za nyasi, na aina    za maji. Akipoteza aina   za maji na kununua aina    za nyasi, asilimia ya nafasi ya kuokota kinasibu kadi ya aina ya maji itakuwa ngapi (ikiwa katika nambari kamili ya karibu)?
+
+**Hatua kwa hatua:**
+
+ . **Kupata idadi ya kadi ya maji kwa wakati wa kufanya kazi:**
+   - Aina ya maji:   
+   - Akipoteza:  
+   - Akipoteza:    -   =   
+
+ . **Kupata idadi ya kadi ya nyasi kwa wakati wa kufanya kazi:**
+   - Aina ya nyasi:   
+   - Akipoteza:   (sasa) (kuna kipengele kati ya tatizo, kuna kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi, kipengele kati ya kufanya kazi",
+50,qwen3_8bswtranslate_act1683,"
+
+To solve the problem, we start by identifying the amount of money Ethel has, which is given as      to this amount to find out how much money Jimmy has:
+ 
+   +   =   
+ 
+
+So, Jimmy has $  .
+",
+51,qwen3_8bdepivot647,"Um zu berechnen, wie viele Meilen Sophia mit einer einzigen Tankfüllung fahren kann, gehen wir Schritt für Schritt vor:
+
+ . **Bestimmen der Benzinverbrauchsgeschwindigkeit:**  
+   Sophia hat seit der letzten Tankfüllung     Meilen gefahren und dabei   Gallonen Benzin verbraucht.  
+   Daraus ergibt sich ein Benzinverbrauch von:  
+    
+    }{   } =     
+    
+
+ . **Bestimmen der maximalen Tankkapazität:**  
+   Laut der Bedienungsanleitung kann der Tank    Gallonen Benzin fassen.
+
+ . **Berechnen der maximalen Reichweite:**  
+   Mit    Gallonen und einem Verbrauch von    Meilen pro Gallone kann Sophia folgende Strecke fahren:  
+    
+               =      
+    
+",
+52,qwen3_8bswnative576,"Tatizo la hisabati inaweza kusajiriwa kwa hatua kwa hatua:
+
+ . **Tumeonyesha maandishi ya kifupi:**
+   - Daraja la mbao linaweza kubeba pauni zisizozidi     .
+   - Lori la uwasilishaji lililojaa na maboksi yanayofanana, kila boksi likiwa na uzani wa pauni   .
+   - Lori litapita juu ya daraja hilo.
+   - Jumla ya uzani wa dereva na lori tupu ni pauni     .
+   - Idadi ya juu zaidi ya maboksi yanayoweza kupakiwa kwenye lori bila kuzidi kikomo cha uzani wa daraja hilo ni ngapi?
+
+ . **Tumeonyesha matokeo ya kifupi:**
+   - Uzani wa maboksi (kila boksi) =    pauni
+   - Jumla ya uzani =      pauni
+   - Daraja la mbao =      pauni
+
+ . **Tumeonyesha matokeo ya kifupi kwa matokeo ya kifupi:**
+   - Jumla ya maboksi = Jumla ya uzani / Uzani wa maboksi =      /    ≈    .  
+   - Idadi ya maboksi =     (kwa sababu idadi ya maboksi ina kujitokeza kama idadi ya maboksi)
+
+ . **Tumeonyesha idadi ya maboksi ya kikomo cha daraja:**
+   - Daraja la mbao =      pauni
+   - Uzani wa maboksi =    pauni
+   - Idadi ya maboksi ya kikomo cha daraja =      /    ≈    .  
+   - Idadi ya maboksi ya kikomo cha daraja =    
+
+ . **Tumeonyesha idadi ya maboksi ya kikomo cha daraja:**
+   - Idadi ya maboksi ya kikomo cha daraja =    
+   - Idadi ya maboksi ya kikomo cha lori =    
+   - Idadi ya maboksi ya kikomo cha daraja bila kuzidi kikomo cha uzani =     -     =   
+
+ . **Tumeonyesha jibu:**
+   - Idadi ya maboksi ya kikomo cha daraja bila kuzidi kikomo cha uzani =   
+",
+53,qwen3_8bdenative1437,"Schritt  : Bestimme, welche Artikel als Non-Food-Artikel gelten.  
+Gemäß der Aufgabenstellung sind die Non-Food-Artikel: Glühbirnen, Tassen und Kakerlakenfallen.  
+Die Preise dafür sind:  
+- Glühbirnen:   Dollar  
+- Tassen:   Dollar  
+- Kakerlakenfallen:   Dollar  
+
+Schritt  : Berechne den Gesamtpreis der Non-Food-Artikel.  
+  +   +   =    Dollar  
+
+Schritt  : Berechne die    % Steuer auf die Non-Food-Artikel.  
+   % von    Dollar =  ,   ×    =   Dollar  
+
+Schritt  : Addiere die Steuer zu den Non-Food-Artikeln.  
+   +   =    Dollar  
+
+Schritt  : Die Kosten für die Food-Artikel (Milch, Eier) sind nicht besteuert.  
+Milch:   Dollar  
+Eier:   Dollar  
+Gesamt:   +   =   Dollar  
+
+Schritt  : Addiere die besteuerten Non-Food-Artikel und die nicht besteuerten Food-Artikel.  
+   +   =    Dollar  
+",
+54,qwen3_8bthpivot82,"เรามาคิดทีละขั้นตอนเพื่อแก้ปัญหานี้:
+
+### ขั้นตอนที่  : คำนวณระยะทางที่จอห์นขับไปในช่วงแรก
+จอห์นขับรถไปด้วยความเร็ว    ไมล์ต่อชั่วโมง ใช้เวลา   ชั่วโมง  
+ดังนั้น ระยะทางที่เขาขับไปคือ:  
+ 
+           =      
+ 
+
+### ขั้นตอนที่  : คำนวณเวลาที่จอห์นใช้ในการกลับบ้าน
+จอห์นตั้งใจจะกลับบ้านภายใน   ชั่วโมง แต่ในช่วง   ชั่วโมงแรกรถติดจนจอดนิ่ง ดังนั้นเขาใช้เวลาขับรถจริงในช่วงเวลา   ชั่วโมงนี้คือ:  
+ 
+    -     =    
+ 
+
+### ขั้นตอนที่  : คำนวณระยะทางที่จอห์นขับได้ในช่วงเวลาที่เหลือ
+ในช่วงเวลาที่เหลือ   ชั่วโมงนี้ เขาขับรถใน   ช่วงเวลา:
+- ครึ่งชั่วโมงแรก ( .  ชม): ความเร็ว    ไมล์ต่อชั่วโมง  
+  ระยะทาง:  
+   
+          .    =     
+   
+- ชั่วโมงที่เหลือ (  -  .  =  .  ชม): ความเร็ว    ไมล์ต่อชั่วโมง  
+  ระยะทาง:  
+   
+          .    =      
+   
+
+### ขั้นตอนที่  : คำนวณระยะทางทั้งหมดที่จอห์นขับกลับได้
+ 
+     +       =      
+ 
+
+### ขั้นตอนที่  : คำนวณระยะทางที่ยังเหลือจากบ้าน
+เขาขับไป     ไมล์ และกลับได้     ไมล์ ดังนั้นเขาอยู่ห่างจากบ้าน:  
+ 
+      -       =     
+ 
+
+### คำตอบสุดท้าย:",
+55,qwen3_8bthcode_switched1776,"เซดมีรายได้      เหรียญต่อเดือน  
+
+ . เขาใช้  /  ของเงินเดือนจ่ายค่าเช่า:  
+     เหรียญ  
+
+ . เขาใช้  /  ของเงินเดือนจ่ายค่าน้ำมันรถยนต์:  
+     เหรียญ  
+
+ . จำนวนเงินที่เหลือหลังจากจ่ายค่าเช่าและค่าน้ำมัน:  
+     เหรียญ  
+
+ . เขาบริจาคครึ่งหนึ่งของจำนวนเงินที่เหลือให้กับองค์กรการกุศล:  
+     เหรียญ  
+
+ . จำนวนเงินที่เหลือหลังจากบริจาค:  
+     เหรียญ  
+
+ . เขาให้เงินลูกสาว     เหรียญ และให้ภรรยา     เหรียญ:  
+     เหรียญ  
+
+ . จำนวนเงินที่เหลือหลังจากหักค่าใช้จ่ายและการบริจาคทั้งหมด:  
+     เหรียญ  
+",
+56,qwen3_8bswtranslate_act900,"
+
+To find the total amount of plant food Ted needs to gather, we calculate the amount needed for the large dinosaurs and the young ones separately, then add them together.
+
+ . **Large dinosaurs:** There are    large dinosaurs, and each eats    pounds of plant food.
+    
+               =      
+    
+
+ . **Young dinosaurs:** There are   young dinosaurs, and each eats half the amount that a large dinosaur eats, which is   pounds.
+    
+             =     
+    
+
+ . **Total plant food needed:**
+    
+         +      =      
+    
+",
+57,qwen3_8bswpivot2345,"Let's break down the problem step by step:
+
+ . **Steve wants to start eating a lot of bananas and decides to plant banana trees.**  
+   - So, he is planting banana trees to grow more bananas.
+
+ . **He eats more than twice his house.**  
+   - This seems like a translation issue or ambiguity. It might mean he eats more than twice the amount of bananas that his house (or perhaps his family) consumes. We will interpret this as:  
+     - He eats **more than twice** the amount of bananas that his house consumes.
+
+ . **He eats   bananas per day.**  
+   - So, he eats **  bananas per day**.
+
+ . **One banana tree can produce   bananas per week.**  
+   - Each tree gives **  bananas per week**.
+
+ . **We need to find out how many banana trees Steve needs.**  
+   - First, let's calculate how many bananas he eats in a week:  
+     -   bananas/day ×   days/week = **   bananas per week**.
+
+ . **Now, we need to calculate how many trees are needed to produce    bananas per week.**  
+   - Since one tree gives   bananas per week, we divide:  
+     -    bananas ÷   bananas/tree = **   trees**.
+
+ . **But the problem says he eats more than twice the amount of bananas that his house consumes.**  
+   - So, he needs more than    trees. Let's assume ""more than twice"" means **at least   times more**.  
+   -    trees ×   = **   trees**.
+
+### Final Answer:",
+58,qwen3_8bswnative1050,"Tatizo:  
+Cody huwa anakula biskuti mara tatu zaidi ya biskuti ambazo Amir hukula. Iwapo Amir hukula biskuti  , wote wawili huwa wanakula biskuti ngapi kwa pamoja?
+
+Husababisha:  
+Amir hukula   biskuti.  
+Cody hukula   x   =    biskuti.  
+Jumla ya biskuti =   +    =   .
+
+Jibu:  ",
+59,qwen3_8bthpivot311,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **เพื่อนคนแรกทายว่ามีเจลลี่บีน    เม็ด**  
+   ดังนั้น ค่าที่เพื่อนคนแรกทายคือ:  
+    
+     
+    
+
+ . **เพื่อนคนที่สองทายว่ามากกว่าครึ่งหนึ่งของคนแรก    เม็ด**  
+   - ครึ่งหนึ่งของคนแรกคือ:  
+      
+      { }      =   
+      
+   - เพื่อนคนที่สองทายว่ามากกว่า    เม็ด    เม็ด:  
+      
+        +    =   
+      
+
+ . **เพื่อนคนที่สามทายว่ามากกว่าคนแรก   %**  
+   -   % ของ    เม็ดคือ:  
+      
+      .        =   
+      
+   - เพื่อนคนที่สามทายว่ามากกว่า    เม็ด    เม็ด:  
+      
+        +    =    
+      
+
+ . **หาค่าเฉลี่ยของทั้งสามคน**  
+   ค่าเฉลี่ย = (ผลรวมของทั้งสามค่า) /    
+   ผลรวมของทั้งสามค่าคือ:  
+    
+      +    +     =    
+    
+   ดังนั้น ค่าเฉลี่ยคือ:  
+    
+    { } =   
+    
+
+### คำตอบสุดท้าย:",
+60,qwen3_8bthpivot1215,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **จำนวนผลไม้ที่มอร์ริแซทซื้อ:**
+   - แอปเปิ้ล:   ผล
+   - ส้ม:   ผล
+   - รวม:   ผล
+
+ . **จำนวนผลไม้ที่คาเอลซื้อ:**
+   - แอปเปิ้ล: สองเท่าของมอร์ริแซท ซึ่งคือ   ผล
+   - ส้ม: ครึ่งหนึ่งของมอร์ริแซท ซึ่งคือ   ผล
+   - รวม:   ผล
+
+ . **จำนวนผลไม้ทั้งหมดที่ทั้งสองคนซื้อ:**
+   - มอร์ริแซท:    ผล
+   - คาเอล:    ผล
+   - รวม:   ผล
+
+ดังนั้น ทั้งสองคนจะมีผลไม้รวมกันจำนวน **   ผล**
+",
+61,qwen3_8bswpivot1574,"Let's break down the problem step by step:
+
+### Step  : Understand the problem
+- Blake and Kelly are competing to see who can run more distance in    minutes.
+- They are running in a track that has a length of     meters.
+- Blake runs to and fro (i.e., back and forth)    times.
+- Kelly runs to and fro only once, then decides to not run to and fro with Blake, so she starts running to and fro from the   -meter mark on the track.
+- She does this    times.
+- We are asked to find out how much more distance the winner ran compared to the loser.
+
+### Step  : Calculate the distance Blake ran
+- Blake runs to and fro (i.e., from one end to the other and back)    times.
+- One full to and fro is:     meters (to) +     meters (back) =     meters.
+- So, Blake ran:  
+    meters.
+
+### Step  : Calculate the distance Kelly ran
+- Kelly runs to and fro    times, but **starting from the   -meter mark**.
+- So, each to and fro is:  
+  From    meters to     meters =    meters (to), and back =    meters (back) → total =     meters.
+- So, Kelly ran:  
+    meters.
+
+### Step  : Determine who ran more and by how much
+- Kelly ran      meters.
+- Blake ran      meters.
+- So, Kelly ran more by:  
+    meters.
+
+### Final Answer:",
+62,qwen3_8bdetranslate_act616,"
+
+To find the total amount Janet had to pay, we need to calculate the sum of the cost of the material, the cost of the jeweler, and the insurance cost.
+
+ . The cost of the material is     .
+ . The insurance cost is   % of the total cost of the material and the jeweler, which is   % of      =      :
+ 
+  \%        =  .          =    
+ 
+
+Now, add all the costs together:
+ 
+    +     +     =     
+ 
+",
+63,qwen3_8bdenative493,"Um die Anzahl der unbewohnten Wohnungen im Gebäude zu berechnen, gehen wir Schritt für Schritt vor:
+
+ . **Gesamtzahl der Wohnungen im Gebäude berechnen:**  
+   Das Gebäude hat    Etagen, auf jeder Etage gibt es   Wohnungen.  
+     Wohnungen insgesamt.
+
+ . **Anzahl der bewohnten Wohnungen berechnen:**  
+    /  des Gebäudes sind bewohnt.  
+     Wohnungen sind bewohnt.
+
+ . **Anzahl der unbewohnten Wohnungen berechnen:**  
+   Gesamtzahl der Wohnungen minus Anzahl der bewohnten Wohnungen:  
+    .
+
+Die Anzahl der unbewohnten Wohnungen im Gebäude beträgt:
+",
+64,qwen3_8bswnative713,"Kelian ana mapishi mawili ya kuandaa milo.  
+Mapishi ya kwanza ina maelekezo   .  
+Mapishi ya pili ina maelekezo mara tatu zaidi ya mapishi ya kwanza.  
+Hakika, maelekezo ya mapishi ya pili ni    +   =   .  
+Kelinganisa maelekezo ya miwili:    +    =   .  
+",
+65,qwen3_8bswpivot1767,"Let's break down the problem step by step:
+
+ . The total number of people in the group is    .
+ .    of them were Japanese.
+ . The rest were Chinese, so the number of Chinese people is:
+    
+       -    =    
+    
+ . It is given that the number of male Chinese people in the group is   .
+ . We are asked to find the number of female Chinese people.
+
+To find the number of female Chinese people, we subtract the number of male Chinese people from the total number of Chinese people:
+ 
+    -    =    
+ 
+
+### Final Answer:",
+66,qwen3_8bdenative1682,"Um die Lösung zu finden, gehen wir Schritt für Schritt vor:
+
+ . Wir wissen, dass Ethel     mehr als doppelt so viel Geld wie Ethel.
+ . Zuerst berechnen wir das Doppelte von Ethels Geld:  
+    
+ . Dann addieren wir die        +   =     .
+",
+67,qwen3_8bdetranslate_act2063,"
+
+First, we calculate the total distance Micheal rode during the first four weeks:
+- He rode   times a week, covering    kilometers each time.
+- So, per week:   kilometers.
+- For   weeks:   kilometers.
+
+Next, we calculate the total distance for the next three weeks:
+- He rode   times a week, covering    kilometers each time.
+- So, per week:   kilometers.
+- For   weeks:   kilometers.
+
+Finally, we add both distances together:
+-   kilometers.
+",
+68,qwen3_8bswtranslate_act17,"
+
+To solve the problem, we need to calculate the total number of pieces of light used by Joho.
+
+ . Joho uses   pieces of moonlight.
+ . He uses half of this amount in starlight. Half of   is  .
+ . To find the total number of pieces of light, we add the pieces of moonlight and starlight:  .
+",
+69,qwen3_8bswpivot107,"Let's break down the problem step by step:
+
+ . **First month**: The program was used    times.  
+   So, the number of uses in the first month = **  **.
+
+ . **Second month**: The number of uses was three times the number of uses in the first month.  
+   So, the number of uses in the second month =  .
+
+ . **Third month**: The number of uses decreased by   % compared to the second month.  
+   A   % decrease means   % of the second month's usage.  
+   So, the number of uses in the third month =  .
+
+ . **Total number of uses in the three months**:  
+    .
+
+### Final Answer:",
+70,qwen3_8bswpivot1560,"Let's break down the problem step by step:
+
+ . **Understanding the problem:**
+   - A farmer is feeding animals in a farm. 
+   - He supplies all the chickens with feed every   months.
+   - If the chickens need     units of feed, then they need     units in total (for   months).
+   - If a person needs     units of feed per month, how many units of feed does he need to supply for   months?
+
+ . **Analyzing the data:**
+   - The chickens need     units of feed per month.
+   - For   months, the chickens will need:  
+      
+   - A person needs     units of feed per month.
+   - For   months, the person will need:  
+      
+
+ . **Final answer:**
+   - The person needs     units of feed for   months.
+",
+71,qwen3_8bswnative1321,"Pam na Fred walitumia tikiti   .  
+Pam aliendesha rolakosta mara  , Fred mara  . Kila mmoja aliamua kuendesha luji mara  . Kila kuendesha ilikuwa inagharimu tiketi  .  
+Kwa kila mmoja, kila kuendesha ilikuwa inagharimu   tiketi.  
+Pam alikuwa na   +   =   kuendesha. Fred alikuwa na   +   =   kuendesha.  
+Pam:   ×   =   . Fred:   ×   =   .  
+   +    =   .  
+Wote wawili walitumia tikiti   .
+",
+72,qwen3_8bdecode_switched440,"Um den Nettogewinn zu berechnen, müssen wir die Gesamteinnahmen abzüglich der Gesamtkosten bestimmen.
+
+Zuerst berechnen wir, wie viel Bienenwachs Charlie für die Herstellung von    Kerzen benötigt.  
+Da aus einem Pfund Bienenwachs    Kerzen hergestellt werden können, benötigt er für    Kerzen:  
+ 
+ {  } =    
+ 
+
+Die Kosten für das Bienenwachs plus Dochte betragen   ,   US-Dollar pro Pfund.  
+Für   Pfund Bienenwachs sind die Kosten:  
+ 
+      ,   =   ,    
+ 
+
+Nun berechnen wir die Gesamteinnahmen.  
+Charlie verkauft jede Kerze für  ,   US-Dollar.  
+Für    Kerzen sind die Einnahmen:  
+ 
+      ,   =   ,    
+ 
+
+Der Nettogewinn ist die Differenz zwischen Einnahmen und Ausgaben:  
+ 
+  ,   -   ,   =   ,    
+ 
+",
+73,qwen3_8bdetranslate_act2024,"
+
+To find out how many barrels of wine Josie's farm produces per year, we can break the problem into steps:
+
+ . First, calculate the total amount of grapes produced per year on the entire farm:
+   -    acres *   tons of grapes per acre =    tons of grapes per year
+
+ . Next, calculate how many barrels of wine are produced from the total amount of grapes:
+   -    tons of grapes *   barrels of wine per ton =     barrels of wine per year
+",
+74,qwen3_8bthnative810,"เริ่มต้นด้วยการหาจำนวนสติกเกอร์ทั้งหมดที่ชาร์ลีมีก่อนที่จะให้และใช้สติกเกอร์
+
+ . ชาร์ลีเริ่มต้นมีสติกเกอร์    อัน  
+   เหตุผล: โจทย์ระบุว่าชาร์ลีมีสติกเกอร์    อัน
+
+ . เขาซื้อเพิ่ม    อันจากร้านค้าในห้าง  
+   เหตุผล: โจทย์ระบุว่าเขาซื้อสติกเกอร์    อัน  
+   จำนวนสติกเกอร์ตอนนี้ =    +    =    อัน
+
+ . จากนั้นเขาได้รับสติกเกอร์เพิ่มอีก    อันเนื่องในวันเกิด  
+   เหตุผล: โจทย์ระบุว่าได้รับสติกเกอร์    อัน  
+   จำนวนสติกเกอร์ตอนนี้ =    +    =    อัน
+
+ . ชาร์ลีให้สติกเกอร์กับน้องสาว   อัน  
+   เหตุผล: โจทย์ระบุว่าให้สติกเกอร์   อัน  
+   จำนวนสติกเกอร์ที่เหลือ =    -   =    อัน
+
+ . จากนั้นเขาใช้สติกเกอร์    อันตกแต่งการ์ดทักทาย  
+   เหตุผล: โจทย์ระบุว่าใช้สติกเกอร์    อัน  
+   จำนวนสติกเกอร์ที่เหลือ =    -    =    อัน
+
+ดังนั้น ชาร์ลีจะเหลือสติกเกอร์อีก    อัน
+",
+75,qwen3_8bdepivot1547,"Um die Gesamtzahl der Stunden zu berechnen, die Kimo in einem Semester mit Kursbesuchen verbringt, gehen wir Schritt für Schritt vor:
+
+ . **Montags, Mittwochs und Freitags** hat Kimo **drei  -stündige Kurse** pro Tag.  
+   - Das sind **  Tage** mit **  Stunden** pro Tag.  
+   - Gesamt:  
+
+ . **Dienstags und Donnerstags** hat Kimo **zwei  -stündige Kurse** pro Tag.  
+   - Das sind **  Tage** mit **  Stunden** pro Tag.  
+   - Gesamt:  
+
+ . **Gesamt pro Woche**:
+   -  
+
+ . **Ein Semester hat    Schulwochen**.  
+   - Gesamt:  
+",
+76,qwen3_8bswcode_switched1675,"Let's break down the problem step by step:
+
+ . **""Umri wa Seth ni mara mbili zaidi ya umri wa Brooke.""**  
+   This means: ""Seth's age is twice Brooke's age.""  
+   So, if we let Brooke's age be  , then Seth's age is  .
+
+ . **""Baada ya miaka  , jumla ya umri wao utakuwa   .""**  
+   This means: ""After   years, the sum of their ages will be   .""  
+   After   years, Brooke's age will be  , and Seth's age will be  .  
+   The sum of their ages after   years is:  
+    
+   (B +  ) + ( B +  ) =   
+    
+
+ . **Solve the equation:**  
+    
+   B +   +  B +   =   
+      
+   Combine like terms:  
+    
+    B +   =   
+      
+   Subtract   from both sides:  
+    
+    B =   
+      
+   Divide both sides by  :  
+    
+   B =  
+      
+   So, Brooke is currently   years old.
+
+ . **Find Seth's age:**  
+   Seth's age is twice Brooke's age:  
+    
+    B =       =   
+    
+",
+77,qwen3_8bswpivot1005,"Let's break down the problem step by step and solve it logically.
+
+---
+
+### Step  : Understand the number of friends and their actions
+
+There are **  friends**, and each of them knocks on the door a certain number of times.
+
+We are told:
+
+- **First friend** knocks on the door **   times** **before** Jerome opens the door.
+- **Second friend** knocks ** /  more** than the first friend.
+- **Third friend** knocks **   more** than the fourth friend.
+- The **fourth friend** knocks **   times**.
+
+---
+
+### Step  : Calculate the number of knocks for each friend
+
+- Given: **   knocks**
+
+- Given: **   more than Friend  **
+- So, Friend   =    +    = **   knocks**
+
+- Given: ** /  more than Friend  **
+- But we don't know Friend  's count yet.
+
+- Given: **   knocks**
+
+Now, let's calculate Friend  's knocks.
+
+---
+
+### Step  : Calculate Friend  's knocks
+
+- Friend   knocks ** /  more** than Friend  .
+- Friend   =   
+-  /  of    =  
+- So, Friend   =    +   = **   knocks**
+
+---
+
+### Step  : Total number of knocks
+
+Now, let's add up the number of knocks from all four friends:
+
+- Friend  :   
+- Friend  :   
+- Friend  :   
+- Friend  :   
+
+Total =    +    +    +    = **   **
+
+---
+
+### Final Answer:
+",
+78,qwen3_8bdetranslate_act1654,"
+
+First, we calculate the total cost of all the items Elvira buys:
+- Computer:      €
+- Scanner:     €
+- CD burner:    €
+- Printer:     €
+
+Adding these together:
+ 
+     +     +    +     =     
+ 
+
+Next, we subtract this total from her budget of      € to find out how much money she has left for her clothing:
+ 
+     -      =   
+ 
+",
+79,qwen3_8bthnative1625,"เรามาแก้โจทย์ทีละขั้นตอนดังนี้:
+
+ . **ราคาลูกแก้วเดิมต่อถุง**:    บาท  
+ . **อัตราการเพิ่มราคา**:   % ทุก   เดือน  
+ . **จำนวนเดือนที่ผ่านไป**:    เดือน  
+ . **จำนวนครั้งที่ราคาเพิ่มขึ้น**:  
+   - เนื่องจากราคาเพิ่มขึ้นทุก   เดือน ดังนั้นจำนวนครั้งที่ราคาเพิ่มขึ้นคือ  
+      
+      { } =     
+      
+
+ . **อัตราการเพิ่มราคาในรูปแบบของตัวคูณ**:  
+   - ราคาเพิ่มขึ้น   % หมายถึงราคาใหม่คือ    % ของราคาเดิม  
+   - ดังนั้นตัวคูณคือ  
+
+ . **ราคาลูกแก้วหลังจาก    เดือน**:  
+   - ใช้สูตรการเติบโตแบบทวีคูณ:  
+      
+     P = P_    ( .  )^n
+      
+     โดยที่:  
+     -   (ราคาเดิม)  
+     -   (จำนวนครั้งที่ราคาเพิ่มขึ้น)  
+     - ดังนั้น:  
+        
+       P =      ( .  )^{  }
+        
+
+ . **คำนวณค่า  **:  
+   - ใช้เครื่องคำนวณหรือสูตรเพื่อหาค่าประมาณ:  
+      
+     ( .  )^{  }     .   
+      
+
+ . **คำนวณราคาสุดท้าย**:  
+    
+   P =        .         .  
+    
+
+ . **ปัดเศษเป็นจำนวนเต็ม**:  
+   - เนื่องจากโจทย์ไม่ได้ระบุว่าจะปัดเศษหรือไม่ แต่ต้องการคำตอบเป็นจำนวนเต็ม  
+   - ดังนั้นราคาลูกแก้วหนึ่งถุงหลังจาก    เดือนคือ:  
+      
+        
+      
+",
+80,qwen3_8bswnative2317,"Kutambua idadi ya kombe ambayo Kylie alikusanya siku ya Jumanne, tunafaniki kwa hatua kwa hatua:
+
+ . **Siku ya Jumatatu:** Kylie alikusanya kombe   .
+ . **Siku ya Jumanne:** Kylie alikusanya kombe mara   zaidi ya siku ya Jumatatu.  
+   - Kwa hiyo, Kylie alikusanya kombe =    ×   =   .
+
+Jibu la mwisho: ####   ",
+81,qwen3_8bswpivot205,"Let's break down the problem step by step:
+
+ . **Initial amount of water in the first container (chungwa):**  
+   - There are    liters of mixture.  
+   -  /  of them are water.  
+   - So, the amount of water is:  
+      
+      { }      =  { }    .    
+      
+
+ . **Amount of water in the second container (nanasi):**  
+   - There are    liters of mixture.  
+   -  /  of them are water.  
+   - So, the amount of water is:  
+      
+      { }      =    
+      
+
+ . **Total water before removing one liter of the first container's mixture:**  
+    
+    .   +   =   .    
+    
+
+ . **Removing   liter of the first container's mixture:**  
+   - Since the first container has    liters of mixture, and  /  of it is water, then   liter of this mixture will contain:  
+      
+      { }     =  { }    .    
+      
+
+ . **Total water after removing   liter of the first container's mixture:**  
+    
+     .   -  .   =     
+    
+
+ . **Total volume of the mixture after removing   liter:**  
+   - Initially, the total volume is:  
+      
+        +    =     
+      
+   - After removing   liter, the total volume is:  
+      
+        -   =     
+      
+
+ . **So, the amount of water in the    liters of mixture is:**  
+    
+       
+    
+
+### Final Answer:",
+82,qwen3_8bswnative45,"Tatizo la hisabati lifuatalo:
+
+Wendi hupatia kuku kati ya kuku wake vikombe vitatu vya chakula mseto cha kuku, kilicho na mbegu, wadudu na mboga. Kila siku, huwapa kuku wake vikombe    vya chakula asubuhi na    vya chakula mchana. Idadi ya kuku wa Wendi ni   .
+
+Kutambua idadi ya vikombe vya chakula ambayo kuku hao hupatia kila siku:
+
+- Asubuhi:    vya chakula kila kuku =    ×    =    
+- Mchana:    vya chakula kila kuku =    ×    =    
+
+Idadi ya vikombe vya chakula kila siku =     +     =    
+",
+83,qwen3_8bswnative1881,"**Hatua kwa hatua:**
+
+ . **Tumia vigezo vya hisabati:**  
+   - Bei ya kila mfuko:     
+   - Faida ya jumla:     +      
+   - Faida ya jumla ni      ÷ $   =   .   
+
+ . **Tumia kipengele cha kuzingatia:**  
+   - Mifuko mingi hana kipengele wa kifupi, kwa hiyo, mifuko mingapi =   .   
+   - Tumia kipengele cha kuzingatia:   .  =    mifuko ya kifupi +  .  mfuko ya kifupi  
+   -  .  mfuko =   mfuko ya kifupi (kwa sababu mifuko huna kipengele wa kifupi)  
+
+ . **Tumia kipengele cha kuzingatia:**  
+   - Mifuko mingapi =    +   =    mifuko  
+
+**Jibu la mwisho:**  ",
+84,qwen3_8bdecode_switched172,"Um Jills Jahresgehalt zu berechnen, müssen wir die Einnahmen aus beiden Tätigkeiten separat berechnen und dann addieren.
+
+Zuerst berechnen wir ihr Einkommen als Lehrerin:
+
+- Sie arbeitet    Wochen pro Woche als Lehrerin.
+- In einer Woche arbeitet sie    Stunden.
+- In    Wochen arbeitet sie also:  
+   
+- Ihr Stundensatz als Lehrerin beträgt    US-Dollar.  
+   
+
+Nun berechnen wir ihr Einkommen als Cheerleader-Coach:
+
+- Sie arbeitet    Stunden pro Woche als Coach.
+- In    Wochen arbeitet sie also:  
+   
+- Ihr Stundensatz als Coach beträgt    US-Dollar.  
+   
+
+Zuletzt addieren wir die beiden Einkommensquellen:
+
+ 
+",
+85,qwen3_8bdepivot2405,"Okay, let's break this problem down step by step.
+
+First, we are told that **John has    candies**.  
+We also know that **John has twice as many candies as Robert**.  
+So, if we let the number of candies Robert has be **R**, then:
+
+ 
+  =     R
+ 
+
+We know John has    candies, so:
+
+ 
+    R =   
+ 
+
+To find **R**, divide both sides by  :
+
+ 
+R =  { } =   
+ 
+
+So, **Robert has    candies**.
+
+Next, we are told that **James has   more candies than Robert**.  
+So, James has:
+
+ 
+  = R +   =    +   =   
+ 
+
+Now, we need to find how many more candies **John has than James**.  
+John has    candies and James has    candies, so:
+
+ 
+  =    -    =   
+ 
+
+### Final Answer:",
+86,qwen3_8bswnative1783,"Rani ana kaa kumi zaidi ya Monic, ambaye ana kaa   chache zaidi ya kaa wa Bo. Iwapo Bo ana kaa   , piga hesabu ya jumla ya kaa ambao watu hao watatu nako nao.
+
+Bo =     
+Monic =   chache zaidi ya Bo =    +   =     
+Rani = kumi zaidi ya Monic =    +    =     
+
+Jumla ya kaa = Bo + Monic + Rani =    +    +    =      
+",
+87,qwen3_8bthcode_switched1550,"บิลขายขนมปังโรล     ชิ้น ทุกวัน โดยขนมปังโรลแต่ละชิ้นยาว   นิ้ว  
+บิลขายครัวซองต์ช็อคโกแลต     ชิ้น ทุกวัน โดยครัวซองต์แต่ละชิ้นยาว   นิ้ว  
+บิลขายบาแก็ต    ชิ้น ทุกวัน โดยบาแก็ตแต่ละชิ้นยาว   ฟุต  
+
+เราต้องการหาความยาวรวมของขนมปังทั้งหมดเมื่อวางเรียงต่อกัน โดยคำนวณความยาวของแต่ละประเภทของขนมปังแยกกันก่อน:
+
+ . ความยาวของขนมปังโรลทั้งหมด:  
+     นิ้ว  
+
+ . ความยาวของครัวซองต์ช็อคโกแลตทั้งหมด:  
+     นิ้ว  
+
+ . ความยาวของบาแก็ตทั้งหมด:  
+     ฟุต  
+
+จากนั้น เราต้องแปลงหน่วยความยาวของขนมปังโรลและครัวซองต์ช็อคโกแลตจาก ""นิ้ว"" เป็น ""ฟุต"" โดยใช้สูตร:  
+ 
+
+ . ความยาวของขนมปังโรลในหน่วยฟุต:  
+     ฟุต  
+
+ . ความยาวของครัวซองต์ช็อคโกแลตในหน่วยฟุต:  
+     ฟุต  
+
+ . ความยาวรวมของขนมปังทั้งหมด:  
+     ฟุต  
+",
+88,qwen3_8bswtranslate_act1984,"
+
+To solve the problem, let's break it down step by step:
+
+ . **Initial number of cards:** Elaine started with    Pokémon cards.
+
+ . **After the first month:** She had three times more than that number, so:
+    
+          =   
+    
+   So, after the first month, she had    cards.
+
+ . **After the second month:** She had    less than the number she had in the first month, so:
+    
+      -    =   
+    
+   So, after the second month, she had    cards.
+
+ . **After the third month:** She had twice the total number of cards she had in the first and second months. The total number of cards in the first and second months is:
+    
+      +    =    
+    
+   So, in the third month, she had:
+    
+           =    
+    
+   Therefore, after the third month, she had     cards.
+
+ . **Total number of cards now:** The question asks for the total number of cards she has now, which is the number of cards she had in the third month, which is    .
+",
+89,qwen3_8bthpivot945,"เรามาคิดทีละขั้นตอนเพื่อแก้ปัญหานี้:
+
+ . **กำหนดตัวแปร**:
+   - จำนวนสุนัข =    ตัว (ตามโจทย์)
+   - จำนวนแมว =   × จำนวนสุนัข =   ×    =     ตัว
+   - จำนวนกระต่าย = จำนวนสุนัข + จำนวนแมว - จำนวนสัตว์เลี้ยงทั้งหมดที่เป็นสุนัขและแมวรวมกัน (ตามโจทย์)
+
+ . **คำนวณจำนวนสัตว์เลี้ยงที่เป็นสุนัขและแมวรวมกัน**:
+   - จำนวนสุนัข + จำนวนแมว =    +     =     ตัว
+
+ . **โจทย์บอกว่า**:
+   - จำนวนสัตว์เลี้ยงที่เป็นสุนัขและแมวรวมกันมากกว่าจำนวนกระต่าย    ตัว
+   - ดังนั้น จำนวนกระต่าย = จำนวนสุนัขและแมวรวมกัน -    =     -    =     ตัว
+
+ . **คำนวณจำนวนสัตว์เลี้ยงทั้งหมด**:
+   - จำนวนสัตว์เลี้ยงรวม = จำนวนสุนัข + จำนวนแมว + จำนวนกระต่าย
+   - =    +     +     =     ตัว
+
+ดังนั้น จำนวนสัตว์เลี้ยงทั้งหมดในย่านนั้นคือ:
+",
+90,qwen3_8bthpivot781,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **ข้อมูลที่ให้มา:**
+   - วินเซนต์สามารถซื้อดอกไม้กำละ   ดอกในราคา   
+   - เขาต้องการซื้อดอกไม้    ดอก
+
+ . **วิเคราะห์ราคาต่อดอก:**
+   - ถ้าซื้อกำละ   ดอกในราคา   .   ÷   ≈   :
+     - ราคาต่อดอก =   .   ต่อดอก
+
+   ดังนั้น วิธีที่สอง (กำละ   ดอกในราคา   :
+     - จำนวนกำ =    ÷   =   กำ
+     - ราคาทั้งหมด =   ×   
+
+ . **คำนวณราคาทั้งหมดหากซื้อแบบกำละ   ดอกในราคา   .   =     -   
+",
+91,qwen3_8bdetranslate_act1552,"
+
+To solve this problem, we need to convert all measurements to the same unit (feet) and then sum them up.
+
+ . **Convert the length of each roll to feet:**
+   -   foot =    inches
+   - Each roll is   inches long, so in feet:   feet
+   - Total length of rolls:   feet
+
+ . **Convert the length of each croissant to feet:**
+   - Each croissant is   inches long, so in feet:   feet
+   - Total length of croissants:   feet
+
+ . **Length of each baguette is already given in feet:**
+   - Each baguette is   feet long
+   - Total length of baguettes:   feet
+
+ . **Add all the lengths together:**
+   - Rolls:     feet
+   - Croissants:    feet
+   - Baguettes:     feet
+   - Total length:   feet
+",
+92,qwen3_8bthcode_switched974,"ฟรีดาใช้มะเขือเทศกระป๋องที่มีปริมาตร    ออนซ์ต่อกล่อง และเมื่อเธอใช้เนื้อหาในกระป๋องทำซอส ปริมาตรของเนื้อหาจะลดลงครึ่งหนึ่ง ดังนั้นปริมาตรของซอสที่ได้จากแต่ละกระป๋องคือ   ออนซ์  
+
+เนื่องจากซอสมะเขือเทศที่ฟรีดาทำมีปริมาตร    ออนซ์ และแต่ละกระป๋องให้ซอส   ออนซ์ ดังนั้นจำนวนกระป๋องที่เธอใช้คือ   กระป๋อง  
+
+แต่ละกระป๋องมีมะเขือเทศ   ผล ดังนั้นจำนวนมะเขือเทศทั้งหมดที่ฟรีดาใช้คือ   ผล  
+",
+93,qwen3_8bswpivot365,"Let's break down the problem step by step:
+
+ . **Terry needs milk for   days.**
+ . **Currently, there is milk for   days available at   .   buys milk for   days, then the cost per day is:
+ 
+ { } =  .    
+ 
+
+### Step  : Calculate the cost for    days
+Now, we multiply the daily cost by    days:
+ 
+ .        =   .  
+ 
+
+### Final Answer:
+Terry will spend **$  .  ** to buy milk for    days.
+",
+94,qwen3_8bthcode_switched825,"เกรซมีน้ำหนัก     ปอนด์  
+อเล็กซ์หนักน้อยกว่า   เท่าของน้ำหนักของเกรซ   ปอนด์ ดังนั้นน้ำหนักของอเล็กซ์คือ:  
+  ×     -   =     -   =     ปอนด์  
+
+น้ำหนักของทั้งสองคนรวมกันคือ:  
+    +     =     ปอนด์  
+",
+95,qwen3_8bdetranslate_act680,"
+
+First, we are told that there are twice as many boys as girls. Since there are    girls, the number of boys is:
+
+ 
+       =    
+ 
+
+Next, we find the total number of students by adding the number of boys and girls:
+
+ 
+   +     =    
+ 
+
+We are also told that there are   students per teacher. To find the number of teachers, we divide the total number of students by the number of students per teacher:
+
+ 
+ { } =   
+ 
+",
+96,qwen3_8bthtranslate_act2281,"
+
+To solve this problem, let's break it down step by step.
+
+ . **Determine the rates of work:**
+   - Kalinada's rate:   pieces per minute.
+   - Her mother's rate: Half of Kalinada's rate, so   pieces per minute.
+
+ . **Find the combined rate:**
+   - Together, they can put together   pieces per minute.
+
+ . **Calculate the total time in minutes:**
+   - Total pieces:    .
+   - Time in minutes:   minutes.
+
+ . **Convert time from minutes to hours:**
+   -   minutes =   hour.
+",
+97,qwen3_8bdecode_switched1615,"Anakin fing    Seesterne,   Seepferdchen und   Clownfische.  
+Locsin fing   Seesterne weniger, also   Seesterne,  
+  Seepferdchen weniger, also   Seepferdchen,  
+und   Clownfische mehr, also   Clownfische.  
+
+Gesamt fingen sie:  
+Anakin:   Fische  
+Locsin:   Fische  
+
+Gesamt:   Fische  
+",
+98,qwen3_8bthnative951,"เรามาแก้โจทย์ทีละขั้นตอน:
+
+ . **หาจำนวนเด็กชาย**  
+   ทั้งหมดมีนักเรียน     คน  
+    /  เป็นเด็กชาย  
+   ดังนั้น จำนวนเด็กชาย =   คน
+
+ . **หาจำนวนเด็กหญิง**  
+   จำนวนเด็กหญิง = จำนวนทั้งหมด - จำนวนเด็กชาย  
+   =   คน
+
+ . **หาจำนวนเด็กหญิงที่เป็นเนตรนารี**  
+   โจทย์บอกว่า  /  ของเด็กผู้หญิงที่มีเป็นเนตรนารี  
+   หมายความว่า เด็กผู้หญิงที่เป็นเนตรนารี =   ของจำนวนเด็กหญิงทั้งหมด  
+   ดังนั้น จำนวนเด็กหญิงที่เป็นเนตรนารี =   คน
+
+**คำตอบสุดท้าย:**
+",
+99,qwen3_8bswcode_switched13,"Kwa kuzingatia maswali, komeo   za ufumwele wa buluu inatumia komeo  . Nusu ya kiasi hicho cha ufumwele mweupe inatumia nusu ya kiasi hicho cha ufumwele mweupe. Kasi hicho cha ufumwele mweupe ni  , kasi hicho cha nusu ya   ni  . Hivyo, komeo   za ufumwele wa buluu na nusu ya kiasi hicho cha ufumwele mweupe inatumia komeo   +   =  .  ",
+100,qwen3_8bswnative1501,"Tatizo la hisabati liliondoka kwa kuzingatia muda wa kufika nyumbani kwa Steve na Tim. 
+
+Kwa Steve:
+- Uwezo wa kufika nyumbani =   maili
+- Kasi ya baiskeli =     futi/dakika
+- Muda =   * (       /    ) =   *    .  =     .  sekondi
+
+Kwa Tim:
+- Uwezo wa kufika nyumbani =   maili
+- Kasi ya baiskeli =     futi/dakika
+- Muda =   * (       /    ) =   *    .  =     .  sekondi
+
+Muda wa kushindia =     .  -     .  =    .  sekondi
+",
+101,qwen3_8bswnative1151,"Tatizo lifuatalo la hisabati:
+
+Sasha amegundua kuwa bei za magogo imeongezeka kwa   % katika miezi michache iliyopita baada ya kununua magogo mengine. Kwa kuwa ana yale yaliyosalia, anaamua kuyauza. Ana mabaki ya mbao kumi za   x   x    zilizomgharimu     kila moja. Akiziuza zote, alitengeneza faida ya pesa ngapi?
+
+---
+
+**Hatua kwa hatua:**
+
+ . **Mabaki ya mbao kumi za   x   x   :**  
+   - Idadi ya mbao =     
+   - Bei kwa moja =     =      
+   - Jumla ya pesa =   ×      
+
+ . **Jumla ya pesa ya mbao zote:**  
+   -     =      
+   - Bei ya mbao tano =     ×  .  =     ×  .  =     =     =      +       
+
+ . **Faida ya pesa:**  
+   -      (kuna) = $    
+
+---
+",
+102,qwen3_8bdepivot1403,"Wir haben insgesamt    verfügbare Mietwagen. Davon sind    Automatikwagen und   Wagen mit Handschaltung. Um herauszufinden, wie viele Halbautomaten es gibt, subtrahieren wir die Anzahl der Automatikwagen und der Handschaltwagen von der Gesamtanzahl der Wagen:
+
+ 
+  =    -    -   =  
+ 
+
+Nun berechnen wir den Prozentsatz der Halbautomaten:
+
+ 
+  =  (  }{ }  )       =  (  {  }  )       =   \%
+ 
+",
+103,qwen3_8bswnative1965,"Tatizo lifuatalo la hisabati ina kufikiria kuhusu pauni za karoti. Kwa kuzingatia:
+
+- Pauni     za karoti zinafaa kusambazwa kwa mikahawa   .
+- Kila mkahawa unafaa kupokea pauni   za karoti.
+
+Kwa kuzingatia kila mkahawa unafaa kupokea pauni  , mikahawa    ina kufanya:
+
+   ×   =    pauni za karoti.
+
+Hakika, pauni     zinafaa kusambazwa kwa mikahawa   . Kwa kuzingatia kila mkahawa unafaa kupokea pauni  , pauni    zinafaa kusambazwa. Hivyo, pauni za karoti hazitatumika ni:
+
+    -    =     pauni.
+",
+104,qwen3_8bdecode_switched1822,"Wir werden die Altersbeziehungen Schritt für Schritt analysieren, um das Alter von Jean zu bestimmen.
+
+ . Es wird gegeben, dass **Jan    Jahre alt ist**.
+ . Es wird gesagt, dass **Jean zwei Jahre älter als Mark ist**. Das bedeutet, wenn wir das Alter von Mark mit   bezeichnen, dann ist das Alter von Jean  .
+ . Es wird weiter gesagt, dass **vor zwei Jahren Mark   Jahre älter war als die Hälfte des Alters von Jan**. Vor zwei Jahren war Jan also   Jahre alt. Die Hälfte des Alters von Jan vor zwei Jahren war   Jahre.
+ . Vor zwei Jahren war Mark also   Jahre alt.
+ . Wenn Mark vor zwei Jahren    Jahre alt war, dann ist er jetzt   Jahre alt.
+ . Da Jean zwei Jahre älter als Mark ist, ist Jean   Jahre alt.
+",
+105,qwen3_8bswcode_switched963,"Harry alilala kwa saa   usiku uliopita. James alilala  /  pekee ya saa ambazo Harry alilala. Tunahitaji kuzingatia wakati ambao James alilala kwa kutambua wakati ambao Harry alilala saa ngapi zaidi.
+
+Kwa kuzingatia, Harry alilala kwa saa  . James alilala  /  ya saa  . Tunaweza kuzingatia wakati ambao James alilala kwa kuzingatia:
+
+ 
+ { }     =  
+ 
+
+Hakika, James alilala kwa saa  . Kwa kuzingatia wakati ambao Harry alilala (saa  ) na wakati ambao James alilala (saa  ), tunaweza kuzingatia zaidi wakati ambao Harry alilala kwa kuzingatia:
+
+ 
+  -   =  
+ 
+
+Hakika, Harry alilala saa   zaidi ya James.
+",
+106,qwen3_8bswpivot916,"Let's break down the problem step by step:
+
+ . **""Idadi ya wanyama vipenzi wa Jani ni mara tatu zaidi ya wale wa Marcia.""**  
+   This means: The number of Jani's favorite animals is three times more than Marcia's.  
+   So, if Marcia has **M** favorite animals, then Jani has ** M**.
+
+ . **""Marcia ana wanyama vipenzi wawili zaidi ya Cindy.""**  
+   This means: Marcia has two more favorite animals than Cindy.  
+   So, if Cindy has **C** favorite animals, then Marcia has **C +  **.
+
+ . **""Iwapo Cindy ana wanyama vipenzi wa nne...""**  
+   This means: If Cindy has four favorite animals, then:  
+   - Cindy has ** ** favorite animals.  
+   - Marcia has **C +   =   +   =  ** favorite animals.  
+   - Jani has ** M =   ×   =   ** favorite animals.
+
+ . **""Jumla ya idadi ya wanyama vipenzi wa watu hawa watatu ni ngapi?""**  
+   This means: What is the total number of favorite animals among these three people?
+
+   - Cindy:    
+   - Marcia:    
+   - Jani:     
+
+   Total =   +   +    = **  **
+",
+107,qwen3_8bthpivot1931,"เรามาคิดทีละขั้นตอน:
+
+ . **วันศุกร์**: เพื่อนบ้านวางนกฟลามิงโกพลาสติกสีชมพู    ตัวไว้ที่สนามหน้าบ้านของซู  
+   - จำนวนนกฟลามิงโกสีชมพู =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+ . **วันเสาร์**: เพื่อนบ้านนำหนึ่งในสามของนกฟลามิงโกสีชมพูไปทาสีขาว  
+   - จำนวนนกฟลามิงโกสีชมพูที่ถูกนำไปทาสีขาว =    ÷   =   ตัว  
+   - จำนวนนกฟลามิงโกสีชมพูที่เหลือ =    -   =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+   จากนั้นพวกเขาได้นำนกฟลามิงโกสีขาวที่ทาเสร็จกลับไปไว้ที่สนาม  
+   - จำนวนนกฟลามิงโกสีชมพู =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+ . **วันอาทิตย์**: เพื่อนบ้านเพิ่มนกฟลามิงโกสีชมพูอีก    ตัว  
+   - จำนวนนกฟลามิงโกสีชมพู =    +    =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+ดังนั้น จำนวนนกฟลามิงโกสีชมพูมากกว่านกฟลามิงโกสีขาว =    -   = **   ตัว**
+",
+108,qwen3_8bdepivot165,"Um die gesamte Strecke zu berechnen, die jeder Zug in den beiden Tagen zurücklegt, addieren wir die Strecken, die die Züge am ersten und am zweiten Tag fahren.
+
+ . **Erster Tag:**  
+   Beide Züge fahren    Meilen nach Westen.  
+   Strecke am ersten Tag =    Meilen.
+
+ . **Zweiter Tag:**  
+   Beide Züge fahren     Meilen nach Norden.  
+   Strecke am zweiten Tag =     Meilen.
+
+ . **Gesamte Strecke:**  
+   Gesamte Strecke = Strecke am ersten Tag + Strecke am zweiten Tag  
+   Gesamte Strecke =    Meilen +     Meilen =     Meilen
+
+Da beide Züge dieselbe Strecke zurücklegen, ist die Antwort:
+",
+109,qwen3_8bdecode_switched2096,"Wir werden die Gesamtkosten für den Kauf jeder Tasse berechnen. Dazu analysieren wir die gegebenen Informationen Schritt für Schritt.
+
+ . **Gegeben:**
+   -    Duzend Tassen kosten        verkauft werden.
+   - Ein Dutzend =    Stück.
+   - Ein halbes Dutzend =   Stück.
+   - Jeder Teller wird zu        verkauft.
+   - Gesamtumsatz =  .
+
+ . **Berechnung der Gesamtkosten für    Duzend Tassen:**
+   - Die Gesamtkosten für    Duzend Tassen = Gesamtumsatz für ein halbes Dutzend Teller −             -      =                =     .
+   - Gesamtkosten für eine Tasse =  .
+",
+110,qwen3_8bthcode_switched640,"โซเฟียขับรถไปได้     ไมล์หลังจากเติมน้ำมันเต็มถังครั้งล่าสุด และเธอใช้ไป   แกลลอนในการเติมน้ำมันให้เต็มถังอีกครั้ง ดังนั้น ระยะทางที่รถของเธอสามารถขับได้ต่อกลอนน้ำมันคือ    
+
+ถังน้ำมันของโซเฟียสามารถบรรจุได้    แกลลอน ดังนั้น ระยะทางที่รถของเธอสามารถขับได้ต่อน้ำมันหนึ่งถังคือ  
+",
+111,qwen3_8bthnative2042,"เริ่มต้นด้วยการคำนวณจำนวนปากกาที่เจเน็ตมีเดิม:
+
+ . เจเน็ตมีปากกาสีเขียว    ด้าม  
+ . เจเน็ตมีปากกาสีเหลือง    ด้าม  
+ . จำนวนปากกาที่มีอยู่เดิม =    +    =    ด้าม  
+
+ต่อมาเธอซื้อปากกาเพิ่ม:
+
+ . เธอซื้อปากกาสีน้ำเงิน   ถุง ถุงละ   ด้าม  
+   จำนวนปากกาสีน้ำเงิน =   ×   =    ด้าม  
+
+ . เธอซื้อปากกาสีแดง   ถุง ถุงละ   ด้าม  
+   จำนวนปากกาสีแดง =   ×   =    ด้าม  
+
+คำนวณจำนวนปากกาทั้งหมดที่เจเน็ตมีตอนนี้:
+
+ . จำนวนปากกาทั้งหมด = ปากกาเดิม + ปากกาสีน้ำเงิน + ปากกาสีแดง  
+   =    +    +    =    ด้าม  
+
+ดังนั้น คำตอบคือ:  ",
+112,qwen3_8bthcode_switched1252,"จูเลียซื้อช้อนหนึ่งแพ็กในตอนแรก ต่อมาสามีของเธอซื้อช้อนอีกหนึ่งแพ็ก ซึ่งแต่ละแพ็กมีช้อน   คัน ดังนั้นช้อนทั้งหมดที่จูเลียมีหลังจากซื้อจากสามีคือ   คัน จากแพ็กที่สามีซื้อมา และช้อนที่จูเลียซื้อมาเองก็ยังไม่ทราบจำนวนช้อนในแพ็กนั้น แต่เมื่อจูเลียใช้ช้อน   คันในการชิมสตู และเมื่อเธอจัดโต๊ะอาหาร เธอมีช้อนทั้งหมด    คัน ดังนั้นจำนวนช้อนที่เหลือหลังจากใช้   คันคือ    -   =   คัน ซึ่งหมายถึงช้อนทั้งหมดที่จูเลียมีคือ   คันจากแพ็กที่เธอซื้อมาเอง ดังนั้นจำนวนช้อนในแพ็กที่จูเลียซื้อมาคือ   คัน
+",
+113,qwen3_8bdepivot846,"Um die Anzahl der gewonnenen Spiele zu berechnen, gehen wir Schritt für Schritt vor:
+
+ . **Definieren der Variablen:**
+   - Sei   die Anzahl der verlorenen Spiele.
+   - Dann ist die Anzahl der gewonnenen Spiele  , da das Team   mehr Spiele gewonnen hat als verloren.
+
+ . **Gesamtzahl der Spiele:**
+   - Das Team spielt insgesamt    Spiele.
+   - Das bedeutet:   (verlorene Spiele) +   (gewonnene Spiele) =   
+
+ . **Aufstellen der Gleichung:**
+    
+   x + (x +  ) =   
+    
+
+ . **Lösen der Gleichung:**
+    
+    x +   =   
+    
+    
+    x =    -  
+    
+    
+    x =   
+    
+    
+   x =  
+    
+
+ . **Berechnung der gewonnenen Spiele:**
+   - Verlorene Spiele:  
+   - Gewonnene Spiele:  
+
+**Antwort:** Das Team hat    Spiele gewonnen.
+",
+114,qwen3_8bdecode_switched1583,"Raphael kauft   Stifte, wobei jeder Stift  ,    multipliziert:  
+  ×  ,     
+
+Dann kauft Raphael   Hefte, wobei jedes Heft     =     kostet.  
+
+Um den gesamten Ausgabenbetrag zu berechnen, addiert man die Kosten für die Stifte, die Hefte und das Schreibpapier:  
+    +       
+",
+115,qwen3_8bswtranslate_act2427,"
+
+To solve the problem, we need to calculate the total time Mike spends writing letters per week.
+
+ . **Number of letters per week**: Mike and his   friends exchange   letters every week. This means Mike writes   letters per week.
+   
+ . **Number of pages per letter**: Each letter has   pages.
+
+ . **Total pages per week**: 
+    
+             =     
+    
+
+ . **Time to write one page**: Mike can write a page in   minutes.
+
+ . **Total time per week in minutes**:
+    
+              =     
+    
+
+ . **Convert minutes to hours**:
+    
+        =    
+    
+",
+116,qwen3_8bdenative1012,"Zuerst berechnen wir die Gesamtanzahl der Seiten, die Solo lesen muss:
+
+- Naturwissenschaftliches Textbuch:   Seiten  
+- Gemeinschaftskundebuch:    Seiten  
+- Geschichtsbuch:   Seiten  
+- Geografiebuch:   Seiten  
+
+Summe:  
+  +    +   +   =    Seiten  
+
+Solo hat bereits am Montag    Seiten gelesen.  
+Daher bleiben noch:  
+   -    =    Seiten  
+
+Er hat noch   Tage, um diese    Seiten zu lesen.  
+Um den Durchschnitt pro Tag zu berechnen, teilen wir die verbleibenden Seiten durch die Anzahl der Tage:  
+   ÷   =    
+",
+117,qwen3_8bthtranslate_act525,"
+
+First, calculate the total weight of the    comic books he removes:
+ 
+        { }   =  .   
+ 
+
+Next, subtract the weight of the comic books from the total weight he wants to remove:
+ 
+     -  .    =  .   
+ 
+
+Now, calculate how many toys he needs to remove to account for the remaining weight. Each toy weighs  /  pound, so:
+ 
+ }{ { }  } =     
+ 
+",
+118,qwen3_8bthnative1995,"เรามาแก้โจทย์ทีละขั้นตอนดังนี้:
+
+ . **จำนวนประโยคที่มาร์คตรวจแก้ต่อสัปดาห์:**  
+   มาร์คตรวจแก้ประโยคทั้งหมด      ประโยคต่อสัปดาห์ และเขาแบ่งงานนี้ออกเป็น   สำนักพิมพ์เท่าๆ กัน  
+   ดังนั้น จำนวนประโยคที่มาร์คตรวจแก้ต่อสำนักพิมพ์ =   ประโยคต่อสำนักพิมพ์
+
+ . **อัตราการจ่ายของสำนักพิมพ์ A:**  
+   สำนักพิมพ์ A จ่ายให้มาร์ค   เซ็นต์ต่อประโยค  
+   ดังนั้น รายได้จากสำนักพิมพ์ A =   เซ็นต์
+
+ . **อัตราการจ่ายของสำนักพิมพ์ B:**  
+   สำนักพิมพ์ B จ่ายให้มาร์คเป็นสองเท่าของสำนักพิมพ์ A  
+   ดังนั้น อัตราการจ่ายของสำนักพิมพ์ B =   เซ็นต์ต่อประโยค  
+   รายได้จากสำนักพิมพ์ B =   เซ็นต์
+
+ . **รายได้รวมต่อสัปดาห์:**  
+   รายได้รวม = รายได้จากสำนักพิมพ์ A + รายได้จากสำนักพิมพ์ B  
+   รายได้รวม =   เซ็นต์
+
+ดังนั้น มาร์คทำเงินต่อสัปดาห์ได้ **     เซ็นต์**
+",
+119,qwen3_8bswnative1060," . Kila boksi ni la inchi   kwa inchi   kwa inchi  .  
+ . Upepo wa kila boksi ni   ×   ×   =     inchi .  
+ . Jumla ya upepo wa visanduku   ni   ×     =     inchi .  
+ . Unene wa kila boksi ni   inchi.  
+ . Jumla ya unene ya visanduku   ni   ×   =   inchi .  
+ . Nafasi ya ndani ya visanduku vyote   ni     −   =     inchi .  
+",
+120,qwen3_8bthtranslate_act575,"
+
+To solve this problem, we need to find the maximum number of boxes the truck can carry without exceeding the bridge's weight limit of      pounds.
+
+ . The total weight the bridge can support is      pounds.
+ . The weight of the driver and the empty truck is      pounds.
+ . Therefore, the remaining weight that can be carried by the boxes is:
+    
+        -      =       
+    
+ . Each box weighs    pounds, so the maximum number of boxes the truck can carry is:
+    
+    {  } =   
+    
+",
+121,qwen3_8bswcode_switched645,"Sophia wants to know how far she can travel using one tank of car fuel. She has driven     miles since the last time she filled up her car, and she needed to add   gallons of fuel to refill her tank. The car's manual says that her car consumes    gallons of fuel per tank. We are asked to find out how many miles she can travel using one tank of fuel.
+
+To solve this, we first calculate the fuel efficiency of the car, which is the distance traveled per gallon of fuel. This can be found by dividing the distance traveled (    miles) by the amount of fuel used (  gallons):
+
+ 
+  =  }{   } =     
+ 
+
+Now, we use the fuel efficiency to find out how far she can travel using one full tank of fuel (   gallons):
+
+ 
+  =             =      
+ 
+",
+122,qwen3_8bdepivot1895,"Wir berechnen Schritt für Schritt, wie viel jeder der drei Freunde bezahlte, wenn alle Kosten gleichmäßig aufgeteilt werden.
+
+---
+
+###  . **Kosten für Eintritt in den Jahrmarkt**
+
+Die drei Freunde gaben insgesamt   ,     }
+ 
+
+Also kosteten die Eintrittskarten insgesamt **  ,     weniger** für Essen aus als für die Eintrittskarten. Das bedeutet:
+
+ 
+  ,   -  ,   =   ,   \,  
+ 
+
+Also kostete das Essen insgesamt **  ,    ** kostete. Also insgesamt:
+
+ 
+       =    \,  
+ 
+
+Also kosteten die Bahnfahrten insgesamt **     }
+ 
+
+---
+
+###  . **Kosten pro Person**
+
+Da die drei Freunde die Kosten **gleichmäßig** aufteilen, teilen wir die Gesamtkosten durch  :
+
+ 
+ { } =    \,  
+ 
+
+---
+
+### Antwort:
+
+Jeder der drei Freunde bezahlte **   $**.
+",
+123,qwen3_8bthpivot2434,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **นาทีที่ใช้ในการโทรกับเจ้านายต่อเดือน**  
+   เจสันโทรกับเจ้านายทุกวัน    นาที และเดือนนี้มี    วัน  
+   ดังนั้น นาทีที่ใช้ในการโทรกับเจ้านายคือ:  
+    
+
+ . **นาทีที่ใช้ในการโทรหาคนอื่นๆ**  
+   เจสันใช้เวลา     นาทีในการโทรหาคนอื่นๆ
+
+ . **รวมนาทีที่ใช้ในการโทรทั้งหมด**  
+   นาทีที่ใช้ในการโทรทั้งหมดคือ:  
+    
+
+ . **นาทีที่เหลือในการโทร**  
+   เจสันมีแพ็กเกจโทรศัพท์ที่โทรได้  ,    นาทีต่อเดือน  
+   ดังนั้น นาทีที่เหลือคือ:  
+    
+",
+124,qwen3_8bthtranslate_act794,"
+
+To find the cost of the dog's haircut after the discount, we first calculate the discount amount. The discount is   % of     $
+",
+125,qwen3_8bthtranslate_act220,"
+
+To find the total number of DVDs sold, we calculate the number of DVDs sold to each group of customers:
+
+- The first   customers bought   DVD each:  
+    DVDs
+
+- The next   customers bought   DVDs each:  
+    DVDs
+
+- The last   customers bought   DVDs:  
+    DVDs
+
+Now, we add these amounts together:  
+ 
+",
+126,qwen3_8bthcode_switched1664,"เพื่อนบ้านของแซนดราจะมอบไข่ให้เธอหนึ่งตะกร้าซึ่งภายในมีไข่อยู่   ฟองทุกครั้งที่เธอช่วยดูแลลูกสาวให้ ดังนั้น สำหรับแต่ละครั้งที่แซนดราช่วยดูแลลูกสาว เธอจะได้รับไข่   ฟอง  
+
+แซนดราต้องใช้ไข่   ฟองเพื่อทำขนมฟลานแบบสเปน   ชิ้น ดังนั้น สำหรับขนมฟลานแบบสเปน    ชิ้น เธอจะต้องใช้ไข่ทั้งหมด   ฟอง  
+
+เพื่อหาจำนวนครั้งที่แซนดราต้องช่วยดูแลลูกสาวให้เพื่อนบ้าน เราสามารถคำนวณโดยการหารจำนวนไข่ทั้งหมดที่ต้องการด้วยจำนวนไข่ที่ได้รับในแต่ละครั้ง ดังนี้:  
+ 
+ { } =  
+   
+
+ดังนั้น แซนดราต้องช่วยดูแลลูกสาวให้เพื่อนบ้าน   ครั้ง  
+",
+127,qwen3_8bdepivot1615,"Um die Lösung zu finden, gehen wir Schritt für Schritt vor:
+
+ . **Ankin** fing:
+   -    Seesterne
+   -   Seepferdchen
+   -   Clownfische
+
+   Gesamt:   Fische
+
+ . **Locsin** fing:
+   -   Seesterne weniger als Anakin:   Seesterne
+   -   Seepferdchen weniger als Anakin:   Seepferdchen
+   -   Clownfische mehr als Anakin:   Clownfische
+
+   Gesamt:   Fische
+
+ . **Gesamtzahl der gefangenen Fische**:
+   - Anakin:    Fische
+   - Locsin:    Fische
+
+   Gesamt:   Fische
+",
+128,qwen3_8bdecode_switched773,"Wir beginnen mit der Information, dass Sarah     Pfund Wäsche wäscht.  
+Es wird gesagt, dass Sarah  -mal so viel Wäsche wäscht wie David.  
+Damit können wir die Menge an Wäsche, die David wäscht, berechnen:  
+David wäscht   Pfund Wäsche.
+
+Es wird auch gesagt, dass Raymond halb so viel Wäsche wäscht wie Sarah.  
+Damit können wir die Menge an Wäsche, die Raymond wäscht, berechnen:  
+Raymond wäscht   Pfund Wäsche.
+
+Nun berechnen wir den Unterschied in der Wäschemenge zwischen Raymond und David:  
+  Pfund.
+",
+129,qwen3_8bdetranslate_act2466,"
+
+First, calculate the total number of hours the makeup artist works:
+- It takes   hours per day.
+- She does it   times a week.
+- The movie takes   weeks to finish.
+
+ 
+  =   \,       \,       \,   =     \,  
+ 
+
+Next, calculate the total cost before the discount:
+ 
+  =     \,         \,   =   ,    \,  
+ 
+
+Now, apply the   % discount:
+ 
+  =   ,    \,      .   =  ,    \,  
+ 
+ 
+  =   ,    \,   -  ,    \,   =   ,    \,  
+ 
+",
+130,qwen3_8bdecode_switched666,"Wir müssen die Gesamtzahl der Personen berechnen, die von den vier Schulen insgesamt geschickt wurden. Jede Schule hat zwei Teams geschickt: ein Mädchenbasketballteam und ein Jungenbasketballteam. Jedes Team besteht aus   Spielern und hat einen Trainer.  
+
+Zuerst berechnen wir die Anzahl der Personen pro Schule:  
+- Jedes Team hat   Spieler. Da es zwei Teams pro Schule gibt, sind das   Spieler pro Schule.  
+- Jedes Team hat einen Trainer. Da es zwei Teams pro Schule gibt, sind das   Trainer pro Schule.  
+- Insgesamt sind das pro Schule   Personen.  
+
+Da es vier Schulen gibt, multiplizieren wir die Anzahl der Personen pro Schule mit der Anzahl der Schulen:  
+   
+",
+131,qwen3_8bswtranslate_act56,"
+
+To solve the problem, we need to calculate the total cost of    basketballs where the price of each subsequent ball is   % of the previous one. 
+
+ . The first ball costs    *   % =    *   % =   .   *   % =   .   *   % =   .    *   % =   .     *   % =   .      *   % =   .       *   % =   .        *   % =   .         *   % =   .          *   % =   .           *   % =   .            *   % =   .             *   % =   .              *   % =   .  
+- Ball  :   .  
+- Ball  :   .   
+- Ball  :   .     
+- Ball  :   .       
+- Ball   :   .         
+- Ball   :   .           
+- Ball   :   .             
+- Ball   :     $
+",
+132,qwen3_8bswtranslate_act1121,"
+
+To solve this problem, we need to calculate the total number of times the ceiling fan is turned off per day.
+
+ . Each teacher has   classes per day.
+ . There are   teachers, so the total number of classes per day is   classes.
+ . In each class, the ceiling fan is turned off   times.
+ . Therefore, the total number of times the ceiling fan is turned off per day is  .
+",
+133,qwen3_8bdetranslate_act1871,"
+
+To solve this problem, we need to calculate the total amount Mandy owes Benedict after   months, including the monthly interest.
+
+ . The principal amount is       $
+",
+134,qwen3_8bthnative1207,"มิเกลใช้กระดาษ   เล่มต่อสัปดาห์  
+แต่ละเล่มมีกระดาษ    แผ่น  
+ดังนั้น จำนวนแผ่นกระดาษที่ใช้ต่อสัปดาห์คือ:  
+  เล่ม ×    แผ่น =    แผ่น  
+
+ในหนึ่งเดือนมีประมาณ   สัปดาห์  
+ดังนั้น จำนวนแผ่นกระดาษที่ใช้ต่อเดือนคือ:  
+   แผ่น ×   =     แผ่น  
+",
+135,qwen3_8bdecode_switched2016,"John erhält einen Preis, der aus einer einmaligen Geldprämisse in Höhe von        pro Woche. Da er den Preis am ersten Tag des Jahres erhält, erhält er die Prämie zu Beginn des Jahres und die Lohnerhöhung wird für das gesamte Jahr angewandt.
+
+Zunächst berechnen wir seinen monatlichen Verdienst unter der Annahme, dass ein Jahr    Wochen hat:
+
+ 
+  =  }{ }      \,   =        \,  
+ 
+
+Nun berechnen wir seinen jährlichen Verdienst mit der Lohnerhöhung von   %:
+
+ 
+  =        \,      .   =        \,  
+ 
+
+Zusätzlich erhält er die einmalige Prämie von        } +      \,   =        \,  
+ 
+",
+136,qwen3_8bthpivot151,"เพื่อหาแผนที่ทำกำไรสูงสุด ต้องคำนวณกำไรที่จะได้จากแต่ละแผนโดยใช้อัตราการเพิ่มของมูลค่าตลาด
+
+**แผน  : เครื่องประดับมูลค่า   ,   **  
+อัตราการเพิ่มของมูลค่าตลาด:  . %  
+กำไร =  ,    ×  . % =  ,    ×  .    =    ดอลลาร์
+
+เมื่อเปรียบเทียบกำไรของทั้งสองแผน:
+- แผน  : กำไร     ดอลลาร์
+- แผน  : กำไร    ดอลลาร์
+
+ดังนั้น แผนที่ทำกำไรสูงสุดคือแผน   ซึ่งมีกำไร     ดอลลาร์
+",
+137,qwen3_8bthcode_switched655,"จิมใช้เวลาดูทีวี   ชั่วโมง ต่อหนึ่งครั้ง จากนั้นเขาไปนอนอ่านหนังสือบนเตียงเป็นเวลาครึ่งหนึ่งของเวลาที่ดูทีวี ซึ่งหมายความว่าเขาใช้เวลาอ่านหนังสือเป็นเวลา   ชั่วโมง ต่อหนึ่งครั้ง  
+ดังนั้น สำหรับหนึ่งครั้ง เขาใช้เวลาทั้งหมด   ชั่วโมง  
+
+เขาทำแบบนี้สัปดาห์ละ   ครั้ง ดังนั้นในหนึ่งสัปดาห์ เขาใช้เวลาทั้งหมด   ชั่วโมง  
+
+ใน   สัปดาห์ เขาจะใช้เวลาทั้งหมด   ชั่วโมง  
+",
+138,qwen3_8bdetranslate_act260,"
+
+To find the total amount Mishka spent, we need to calculate the cost for each type of clothing and then add them together.
+
+ . Cost of shorts:   dollars
+ . Cost of pants:   dollars
+ . Cost of shoes:   dollars
+
+Now, we add these amounts together:
+
+ 
+  .   +   .   +     =    
+ 
+",
+139,qwen3_8bswnative1145,"Tatizo la hisabati inatoa:
+
+- Simu ya Jamal inaweza kubeba picha mara   zaidi ya simu ya Brittany.  
+- Idadi ya juu zaidi ya picha ambazo simu ya Brittany inaweza kubeba ni mara    zaidi ya idadi ya ndege katika picha ya Jamal ya bata katika mahali pa kufuga wanyama pori.  
+- Ikiwa simu ya Jamal inaweza kubeba picha     , bata wangapi wanaweza kuonekana katika picha ya Jamal ya bata katika mahali pa kufuga wanyama pori?
+
+### Hatua kwa hatua:
+
+ . Tume kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Picha ya Jamal ya bata =      ndege.  
+
+ . Idadi ya picha ambazo simu ya Brittany inaweza kubeba = idadi ya ndege katika picha ya Jamal ya bata -     
+   - =      -    =      picha.  
+
+ . Simu ya Jamal inaweza kubeba picha mara   zaidi ya simu ya Brittany.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba.  
+   - Kipengele cha ""mara   zaidi"" kama uchaguzi wa uwanja.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+ . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+   - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+   - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+   - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+    - Kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata =       
+    - Kipengele cha ""picha"" kama idadi ya picha ambazo simu ya Brittany inaweza kubeba =       
+    - Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha"" kama idadi ya ndege katika picha ya Jamal ya bata.  
+
+  . Kipengele cha ""mara   zaidi"" inaweza kubadilisha kipengele cha ""picha""",
+140,qwen3_8bdepivot355,"Okay, let's break down the problem step by step.
+
+ . **First    minutes:**  
+   Mike scores   points.
+
+ . **Next    minutes:**  
+   He scores   % more points than in the first    minutes.  
+   To find   % of   points:  
+      
+   So, in the next    minutes, he scores:  
+     points.
+
+ . **Total points:**  
+   Add the points from both periods:  
+     points.
+
+### Final Answer:",
+141,qwen3_8bswcode_switched320,"John has    dogs. Each dog takes  .  hours per day to walk and play. How many hours will he spend in a week to walk these dogs?
+
+To find the total hours spent in a week, we first calculate the daily time spent on all dogs:
+
+- Time spent per dog per day =  .  hours
+- Number of dogs =   
+- Total time per day =  .  hours/dog ×    dogs =   hours/day
+
+Next, we calculate the total time spent in a week (  days):
+
+- Total time per week =   hours/day ×   days =    hours
+",
+142,qwen3_8bswpivot2042,"Okay, let's break down the problem step by step.
+
+First, Janet starts with:
+-    pens (kalamu za kijani)
+-    pencils (kalamu za manjano)
+
+Then she buys:
+-   erasers (mifuko ya kalamu za buluu)
+-   erasers (mifuko ya kalamu nyekundu)
+
+Each eraser has:
+-   pens (kalamu za buluu)
+-   pencils (kalamu nyekundu)
+
+So, we need to calculate the total number of pens and pencils she has now.
+
+**Step  : Calculate the number of pens from the erasers.**
+- She bought   erasers, each with   pens.
+- So,   ×   =    pens.
+
+**Step  : Calculate the number of pencils from the erasers.**
+- She bought   erasers, each with   pencils.
+- So,   ×   =    pencils.
+
+**Step  : Add the original pens and pencils to the ones from the erasers.**
+- Original pens:   
+- Original pencils:   
+- Pens from erasers:   
+- Pencils from erasers:   
+
+**Step  : Total pens =    +    =   **
+**Step  : Total pencils =    +    =   **
+
+**Step  : Total number of pens and pencils =    +    =   **
+
+So, Janet has a total of    writing instruments.
+",
+143,qwen3_8bthpivot1581,"Alright, let's break down the problem step by step.
+
+ . **Pens**:  
+   - Price per pen =   .  ×   =     
+   - Number of notebooks =    
+   - Total cost for notebooks =   
+
+ . **Sticky notes**:  
+   - Price per pack =     ×   =    +     = $  
+",
+144,qwen3_8bswcode_switched1896,"Watu wana tatu walitumia    , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja aliwafanya kuzingatiwa kwa kila mmoja kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. 
+
+Kwa kila mmoja, kila safari kwa kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila mmoja. Hivyo, kila mmoja alikwenda kwenye safari  , kwa sababu waliwafanya kuzingatiwa kwa kila m",
+145,qwen3_8bthcode_switched803,"เด็กผู้หญิงสองคนตักน้ำมาคนละ  /  ของน้ำ    ลิตร ดังนั้นแต่ละคนตักได้   ลิตร  
+ดังนั้นเด็กผู้หญิงสองคนตักได้ทั้งหมด   ลิตร  
+
+ต่อมาเด็กผู้ชายอีกคนตักน้ำมา   ลิตร  
+
+ดังนั้นน้ำที่ถูกตักออกมาทั้งหมดคือ   ลิตร  
+
+น้ำที่เหลือคือ   ลิตร  
+",
+146,qwen3_8bswcode_switched1544,"Kimo mwanafunzi wa chuo huwa na masomo matatu siku ya Jumatatu, Jumatano, na Ijumaa. Hii ni siku  . Katika siku hizi, Kimo huwa na masomo matatu ya saa   kila siku. Hata hivyo, Kimo huwa anatumia   *   =   saa kuhudhuria masomo.
+
+Siku za Jumanne na Alhamisi, Kimo huwa na masomo mawili ya saa   kila siku. Hii ni siku  . Hata hivyo, Kimo huwa anatumia   *   =   saa kuhudhuria masomo.
+
+Kwa siku   +   =   siku, Kimo huwa anatumia   +   =   saa kuhudhuria masomo.
+
+Katika wiki moja, Kimo huwa anatumia   saa kuhudhuria masomo.
+",
+147,qwen3_8bdepivot1232,"Okay, let's break down the problem step by step.
+
+First, we know that Rosie can run for   hours at a speed of    miles per hour.  
+So, the distance she covers in the first   hours is:  
+Distance = Speed × Time =    miles/hour ×   hours =    miles.
+
+Next, she runs for the remaining time at a speed of   miles per hour.  
+Since the total time is   hours, the remaining time after the first   hours is:  
+  hours -   hours =   hours.
+
+Now, we calculate the distance she covers in those   hours at   miles per hour:  
+Distance = Speed × Time =   miles/hour ×   hours =    miles.
+
+Finally, we add the two distances together to find the total distance Rosie can cover in   hours:  
+Total distance =    miles +    miles =    miles.
+",
+148,qwen3_8bswcode_switched2385,"Kwa kuzingatiwa, Mary ni mdogo kwa Joan kwa miaka miwili, huo ni kipengele cha kushinda. Hunaonyesha kuwa Joan amemshinda Mary na miaka miwili. Sasa, Joan amemshinda Jessa na miaka mitano, huo ni kipengele cha kushinda. Kwa hio, Joan ni mwingi kwa Jessa na miaka mitano. 
+
+Kama Jessa ana miaka   , Joan ana miaka    +   =   . Kama Joan ana miaka   , Mary ana miaka    -   =   . 
+
+Jumla ya umri wa wasichana hawa watatu (Mary, Joan, na Jessa) ni    +    +    =   .
+",
+149,qwen3_8bswcode_switched80,"Let's break down the problem step by step:
+
+ . **John starts at  :   PM** and drives at a speed of **   miles per hour**.  
+   - So, from  :   PM to  :   PM, he would have driven **  hour** at **   mph**.  
+   - Distance covered in that hour =  .
+
+ . **He then tries to go back home at  :   PM**, but he spends **  hours** in traffic.  
+   - So, he starts driving back at  :   PM but is stuck in traffic until ** :   PM**.
+
+ . **From  :   PM to  :   PM**, he drives at **   miles per hour**.  
+   - Distance covered in that hour =  .
+
+ . **From  :   PM onwards**, he drives at **   miles per hour** to reach home by  :   PM.  
+   - So, from  :   PM to  :   PM, he drives for **  hour** at **   mph**.  
+   - Distance covered in that hour =  .
+
+Now, let's add up the total distance he traveled:
+
+- From  :   PM to  :   PM: **   miles**
+- From  :   PM to  :   PM: **   miles**
+- From  :   PM to  :   PM: **   miles**
+
+Total distance =  
+
+Thus, the distance from his home is **    miles**.
+",
+150,qwen3_8bthnative2212,"เริ่มต้นด้วยการวิเคราะห์โจทย์ทีละขั้นตอน:
+
+ . ถังเก็บน้ำมีน้ำอยู่     ลิตร เริ่มต้น
+ . เซลีนใช้น้ำ    ลิตรเพื่อรดน้ำสวน ดังนั้นน้ำที่เหลือในถังคือ  
+     ลิตร
+ . เธอสามารถเก็บน้ำฝนได้มากเป็นสองเท่าของน้ำที่เหลือ ซึ่งหมายถึงน้ำที่เหลือในถังจะเพิ่มขึ้นเป็นสองเท่าของ    ลิตร  
+     ลิตร
+ . ดังนั้น น้ำในถังตอนนี้คือ  
+     ลิตร
+
+คำตอบสุดท้ายคือ: ####   ",
+151,qwen3_8bthcode_switched220,"บิลลีมีลูกค้าทั้งหมด   คน เมื่อวันอังคาร ลูกค้า   คนแรกซื้อดีวีดีคนละแผ่น ดังนั้นลูกค้า   คนแรกซื้อได้ทั้งหมด   แผ่น  
+ลูกค้า   คนถัดมาซื้อคนละ   แผ่น ดังนั้นลูกค้า   คนนี้ซื้อได้ทั้งหมด   ×   =   แผ่น  
+ลูกค้า   คนสุดท้ายไม่ได้ซื้อเลย ดังนั้นไม่มีแผ่นที่ขายได้จากลูกค้า   คนนี้  
+
+ดังนั้น จำนวนแผ่นดีวีดีที่บิลลีขายได้เมื่อวันอังคารคือ  
+  +   +   =   แผ่น  
+",
+152,qwen3_8bdepivot601,"Wir werden die Anzahl der guten Orangen in dem Korb berechnen. Dazu müssen wir die verschiedenen Kategorien der Orangen berücksichtigen und die Anzahl der guten Orangen aus der Gesamtanzahl subtrahieren.
+
+ . **Gesamtanzahl der Orangen**:  
+   Es gibt insgesamt    Orangen.
+
+ . **Schlechte Orangen**:  
+   Es ist eine Orangens schlecht.  
+   Anzahl der schlechten Orangen =  
+
+ . **Unreife Orangen**:  
+      % der Orangen sind unreif.  
+      % von    =    
+   Anzahl der unreifen Orangen =  
+
+ . **Saurere Orangen**:  
+   Es sind   Orangen sauer.  
+   Anzahl der sauren Orangen =  
+
+ . **Anzahl der guten Orangen**:  
+   Die guten Orangen sind diejenigen, die nicht schlecht, nicht unreif und nicht sauer sind.  
+   Wir subtrahieren die Anzahl der schlechten, unreifen und sauren Orangen von der Gesamtanzahl:  
+    
+
+**Antwort:**  ",
+153,qwen3_8bthcode_switched1892,"เรามาคิดทีละขั้นตอนตามโจทย์:
+
+ . สามคนใช้เงิน    .   ÷   =   .    
+   ดังนั้น ค่าอาหารคือ   .   =     สำหรับการเล่นแต่ละเครื่อง  
+   ดังนั้น ค่าใช้จ่ายสำหรับเครื่องเล่นคือ    
+
+ . รวมค่าใช้จ่ายทั้งหมด:  
+   ค่าตั๋ว:   .    
+   ค่าเครื่องเล่น:    .   +     =    .   ÷   = $  .  
+",
+154,qwen3_8bswpivot2016,"### Step-by-step reasoning:
+
+We are given the following information:
+
+- John wins a lottery prize of      .
+- He receives the lottery prize on the first day of the year.
+- We are to calculate the total amount of money John has at the end of the year, including the compounded prize and his weekly salary.
+
+---
+
+### Step  : Calculate the total weekly salary for the year
+
+John receives         on the first day of the year. The prize is compounded at  % annually.
+
+We use the formula for compound interest:
+
+ 
+A = P(  + r)^t
+ 
+
+Where:
+-  
+-   ( % annual interest)
+-   (one year)
+
+ 
+A =        (  +  .  )^  =         .   =     
+ 
+
+So, the compounded amount of the lottery prize at the end of the year is **    $
+
+---
+
+### Final Answer:
+",
+155,qwen3_8bswtranslate_act1850,"
+
+Let's break down the problem step by step:
+
+ . The mother harvested    mangoes.
+ . Jenna harvested half of what her mother harvested. So, Jenna harvested:
+    
+    { }      =     
+    
+ . To find the total number of mangoes harvested by both Jenna and her mother, we add their harvests together:
+    
+      +    =     
+    
+",
+156,qwen3_8bswcode_switched1050,"Let's break down the problem step by step:
+
+ . The problem says that Cody eats **biskuti mara tatu zaidi ya biskuti ambazo Amir hukula**. This means Cody eats **three times more** biscuits than Amir eats.  
+   - So, if Amir eats ** ** biscuits, Cody eats **  times  ** = **  ** biscuits.
+
+ . The question asks: **Wote wawili huwa wanakula biskuti ngapi kwa pamoja?**  
+   - This translates to: **How many biscuits do the two of them eat together?**
+
+ . To find the total, we add the number of biscuits that Amir eats and the number that Cody eats:  
+   - Amir eats ** ** biscuits.  
+   - Cody eats **  ** biscuits.  
+   - Total = **  +    =   ** biscuits.
+",
+157,qwen3_8bdecode_switched106,"Wir berechnen die Anzahl der Downloads monatlich und summieren sie dann:
+
+ . **Erster Monat**:  
+   Das Programm wurde   -mal heruntergeladen.
+
+ . **Zweiter Monat**:  
+   Die Anzahl der Downloads war dreimal so hoch wie im ersten Monat:  
+    .
+
+ . **Dritter Monat**:  
+   Die Anzahl der Downloads brach um    % ein. Das bedeutet, dass    % der Downloads des zweiten Monats stattfanden:  
+    .
+
+ . **Gesamtzahl der Downloads in den drei Monaten**:  
+    .
+",
+158,qwen3_8bthpivot743,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+### ขั้นตอนที่  : หาเงินที่อาร์ตี้จะได้จากการขายแต่ละชนิดของดอกไม้
+
+ราคาต่อกระถาง:   .    
+จำนวนที่ขาย:   กระถาง  
+เงินทั้งหมดจากดอกพิทูเนีย =  .   ×    
+คำนวณ:  
+ .   ×   =   .   ดอลลาร์
+
+ราคาต่อกระถาง:   .   → ปัดเศษเป็น   )  
+แต่ในโจทย์ไม่ได้ระบุว่าปัดเศษเป็นจำนวนเต็ม ดังนั้นอาจหมายถึงการปัดเศษทศนิยมเป็นจำนวนที่ใกล้เคียงที่สุด ซึ่งในกรณีนี้เป็น   .   → ปัดเศษเป็น   )
+
+ราคาต่อกระถาง:   .   (ไม่มีเศษทศนิยม ถ้าปัดเศษเป็นจำนวนเต็ม คือ    .   ได้
+
+### สรุปคำตอบ:
+อาร์ตี้จะได้เงินทั้งหมด $  .  
+",
+159,qwen3_8bthpivot2156,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **หาค่าใช้จ่ายทั้งหมดที่ลอรี่ต้องการ**:  
+   - ราคารองเท้า =    .    
+   - ค่าใช้จ่ายรวม =    .   =   .    
+
+ . **หาจำนวนชั่วโมงที่ลอรี่ต้องทำงานเพื่อหารายได้รวม     .   ÷ $ .   =    ชั่วโมง  
+
+ดังนั้น ลอรี่ต้องทำงาน    ชั่วโมงจึงจะสามารถซื้อรองเท้าและเข็มขัดได้  
+",
+160,qwen3_8bthnative664,"เรามาแก้โจทย์ทีละขั้นตอน:
+
+ . โรงเรียนแต่ละแห่งส่งทีมบาสเกตบอลหญิงหนึ่งทีม ทีมหนึ่งมีผู้เล่น   คน  
+   ดังนั้น โรงเรียนแต่ละแห่งส่งผู้เล่น   คน
+
+ . โรงเรียนแต่ละแห่งส่งทีมบาสเกตบอลชายหนึ่งทีม ทีมหนึ่งมีผู้เล่น   คน  
+   ดังนั้น โรงเรียนแต่ละแห่งส่งผู้เล่น   คน
+
+ . โรงเรียนแต่ละแห่งส่งโค้ชไปประจำอีกทีมละคน  
+   ดังนั้น โรงเรียนแต่ละแห่งส่งโค้ช   คน
+
+ . ดังนั้น โรงเรียนแต่ละแห่งส่งผู้เล่นทั้งหมดรวมทั้งหมด  
+   =   (ทีมหญิง) +   (ทีมชาย) +   (โค้ช) =    คน
+
+ . มีโรงเรียนทั้งหมด   แห่ง  
+   ดังนั้น จำนวนคนทั้งหมดที่โรงเรียนส่งเข้าร่วมการแข่งขัน  
+   =   ×    =    คน
+
+คำตอบสุดท้าย:  ",
+161,qwen3_8bthpivot1011,"เพื่อหาคำตอบ เราต้องคำนวณจำนวนหน้าทั้งหมดที่โซโลต้องอ่าน และจากนั้นแบ่งจำนวนหน้านั้นให้เท่ากันในเวลาที่เหลือ
+
+### ขั้นตอนที่  : หาจำนวนหน้าทั้งหมดที่ต้องอ่าน
+- วิชาวิทยาศาสตร์:   หน้า  
+- วิชาสังคมศึกษา:    หน้า  
+- วิชาประวัติศาสตร์:   หน้า  
+- วิชาภูมิศาสตร์:   หน้า  
+
+รวมหน้าทั้งหมด =   +    +   +   = **   หน้า**
+
+### ขั้นตอนที่  : หาจำนวนหน้าที่เหลือที่ต้องอ่าน
+โซโลอ่านไปแล้ว    หน้า  
+หน้าที่เหลือ =    -    = **   หน้า**
+
+### ขั้นตอนที่  : แบ่งหน้าที่เหลือให้เท่ากันใน   วัน
+จำนวนหน้าต่อวัน =    ÷   = **  หน้าต่อวัน**
+
+### คำตอบสุดท้าย:",
+162,qwen3_8bdecode_switched1267,"Dylan kaufte    Geflügelwürstchen. Er kaufte   mehr Fischwürstchen als Geflügelwürstchen, also berechnen wir die Anzahl der Fischwürstchen:  
+   +   =    Fischwürstchen.  
+
+Um die Gesamtanzahl der Würstchen zu berechnen, addieren wir die Anzahl der Geflügelwürstchen und Fischwürstchen:  
+   +    =   .  
+",
+163,qwen3_8bswtranslate_act1451,"
+
+To solve the problem, let's break it down step by step:
+
+ . **Calculate the total number of corn plants in John's field:**
+   - John has    hectares.
+   - There are     corn plants per hectare.
+   - Total corn plants =    hectares ×     corn plants/hectare =      corn plants.
+
+ . **Determine how many harvests John can do in a year:**
+   - John can harvest every   months.
+   - A year has    months.
+   - Number of harvests =    months ÷   months/harvest =   harvests.
+
+ . **Calculate the total number of corn plants John can harvest in a year:**
+   - Total corn plants =      corn plants.
+   - Since John can harvest all the corn plants in one go, and he can do this   times in a year, the total number of corn plants he can harvest in a year is still     .
+",
+164,qwen3_8bswnative2341,"Kutumia mnyanya mmoja kuzalisha   kwa wiki, sasa kuna mnyanya   kwa siku. 
+
+Kwa wiki moja, Steve anafanya   kwa siku, kwa wiki moja,   kwa siku *   =    kwa wiki. 
+
+Mnyanya mmoja inaweza kuzalisha   kwa wiki, kwa hivyo mnyanya    kwa wiki inaweza kuzalisha    /   =    miti. 
+
+Steve anahitaji    miti ya nyanya. 
+",
+165,qwen3_8bdenative2353,"Um zu bestimmen, wie viele Pizzas John bestellen muss, gehen wir Schritt für Schritt vor:
+
+ . **Berechnung der benötigten Stücke:**  
+   Es sind    Freunde und John selbst, also insgesamt    Personen. Jede Person soll   Stück haben.  
+     Stück benötigt.
+
+ . **Bestimmung der Stückzahl pro Pizza:**  
+   Jede Pizza wird in   Portionen geschnitten.  
+   Also hat eine Pizza   Stück.
+
+ . **Berechnung der benötigten Pizzas:**  
+   Um    Stück zu erhalten, teilen wir die benötigte Stückzahl durch die Stückzahl pro Pizza:  
+    
+
+ . **Runden auf die nächste ganze Zahl:**  
+   Da man keine halbe Pizza bestellen kann, muss John    Pizzas bestellen, um sicherzustellen, dass genug Stücke vorhanden sind.
+
+**Antwort:**  ",
+166,qwen3_8bswpivot584,"Let's solve the problem step by step:
+
+ . **Initial final price of the item**:  
+   The final price of the item after all adjustments is       .  , so the price before shipping was:  
+    
+     .   -  .   =   .  
+    
+
+ . **Addition of   .   for delivery, so the final price becomes:  
+    
+     .   +  .   =   .  
+    
+
+### Final Answer:",
+167,qwen3_8bswnative2072,"Tatizo:  
+Mfuko wa Joe wa pipi za Halloween una pipi    za chokoleti na pipi    za tufaha. Kila pipi ya chokoleti ina uzani wa mara mbili zaidi ya pipi ya tufaha. Ikiwa kila pipi ya chokoleti ina uzani wa gramu   , mfuko wa Joe wa pipi una uzani gani kwa jumla, katika gramu?
+
+Hatua kwa hatua:
+
+ . Kila pipi ya chokoleti ina uzani wa mara mbili zaidi ya pipi ya tufaha.  
+   - Uzani wa pipi ya tufaha = x  
+   - Uzani wa pipi ya chokoleti =  x
+
+ . Uzani wa pipi ya chokoleti =    gramu  
+   -  x =     
+   - x =    gramu (uzani wa pipi ya tufaha)
+
+ . Jumla ya uzani:  
+   -    pipi za chokoleti:    ×    =      gramu  
+   -    pipi za tufaha:    ×    =      gramu  
+   - Jumla:      +      =      gramu
+",
+168,qwen3_8bdecode_switched2337,"Wir beginnen mit der Gesamtanzahl der sich sonnenden Pinguine, die    beträgt.
+
+Ein Drittel der Pinguine springt hinein und schwimmt im Ozean:
+-   Pinguine schwimmen im Ozean.
+
+Ein weiteres Drittel geht in die Höhle, um zu Abend zu fressen:
+-   Pinguine gehen in die Höhle.
+
+Die Anzahl der Pinguine, die noch im Schnee liegen, berechnet sich durch Subtraktion der beiden Gruppen von der Gesamtanzahl:
+-  .
+",
+169,qwen3_8bthpivot1934,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **วันศุกร์**  
+   - เพื่อนบ้านวางนกฟลามิงโกพลาสติกสีชมพู    ตัวไว้ที่สนามหน้าบ้านของซู  
+   - ดังนั้น จำนวนนกฟลามิงโกสีชมพู =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+ . **วันเสาร์**  
+   - เพื่อนบ้านนำหนึ่งในสามของนกฟลามิงโกสีชมพูไปทาสีขาว  
+     - จำนวนนกฟลามิงโกสีชมพูที่ถูกนำไปทาสีขาว =   ตัว  
+     - จำนวนนกฟลามิงโกสีชมพูที่เหลือ =   ตัว  
+   - หลังจากทาสีขาวแล้ว พวกเขาจึงนำนกฟลามิงโกสีขาวที่ทาเสร็จกลับมาไว้ที่สนาม  
+     - ดังนั้น จำนวนนกฟลามิงโกสีขาว =   ตัว  
+     - จำนวนนกฟลามิงโกสีชมพู =    ตัว  
+
+ . **วันอาทิตย์**  
+   - เพื่อนบ้านเพิ่มนกฟลามิงโกพลาสติกสีชมพูอีก    ตัว  
+     - จำนวนนกฟลามิงโกสีชมพู =   ตัว  
+     - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+
+ . **ตอนเที่ยงวันอาทิตย์**  
+   - จำนวนนกฟลามิงโกสีชมพู =    ตัว  
+   - จำนวนนกฟลามิงโกสีขาว =   ตัว  
+   - ดังนั้น จำนวนนกฟลามิงโกสีชมพูที่มากกว่าสีขาว =   ตัว  
+",
+170,qwen3_8bdetranslate_act350,"
+
+In the first    minutes, Mike scores   points.
+
+In the next    minutes, he scores   % more than   points. To find   % of   points:
+ 
+  \%     =  .       =  
+ 
+So, he scores   points in the next    minutes.
+
+To find the total number of points:
+ 
+    +     =  
+ 
+",
+171,qwen3_8bswpivot2043,"Let's break down the problem step by step:
+
+ . **Initial number of pens:**
+   - Janet had **   pens** of type ""kijani"" (probably a typo or specific term, but we'll take it as pens).
+   - She also had **   pens** of type ""manjano"" (another specific term, but again, we'll take it as pens).
+   - So, the total number of pens she had initially is:  
+       pens.
+
+ . **She bought some new pens:**
+   - She bought **  packs** of ""buluu"" pens.
+   - Each pack of ""buluu"" contains **  pens**, so the total number of ""buluu"" pens is:  
+       pens.
+   - She also bought **  packs** of ""nyekundu"" pens.
+   - Each pack of ""nyekundu"" contains **  pens**, so the total number of ""nyekundu"" pens is:  
+       pens.
+
+ . **Total number of pens now:**
+   - Adding all the pens together:  
+       pens.
+
+### Final Answer:",
+172,qwen3_8bswpivot67,"Let's break down the problem step by step:
+
+ . We are told that Toulouse has **twice the number of dogs** as Charleston.  
+   So, if Charleston has **x** dogs, Toulouse has ** x** dogs.
+
+ . We are also told that Charleston has **  times the number of dogs** as Seattle.  
+   So, if Seattle has **y** dogs, Charleston has ** y** dogs.
+
+ . From the above, we can equate the number of dogs in Charleston:  
+    
+
+ . Therefore, Toulouse has:  
+     dogs
+
+ . We are also given that Seattle has **   dogs**, so:  
+    
+
+ . Now we can calculate the number of dogs in each city:
+   - Seattle:  
+   - Charleston:  
+   - Toulouse:  
+
+ . The total number of dogs in all three cities is:  
+    
+
+### Final Answer:",
+173,qwen3_8bdenative572,"Um die maximale Anzahl an Kisten zu berechnen, die der Lastwagen laden kann, ohne die Gewichtsgrenze der Brücke zu überschreiten, gehen wir Schritt für Schritt vor.
+
+### Schritt  : Bestimme das maximale zulässige Gesamtgewicht
+Die Brücke kann maximal  .    Pfund tragen.
+
+### Schritt  : Subtrahiere das Gewicht des Fahrers und des leeren Lastwagens
+Das Gewicht des Fahrers und des leeren Lastwagens beträgt      Pfund.
+
+ 
+  =      -      =       
+ 
+
+### Schritt  : Bestimme das Gewicht einer Kiste
+Jede Kiste wiegt    Pfund.
+
+### Schritt  : Berechne die maximale Anzahl an Kisten
+Teile das verfügbare Gewicht durch das Gewicht einer Kiste:
+
+ 
+  =     {  }    =          =   
+ 
+
+### Antwort:",
+174,qwen3_8bthpivot2323,"เรามาคิดทีละขั้นตอน:
+
+ . โจทย์ระบุว่า ""แด็กซ์เจอแมลงชนิดอื่นๆ ในสวนมากกว่ามดครึ่งหนึ่ง"" ซึ่งหมายความว่าจำนวนแมลงชนิดอื่นๆ ในสวนมากกว่าจำนวนมดครึ่งหนึ่ง
+
+ . จำนวนมดคือ    ตัว ดังนั้นครึ่งหนึ่งของจำนวนมดคือ:
+    
+    { } =   
+    
+
+ . ดังนั้น จำนวนแมลงชนิดอื่นๆ ในสวนคือมากกว่า    ตัว (แต่โจทย์ไม่ได้ระบุจำนวนที่มากกว่าเท่าไร จึงไม่สามารถคำนวณได้แน่ชัด)
+
+ . อย่างไรก็ตาม โจทย์ถามว่า ""จำนวนแมลงทั้งหมดในสวน"" ซึ่งหมายถึงจำนวนมด + จำนวนแมลงชนิดอื่นๆ
+
+ . แต่เนื่องจากโจทย์ไม่ได้บอกจำนวนแมลงชนิดอื่นๆ ชัดเจน จึงไม่สามารถคำนวณได้แน่ชัด อย่างไรก็ตาม ถ้าพิจารณาจากคำว่า ""มากกว่ามดครึ่งหนึ่ง"" อาจหมายถึง ""มากกว่า    ตัว"" ดังนั้นเราอาจตีความว่า จำนวนแมลงชนิดอื่นๆ คือ    ตัว (เพราะอาจหมายถึง ""มากกว่าครึ่งหนึ่ง"" อย่างน้อย    ตัว)
+
+ . ดังนั้น จำนวนแมลงทั้งหมดในสวน = จำนวนมด + จำนวนแมลงชนิดอื่นๆ
+    
+   =    +    =   
+    
+",
+175,qwen3_8bthtranslate_act1172,"
+
+To find the total amount John paid, we need to calculate the total number of pairs of shoes and then multiply by the cost per pair.
+
+ . John has   children.
+ . Each child received   pairs of shoes.
+ . So, the total number of pairs of shoes is  .
+ . Each pair costs         =    $.
+",
+176,qwen3_8bthnative1065,"เพื่อหาปริมาตรรวมภายในของกล่องทั้ง   ใบ เราต้องคำนวณปริมาตรภายในของแต่ละกล่องก่อน แล้วคูณด้วย  
+
+กล่องแต่ละใบมีขนาดภายนอกเป็น   นิ้ว x   นิ้ว x   นิ้ว และด้านของกล่องมีความหนา   นิ้ว ดังนั้น ความหนาของด้านทั้ง   ด้าน (ยาว-กว้าง-สูง) จะลดขนาดของปริมาตรภายในทั้งหมด   นิ้ว (  นิ้วสำหรับด้านหน้าและด้านหลัง รวม   นิ้ว) ดังนั้น ขนาดภายในของแต่ละกล่องคือ:
+
+- ความยาว:   -   =   นิ้ว  
+- ความกว้าง:   -   =   นิ้ว  
+- ความสูง:   -   =   นิ้ว  
+
+ดังนั้น ปริมาตรภายในของแต่ละกล่องคือ:  
+ 
+          =     
+ 
+
+ปริมาตรรวมภายในของกล่องทั้ง   ใบคือ:  
+ 
+       =     
+ 
+",
+177,qwen3_8bthtranslate_act2175,"
+
+To solve the problem, we first determine the number of tulips. Since there are   more tulips than roses, and there are   roses, the number of tulips is:
+
+ 
+  +   =   
+ 
+
+Next, we find the total number of flowers by adding the number of roses and tulips:
+
+ 
+  +    =   
+ 
+",
+178,qwen3_8bswpivot2335,"Let's break down the problem step by step:
+
+ . There are    fishermen (pengwini) who are sitting under the sun (jua) in the boat (theluji).
+ . One boat (theluthi) leaves to go fishing in the sea (bahari).
+ . Another boat (theluthi) enters the port (pango) to eat their evening meal (chakula chao cha usiku).
+
+Now, we need to find out how many fishermen are still sitting under the sun (wamesalia bado wakiota jua).
+
+Let's analyze:
+
+- Initially, there are    fishermen.
+- One boat leaves to go fishing in the sea. So, the number of fishermen in the boat that leaves is not specified, but since the question is about the number of fishermen still under the sun, we assume that all the fishermen in the boat that leaves are no longer under the sun.
+- Another boat enters the port to eat their evening meal. Again, the number of fishermen in this boat is not specified, but we assume that these fishermen are also no longer under the sun.
+
+However, the problem does not specify how many fishermen are in each boat. Therefore, we must assume that the total number of fishermen is   , and that the ones who left or entered are no longer under the sun. But since the problem doesn't give specific numbers for the boats, we have to assume that the total number of fishermen is still   , and the ones who are not under the sun are those who left or entered.
+
+But the question is asking how many fishermen are still sitting under the sun.
+
+Let’s assume that the number of fishermen in each boat is the same. Since there are two boats involved (one that leaves and one that enters), and the total number of fishermen is   , then:
+
+- The number of fishermen in each boat is    (because    divided by   is   ).
+- So,    fishermen left the boat to go fishing in the sea.
+- Another    fishermen entered the port to eat their evening meal.
+
+Therefore, the number of fishermen still under the sun is:
+
+   (total) -    (left) -    (entered) =  
+
+So, none of the fishermen are still sitting under the sun.
+",
+179,qwen3_8bswpivot1483,"Okay, let's break this problem down step by step.
+
+First, we need to understand who is paying and how much they are paying. The problem says:
+
+- Brittany and her parents are going on a trip.
+- The entrance fee is     for children.
+- Brittany's mother paid for one child ticket and one adult ticket.
+- She was given back    .
+- One adult ticket costs     (child) +    .
+
+She was given back     (total cost) +    .
+
+So, Brittany's mother originally paid $  .
+",
+180,qwen3_8bdepivot521,"Um die Lösung zu finden, gehen wir Schritt für Schritt vor:
+
+ . **Gesamtgewicht, das Uriah entfernen muss:**  
+   Uriah muss insgesamt    Pfund aus seiner Tasche entfernen.
+
+ . **Gewicht der Comicbücher:**  
+   Jedes Comicbuch wiegt  /  Pfund.  
+   Er entfernt    Comicbücher.  
+   Gesamtgewicht der Comicbücher:  
+    
+         { } =  { } =  ,   
+    
+
+ . **Verbleibendes Gewicht, das noch entfernt werden muss:**  
+    
+      -  ,  =  ,   
+    
+
+ . **Gewicht der Spielzeuge:**  
+   Jedes Spielzeug wiegt  /  Pfund.  
+   Wir berechnen, wie viele Spielzeuge Uriah noch entfernen muss, um das verbleibende Gewicht von  ,  Pfund zu erreichen:  
+    
+    { { }} =  ,      =   
+    
+
+**Antwort:** Uriah muss noch    Spielzeuge entfernen.
+",
+181,qwen3_8bdenative1422,"Jordan spielt jeden Tag   Stunden Videospiele.  
+Er verdient                 =                   =       $
+
+Die Antwort lautet:  ",
+182,qwen3_8bthtranslate_act976,"
+
+To solve this problem, let's break it down step by step:
+
+ . **Volume of the sauce**: The final volume of the tomato sauce is    ounces.
+ . **Volume reduction**: When making the sauce, the volume of the tomatoes decreases by half. This means that the original volume of the tomatoes used was double the volume of the sauce.
+   - So, the original volume of the tomatoes before cooking =    ounces ×   =    ounces.
+ . **Volume per can**: Each can has a volume of    ounces.
+ . **Number of cans used**: To find out how many cans were used, divide the original volume of the tomatoes by the volume per can:
+   - Number of cans =    ounces ÷    ounces per can =   cans.
+ . **Number of tomatoes per can**: Each can contains   tomatoes.
+ . **Total number of tomatoes used**: Multiply the number of cans by the number of tomatoes per can:
+   - Total tomatoes =   cans ×   tomatoes per can =    tomatoes.
+",
+183,qwen3_8bswcode_switched2457,"Kuna konokono   katika tangisamaki bora na konokono    katika tangisamaki ya pili. Tofauti kati ya idadi ya konokono katika tangisamaki hizi mbili ni mara mbili zaidi ya idadi ya samaki katika tangisamaki zote mbili.  
+Kuna tangisamaki mbili, kila ya wengine kuna idadi sawa ya samaki.  
+Kuna konokono   katika tangisamaki bora, na konokono    katika tangisamaki ya pili. Tofauti kati ya idadi ya konokono ni    -   =   .  
+Tofauti kati ya idadi ya konokono ni mara mbili zaidi ya idadi ya samaki katika tangisamaki zote mbili.  
+Idadi ya samaki katika tangisamaki zote mbili ni    /   =   .  
+Kuna samaki    katika kila tangisamaki.  
+",
+184,qwen3_8bthtranslate_act2427,"
+
+First, we calculate how many people Mike is still in contact with:
+ 
+  -   =    
+ 
+
+Next, we find out how many letters he receives per week:
+ 
+          =    
+ 
+
+Each letter is   pages long, so the total number of pages he writes per week is:
+ 
+          =     
+ 
+
+He can write   page every   minutes, so the total time he spends writing per week in minutes is:
+ 
+           =      
+ 
+
+To convert this to hours:
+ 
+           =    
+ 
+",
+185,qwen3_8bswcode_switched2493,"Sue alikula biskuti   zaidi ya dadake, kwa sababu Jumatatu alikula biskuti   zaidi ya dadake. Jumanne alikula biskuti mara mbili zaidi ya dadake, kwa sababu Jumanne alikula biskuti mara mbili zaidi ya dadake. Dadake alikula biskuti   Jumatatu na    siku iliyofuata, kwa sababu Dadake alikula biskuti   Jumatatu na    siku iliyofuata.
+
+Kwa kuzingatiwa, Sue alikula biskuti   zaidi ya dadake. Kwa sababu biskuti   ina kalori    , Sue alikula kalori   ×     =     zaidi ya dadake.
+",
+186,qwen3_8bdetranslate_act1680,"
+
+To solve this, we start by identifying the amount of money Ethel has, which is      to this amount to find out how much money Jimmy has:
+ 
+   +   =   
+ 
+
+So, Jimmy has $  .
+",
+187,qwen3_8bdetranslate_act1403,"
+
+To find the percentage of semi-automatic cars, we first need to determine how many of the    cars are semi-automatic. 
+
+We know:
+- Total number of cars =   
+- Number of automatic cars =   
+- Number of manual cars =  
+
+So, the number of semi-automatic cars is:
+ 
+   -    -   =  
+ 
+
+To find the percentage of semi-automatic cars, we use the formula:
+ 
+  =  (  }{ }  )      
+ 
+
+Substituting the values:
+ 
+  =  (  {  }  )       =   \%
+ 
+",
+188,qwen3_8bthpivot1071,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . **วันจันทร์และอังคาร**:  
+   แฟรงกีดูรายการโปรดความยาว   ชั่วโมง   ตอน ต่อคืน  
+   ดังนั้นใน   คืน รวมเวลาที่ดูทีวี =   ×   ชั่วโมง = **  ชั่วโมง**
+
+ . **วันพุธ**:  
+   แฟรงกีดูรายการความยาว    นาที จำนวนไม่กี่ตอน  
+   เวลาที่ดูทีวีในวันพุธ = จำนวนตอน ×  .  ชั่วโมง  
+   แต่เราไม่ทราบจำนวนตอนในวันพุธ ดังนั้นเราต้องหาค่าจากข้อมูลอื่น
+
+ . **วันพฤหัสบดี**:  
+   แฟรงกีดูรายการความยาว   ชั่วโมง   ตอน และรายการความยาว    นาที   ตอน  
+   ดังนั้นเวลาที่ดูทีวีในวันพฤหัสบดี =   +  .  = ** .  ชั่วโมง**
+
+ . **วันศุกร์**:  
+   แฟรงกีดูรายการความยาว   ชั่วโมง   ตอน  
+   ดังนั้นเวลาที่ดูทีวีในวันศุกร์ =   ×   = **  ชั่วโมง**
+
+ . **รวมเวลาที่ดูทีวีทั้งสิ้น =   ชั่วโมง**  
+   ดังนั้นเวลาที่ดูทีวีในวันพุธ =   - (  +  .  +  ) =   -  .  = ** .  ชั่วโมง**
+
+ . **ในวันพุธ แฟรงกีดูรายการความยาว    นาที จำนวนกี่ตอน?**  
+   เวลาที่ดูทีวีในวันพุธ =  .  ชั่วโมง =    นาที  
+   แต่ละตอนยาว    นาที ดังนั้นจำนวนตอน =    ÷    = **  ตอน**
+",
+189,qwen3_8bdepivot1064,"Um das Innenvolumen aller drei Kisten zu berechnen, müssen wir zunächst das Innenvolumen einer Kiste bestimmen und dann das Ergebnis mit   multiplizieren.
+
+### Schritt  : Bestimme die Maße der Kiste
+Die Kiste hat eine äußere Größe von   Inch (Länge) ×   Inch (Breite) ×   Inch (Höhe). Die Wände sind   Inch dick. Das bedeutet, dass die Wände von beiden Seiten jeweils   Inch abgehen.
+
+- Innere Länge =   Inch –   ×   Inch =   Inch  
+- Innere Breite =   Inch –   ×   Inch =   Inch  
+- Innere Höhe =   Inch –   ×   Inch =   Inch  
+
+### Schritt  : Berechne das Innenvolumen einer Kiste
+Das Innenvolumen einer Kiste wird berechnet, indem wir die inneren Maße miteinander multiplizieren:
+
+ 
+  =   \,       \,       \,   =    \,  ^ 
+ 
+
+### Schritt  : Berechne das Gesamtvolumen aller drei Kisten
+Da John drei Kisten hat, multiplizieren wir das Innenvolumen einer Kiste mit  :
+
+ 
+  =    \,  ^      =    \,  ^ 
+ 
+
+### Antwort:",
+190,qwen3_8bdetranslate_act1402,"
+
+To find the percentage of semi-automatic cars, we first determine how many are semi-automatic. 
+
+Total number of cars =     
+Number of automatic cars =     
+Number of manual cars =    
+
+Number of semi-automatic cars = Total number of cars - Number of automatic cars - Number of manual cars  
+Number of semi-automatic cars =    -    -   =    
+
+To find the percentage of semi-automatic cars:  
+Percentage = (Number of semi-automatic cars / Total number of cars) ×      
+Percentage = (  /   ) ×     =   %
+",
+191,qwen3_8bdenative496,"Um die Anzahl der unbewohnten Wohnungen im Gebäude zu berechnen, gehen wir Schritt für Schritt vor:
+
+ . **Bestimme die Gesamtanzahl der Wohnungen im Gebäude:**
+
+   Das Gebäude hat    Etagen, und jede Etage hat   Wohnungen.  
+   Also:  
+    
+          =      
+    
+
+ . **Berechne die Anzahl der bewohnten Wohnungen:**
+
+    /  des Gebäudes sind bewohnt.  
+   Also:  
+    
+    { }       =     
+    
+
+ . **Berechne die Anzahl der unbewohnten Wohnungen:**
+
+   Gesamtanzahl der Wohnungen minus Anzahl der bewohnten Wohnungen:  
+    
+       -    =     
+    
+",
+192,qwen3_8bthcode_switched126,"Carlos ปลูกต้นเลมอนซึ่งใช้เงิน   .  ค่ารดน้ำและใส่ปุ๋ยต้นเลมอนอยู่ที่ปีละ   . /ลูก =     
+- กำไรต่อปี:    =     ดังนั้น เวลาที่เขาจะเริ่มได้กำไรคือ:
+
+- เวลาที่ต้องใช้:   . /ปี =    ปี  
+
+ดังนั้น เขาจะเริ่มได้กำไรจากต้นเลมอนในอีก    ปี
+",
+193,qwen3_8bswnative1022,"Tatizo la hisabati ina maana ya kufanya hisabati kwa kuzingatia matokeo ya kila siku. John anapenda kunywa glesi ya maji wakati wa staftahi, chamcha na chajio. Lakini, kwa wiki, anapenda kutulia na kunywa soda badala ya maji wakati wa chajio. Huna anakunywa glesi moja kabla ya kwenda kulala. Kwa hivyo, tunataka kuzingatia idadi ya glesi ya maji ambayo John anapenda kunywa kwa wiki.
+
+Kwa kila siku, John anapenda kunywa glesi ya maji wakati wa staftahi, chamcha, na chajio. Huna anapenda kunywa glesi ya maji wakati wa chajio, lakini anapenda kutulia na kunywa soda. Kwa hivyo, kwa wiki, John anapenda kunywa glesi ya maji kwa siku mbili (staftahi na chamcha) na kwa siku mmoja (chajio) anapenda kutulia na soda. Kwa hivyo, idadi ya glesi ya maji ambayo John anapenda kunywa kwa wiki ni:
+
+  (staftahi na chamcha) +   (chajio) =  
+",
+194,qwen3_8bdenative2226,"Schritt  : Bestimme die Anzahl der Geranien.  
+Andy pflanzt    Geranien.
+
+Schritt  : Bestimme die Anzahl der Petunien.  
+Andy pflanzt    Petunien weniger als Geranien.  
+Also:    -    =    Petunien.
+
+Schritt  : Berechne die Gesamtanzahl der Blumen.  
+Geranien + Petunien =    +    =    .
+
+Antwort:  ",
+195,qwen3_8bdepivot681,"Okay, let's break down the problem step by step.
+
+First, the problem says that in Dr. Wertz's school, there are twice as many boys as girls. We are told there are    girls. So, to find the number of boys, we multiply the number of girls by  :
+
+ 
+  =        =    
+ 
+
+Next, we need to find the total number of students in the school. That would be the number of boys plus the number of girls:
+
+ 
+  =     +    =    
+ 
+
+Now, the problem states that there are   students per teacher. To find the number of teachers, we divide the total number of students by the number of students per teacher:
+
+ 
+  =  { } =   
+ 
+
+So, the total number of teachers is   .
+",
+196,qwen3_8bswcode_switched946,"Let's break down the problem step by step:
+
+ . **Idadi ya sungura ni kidogo na kumi na mbili** – This means the number of birds is ""less than ten and two"", which translates to ** ** (since ""kidogo na kumi na mbili"" is a way of saying ""less than ten and two"", i.e.,    -   =  ).
+
+ . **Kwa jumla ya idadi ya mbwa na paka** – This means the number of birds is ""in total"" the number of dogs and cats. So, the total number of birds is equal to the total number of dogs and cats.
+
+ . **Ikiwa kuna paka wawili kwa kila mbwa** – This means there are **two cats per dog**.
+
+ . **Na idadi ya mbwa ni   ** – This means the number of dogs is **  **.
+
+Now, let's compute the total number of cats:
+
+- Number of cats =   × number of dogs =   ×    = **   **
+
+Now, the total number of animals (cats and dogs) is:
+
+- Total number of animals = number of dogs + number of cats =    +     = **   **
+
+We are told that the number of birds is equal to the total number of animals (cats and dogs), so the number of birds is also **   **.
+
+Finally, we are asked to find the total number of animals (birds, dogs, and cats):
+
+- Total number of animals = number of birds + number of dogs + number of cats =     +    +     = **   **
+",
+197,qwen3_8bthcode_switched1316,"โจเซฟมีค่าใช้จ่าย     เมื่อเทียบกับเดือนพฤษภาคม ดังนั้นเขาจึงมีค่าใช้จ่ายในเดือนมิถุนายนเท่ากับ     =      +       
+",
+198,qwen3_8bthnative911,"เริ่มต้นด้วยการวิเคราะห์ข้อมูลที่ให้มา:
+
+ . ซินดีมีสัตว์เลี้ยง   ตัว (ตามโจทย์)  
+   → ซินดี =   ตัว
+
+ . มาร์เซียมีสัตว์เลี้ยงมากกว่าซินดี   ตัว  
+   → มาร์เซีย = ซินดี +   =   +   =   ตัว
+
+ . แจมมีสัตว์เลี้ยงมากกว่ามาร์เซีย   เท่า  
+   → แจม =   × มาร์เซีย =   ×   =    ตัว
+
+ . หาจำนวนสัตว์เลี้ยงรวมของทั้งสามคน  
+   → รวม = ซินดี + มาร์เซีย + แจม =   +   +    =    ตัว
+
+ดังนั้น จำนวนสัตว์เลี้ยงรวมของทั้งสามคนคือ    ตัว
+",
+199,qwen3_8bthcode_switched1790,"ลอยด์ได้รับเงิน     ×   =     ×   =     +       
+",
+200,qwen3_8bswtranslate_act1314,"
+
+To find the total expenses for May and June, we need to add the expenses of both months.
+
+- Expenses in May:      +     
+
+Now, we add the expenses of both months:
+ 
+    +     =     
+ 
+",
+201,qwen3_8bdetranslate_act2362,"
+
+To solve the problem, we need to understand the process of recycling ink from empty pens to make new ones.
+
+ . **Initial Purchase**: Ram buys    pens.
+ . **Usage**: He uses these pens until the ink runs out.
+ . **Recycling**: For every   empty pens, he can mix the ink to make   new pen.
+
+Let's break it down step by step:
+
+- **First Round**: He uses all    pens. After they are empty, he can recycle them.
+    - Number of new pens made from    empty pens:  
+    - So, he now has   new pens.
+
+- **Second Round**: He uses these   new pens.
+    - Number of new pens made from   empty pens:  
+    - So, he now has   new pen.
+
+- **Third Round**: He uses this   new pen.
+    - Number of new pens made from   empty pen:  
+    - So, he cannot make any more pens.
+
+Now, we add up all the pens he has:
+
+- Initial purchase:    pens
+- First round:   pens
+- Second round:   pen
+
+Total pens:  
+",
+202,qwen3_8bthtranslate_act1476,"
+
+Let's break down the problem step by step:
+
+ . **First   hours:**  
+   -    bees leave the hive.
+
+ . **Next   hours:**  
+   - Half of the bees that had left (   bees) return.  
+   - That means   bees return.
+
+ . **Next   hours:**  
+   - Twice the number of bees that had initially left (   bees) fly out.  
+   - That means   bees leave the hive.
+
+ . **Final   hours:**  
+   - All the bees that had left earlier and had not yet returned come back.  
+   - Bees that had left earlier:  
+     - First   hours:    bees left.  
+     - Next   hours:    bees left.  
+     - Total bees that left earlier:   bees.  
+   - Bees that had not returned:  
+     - From the first   hours:    bees left, but    returned, so   bees are still away.  
+     - From the next   hours:    bees left, none returned yet.  
+     - Total bees that had not returned:   bees.  
+   - Therefore, in the final   hours,    bees return.
+",
+203,qwen3_8bthpivot1186,"เรามาคิดทีละขั้นตอน:
+
+ . **ในวันแรก** มีตู้สินค้าเข้ามา   ใบ และแต่ละตู้มีรถยนต์   คัน  
+   ดังนั้น จำนวนรถยนต์ในวันแรกคือ:  
+     คัน
+
+ . **หลังจากนั้น** มีการนำตู้สินค้าเพิ่มเข้ามาในวันที่สอง และจำนวนรถยนต์ทั้งหมดที่ท่าเรือกลายเป็น    คัน  
+   ดังนั้น จำนวนรถยนต์ที่เพิ่มขึ้นในวันที่สองคือ:  
+     คัน
+
+ . **ตู้สินค้าทุกใบมีรถยนต์   คัน**  
+   ดังนั้น จำนวนตู้สินค้าที่เพิ่มเข้ามาในวันที่สองคือ:  
+     ใบ
+",
+204,qwen3_8bswnative190,"Tatizo:  
+Marissa anatembea masafa marefu ya maili   . Alitumia saa   kutembea maili   za kwanza, kisha saa nyingine moja kutembea maili mbili zinazofuata. Iwapo anataka kasi yake ya wastani iwe maili   kwa saa, anahitaji kutembea kwa kasi (katika maili kwa saa) gani kwa umbali unaosalia?
+
+**Hatua kwa hatua:**
+
+ . **Umbali wakati wa saa ya kwanza:**  
+   - Kasi =   maili/saa  
+   - Masaa =    
+   - Umbali =   ×   =   maili
+
+ . **Umbali wakati wa saa ya pili:**  
+   - Kasi =   maili/saa  
+   - Masaa =    
+   - Umbali =   ×   =   maili
+
+ . **Umbali kwa sasa:**  
+   -   +   =   maili
+
+ . **Umbali ya kwanza kwa saa:**  
+   -    -   =   maili
+
+ . **Masaa ya kwanza kwa saa:**  
+   -   +   =   saa
+
+ . **Kasi ya wastani:**  
+   -   maili/saa  
+   - Umbali =    maili  
+   - Masaa =   saa  
+   - Kasi =    ÷   =   maili/saa
+
+ . **Kasi ya kwanza kwa saa:**  
+   -   maili/saa  
+   - Masaa =   saa  
+   - Umbali =   maili
+
+ . **Umbali ya kwanza kwa saa:**  
+   -    -   =   maili
+
+ . **Masaa ya kwanza kwa saa:**  
+   -   saa
+
+  . **Kasi ya kwanza kwa saa:**  
+    -   ÷   =   maili/saa
+
+**Jibu:**  
+Kasi ya kwanza kwa saa =   maili/saa
+",
+205,qwen3_8bswtranslate_act1650,"
+
+To find out how much money Elvira has left to buy clothes, we need to calculate the total cost of the items she bought and subtract that from her initial budget.
+
+ . The cost of the computer is      euros.
+ . The cost of the mouse is     euros.
+ . The cost of the scanner is    euros.
+ . The cost of the printer is     euros.
+
+Let's add up these costs:
+
+ 
+     +     +    +     =     
+ 
+
+Now, subtract the total cost from Elvira's budget:
+
+ 
+     -      =   
+ 
+",
+206,qwen3_8bdenative121,"Um zu berechnen, wie viele Jahre es dauert, bis Carlos mit dem Zitronenbaum Geld verdient, müssen wir die jährlichen Einnahmen und Ausgaben vergleichen. Wir beginnen mit der Berechnung der jährlichen Gewinne.
+
+### Schritt  : Jährliche Einnahmen
+Jedes Jahr wachsen   Zitronen, und jede Zitrone wird für  ,   US-Dollar verkauft.  
+Daher sind die jährlichen Einnahmen:
+
+ 
+     ,   =   ,    
+ 
+
+### Schritt  : Jährliche Ausgaben
+Jedes Jahr kostet es   US-Dollar, den Baum zu gießen und zu düngen.  
+Daher sind die jährlichen Ausgaben:
+
+ 
+   
+ 
+
+### Schritt  : Jährlicher Gewinn
+Der jährliche Gewinn ist die Differenz zwischen Einnahmen und Ausgaben:
+
+ 
+  ,   -   =  ,    
+ 
+
+### Schritt  : Anschaffungskosten
+Das Pflanzen des Baumes kostet    US-Dollar. Wir müssen berechnen, wie viele Jahre benötigt werden, bis der Gewinn die Anschaffungskosten abdeckt.
+
+Wir teilen die Anschaffungskosten durch den jährlichen Gewinn:
+
+ 
+ { ,  } =   
+ 
+
+### Schritt  : Ergebnis
+Nach    Jahren hat Carlos genug Gewinn, um die Anschaffungskosten zu decken. Ab diesem Zeitpunkt verdient er Geld.
+",
+207,qwen3_8bdecode_switched2494,"Wir beginnen mit den Informationen über die Schwester:
+
+- Am Montag aß die Schwester **  Kekse**.
+- Am Dienstag aß die Schwester **   Kekse**.
+
+Nun betrachten wir Sue:
+
+- Am Montag aß Sue **  Mal so viele Kekse wie ihre Schwester**.  
+  Da die Schwester am Montag   Kekse aß, aß Sue:  
+    Kekse.
+
+- Am Dienstag aß Sue **doppelt so viele Kekse wie ihre Schwester**.  
+  Da die Schwester am Dienstag    Kekse aß, aß Sue:  
+    Kekse.
+
+Nun berechnen wir die Gesamtanzahl an Keksen, die jede von ihnen aß:
+
+- Sue aß insgesamt:  
+    Kekse.
+
+- Die Schwester aß insgesamt:  
+    Kekse.
+
+Die Differenz zwischen der Anzahl der Kekse, die Sue und ihre Schwester aßen, beträgt:  
+  Kekse.
+
+Da   Keks **    Kalorien** hat, konsumierte Sue **mehr** Kalorien als ihre Schwester um:  
+  Kalorien.
+",
+208,qwen3_8bswcode_switched1305,"Nissa anaajiri    wafanyakazi. Theluthi moja yao ( / ) wanaondoka, kisha    kati ya waliosalia wanaondoka.  
+- Idadi ya wafanyakazi ambao waliondoka kwa sababu ya watoto kuwatapikia:  
+     
+- Idadi ya wafanyakazi ambao waliondoka kwa sababu ya watoto kuwapiga teke:     
+- Idadi ya wafanyakazi ambao waliondoka kwa sababu mbili:    +    =     
+- Idadi ya wafanyakazi ambao waliondoka:     
+- Idadi ya wafanyakazi ambao waliondoka:    -    =     
+
+Wangapi wamesalia?  ",
+209,qwen3_8bthcode_switched2220,"แอนดี้ปลูกเจอเรเนียม    ต้น และปลูกพิทูเนียน้อยกว่าเจอเรเนียม    ต้น ดังนั้นจำนวนพิทูเนียที่แอนดี้ปลูกคือ   ต้น  
+จำนวนไม้ดอกทั้งหมดที่แอนดี้ปลูกคือจำนวนเจอเรเนียมบวกกับจำนวนพิทูเนีย ซึ่งคือ   ต้น  
+",
+210,qwen3_8bthcode_switched887,"เราต้องการหาจำนวนแผ่นที่เฮอรัลด์มียอดจำหน่าย โดยให้ข้อมูลว่าเพลงแรกของมาริลีนมียอดจำหน่ายสูงกว่าเฮอรัลด์ถึง    เท่า และเพลงของมาริลีนมียอดจำหน่าย   ,    แผ่น
+
+ขั้นตอนการคิด:
+ . ให้จำนวนแผ่นที่เฮอรัลด์มียอดจำหน่ายเป็น   แผ่น
+ . จากโจทย์ จำนวนแผ่นของมาริลีนเป็น    เท่าของเฮอรัลด์ ดังนั้น  
+ . เพื่อหา   เราแบ่งทั้งสองข้างด้วย   :  
+ . คำนวณ:  
+
+ดังนั้น เฮอรัลด์มียอดจำหน่าย  ,    แผ่น
+",
+211,qwen3_8bthcode_switched564,"ปีเตอร์ต้องการไปดูหนังในสัปดาห์นี้ และเขาต้องใช้เงินในการซื้อตั๋วและป๊อปคอร์นสำหรับแต่ละครั้งที่ไปดูหนัง ตั๋วหนังมีราคา    ดังนั้นสำหรับแต่ละครั้งที่เขาไปดูหนัง เขาต้องใช้เงินทั้งหมด    = $  
+
+ปีเตอร์มีเงินทั้งหมด    ดอลลาร์ ดังนั้นเขาสามารถไปดูหนังได้จำนวนครั้งเท่ากับ    หารด้วย    ซึ่งเท่ากับ  
+",
+212,qwen3_8bdecode_switched1356,"Wir beginnen mit der Information, dass Brian    Videospiele hat, aber   davon verlor. Das bedeutet, dass Brian vor dem Vergleich noch    -   =    Videospiele besaß.
+
+Bobby hat   Videospiele weniger als   Mal so viele wie Brian. Da Brian vor dem Vergleich    Videospiele hatte, rechnen wir:
+
+  Mal so viele wie Brian =   ×    =   
+
+Dann subtrahieren wir die   Videospiele, die Bobby weniger hat:
+
+   -   =   
+
+Also hat Bobby    Videospiele.
+",
+213,qwen3_8bdenative2354,"Um zu berechnen, wie viele Pizzas John bestellen muss, gehen wir Schritt für Schritt vor:
+
+ . **Bestimme die Gesamtanzahl an Stücke, die benötigt werden:**  
+   Es sind    Freunde und John selbst, also insgesamt    Personen.  
+   Jede Person soll   Stück haben.  
+   Gesamtanzahl an Stücke =    Personen ×   Stück =    Stück.
+
+ . **Bestimme, wie viele Stücke eine Pizza liefert:**  
+   Eine Pizza wird in   Portionen geschnitten.  
+   Also liefert eine Pizza   Stück.
+
+ . **Berechne, wie viele Pizzas benötigt werden:**  
+   Anzahl der Pizzas = Gesamtanzahl an Stücke ÷ Stücke pro Pizza  
+   Anzahl der Pizzas =    ÷   =   . 
+
+ . **Runde auf, da man nicht eine halbe Pizza bestellen kann:**  
+   John muss mindestens    Pizzas bestellen, um sicherzustellen, dass genug Stücke vorhanden sind.
+",
+214,qwen3_8bthpivot1727,"เรามาพิจารณาปัญหาทีละขั้นตอน:
+
+ . **กำหนดตัวแปร**:
+   - ให้   แทนอายุของ Sally Four
+   - ให้   แทนอายุของ Sally Thirtytwo
+   - ให้   แทนอายุของ Granny Red
+   - ให้   แทนอายุของ Sally Two
+   - ให้   แทนอายุของนกตัวที่เหลือ (มีนก   ตัว ซึ่งรวม Sally Two, Granny Red, Sally Four, Sally Thirtytwo)
+
+ . **จากข้อมูลในโจทย์**:
+   - ""Sally Four อายุเท่ากับ Sally Thirtytwo"" หมายความว่า  
+   - ""Sally Thirtytwo อายุ   ปี"" หมายความว่า   ดังนั้น  
+   - ""Granny Red อายุมากกว่า Sally Four สองเท่า"" หมายความว่า  
+   - ""Sally Two แก่กว่า Granny Red สามปี"" หมายความว่า  
+
+ . **รวมอายุของนกทั้ง   ตัว**:
+   - Sally Two:  
+   - Granny Red:  
+   - Sally Four:  
+   - Sally Thirtytwo:  
+
+   ดังนั้น รวมอายุของนกทั้งสี่ตัวคือ:
+    
+   S_  + G + S_  + S_{  } =    +    +   +   =   
+    
+",
+215,qwen3_8bthtranslate_act1471,"
+
+Let's break down the problem step by step:
+
+ . **First   hours**:    bees leave the hive.
+   - Bees leaving:   
+
+ . **Next   hours**: Half of the bees that left in the first   hours return.
+   - Half of    =    bees return.
+   - Bees returning:   
+
+ . **Next   hours**: Twice the number of bees that left in the first   hours fly out again.
+   - Twice    =    bees leave.
+   - Bees leaving:   
+
+ . **Final   hours**: All the bees that had left earlier and had not yet returned come back.
+   - Bees that left in the first   hours:   
+   - Bees that left in the third   hours:   
+   - Total bees that left but did not return:    +    =   
+   - Therefore,    bees return in the final   hours.
+",
+216,qwen3_8bthtranslate_act1897,"
+
+First, let's calculate the total cost of the tickets. The three friends spent     .   less on food than on the tickets, so:
+ 
+ .   -  .   =  .  
+ 
+
+Now, we calculate the total cost of the rides. Each ride costs      .  
+- Food:    
+
+ 
+  .   +  .   +    =   . 
+ 
+
+Finally, we divide the total cost by   to find out how much each person has to pay:
+ 
+ { } =   . 
+ 
+",
+217,qwen3_8bthnative340,"เริ่มต้นจากข้อมูลที่โจทย์ให้มา:
+
+ . เรย์มอนด์มีอัญมณี    เม็ด  
+ . แอรอนมีอัญมณีมากกว่าครึ่งหนึ่งของที่เรย์มอนด์มี   เม็ด  
+ . โชบานมีอัญมณีน้อยกว่าแอรอน   เม็ด  
+
+### ขั้นตอนที่  : คำนวณจำนวนอัญมณีของแอรอน  
+จากข้อมูลข้อ  :  
+แอรอนมีอัญมณีมากกว่าครึ่งหนึ่งของที่เรย์มอนด์มี   เม็ด  
+เรย์มอนด์มี    เม็ด ดังนั้น ครึ่งหนึ่งของ    คือ    
+ดังนั้น แอรอนมี   เม็ด  
+
+### ขั้นตอนที่  : คำนวณจำนวนอัญมณีของโชบาน  
+จากข้อมูลข้อ  :  
+โชบานมีอัญมณีน้อยกว่าแอรอน   เม็ด  
+แอรอนมี    เม็ด ดังนั้น โชบานมี   เม็ด  
+
+### สรุป  
+โชบานมีอัญมณี    เม็ด  
+",
+218,qwen3_8bswcode_switched1617,"Anakin na Locsin walishika samaki kwa jumla. Kupata idadi ya samaki ambayo Anakin alishika, tunaweza kubadilisha maana ya pweza, farasi-maji, na juhabahari kwa idadi ya samaki. 
+
+Anakin alishika:
+- Pweza    (idadi ya samaki)
+- Farasi-maji   (idadi ya samaki)
+- Juhabahari   (idadi ya samaki)
+
+Kwa jumla, Anakin alishika:  
+   +   +   =    samaki.
+
+Locsin alishika pweza   chache zaidi ya Anakin, farasi-maji   chache zaidi ya Anakin, na juhabahari   zaidi ya Anakin.  
+Kwa jumla, Locsin alishika:
+- Pweza:    +   =   
+- Farasi-maji:   +   =  
+- Juhabahari:   +   =  
+
+Kwa jumla, Locsin alishika:  
+   +   +   =    samaki.
+
+Wote wawili waliweza kushika samaki kwa jumla:  
+   (Anakin) +    (Locsin) =    samaki.
+",
+219,qwen3_8bthtranslate_act344,"
+
+First, we determine how many gems Aaron has. Raymond has    gems, so half of that is:
+
+ 
+ { } =   
+ 
+
+Aaron has   more gems than this:
+
+ 
+   +   =   
+ 
+
+Now, we know that Show has   fewer gems than Aaron:
+
+ 
+   -   =   
+ 
+",
+220,qwen3_8bthnative2303,"เรามาแก้โจทย์ทีละขั้นตอน:
+
+ . **ราคาขายรถยนต์แต่ละคัน**:  
+   รถยนต์แต่ละคันขายในราคา    ,    ×    =     ,    ×   % =   ,     
+   ดังนั้น    คัน คิดเป็น:  
+      ,     
+
+ . **รวมทั้งหมด**:  
+   รวมยอดเงินที่จ่ายทั้งหมด:  
+      ,    (ภาษี) +     ,     
+
+ดังนั้น คำตอบคือ:  ",
+221,qwen3_8bthpivot1224,"เรามาคิดทีละขั้นตอน:
+
+ . **วันจันทร์**: ซาดีนอน   ชั่วโมง  
+ . **วันอังคารและวันพุธ**: เธอนอนน้อยกว่าเดิม   ชั่วโมงในแต่ละคืน  
+   - ดังนั้นในแต่ละคืน เธอนอน   ชั่วโมง  
+   - รวม   วัน:   ชั่วโมง  
+ . **วันที่เหลือของสัปดาห์ (วันพฤหัสบดีถึงวันอาทิตย์)**: เธอนอนนานกว่าสองวันนั้น (วันอังคารและวันพุธ)   ชั่วโมง  
+   - สองวันนั้นรวมกัน   ชั่วโมง  
+   - ดังนั้นในวันที่เหลือของสัปดาห์ เธอนอน   ชั่วโมง  
+
+ . **รวมทั้งสัปดาห์**:  
+   - วันจันทร์:   ชั่วโมง  
+   - วันอังคารและวันพุธ:    ชั่วโมง  
+   - วันที่เหลือของสัปดาห์:    ชั่วโมง  
+   - รวม:   ชั่วโมง  
+",
+222,qwen3_8bdenative1905,"John sammelt Pfirsiche über einen Zeitraum von   Stunden.  
+Zuerst rechnen wir die Gesamtzeit in Minuten um:  
+  Stunde =    Minuten  
+  Stunden =   ×    =     Minuten  
+
+John kann pro Minute   Pfirsiche sammeln.  
+Um die Gesamtanzahl der gesammelten Pfirsiche zu berechnen, multiplizieren wir die Anzahl der Minuten mit der Anzahl der Pfirsiche pro Minute:  
+    Minuten ×   Pfirsiche/Minute =     Pfirsiche  
+",
+223,qwen3_8bdenative225,"Schritt  : Bestimme, wie viele Kunden Billy am Dienstag hatte.  
+Billy hatte insgesamt   Kunden.
+
+Schritt  : Bestimme, wie viele DVDs die ersten   Kunden kauften.  
+Jeder der ersten   Kunden kaufte   DVD.  
+  Kunden ×   DVD =   DVDs.
+
+Schritt  : Bestimme, wie viele DVDs die nächsten   Kunden kauften.  
+Jeder der nächsten   Kunden kaufte   DVDs.  
+  Kunden ×   DVDs =   DVDs.
+
+Schritt  : Bestimme, wie viele DVDs die letzten   Kunden kauften.  
+Die letzten   Kunden kauften keine DVD.  
+  Kunden ×   DVDs =   DVDs.
+
+Schritt  : Addiere die Anzahl der verkauften DVDs.  
+  DVDs +   DVDs +   DVDs =   DVDs.
+",
+224,qwen3_8bdecode_switched2432,"Jason hat einen Telefontarif mit      Minuten pro Monat. Jeden Tag führt er ein   -minütiges Telefonat mit seinem Chef, also    Minuten ×    Tage =     Minuten. Zudem hat er     Anrufminuten extra mit anderen Personen. Insgesamt hat er also     Minuten +     Minuten =     Minuten verwendet. Wenn der Monat      Minuten umfasst, dann bleiben      Minuten -     Minuten =     Minuten übrig.  
+",
+225,qwen3_8bdetranslate_act2296,"
+
+First, we calculate how many watermelons were ripe for harvest after two months:
+ 
+  \%       =  .         =   
+ 
+So,    watermelons were ripe and harvested.
+
+The number of watermelons remaining after the first harvest is:
+ 
+    -    =   
+ 
+
+Next, we calculate how many of the remaining watermelons were ripe for harvest two weeks later:
+ 
+ { }      =  { }      =   
+ 
+So,    watermelons were ripe and harvested.
+
+The number of watermelons that were not ripe and not harvested after two weeks is:
+ 
+   -    =   
+ 
+",
+226,qwen3_8bthtranslate_act315,"
+
+To find the average of the guesses, we need to calculate each friend's guess and then find the mean.
+
+ . The first friend guesses:  
+    
+
+ . The second friend guesses    more than half of the first friend's guess:  
+    
+
+ . The third friend guesses   % more than the first friend's guess:  
+    
+
+Now, we calculate the average of the three guesses:  
+ 
+",
+227,qwen3_8bdenative1562,"Zuerst berechnen wir, wie viele Bananen die Affen, Gorillas und Paviane in einem Monat insgesamt benötigen:
+
+- Affen:     Bananen
+- Gorillas:     Bananen
+- Paviane:     Bananen
+
+Gesamtbedarf pro Monat =     +     +     =     Bananen
+
+Da der Zoowärter   Monate überdauern möchte, multiplizieren wir den monatlichen Bedarf mit  :
+
+    Bananen/Monat ×   Monate =      Bananen
+
+Der Zoowärter muss also      Bananen bestellen.
+
+    ",
+228,qwen3_8bthnative570,"เริ่มต้นด้วยการพิจารณาข้อมูลที่โจทย์ให้มา:
+
+- สะพานไม้สามารถรับน้ำหนักได้ไม่เกิน **     ปอนด์**
+- น้ำหนักของกล่องแต่ละกล่องคือ **   ปอนด์**
+- น้ำหนักรวมของคนขับและรถบรรทุกเปล่าคือ **     ปอนด์**
+
+เราต้องการหาจำนวนกล่องสูงสุดที่รถบรรทุกสามารถบรรทุกได้โดยไม่เกินน้ำหนักที่สะพานสามารถรับได้
+
+### ขั้นตอนที่  : หาความแตกต่างระหว่างน้ำหนักที่สะพานสามารถรับได้กับน้ำหนักรวมของคนขับและรถบรรทุกเปล่า
+น้ำหนักที่เหลือสำหรับบรรทุกกล่อง = น้ำหนักที่สะพานรับได้ - น้ำหนักรวมของคนขับและรถบรรทุกเปล่า  
+ 
+     -      =     
+ 
+
+### ขั้นตอนที่  : หาจำนวนกล่องสูงสุดที่สามารถบรรทุกได้โดยใช้น้ำหนักที่เหลือ
+จำนวนกล่องสูงสุด = น้ำหนักที่เหลือ ÷ น้ำหนักของกล่องละหนึ่งกล่อง  
+ 
+     ÷    =   
+ 
+
+### ขั้นตอนที่  : ตรวจสอบว่าผลลัพธ์เป็นจำนวนเต็มหรือไม่
+ผลลัพธ์คือ **  ** ซึ่งเป็นจำนวนเต็ม ดังนั้นเป็นไปได้
+
+### สรุป:
+จำนวนกล่องสูงสุดที่รถบรรทุกสามารถบรรทุกได้โดยไม่เกินน้ำหนักที่สะพานสามารถรับได้คือ **   กล่อง**
+",
+229,qwen3_8bdepivot664,"Wir werden die Anzahl der insgesamt geschickten Personen berechnen, indem wir Schritt für Schritt die Informationen aus dem Problem analysieren.
+
+ . **Anzahl der Schulen:**  
+   Es gibt **vier Schulen**.
+
+ . **Anzahl der Teams pro Schule:**  
+   Jede Schule hat **zwei Teams** – ein Mädchenbasketballteam und ein Jungenbasketballteam.
+
+ . **Anzahl der Spieler pro Team:**  
+   Jedes Team besteht aus **  Spielern**.
+
+ . **Anzahl der Trainer pro Team:**  
+   Jedes Team hat **einen Trainer**.
+
+Nun berechnen wir die Anzahl der Personen, die jede Schule geschickt hat:
+
+- **Spieler pro Schule:**  
+    Teams ×   Spieler = **   Spieler**
+
+- **Trainer pro Schule:**  
+    Teams ×   Trainer = **  Trainer**
+
+- **Gesamtzahl der Personen pro Schule:**  
+     Spieler +   Trainer = **   Personen**
+
+Da es **vier Schulen** gibt, rechnen wir:
+
+- **Gesamtzahl der Personen:**  
+    Schulen ×    Personen = **   Personen**
+",
+230,qwen3_8bdepivot562,"Okay, let's break down the problem step by step.
+
+Peter wants to go to the movies this week. Each time he goes, he buys a movie ticket for   US-Dollars and popcorn for another   US-Dollars. So, for each movie visit, he spends:
+
+  (ticket) +   (popcorn) =    US-Dollars
+
+Peter has a total of    US-Dollars for the week. To find out how many times he can go to the movies, we need to divide the total amount of money he has by the cost per movie visit:
+
+   ÷    =  
+
+So, Peter can go to the movies   times.
+",
+231,qwen3_8bdenative743,"Um zu berechnen, wie viel Artie heute verdient, müssen wir die Preise der Blumensorten auf den nächsthöheren Dollar aufrunden und dann die Anzahl der verkauften Töpfe mit den gerundeten Preisen multiplizieren. Schritt für Schritt:
+
+ . **Runden der Preise auf den nächsthöheren Dollar:**
+   - Ringelblumen:  ,   USD → aufgerundet auf   USD
+   - Petunien:  ,   USD → aufgerundet auf   USD
+   - Begonien:  ,   USD → aufgerundet auf   USD
+
+ . **Multiplizieren der gerundeten Preise mit der Anzahl der verkauften Töpfe:**
+   - Ringelblumen:    Töpfe ×   USD =    USD
+   - Petunien:   Töpfe ×   USD =    USD
+   - Begonien:    Töpfe ×   USD =    USD
+
+ . **Addieren der Einnahmen:**
+   -    USD +    USD +    USD =     USD
+
+Artie verdient insgesamt **   ** USD.
+
+   ",
+232,qwen3_8bdepivot167,"Wir werden die Gesamtstrecke berechnen, die jeder Zug in den beiden Tagen zurücklegt. Dazu addieren wir die Strecken, die die Züge am ersten Tag und am zweiten Tag gefahren sind.
+
+### Schritt  : Strecke am ersten Tag
+Beide Züge fahren am ersten Tag **   Meilen** nach Westen.
+
+### Schritt  : Strecke am zweiten Tag
+Am zweiten Tag fahren beide Züge **    Meilen** nach Norden.
+
+### Schritt  : Gesamtstrecke
+Die Gesamtstrecke, die jeder Zug zurücklegt, ist die Summe der Strecken am ersten und zweiten Tag:
+
+ 
+  =   \   +    \   =    \  
+ 
+
+### Antwort:
+Jeder Zug legt in den beiden Tagen **    Meilen** zurück.
+",
+233,qwen3_8bthcode_switched1484,"แม่ของบริตทานีจ่ายเงินให้กับแคชเชียร์รวมทั้งค่าตั๋วสำหรับเด็ก   คนและค่าตั๋วสำหรับผู้ใหญ่   คน ค่าตั๋วสำหรับเด็กคือ     ดังนั้น ค่าตั๋วทั้งหมดคือ     =    ซึ่งหมายความว่า เธอได้ให้เงินแคชเชียร์มากกว่าค่าตั๋วทั้งหมด    ดังนั้น เธอจึงให้เงินแคชเชียร์ทั้งหมด    = $  
+",
+234,qwen3_8bdetranslate_act2151,"
+
+To determine how many hours Lori needs to work, we first calculate the total cost of her purchase:
+
+ 
+  =   +   =    .   +   .   =    .  
+ 
+
+Next, we divide the total cost by her hourly wage to find the number of hours she needs to work:
+
+ 
+  =  }{ } =  { .  } =   
+ 
+",
+235,qwen3_8bswcode_switched32,"James wanafikisa mbio   fupi mara   kwa wiki, kati ya hilo, anafanya   ×   =   mbio fupi kwa wiki.  
+Anakimbia mita    kwa kila mbio fupi, kati ya hilo, anafanya   ×    =     mita kwa wiki.  ",
+236,qwen3_8bthpivot30,"เรามาคิดทีละขั้นตอนเพื่อหาคำตอบ:
+
+ . เจมส์วิ่ง   เซ็ตต่อสัปดาห์  
+ . แต่ละเซ็ตเขาวิ่ง    เมตร  
+ . ดังนั้นในหนึ่งสัปดาห์ เขาวิ่งได้:  
+    
+
+ดังนั้น ในหนึ่งสัปดาห์ เจมส์วิ่งไปทั้งหมด     เมตร
+",
+237,qwen3_8bdetranslate_act1775,"
+
+First, calculate the amount Zaid spends on rent:
+ 
+ { }        =     
+ 
+
+Next, calculate the amount Zaid spends on car fuel:
+ 
+ { }        =     
+ 
+
+Now, subtract the rent and car fuel from his total salary to find the remaining amount:
+ 
+     -      -      =     
+ 
+
+He donates half of the remaining amount to charity:
+ 
+ { }        =     
+ 
+
+Subtract the donation from the remaining amount:
+ 
+     -      =     
+ 
+
+Then, subtract the amounts given to his daughter and wife:
+ 
+     -     -     =    
+ 
+",
+238,qwen3_8bswcode_switched1011,"Solo needs to read   pages from his Science book,    pages from his Social Studies book,   pages from his History book, and   pages from his Geography book. That gives a total of   +    +   +   =    pages.  
+
+Solo has already read    pages on Wednesday. Therefore, the number of pages remaining to be read is    -    =    pages.  
+
+If Solo has   more days to finish reading all the pages, then the average number of pages he needs to read per day is    ÷   =  .  
+",
+239,qwen3_8bswtranslate_act1915,"
+
+To solve the problem, we need to calculate the total number of portions of food that a group of ten people will consume in one day. 
+
+We are told that each person needs  .  portions of food per week. So, first, we calculate the total number of portions needed for    people per week:
+ 
+        .    =     
+ 
+
+Now, we need to find out how many portions they consume per day. Since there are   days in a week, we divide the weekly portions by  :
+ 
+ }{   } =    
+ 
+
+So, the group of ten people will consume   portions of food per day.
+",
+240,qwen3_8bswnative1756,"Tatizo:  
+Juan na Carlos kaka yake wanauza maji ya limau. Kwa kila galoni ambayo wanatengeneza huwa inawagharimu    ya sukari. Wanauza kila glesi kwa    , walitumia pesa ngapi kununua limanu?
+
+**Hatua kwa hatua:**
+
+ . **Kupata kiasi cha pesa kwa kila galoni:**  
+   - Limau:     
+   - Glesi:      
+   - Jumla:    +    
+
+ . **Kupata idadi ya galoni:**  
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni =      
+   - Faida kwa kila galoni = $    
+   - Faida",
