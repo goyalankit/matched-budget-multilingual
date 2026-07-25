@@ -12,9 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "analysis-out" / "explore_budget_qwen.md"
 DEFAULT_OUTPUT = ROOT / "figures" / "native_curves.png"
 PEAKS = {
-    "de": (192, 1.558886),
-    "th": (256, 2.550777),
-    "sw": (128, 1.936317),
+    "de": (192, 1.558886, 50.30, 34.2),
+    "th": (256, 2.550777, 45.05, 38.9),
+    "sw": (128, 1.936317, 23.65, 15.0),
 }
 LANGUAGE_NAMES = {"de": "German", "th": "Thai", "sw": "Swahili"}
 
@@ -56,8 +56,9 @@ def render(input_path: Path, output_path: Path) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(10.5, 3.4), sharey=True)
 
     for axis, language in zip(axes, ("de", "th", "sw")):
-        peak_budget, ratio = PEAKS[language]
+        peak_budget, ratio, premium_accuracy, reported_delta = PEAKS[language]
         premium_cap = math.floor(ratio * peak_budget)
+        peak_accuracy = curves[language][budgets.index(peak_budget)]
         axis.plot(
             budgets,
             curves[language],
@@ -74,6 +75,33 @@ def render(input_path: Path, output_path: Path) -> None:
         )
         axis.axvline(peak_budget, color=colors[language], linestyle="--", linewidth=1)
         axis.axvline(premium_cap, color=colors[language], linestyle=":", linewidth=1)
+        axis.plot(
+            [peak_budget, premium_cap, premium_cap],
+            [peak_accuracy, peak_accuracy, premium_accuracy],
+            color=colors[language],
+            linestyle="-.",
+            linewidth=1.5,
+            zorder=3,
+        )
+        axis.scatter(
+            [peak_budget, premium_cap],
+            [peak_accuracy, premium_accuracy],
+            color=colors[language],
+            edgecolor="white",
+            marker="D",
+            s=55,
+            linewidth=0.8,
+            zorder=4,
+        )
+        axis.annotate(
+            rf"$\Delta={reported_delta:.1f}$",
+            (premium_cap, (peak_accuracy + premium_accuracy) / 2),
+            xytext=(5, 0),
+            textcoords="offset points",
+            fontsize=9,
+            va="center",
+            color=colors[language],
+        )
         axis.set_xscale("log", base=2)
         axis.set_xticks((64, 128, 256, 512, 1024))
         axis.set_xticklabels(("64", "128", "256", "512", "1024"))
@@ -82,7 +110,7 @@ def render(input_path: Path, output_path: Path) -> None:
         axis.set_title(LANGUAGE_NAMES[language])
         axis.set_xlabel("Prefix budget")
         axis.grid(axis="y", alpha=0.25)
-        axis.legend(frameon=False, loc="lower right")
+        axis.legend(frameon=False, loc="upper left")
 
     axes[0].set_ylabel("NATIVE exact-match accuracy (%)")
     fig.suptitle("Qwen3-8B native accuracy and peak premium windows")

@@ -1,41 +1,97 @@
-@misc{mgsm,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: MGSM}},
-  note = {PLACEHOLDER --- verify bibliography}
+% Verified references (citation search 2026-07). Replaces the placeholder bibliography.
+% Note for main.tex: the old placeholder keys `flores200` and
+% `multilingualBudgetNormalization` are removed. Cite FLORES-200 as \citep{nllb}
+% (optionally \citep{flores101,nllb}); cite the multilingual output-budget /
+% tokenization-cost point as \citep{ahia2023,petrov2023}.
+
+@inproceedings{mgsm,
+  title     = {Language Models are Multilingual Chain-of-Thought Reasoners},
+  author    = {Shi, Freda and Suzgun, Mirac and Freitag, Markus and Wang, Xuezhi and Srivats, Suraj and Vosoughi, Soroush and Chung, Hyung Won and Tay, Yi and Ruder, Sebastian and Zhou, Denny and Das, Dipanjan and Wei, Jason},
+  booktitle = {The Eleventh International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  eprint    = {2210.03057},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
 }
 
-@misc{s1budget,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: s1 and budget forcing}},
-  note = {PLACEHOLDER --- verify bibliography}
+@article{s1budget,
+  title   = {s1: Simple Test-Time Scaling},
+  author  = {Muennighoff, Niklas and Yang, Zitong and Shi, Weijia and Li, Xiang Lisa and Fei-Fei, Li and Hajishirzi, Hannaneh and Zettlemoyer, Luke and Liang, Percy and Cand{\`e}s, Emmanuel and Hashimoto, Tatsunori},
+  journal = {arXiv preprint arXiv:2501.19393},
+  year    = {2025},
+  eprint  = {2501.19393},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
 }
 
-@misc{flores200,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: FLORES-200}},
-  note = {PLACEHOLDER --- verify bibliography}
+@article{nllb,
+  title   = {No Language Left Behind: Scaling Human-Centered Machine Translation},
+  author  = {{NLLB Team} and Costa-juss{\`a}, Marta R. and Cross, James and {\c{C}}elebi, Onur and Elbayad, Maha and Heafield, Kenneth and Heffernan, Kevin and Kalbassi, Elahe and Lam, Janice and Licht, Daniel and Maillard, Jean and others},
+  journal = {arXiv preprint arXiv:2207.04672},
+  year    = {2022},
+  eprint  = {2207.04672},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  note    = {Introduces the FLORES-200 benchmark}
 }
 
-@misc{nllb,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: NLLB}},
-  note = {PLACEHOLDER --- verify bibliography}
+@article{flores101,
+  title   = {The Flores-101 Evaluation Benchmark for Low-Resource and Multilingual Machine Translation},
+  author  = {Goyal, Naman and Gao, Cynthia and Chaudhary, Vishrav and Chen, Peng-Jen and Wenzek, Guillaume and Ju, Da and Krishnan, Sanjana and Ranzato, Marc'Aurelio and Guzm{\'a}n, Francisco and Fan, Angela},
+  journal = {Transactions of the Association for Computational Linguistics (TACL)},
+  volume  = {10},
+  pages   = {522--538},
+  year    = {2022}
 }
 
-@misc{glotlid,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: GlotLID}},
-  note = {PLACEHOLDER --- verify bibliography}
+@inproceedings{glotlid,
+  title     = {{GlotLID}: Language Identification for Low-Resource Languages},
+  author    = {Kargaran, Amir Hossein and Imani, Ayyoob and Yvon, Fran{\c{c}}ois and Sch{\"u}tze, Hinrich},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2023},
+  pages     = {6155--6218},
+  year      = {2023}
 }
 
-@misc{comet22,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: COMET}},
-  note = {PLACEHOLDER --- verify bibliography}
+@inproceedings{comet22,
+  title     = {{COMET-22}: Unbabel-{IST} 2022 Submission for the Metrics Shared Task},
+  author    = {Rei, Ricardo and de Souza, Jos{\'e} G.C. and Alves, Duarte and Zerva, Chrysoula and Farinha, Ana C. and Glushkova, Taisiya and Lavie, Alon and Coheur, Luisa and Martins, Andr{\'e} F.T.},
+  booktitle = {Proceedings of the Seventh Conference on Machine Translation (WMT)},
+  pages     = {578--585},
+  year      = {2022}
 }
 
-@misc{multilingualBudgetNormalization,
-  author = {{PLACEHOLDER}},
-  title = {{PLACEHOLDER --- verify bibliography: multilingual output-budget normalization and answer-emission timing}},
-  note = {PLACEHOLDER --- verify bibliography}
+@inproceedings{ahia2023,
+  title     = {Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models},
+  author    = {Ahia, Orevaoghene and Kumar, Sachin and Gonen, Hila and Kasai, Jungo and Mortensen, David R. and Smith, Noah A. and Tsvetkov, Yulia},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  pages     = {9904--9923},
+  year      = {2023}
+}
+
+@inproceedings{petrov2023,
+  title     = {Language Model Tokenizers Introduce Unfairness Between Languages},
+  author    = {Petrov, Aleksandar and La Malfa, Emanuele and Torr, Philip and Bibi, Adel},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {36},
+  year      = {2023}
+}
+
+@article{qwen3,
+  title   = {Qwen3 Technical Report},
+  author  = {{Qwen Team}},
+  journal = {arXiv preprint arXiv:2505.09388},
+  year    = {2025},
+  eprint  = {2505.09388},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+}
+
+@article{llama3,
+  title   = {The Llama 3 Herd of Models},
+  author  = {Grattafiori, Aaron and others},
+  journal = {arXiv preprint arXiv:2407.21783},
+  year    = {2024},
+  eprint  = {2407.21783},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI}
 }
