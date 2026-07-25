@@ -152,6 +152,21 @@
   ledger stores an empty input-ID list and the real count; verification compares
   ID length to count only when IDs are present, while retaining all other count
   invariants.
+- Prereg §10 specifies checking reproducibility of the stored 4096-token
+  generation, while the Phase 2 execution directive specifies `max_tokens=512`.
+  The implemented one-time diagnostic follows the explicit 512-token directive,
+  so it verifies the generated prefix rather than the full preregistered cap.
+- The protocol fixes 50 determinism-check instances but not their allocation.
+  The diagnostic cycles deterministically across all 12 arm-language cells,
+  uses MGSM rows 0-49, and cycles sample indices 0-7.
+- The seed derivation produces an unsigned 64-bit integer, but vLLM's OpenAI
+  endpoint rejects values above signed-int64 max (HTTP 400) — this hits ~50% of
+  seeds. FIX (supervisor, in review): the two's-complement mapping lives in
+  `src.engine._to_signed_int64` and is applied inside `VLLMEngine.generate`, so
+  the PRODUCTION path (generate.py → engine) transports seeds correctly, not
+  just the diagnostic script. The mapping is bijective (preserves cross-arm
+  pairing) and idempotent (safe if a signed value is seen again). Verified live:
+  a raw seed > 2^63 now generates instead of 400-ing.
 
 ## Type-I calibration investigation (2026-07-24, supervisor)
 - Full power run flagged null_consistent_with_nominal=false: calibration type-I

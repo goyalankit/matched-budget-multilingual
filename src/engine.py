@@ -9,6 +9,22 @@ from urllib import request
 
 import numpy as np
 
+_UINT64 = 1 << 64
+_INT64_MAX = (1 << 63) - 1
+
+
+def _to_signed_int64(seed: int) -> int:
+    """Map an unsigned 64-bit seed into vLLM's signed-int64 API range.
+
+    The prereg §4 seed derivation yields an unsigned 64-bit int, but vLLM's
+    OpenAI endpoint rejects values above signed-int64 max with HTTP 400. The
+    mapping is a bijective two's-complement reinterpretation, so a given seed
+    always transports to the same value (preserving cross-arm pairing), and it
+    is idempotent on already-signed values.
+    """
+    seed %= _UINT64
+    return seed - _UINT64 if seed > _INT64_MAX else seed
+
 
 class _HTTPResponse(Protocol):
     def __enter__(self) -> "_HTTPResponse": ...
@@ -79,9 +95,7 @@ class VLLMEngine:
         self.enable_thinking = enable_thinking
         self.timeout = timeout
         self.opener = opener if opener is not None else request.build_opener()
-        self.model_id = (
-            model_id if model_id is not None else self._discover_model_id()
-        )
+        self.model_id = model_id if model_id is not None else self._discover_model_id()
 
     def _request_json(
         self, endpoint: str, body: dict[str, object] | None = None
@@ -112,7 +126,7 @@ class VLLMEngine:
             "messages": [{"role": "user", "content": prompt}],
             "max_tokens": max_tokens,
             "temperature": self.temperature,
-            "seed": seed,
+            "seed": _to_signed_int64(seed),
             "return_token_ids": True,
         }
         if not self.enable_thinking:
