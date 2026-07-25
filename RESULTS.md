@@ -11,7 +11,7 @@ At the registered primary checkpoint **B\*=1024**, the budget-artifact estimand 
 
 **Mechanism (verified):** the token cap is not binding at 1024 because the models emit their answer far earlier. Native answer-emission median E (tokens): Qwen de 270 / th 377 / sw 206; p90 < 600 for de/th. So by 1024 the trace is complete and the FLORES frame's premium-adjusted extra budget (up to 2611 tokens for Thai) reveals nothing new → Δ≈0. The confirmatory test sat *above* the truncation-binding regime.
 
-**Statistical machinery** (validated pre-data on synthetic ledgers, type-I ≤ nominal): item-clustered paired bootstrap (10k), studentized sup-t max-statistic with a pre-specified 1.3× tail-conservatism factor (calibration measured ~1.15–1.2× anti-conservatism at α/6; correction verified to bring type-I ≤ nominal), Holm over the six tests.
+**Statistical machinery** (validated pre-data on synthetic ledgers): item-clustered paired bootstrap (10k), studentized sup-t max-statistic with a pre-specified 1.3× tail-conservatism factor, Holm over the six tests. Honest caveat (external review): the deposited full calibration run gives corrected type-I = 0.00917 vs the α/6 = 0.00833 target — **≈ nominal, within Monte-Carlo tolerance, not literally ≤ nominal**; the calibration covers H1-existence under an artificial exchangeable null only, and the single 1.3× scalar is applied family-wide as a conservative safeguard, not a verified family-wise calibration. It does not change any decision (Qwen H1 p≈0.060 is far from its 0.0083 threshold regardless).
 
 ## 2. The multilingual gap is large and REAL (not a budget artifact)
 
@@ -23,7 +23,9 @@ Token-frame accuracy at 1024, NATIVE vs TRANSLATE-ACT:
 | th | 47.1% | 87.9% | **+41** | 3.9% | 72.5% | **+69** |
 | sw | 33.7% | 57.1% | +23 | 28.9% | 69.5% | +41 |
 
-Translate-then-solve robustly wins. Multilingual Qwen reasons natively at 34–79%; English-centric Llama collapses natively (Thai 3.9%) but recovers to ~70–75% translating to English first. The deliverable MCB table shows translate/pivot best at every budget; NATIVE trails at ALL budgets (H3 crossover null), consistent with dollar-frame ≈ token-frame under self-host GPU pricing (input ~250× cheaper than output).
+Translate-then-solve wins **at generous budgets** (512+). Multilingual Qwen reasons natively at 34–79%; English-centric Llama collapses natively (Thai 3.9%) but recovers to ~70–75% translating to English first.
+
+**Correction (external review, verified):** an earlier draft said NATIVE trails at *all* budgets — that is false. At tight budgets NATIVE **beats** TRANSLATE-ACT (Qwen de at 128 tok: 2.55% vs 1.15%; sw at 64/128/192), because TRANSLATE-ACT spends its first ~130–250 tokens writing the English translation before it starts solving, so under a tight cap it hasn't emitted an answer yet. This is a genuine **low-budget crossover** — the best strategy is budget-dependent — which the confirmatory H3 test missed because H3 only examined the 512–4096 grid. The gap magnitudes above are **not** ordered by token premium (H2 fails; Llama German gap +62 exceeds Swahili +41 despite German's much lower premium), so "largest for high-premium languages" is not supported.
 
 ## 3. Exploratory (§11, non-confirmatory) — the budget artifact IS real, at small budgets
 
@@ -39,8 +41,8 @@ At 128–256-token caps the token framing overstates the native deficit by 15–
 
 Other exploratory arms:
 - **Best-EN-arm** (max over the 3 EN arms, selection inside bootstrap): gaps mirror preselected TRANSLATE-ACT (Qwen th 41pp, Llama th 69pp) — the confirmatory comparator was well-chosen.
-- **Trace-premium ratio** (actual native-trace tokens ÷ English reasoning tokens): Qwen de 1.47/th 2.04/sw 1.18; Llama de 1.43/th 1.77/sw 1.85. These are LOWER than the FLORES prose premiums (Qwen 1.56/2.55/1.94) — parallel prose OVERSTATES the reasoning-trace premium, so the FLORES correction was if anything generous to native (moot at 1024).
-- **Verbosity decomposition:** input(tokenizer-mechanical) vs output(model-behavioral) token footprint per arm/language. sw NATIVE has a heavy tail (Qwen ~10% hit the 4096 cap; ~25% never emit a parseable answer — verbose looping).
+- **Trace-length ratio** (median NATIVE output tokens ÷ median TRANSLATE-ACT post-delimiter English tokens): Qwen de 1.47/th 2.04/sw 1.18; Llama de 1.43/th 1.77/sw 1.85, mostly below the FLORES prose premiums (Qwen 1.56/2.55/1.94). **Caveat (external review): this is a behavioral output-length ratio, NOT the registered same-content translation premium** (the two arms' traces differ in content, correctness, and stopping behavior; it is a ratio of medians, not a paired trace ratio). It therefore cannot support a claim that FLORES "overstates the reasoning-trace premium" — the registered same-content validation (translate identical English traces into each L) was not implemented and remains outstanding.
+- **Verbosity decomposition:** input(tokenizer-mechanical) vs output(model-behavioral) token footprint per arm/language. Qwen sw NATIVE has a heavy failure tail: **10.55%** hit the 4096 cap and **25.1%** never emit a parseable answer — a mix of truncation, non-integer/multi-answer, and format non-compliance (not all "looping"; full failure-category breakdown is outstanding).
 
 ## 4. Methodological notes and honest limitations
 
@@ -50,6 +52,19 @@ Other exploratory arms:
 - **Two bugs caught in supervision:** (1) VLLMEngine passed raw unsigned 64-bit seeds; vLLM 400s on ~half → the real run would have failed on half its generations; fixed (signed-int64 transport). (2) Llama secondary first scored 0% everywhere (a spurious clean-looking null) because vLLM /detokenize left literal `<|eot_id|>` on the answer line; found by refusing to accept 0%-everywhere; fixed (strip special markup).
 - **Scope:** MGSM only, 2 models, 3 languages, hard truncation (no budget-forcing). Confirmatory scope is Qwen alone; Llama is a preregistered secondary that replicates the null.
 
-## 5. Bottom line
+## 5. Bottom line (revised after external review)
 
-For MGSM on these 8B models: **the multilingual reasoning gap is not a token-budget artifact at generous budgets — it is a genuine in-language reasoning deficit, largest for the English-centric model and for high-premium languages, and best mitigated by translating to English first.** A budget artifact does exist but only at tight, answer-truncating budgets (<~512 tokens), where token-cap framing overstates the native deficit by up to ~39 points. The registered checkpoint missed that regime; the exploratory sweep characterizes it.
+For MGSM on these 8B models: **the large in-language strategy-performance gap (native-language prompting vs translate-to-English-then-solve) is not a token-budget artifact at generous budgets** — it persists when NATIVE is given its premium-adjusted budget, and is best mitigated by translating to English first. It is a *strategy/prompting* gap, not identified as a pure "reasoning deficit": prompt language, answer-format compliance, and (unvalidated) trace-language compliance are confounded, and Δ_L algebraically cancels TRANSLATE-ACT so H1 is really a test of NATIVE's own prefix gain (§5.3). A budget effect exists but only in the tight-cap regime: at <~256 tokens the FLORES premium-correction closes 15–39 points of the token-frame native deficit, and at the very tightest caps NATIVE even *beats* TRANSLATE-ACT (translation preamble overhead). The registered checkpoint B\*=1024 sat above this regime, so the confirmatory test is a clean but low-power null; the exploratory sweep characterizes where the effect lives.
+
+## 6. External review (GPT-5.6 Sol, max effort) — status
+
+A rigorous external review (`analysis-out/results_review_gpt56sol_maxeffort.md`) verdict: *publishable as a transparently exploratory short paper about checkpoint-dependent exact-match sensitivity — NOT as evidence of a causal reasoning deficit — after completing compliance/parser audits and a prospective binding-budget replication.*
+
+**Corrected above (were errors):** "NATIVE trails at all budgets" (false — low-budget crossover exists); "reasoning deficit" (→ strategy-performance gap); "largest for high-premium languages" (unsupported; H2 fails); "type-I ≤ nominal" (→ ≈ nominal within MC tolerance); trace-premium "overstates" (→ behavioral length ratio, not the registered premium).
+
+**Outstanding before a paper (not yet done):**
+- **GlotLID trace-language compliance + COMET translation quality** — required by the protocol (§6) and not yet run; without them "native reasoning" is only an instruction label. This is the single biggest gap.
+- **Full parse-failure category breakdown** by model/language/arm (truncation vs non-integer vs multi-answer vs non-compliance).
+- **Parser prefix-termination sensitivity** — the strict parser accepts an unterminated final `#### n` prefix line; a small-budget cutoff could parse a transiently-correct value. Quantify rescued-correct cases at exact answer-line boundaries.
+- **Prospective binding-budget primary test** (or a simultaneous Δ(B) curve) rather than relabeling the current sweep confirmatory; SESOI equivalence bounds at B\*=1024.
+- **Decoder parity audit** (Qwen local AutoTokenizer with pinned revision vs Llama vLLM /detokenize+regex) before comparing the two models; Llama did not go through the same pilot governance.
