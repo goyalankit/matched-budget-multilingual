@@ -18,7 +18,7 @@ We ask a narrow, falsifiable question: **is the native-vs-translate gap on MGSM 
 
 Our contribution is **not** a claim about reasoning ability. It is a methodological demonstration:
 
-1. The answer to "is it a budget artifact?" **depends entirely on the checkpoint** at which you ask. We show this with a prospectively frozen null at one checkpoint and a retrospective sweep that locates where the effect lives.
+1. The answer to "is it a budget artifact?" **can depend strongly on the checkpoint** at which you ask. We show this with a prospectively frozen non-rejection at one checkpoint and a retrospective sweep that locates where the effect lives.
 2. Under tight caps, length-normalization does not merely shrink or grow a gap — it can **reverse which strategy looks better**.
 3. We provide the measurement audits (trace-language compliance, parser robustness, decoder parity, normalizer sensitivity) needed to separate genuine behavior from scoring artifacts.
 
@@ -90,7 +90,7 @@ A regime-dependent scoring claim is only as good as the scoring. We run four aud
 
 ## 5. Scope and implications
 
-**What this is.** A demonstration that multilingual exact-match comparisons under hard output caps are **regime-dependent**: length-normalization matters when answer-emission binds (tight caps) and is irrelevant after score saturation (generous caps), and the choice of a single checkpoint can flip both the measured gap and the apparent best strategy. The prospectively frozen null at B\*=1024 is an honest negative boundary condition; the retrospective sweep localizes the binding regime.
+**What this is.** A demonstration that multilingual exact-match comparisons under hard output caps are **regime-dependent**: length-normalization matters when answer-emission binds (tight caps) and is irrelevant after score saturation (generous caps), and the choice of a single checkpoint can flip both the measured gap and the apparent best strategy. The prospectively frozen non-rejection at B\*=1024 is an honest negative boundary condition; the retrospective sweep localizes the binding regime.
 
 **What this is not.** Evidence of a causal multilingual *reasoning deficit*. At saturated budgets the residual native-vs-translate difference is real and large (Qwen th +41, Llama th +69 points) and best mitigated by translating to English first — but prompt language, reformulation, format compliance, and reasoning language are confounded, so this is a strategy-performance gap, not an identified reasoning gap.
 
