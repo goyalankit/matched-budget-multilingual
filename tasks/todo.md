@@ -24,7 +24,7 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 - [x] generate.py: seeded ledger writer, idempotent resume, verify_ledger (built + tested on mock)
 - [x] prefixes.py: token/dollar/FLORES prefix evaluation + unit tests
 - [x] langid_check.py + 240-trace validation sampler (mock classifier)
-- [ ] **Real vLLM backend behind EngineProtocol (VLLMEngine)** — IN PROGRESS (Copilot)
+- [x] Real vLLM backend (VLLMEngine) — built + verified live (deterministic-seed pairing, thinking suppressed, prefill captured, parser round-trips real trace)
 - [x] Determinism check: 23/50 (46%) bitwise-identical on live server — tolerated per §10 (budgets = prefixes of stored generation); documented
 - [x] MGSM cross-language item-parallelism VERIFIED (250 items, 0 mismatches across de/th/sw)
 - [ ] Pilot 20 items/cell — parse-failure + missing-delimiter rates ONLY (accuracy path disabled)
