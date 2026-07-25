@@ -1,8 +1,7 @@
 Tatua tatizo lifuatalo la hisabati.
 
 Fikiri hatua kwa hatua na andika hoja zako zote kwa Kiswahili.
-Andika jibu la mwisho kama mstari wa mwisho kwa muundo:
-#### <namba>
+Andika jibu la mwisho kwenye mstari wa mwisho kama alama nne za reli, nafasi moja, kisha jibu la namba kamili kwa tarakimu za ASCII pekee — bila maneno, bila maandishi mazito au Markdown, bila alama ya sarafu, na bila vitengo. Kwa mfano: #### 42
 
 Tatizo:
 {problem}

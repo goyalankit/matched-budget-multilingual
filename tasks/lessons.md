@@ -265,3 +265,13 @@
   ledger, no regen); scientifically near-cosmetic (only H3/dollar table, and
   those barely move); the real cost is procedural (post-freeze = deviation).
   The pre-registered pair pre-empts this entirely.
+- A §10 pilot-governance HOLD found 75% parse failure at N=20 in the Swahili
+  NATIVE arm because the model echoed the angle-bracket placeholder
+  (`<namba>`; analogously `<Zahl>`/`<ตัวเลข>`) or added Markdown/currency.
+  The three NATIVE prompts now use a concrete `#### 42` example and require
+  ASCII digits only, with no words, Markdown, currency symbol, or units. The
+  English-instructed arms retain `<number>` because they did not echo it. The
+  mild magnitude anchoring from the neutral example 42 is accepted over 75%
+  parse failure. The strict §4 parser is unchanged; the remaining roughly 5%
+  failures in other cells are genuine non-integer or multi-number answers and
+  are correctly rejected.

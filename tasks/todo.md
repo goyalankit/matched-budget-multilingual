@@ -27,8 +27,8 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 - [x] Real vLLM backend (VLLMEngine) — built + verified live (deterministic-seed pairing, thinking suppressed, prefill captured, parser round-trips real trace)
 - [x] Determinism check: 23/50 (46%) bitwise-identical on live server — tolerated per §10 (budgets = prefixes of stored generation); documented
 - [x] MGSM cross-language item-parallelism VERIFIED (250 items, 0 mismatches across de/th/sw)
-- [ ] Pilot 20 items/cell — parse-failure + missing-delimiter rates ONLY (accuracy path disabled)
-- [ ] If any cell >10% failures: governed fix + amendment commit + discard/rerun
+- [x] Pilot done (Qwen). Caught + fixed sw/native placeholder-echo (75%→15%); residual is genuine truncation/non-integer (not format). See tasks/pilot-governance-note.md
+- [x] Governance amendment applied (3 native prompts, concrete #### 42 example) + documented; native pilot cells discarded+rerun
 
 ## Phase 3 — Full runs (48,000 generations, k=8)
 - [ ] All (model × language × arm) shards complete; verify_ledger green

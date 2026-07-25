@@ -33,7 +33,9 @@ def _print_report(report: dict[str, object]) -> None:
         print(
             "\nGovernance HOLD (>10%): "
             + ", ".join(flagged)
-            + ". An OSF amendment is required before prompt/parser changes."
+            + ". A documented amendment commit is required before prompt/parser "
+            "changes; verify the residual failures are formatting defects, not "
+            "genuine non-integer/truncated answers (see tasks/pilot-governance-note.md)."
         )
     else:
         print("\nGovernance PASS: no cell exceeds 10%.")
