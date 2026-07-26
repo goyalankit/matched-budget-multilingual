@@ -12,3 +12,5 @@ paper/*.aux
 paper/*.bbl
 paper/*.blg
 paper/*.out
+data/
+analysis-out/vocab_extension_tokenizers/

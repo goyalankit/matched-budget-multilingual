@@ -1,0 +1,478 @@
+{
+  "analysis_label": "EXPLORATORY - non-confirmatory (§11)",
+  "model_key": "qwen3_8b",
+  "arms_extended": [
+    "native",
+    "translate_act"
+  ],
+  "budgets": [
+    128,
+    256,
+    512,
+    1024,
+    4096
+  ],
+  "seed": 20260724,
+  "n_resamples": 10000,
+  "cross_fitting": "2-fold item-disjoint: each extension is trained on NATIVE traces of the items it is not evaluated on, so no evaluated item contributed a merge for either arm",
+  "interval_conditioning": "the item-clustered bootstrap resamples scored items while holding the two fitted tokenizers fixed, so the intervals are conditional on this cross-fitting draw and do not propagate the uncertainty of learning the merges themselves",
+  "baseline_estimand": "the baseline arm is retokenized by the same code path rather than read from stored token ids; the two agree on 59,998 of 60,000 sample-budget comparisons and differ by at most 0.10 accuracy points in any reported cell",
+  "training_corpus": "NATIVE arm only; PIVOT and CODE-SWITCHED are substantially English in some cells and would not train a language-specific vocabulary",
+  "method": "each stored trace is retokenized with the extended tokenizer and the first B extended token ids are decoded and scored with the strict prefix parser; no uniform compression factor is used",
+  "residual_assumption": "the model is assumed to emit the same text under the extended tokenizer; a retrained model would in general follow a different trajectory",
+  "languages": {
+    "de": {
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "flores_premium_base": 1.558886,
+      "flores_premium_extended_per_fold": [
+        1.5311730629978277,
+        1.5315351194786386
+      ],
+      "flores_premium_extended_mean": 1.5313540912382333,
+      "english_token_ratio_per_fold": [
+        0.9999637956627204,
+        0.9999637956627204
+      ],
+      "requested_new_tokens": 32000,
+      "n_folds": 2,
+      "selection_rule": "largest extension the fold's in-domain NATIVE corpus admits, fixed before any accuracy was computed",
+      "budgets": {
+        "128": {
+          "acc_native_base_points": 2.55,
+          "acc_native_extended_points": 4.2,
+          "acc_translate_base_points": 1.15,
+          "acc_translate_extended_points": 1.9,
+          "gap_G_points": -1.4000000000000001,
+          "gap_after_vocab_G3_points": -2.3,
+          "gap_closure_points": 0.8999999999999999,
+          "gap_closure_ci_points": [
+            -0.05,
+            1.8499999999999999
+          ],
+          "native_gain_points": 1.6500000000000001,
+          "native_gain_ci_points": [
+            0.8999999999999999,
+            2.5
+          ],
+          "translate_gain_points": 0.75,
+          "translate_gain_ci_points": [
+            0.2,
+            1.4000000000000001
+          ],
+          "native_gain_to_largest_prefix_points": 76.45,
+          "native_traces_truncated_pct": 97.1,
+          "translate_traces_truncated_pct": 98.75
+        },
+        "256": {
+          "acc_native_base_points": 39.0,
+          "acc_native_extended_points": 42.449999999999996,
+          "acc_translate_base_points": 49.25,
+          "acc_translate_extended_points": 51.5,
+          "gap_G_points": 10.25,
+          "gap_after_vocab_G3_points": 9.049999999999999,
+          "gap_closure_points": 1.2,
+          "gap_closure_ci_points": [
+            -0.25,
+            2.65
+          ],
+          "native_gain_points": 3.45,
+          "native_gain_ci_points": [
+            2.55,
+            4.45
+          ],
+          "translate_gain_points": 2.25,
+          "translate_gain_ci_points": [
+            1.3,
+            3.35
+          ],
+          "native_gain_to_largest_prefix_points": 40.0,
+          "native_traces_truncated_pct": 52.1,
+          "translate_traces_truncated_pct": 46.650000000000006
+        },
+        "512": {
+          "acc_native_base_points": 76.64999999999999,
+          "acc_native_extended_points": 77.3,
+          "acc_translate_base_points": 87.6,
+          "acc_translate_extended_points": 87.75,
+          "gap_G_points": 10.95,
+          "gap_after_vocab_G3_points": 10.45,
+          "gap_closure_points": 0.5,
+          "gap_closure_ci_points": [
+            0.05,
+            1.0999999999999999
+          ],
+          "native_gain_points": 0.65,
+          "native_gain_ci_points": [
+            0.2,
+            1.2
+          ],
+          "translate_gain_points": 0.15,
+          "translate_gain_ci_points": [
+            0.0,
+            0.4
+          ],
+          "native_gain_to_largest_prefix_points": 2.3500000000000085,
+          "native_traces_truncated_pct": 3.85,
+          "translate_traces_truncated_pct": 2.1
+        },
+        "1024": {
+          "acc_native_base_points": 79.0,
+          "acc_native_extended_points": 79.0,
+          "acc_translate_base_points": 88.35,
+          "acc_translate_extended_points": 88.35,
+          "gap_G_points": 9.35,
+          "gap_after_vocab_G3_points": 9.35,
+          "gap_closure_points": 0.0,
+          "gap_closure_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_points": 0.0,
+          "native_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.0,
+          "native_traces_truncated_pct": 0.25,
+          "translate_traces_truncated_pct": 0.25
+        },
+        "4096": {
+          "acc_native_base_points": 79.0,
+          "acc_native_extended_points": 79.0,
+          "acc_translate_base_points": 88.4,
+          "acc_translate_extended_points": 88.4,
+          "gap_G_points": 9.4,
+          "gap_after_vocab_G3_points": 9.4,
+          "gap_closure_points": 0.0,
+          "gap_closure_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_points": 0.0,
+          "native_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.0,
+          "native_traces_truncated_pct": 0.0,
+          "translate_traces_truncated_pct": 0.0
+        }
+      }
+    },
+    "th": {
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "flores_premium_base": 2.550777,
+      "flores_premium_extended_per_fold": [
+        2.1948155389015604,
+        2.218456971145143
+      ],
+      "flores_premium_extended_mean": 2.206636255023352,
+      "english_token_ratio_per_fold": [
+        1.0,
+        1.0
+      ],
+      "requested_new_tokens": 32000,
+      "n_folds": 2,
+      "selection_rule": "largest extension the fold's in-domain NATIVE corpus admits, fixed before any accuracy was computed",
+      "budgets": {
+        "128": {
+          "acc_native_base_points": 0.15,
+          "acc_native_extended_points": 1.15,
+          "acc_translate_base_points": 0.8999999999999999,
+          "acc_translate_extended_points": 1.05,
+          "gap_G_points": 0.75,
+          "gap_after_vocab_G3_points": -0.1,
+          "gap_closure_points": 0.8500000000000001,
+          "gap_closure_ci_points": [
+            0.2,
+            1.6500000000000001
+          ],
+          "native_gain_points": 1.0,
+          "native_gain_ci_points": [
+            0.4,
+            1.7999999999999998
+          ],
+          "translate_gain_points": 0.15,
+          "translate_gain_ci_points": [
+            0.0,
+            0.35000000000000003
+          ],
+          "native_gain_to_largest_prefix_points": 47.1,
+          "native_traces_truncated_pct": 99.85000000000001,
+          "translate_traces_truncated_pct": 99.1
+        },
+        "256": {
+          "acc_native_base_points": 6.2,
+          "acc_native_extended_points": 11.4,
+          "acc_translate_base_points": 47.75,
+          "acc_translate_extended_points": 49.55,
+          "gap_G_points": 41.55,
+          "gap_after_vocab_G3_points": 38.15,
+          "gap_closure_points": 3.4000000000000004,
+          "gap_closure_ci_points": [
+            1.9,
+            5.0
+          ],
+          "native_gain_points": 5.2,
+          "native_gain_ci_points": [
+            3.85,
+            6.7
+          ],
+          "translate_gain_points": 1.7999999999999998,
+          "translate_gain_ci_points": [
+            1.0999999999999999,
+            2.6
+          ],
+          "native_gain_to_largest_prefix_points": 41.05,
+          "native_traces_truncated_pct": 84.65,
+          "translate_traces_truncated_pct": 47.85
+        },
+        "512": {
+          "acc_native_base_points": 38.35,
+          "acc_native_extended_points": 43.4,
+          "acc_translate_base_points": 86.75,
+          "acc_translate_extended_points": 86.9,
+          "gap_G_points": 48.4,
+          "gap_after_vocab_G3_points": 43.5,
+          "gap_closure_points": 4.9,
+          "gap_closure_ci_points": [
+            3.65,
+            6.2
+          ],
+          "native_gain_points": 5.050000000000001,
+          "native_gain_ci_points": [
+            3.8,
+            6.4
+          ],
+          "translate_gain_points": 0.15,
+          "translate_gain_ci_points": [
+            0.0,
+            0.35000000000000003
+          ],
+          "native_gain_to_largest_prefix_points": 8.899999999999999,
+          "native_traces_truncated_pct": 18.85,
+          "translate_traces_truncated_pct": 2.45
+        },
+        "1024": {
+          "acc_native_base_points": 47.099999999999994,
+          "acc_native_extended_points": 47.099999999999994,
+          "acc_translate_base_points": 87.85,
+          "acc_translate_extended_points": 87.85,
+          "gap_G_points": 40.75,
+          "gap_after_vocab_G3_points": 40.75,
+          "gap_closure_points": 0.0,
+          "gap_closure_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_points": 0.0,
+          "native_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.15000000000000568,
+          "native_traces_truncated_pct": 0.7000000000000001,
+          "translate_traces_truncated_pct": 0.1
+        },
+        "4096": {
+          "acc_native_base_points": 47.25,
+          "acc_native_extended_points": 47.25,
+          "acc_translate_base_points": 87.85,
+          "acc_translate_extended_points": 87.85,
+          "gap_G_points": 40.6,
+          "gap_after_vocab_G3_points": 40.6,
+          "gap_closure_points": 0.0,
+          "gap_closure_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_points": 0.0,
+          "native_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.0,
+          "native_traces_truncated_pct": 0.0,
+          "translate_traces_truncated_pct": 0.0
+        }
+      }
+    },
+    "sw": {
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "flores_premium_base": 1.936317,
+      "flores_premium_extended_per_fold": [
+        1.8653463195626199,
+        1.8259767534489626
+      ],
+      "flores_premium_extended_mean": 1.8456615365057911,
+      "english_token_ratio_per_fold": [
+        0.9999275913254407,
+        0.9998551826508816
+      ],
+      "requested_new_tokens": 32000,
+      "n_folds": 2,
+      "selection_rule": "largest extension the fold's in-domain NATIVE corpus admits, fixed before any accuracy was computed",
+      "budgets": {
+        "128": {
+          "acc_native_base_points": 8.7,
+          "acc_native_extended_points": 10.05,
+          "acc_translate_base_points": 0.6,
+          "acc_translate_extended_points": 0.65,
+          "gap_G_points": -8.1,
+          "gap_after_vocab_G3_points": -9.4,
+          "gap_closure_points": 1.3,
+          "gap_closure_ci_points": [
+            0.75,
+            1.9
+          ],
+          "native_gain_points": 1.35,
+          "native_gain_ci_points": [
+            0.8,
+            1.9
+          ],
+          "translate_gain_points": 0.05,
+          "translate_gain_ci_points": [
+            0.0,
+            0.15
+          ],
+          "native_gain_to_largest_prefix_points": 25.05,
+          "native_traces_truncated_pct": 81.55,
+          "translate_traces_truncated_pct": 97.85000000000001
+        },
+        "256": {
+          "acc_native_base_points": 24.75,
+          "acc_native_extended_points": 26.200000000000003,
+          "acc_translate_base_points": 29.75,
+          "acc_translate_extended_points": 30.55,
+          "gap_G_points": 5.0,
+          "gap_after_vocab_G3_points": 4.35,
+          "gap_closure_points": 0.65,
+          "gap_closure_ci_points": [
+            -0.2,
+            1.55
+          ],
+          "native_gain_points": 1.4500000000000002,
+          "native_gain_ci_points": [
+            0.8,
+            2.25
+          ],
+          "translate_gain_points": 0.8,
+          "translate_gain_ci_points": [
+            0.4,
+            1.3
+          ],
+          "native_gain_to_largest_prefix_points": 9.0,
+          "native_traces_truncated_pct": 42.6,
+          "translate_traces_truncated_pct": 53.900000000000006
+        },
+        "512": {
+          "acc_native_base_points": 33.4,
+          "acc_native_extended_points": 33.5,
+          "acc_translate_base_points": 56.15,
+          "acc_translate_extended_points": 56.3,
+          "gap_G_points": 22.75,
+          "gap_after_vocab_G3_points": 22.8,
+          "gap_closure_points": -0.05,
+          "gap_closure_ci_points": [
+            -0.25,
+            0.15
+          ],
+          "native_gain_points": 0.1,
+          "native_gain_ci_points": [
+            0.0,
+            0.25
+          ],
+          "translate_gain_points": 0.15,
+          "translate_gain_ci_points": [
+            0.0,
+            0.35000000000000003
+          ],
+          "native_gain_to_largest_prefix_points": 0.3500000000000014,
+          "native_traces_truncated_pct": 15.299999999999999,
+          "translate_traces_truncated_pct": 5.0
+        },
+        "1024": {
+          "acc_native_base_points": 33.650000000000006,
+          "acc_native_extended_points": 33.7,
+          "acc_translate_base_points": 57.05,
+          "acc_translate_extended_points": 57.05,
+          "gap_G_points": 23.400000000000002,
+          "gap_after_vocab_G3_points": 23.35,
+          "gap_closure_points": 0.05,
+          "gap_closure_ci_points": [
+            0.0,
+            0.15
+          ],
+          "native_gain_points": 0.05,
+          "native_gain_ci_points": [
+            0.0,
+            0.15
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.09999999999999432,
+          "native_traces_truncated_pct": 11.600000000000001,
+          "translate_traces_truncated_pct": 0.6
+        },
+        "4096": {
+          "acc_native_base_points": 33.75,
+          "acc_native_extended_points": 33.75,
+          "acc_translate_base_points": 57.05,
+          "acc_translate_extended_points": 57.05,
+          "gap_G_points": 23.3,
+          "gap_after_vocab_G3_points": 23.3,
+          "gap_closure_points": 0.0,
+          "gap_closure_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_points": 0.0,
+          "native_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "translate_gain_points": 0.0,
+          "translate_gain_ci_points": [
+            0.0,
+            0.0
+          ],
+          "native_gain_to_largest_prefix_points": 0.0,
+          "native_traces_truncated_pct": 0.05,
+          "translate_traces_truncated_pct": 0.0
+        }
+      }
+    }
+  }
+}

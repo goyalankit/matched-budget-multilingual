@@ -1,0 +1,449 @@
+{
+  "analysis_label": "EXPLORATORY - non-confirmatory (§11)",
+  "model_key": "qwen3_8b",
+  "largest_stored_prefix": 4096,
+  "largest_stored_prefix_caveat": "4096 is the generation cap of the stored ledger, so it is the largest prefix available, not a demonstrated non-binding regime",
+  "projection_source": "analysis-out/vocab_projection.json",
+  "extension_selection_rule": "largest extension each fold's in-domain NATIVE corpus admits, fixed before any accuracy was computed",
+  "rung3_is_measured_not_projected": true,
+  "rung3_assumption": "a token-count-only counterfactual: each stored trace is retokenized with the extension and rescored at the prefix the cap now admits, so no uniform compression factor is assumed, but the model is still assumed to emit the same text -- a retrained model would follow a different trajectory",
+  "rung2_status": "not evaluated as an intervention; TRANSLATE-ACT is the comparator that defines G, so adopting it closes G by construction",
+  "emission_diagnostic": "B < p90 of the NATIVE answer-emission index, where p90 is computed among traces that emit a parseable answer within 4096 tokens",
+  "flores_evidence": {
+    "de": {
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "flores_premium_base": 1.558886,
+      "flores_premium_extended_per_fold": [
+        1.5311730629978277,
+        1.5315351194786386
+      ],
+      "english_token_ratio_per_fold": [
+        0.9999637956627204,
+        0.9999637956627204
+      ]
+    },
+    "th": {
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "flores_premium_base": 2.550777,
+      "flores_premium_extended_per_fold": [
+        2.1948155389015604,
+        2.218456971145143
+      ],
+      "english_token_ratio_per_fold": [
+        1.0,
+        1.0
+      ]
+    },
+    "sw": {
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "flores_premium_base": 1.936317,
+      "flores_premium_extended_per_fold": [
+        1.8653463195626199,
+        1.8259767534489626
+      ],
+      "english_token_ratio_per_fold": [
+        0.9999275913254407,
+        0.9998551826508816
+      ]
+    }
+  },
+  "cross_fitting": "2-fold item-disjoint: each extension is trained on NATIVE traces of the items it is not evaluated on, so no evaluated item contributed a merge for either arm",
+  "interval_conditioning": "the item-clustered bootstrap resamples scored items while holding the two fitted tokenizers fixed, so the intervals are conditional on this cross-fitting draw and do not propagate the uncertainty of learning the merges themselves",
+  "baseline_estimand": "the baseline arm is retokenized by the same code path rather than read from stored token ids; the two agree on 59,998 of 60,000 sample-budget comparisons and differ by at most 0.10 accuracy points in any reported cell",
+  "training_corpus": "NATIVE arm only; PIVOT and CODE-SWITCHED are substantially English in some cells and would not train a language-specific vocabulary",
+  "rows": [
+    {
+      "language": "de",
+      "budget": 128,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 428.0,
+      "native_fraction_never_emitted": 0.07799999999999996,
+      "gap_G_points": -1.4000000000000001,
+      "gap_after_rung1_budget_points": 9.4,
+      "gap_after_rung3_vocab_points": -2.3,
+      "rung1_budget_gain_points": 76.45,
+      "rung3_gap_closure_points": 0.8999999999999999,
+      "rung3_gap_closure_ci_points": [
+        -0.05,
+        1.8499999999999999
+      ],
+      "rung3_native_gain_points": 1.6500000000000001,
+      "rung3_native_gain_ci_points": [
+        0.8999999999999999,
+        2.5
+      ],
+      "rung3_translate_gain_points": 0.75,
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "native_traces_truncated_pct": 97.1,
+      "native_gain_to_4096_points": 76.45,
+      "acc_native_points": 2.55,
+      "acc_translate_points": 1.15,
+      "acc_native_at_largest_prefix_points": 79.0,
+      "acc_translate_at_largest_prefix_points": 88.4
+    },
+    {
+      "language": "de",
+      "budget": 256,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 428.0,
+      "native_fraction_never_emitted": 0.07799999999999996,
+      "gap_G_points": 10.25,
+      "gap_after_rung1_budget_points": 9.4,
+      "gap_after_rung3_vocab_points": 9.049999999999999,
+      "rung1_budget_gain_points": 40.0,
+      "rung3_gap_closure_points": 1.2,
+      "rung3_gap_closure_ci_points": [
+        -0.25,
+        2.65
+      ],
+      "rung3_native_gain_points": 3.45,
+      "rung3_native_gain_ci_points": [
+        2.55,
+        4.45
+      ],
+      "rung3_translate_gain_points": 2.25,
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "native_traces_truncated_pct": 52.1,
+      "native_gain_to_4096_points": 40.0,
+      "acc_native_points": 39.0,
+      "acc_translate_points": 49.25,
+      "acc_native_at_largest_prefix_points": 79.0,
+      "acc_translate_at_largest_prefix_points": 88.4
+    },
+    {
+      "language": "de",
+      "budget": 512,
+      "budget_below_p90_emission": false,
+      "native_p90_emission": 428.0,
+      "native_fraction_never_emitted": 0.07799999999999996,
+      "gap_G_points": 10.95,
+      "gap_after_rung1_budget_points": 9.4,
+      "gap_after_rung3_vocab_points": 10.45,
+      "rung1_budget_gain_points": 2.3500000000000085,
+      "rung3_gap_closure_points": 0.5,
+      "rung3_gap_closure_ci_points": [
+        0.05,
+        1.0999999999999999
+      ],
+      "rung3_native_gain_points": 0.65,
+      "rung3_native_gain_ci_points": [
+        0.2,
+        1.2
+      ],
+      "rung3_translate_gain_points": 0.15,
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "native_traces_truncated_pct": 3.85,
+      "native_gain_to_4096_points": 2.3500000000000085,
+      "acc_native_points": 76.64999999999999,
+      "acc_translate_points": 87.6,
+      "acc_native_at_largest_prefix_points": 79.0,
+      "acc_translate_at_largest_prefix_points": 88.4
+    },
+    {
+      "language": "de",
+      "budget": 1024,
+      "budget_below_p90_emission": false,
+      "native_p90_emission": 428.0,
+      "native_fraction_never_emitted": 0.07799999999999996,
+      "gap_G_points": 9.35,
+      "gap_after_rung1_budget_points": 9.4,
+      "gap_after_rung3_vocab_points": 9.35,
+      "rung1_budget_gain_points": 0.0,
+      "rung3_gap_closure_points": 0.0,
+      "rung3_gap_closure_ci_points": [
+        0.0,
+        0.0
+      ],
+      "rung3_native_gain_points": 0.0,
+      "rung3_native_gain_ci_points": [
+        0.0,
+        0.0
+      ],
+      "rung3_translate_gain_points": 0.0,
+      "n_new_tokens_per_fold": [
+        3470,
+        3343
+      ],
+      "native_traces_truncated_pct": 0.25,
+      "native_gain_to_4096_points": 0.0,
+      "acc_native_points": 79.0,
+      "acc_translate_points": 88.35,
+      "acc_native_at_largest_prefix_points": 79.0,
+      "acc_translate_at_largest_prefix_points": 88.4
+    },
+    {
+      "language": "th",
+      "budget": 128,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 586.0,
+      "native_fraction_never_emitted": 0.019499999999999962,
+      "gap_G_points": 0.75,
+      "gap_after_rung1_budget_points": 40.6,
+      "gap_after_rung3_vocab_points": -0.1,
+      "rung1_budget_gain_points": 47.1,
+      "rung3_gap_closure_points": 0.8500000000000001,
+      "rung3_gap_closure_ci_points": [
+        0.2,
+        1.6500000000000001
+      ],
+      "rung3_native_gain_points": 1.0,
+      "rung3_native_gain_ci_points": [
+        0.4,
+        1.7999999999999998
+      ],
+      "rung3_translate_gain_points": 0.15,
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "native_traces_truncated_pct": 99.85000000000001,
+      "native_gain_to_4096_points": 47.1,
+      "acc_native_points": 0.15,
+      "acc_translate_points": 0.8999999999999999,
+      "acc_native_at_largest_prefix_points": 47.25,
+      "acc_translate_at_largest_prefix_points": 87.85
+    },
+    {
+      "language": "th",
+      "budget": 256,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 586.0,
+      "native_fraction_never_emitted": 0.019499999999999962,
+      "gap_G_points": 41.55,
+      "gap_after_rung1_budget_points": 40.6,
+      "gap_after_rung3_vocab_points": 38.15,
+      "rung1_budget_gain_points": 41.05,
+      "rung3_gap_closure_points": 3.4000000000000004,
+      "rung3_gap_closure_ci_points": [
+        1.9,
+        5.0
+      ],
+      "rung3_native_gain_points": 5.2,
+      "rung3_native_gain_ci_points": [
+        3.85,
+        6.7
+      ],
+      "rung3_translate_gain_points": 1.7999999999999998,
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "native_traces_truncated_pct": 84.65,
+      "native_gain_to_4096_points": 41.05,
+      "acc_native_points": 6.2,
+      "acc_translate_points": 47.75,
+      "acc_native_at_largest_prefix_points": 47.25,
+      "acc_translate_at_largest_prefix_points": 87.85
+    },
+    {
+      "language": "th",
+      "budget": 512,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 586.0,
+      "native_fraction_never_emitted": 0.019499999999999962,
+      "gap_G_points": 48.4,
+      "gap_after_rung1_budget_points": 40.6,
+      "gap_after_rung3_vocab_points": 43.5,
+      "rung1_budget_gain_points": 8.899999999999999,
+      "rung3_gap_closure_points": 4.9,
+      "rung3_gap_closure_ci_points": [
+        3.65,
+        6.2
+      ],
+      "rung3_native_gain_points": 5.050000000000001,
+      "rung3_native_gain_ci_points": [
+        3.8,
+        6.4
+      ],
+      "rung3_translate_gain_points": 0.15,
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "native_traces_truncated_pct": 18.85,
+      "native_gain_to_4096_points": 8.899999999999999,
+      "acc_native_points": 38.35,
+      "acc_translate_points": 86.75,
+      "acc_native_at_largest_prefix_points": 47.25,
+      "acc_translate_at_largest_prefix_points": 87.85
+    },
+    {
+      "language": "th",
+      "budget": 1024,
+      "budget_below_p90_emission": false,
+      "native_p90_emission": 586.0,
+      "native_fraction_never_emitted": 0.019499999999999962,
+      "gap_G_points": 40.75,
+      "gap_after_rung1_budget_points": 40.6,
+      "gap_after_rung3_vocab_points": 40.75,
+      "rung1_budget_gain_points": 0.15000000000000568,
+      "rung3_gap_closure_points": 0.0,
+      "rung3_gap_closure_ci_points": [
+        0.0,
+        0.0
+      ],
+      "rung3_native_gain_points": 0.0,
+      "rung3_native_gain_ci_points": [
+        0.0,
+        0.0
+      ],
+      "rung3_translate_gain_points": 0.0,
+      "n_new_tokens_per_fold": [
+        6798,
+        6577
+      ],
+      "native_traces_truncated_pct": 0.7000000000000001,
+      "native_gain_to_4096_points": 0.15000000000000568,
+      "acc_native_points": 47.099999999999994,
+      "acc_translate_points": 87.85,
+      "acc_native_at_largest_prefix_points": 47.25,
+      "acc_translate_at_largest_prefix_points": 87.85
+    },
+    {
+      "language": "sw",
+      "budget": 128,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 420.29999999999995,
+      "native_fraction_never_emitted": 0.251,
+      "gap_G_points": -8.1,
+      "gap_after_rung1_budget_points": 23.3,
+      "gap_after_rung3_vocab_points": -9.4,
+      "rung1_budget_gain_points": 25.05,
+      "rung3_gap_closure_points": 1.3,
+      "rung3_gap_closure_ci_points": [
+        0.75,
+        1.9
+      ],
+      "rung3_native_gain_points": 1.35,
+      "rung3_native_gain_ci_points": [
+        0.8,
+        1.9
+      ],
+      "rung3_translate_gain_points": 0.05,
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "native_traces_truncated_pct": 81.55,
+      "native_gain_to_4096_points": 25.05,
+      "acc_native_points": 8.7,
+      "acc_translate_points": 0.6,
+      "acc_native_at_largest_prefix_points": 33.75,
+      "acc_translate_at_largest_prefix_points": 57.05
+    },
+    {
+      "language": "sw",
+      "budget": 256,
+      "budget_below_p90_emission": true,
+      "native_p90_emission": 420.29999999999995,
+      "native_fraction_never_emitted": 0.251,
+      "gap_G_points": 5.0,
+      "gap_after_rung1_budget_points": 23.3,
+      "gap_after_rung3_vocab_points": 4.35,
+      "rung1_budget_gain_points": 9.0,
+      "rung3_gap_closure_points": 0.65,
+      "rung3_gap_closure_ci_points": [
+        -0.2,
+        1.55
+      ],
+      "rung3_native_gain_points": 1.4500000000000002,
+      "rung3_native_gain_ci_points": [
+        0.8,
+        2.25
+      ],
+      "rung3_translate_gain_points": 0.8,
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "native_traces_truncated_pct": 42.6,
+      "native_gain_to_4096_points": 9.0,
+      "acc_native_points": 24.75,
+      "acc_translate_points": 29.75,
+      "acc_native_at_largest_prefix_points": 33.75,
+      "acc_translate_at_largest_prefix_points": 57.05
+    },
+    {
+      "language": "sw",
+      "budget": 512,
+      "budget_below_p90_emission": false,
+      "native_p90_emission": 420.29999999999995,
+      "native_fraction_never_emitted": 0.251,
+      "gap_G_points": 22.75,
+      "gap_after_rung1_budget_points": 23.3,
+      "gap_after_rung3_vocab_points": 22.8,
+      "rung1_budget_gain_points": 0.3500000000000014,
+      "rung3_gap_closure_points": -0.05,
+      "rung3_gap_closure_ci_points": [
+        -0.25,
+        0.15
+      ],
+      "rung3_native_gain_points": 0.1,
+      "rung3_native_gain_ci_points": [
+        0.0,
+        0.25
+      ],
+      "rung3_translate_gain_points": 0.15,
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "native_traces_truncated_pct": 15.299999999999999,
+      "native_gain_to_4096_points": 0.3500000000000014,
+      "acc_native_points": 33.4,
+      "acc_translate_points": 56.15,
+      "acc_native_at_largest_prefix_points": 33.75,
+      "acc_translate_at_largest_prefix_points": 57.05
+    },
+    {
+      "language": "sw",
+      "budget": 1024,
+      "budget_below_p90_emission": false,
+      "native_p90_emission": 420.29999999999995,
+      "native_fraction_never_emitted": 0.251,
+      "gap_G_points": 23.400000000000002,
+      "gap_after_rung1_budget_points": 23.3,
+      "gap_after_rung3_vocab_points": 23.35,
+      "rung1_budget_gain_points": 0.09999999999999432,
+      "rung3_gap_closure_points": 0.05,
+      "rung3_gap_closure_ci_points": [
+        0.0,
+        0.15
+      ],
+      "rung3_native_gain_points": 0.05,
+      "rung3_native_gain_ci_points": [
+        0.0,
+        0.15
+      ],
+      "rung3_translate_gain_points": 0.0,
+      "n_new_tokens_per_fold": [
+        3173,
+        3054
+      ],
+      "native_traces_truncated_pct": 11.600000000000001,
+      "native_gain_to_4096_points": 0.09999999999999432,
+      "acc_native_points": 33.650000000000006,
+      "acc_translate_points": 57.05,
+      "acc_native_at_largest_prefix_points": 33.75,
+      "acc_translate_at_largest_prefix_points": 57.05
+    }
+  ]
+}
