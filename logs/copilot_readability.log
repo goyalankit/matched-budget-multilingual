@@ -1,0 +1,482 @@
+I'll start by reading the brief.
+
+● List repo root and tasks dir (shell)
+  │ cd /home/angoyal/ws/language-research && ls -la && echo "---" && ls tasks/ 2>/dev/null
+  └ 57 lines…
+
+● Read copilot-readability-brief.md
+  │ tasks/copilot-readability-brief.md
+  └ 137 lines read
+
+● Read copilot-paper-update-brief.md
+  │ tasks/copilot-paper-update-brief.md
+  └ 147 lines read
+
+● Read PAPER.md
+  └ 1 line read
+
+● Read PAPER.md
+  └ L1:120 (119 lines read)
+
+● Read PAPER.md
+  └ L120:220 (83 lines read)
+
+● List paper dir and line counts (shell)
+  │ cd /home/angoyal/ws/language-research && ls -la paper/ && wc -l paper/main.tex PAPER.md
+  └ 17 lines…
+
+● Read main.tex
+  │ paper/main.tex
+  └ L1:130 (129 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L130:320 (191 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L320:500 (181 lines read)
+
+Now I'll build a metrics script (in the session folder, not the repo) to measure the §5 targets.
+
+● Create metrics.py +144
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py
+
+● Run baseline readability metrics (shell)
+  │ cd /home/angoyal/ws/language-research && python3
+  │ /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py
+  └ 25 lines…
+
+PAPER.md matches the brief's baseline (19-20 over 40, 4 over 60, worst 97). Let me see the offenders.
+
+● List long sentences in PAPER.md (shell)
+  │ cd /home/angoyal/ws/language-research && python3
+  │ /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py -v
+  │ 2>&1 | head -80
+  └ 72 lines…
+
+Baseline captured. Let me refine the semicolon metric to count only clause-joining semicolons (outside parentheses/citations), then record the official before-numbers.
+
+● Edit metrics.py +13 -2
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py
+
+● Re-run with refined semicolon metric (shell)
+  │ cd /home/angoyal/ws/language-research && sed -i 's/f"   \[{s.count(.;.)};\] {s\[:160\]}"/f"
+  │ [{semicolon_clauses(s)};] {s[:200]}"/'
+  │ /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py &&
+  │ python3
+  │ /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py -v …
+  └ 35 lines…
+
+● Create numcheck.py +30
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/numcheck.py
+
+● Snapshot originals and save baseline metrics (shell)
+  │ cd /home/angoyal/ws/language-research &&
+  │ S=/home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && mkdir -p
+  │ $S/orig && cp PAPER.md $S/orig/PAPER.md && cp paper/main.tex $S/orig/main.tex && echo saved &&
+  │ python3 $S/metrics.py > $S/before.txt && cat $S/before.txt
+  └ 26 lines…
+
+● Create plan.md +29
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/plan.md
+
+● Todo added 7 items
+  │ Rewriting the abstract in both files
+  │ Splitting limitation (vii)
+  │ Tightening section 5 long sentences
+  │ Breaking semicolon chains
+  │ Deduplicating 3.2 / 6 / limitations overlap
+  │ Front-loading paragraphs and expanding terms
+  └ Re-measuring and verifying no number changed
+
+Starting with the abstract (§7, highest priority) in both files.
+
+● Todo started abstract
+
+● Edit PAPER.md +1 -1
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Count abstract words and sentence lengths (shell)
+  │ cd /home/angoyal/ws/language-research && python3 -c "
+  │ import re
+  │ md=open('PAPER.md').read().split('## Abstract')[1].split('---')[0].strip()
+  │ w=[x for x in md.split() if re.search(r'[A-Za-z0-9]',x)]
+  │ print('PAPER.md abstract words:',len(w))…
+  └ 14 lines…
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Verify abstract lengths in both files (shell)
+  │ cd /home/angoyal/ws/language-research && python3 -c "
+  │ import re
+  │ md=open('PAPER.md').read().split('## Abstract')[1].split('---')[0].strip()
+  │ print('PAPER.md abstract words:',len([x for x in md.split() if re.search(r'[A-Za-z0-9]',x)]))
+  │ tx=open('paper/main.tex').read().split(r'\begin{abstract}')[1].split(r'\end{abstract}')[0].str…
+  └ 15 lines…
+
+Abstract done in both files (300→198 words, max 33-word sentence). Now working through PAPER.md's long sentences and semicolon chains.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +2 -2
+
+Now §2 of PAPER.md — the strategy list, scoring, and the missing *budget-binding regime* definition.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +3 -1
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+Now §3.3, §4 in PAPER.md.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +2 -2
+
+Now §5 of PAPER.md — the largest concentration of long sentences.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +8 -2
+
+Now §6 of PAPER.md — scope dedup and limitation (i) and (vii).
+
+● Edit PAPER.md +1 -1
+
+✗ edit edit file · new_str: "Limitations. (i) The tight-budget magnitudes no longer rest …", old_st…
+  └ "path": Required
+
+● Edit PAPER.md +1 -1
+
+Now the PAPER.md appendices (E and F).
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+● Re-measure PAPER.md after first edit pass (shell)
+  │ cd /home/angoyal/ws/language-research &&
+  │ S=/home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ $S/metrics.py -v 2>&1 | sed -n '1,35p'
+  └ 36 lines…
+
+PAPER.md is now at 2 over 40 / 0 over 60. Let me fix a measurement artifact (stripped tables joining sentences) and make the script take file paths.
+
+● Patch metrics script for block boundaries (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ - <<'EOF'
+  │ import re
+  │ p='metrics.py'
+  │ s=open(p).read()…
+  └ 15 lines…
+
+● Remove patched metrics script (shell)
+  │ rm /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py &&
+  │ echo removed
+  └ 2 lines…
+
+● Create metrics.py +150
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py
+
+● Recompute baseline with corrected extractor (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo "###
+  │ BASELINE (originals)" && python3 metrics.py orig/PAPER.md orig/main.tex | tee before.txt
+  └ 25 lines…
+
+Baseline locked in. Now fixing the last long sentence in PAPER.md, then moving to main.tex.
+
+● Edit PAPER.md +1 -1
+
+● Check PAPER.md metrics (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md -v
+  └ 15 lines…
+
+PAPER.md hits every target except word savings. Now applying the "say each thing once" dedup pass.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +2 -2
+
+● Edit PAPER.md +1 -1
+
+● Metrics and number diff for PAPER.md (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md && python3 numcheck.py orig/PAPER.md
+  │ /home/angoyal/ws/language-research/PAPER.md
+  └ 29 lines…
+
+● Locate 2.55 occurrences before and after (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo "---
+  │ ORIG 2.55 ---" && grep -o '.\{40\}2\.55[^0-9].\{30\}' orig/PAPER.md && echo "--- NOW 2.55 ---"
+  │ && grep -o '.\{40\}2\.55[^0-9].\{30\}' /home/angoyal/ws/language-research/PAPER.md
+  └ 8 lines…
+
+PAPER.md is done (only the rounded "2.21" from the abstract drops, and 2.207 remains in §5). Now main.tex.
+
+✔ Todo completed 3 items
+  │ abstract
+  │ limvii
+  └ semis
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +2 -2
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+Now main.tex §5 (the adaptation ladder), where most remaining long sentences live.
+
+● Edit main.tex +10 -11
+  └ paper/main.tex
+
+● Edit main.tex +12 -13
+  └ paper/main.tex
+
+Now main.tex §6 — scope dedup and the limitations block.
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Re-measure main.tex (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/paper/main.tex -v
+  └ 17 lines…
+
+One extractor bug (table environments with `*` weren't stripped). Fixing and re-baselining.
+
+● Edit metrics.py +1 -1
+  └ ~/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/metrics.py
+
+● Recompute before and after with fixed extractor (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo
+  │ "######## BEFORE ########" && python3 metrics.py orig/PAPER.md orig/main.tex | tee before.txt &&
+  │ echo && echo "######## AFTER ########" && python3 metrics.py
+  │ /home/angoyal/ws/language-research/PAPER.md /home/angoyal/ws/language-research/paper/main.tex -v
+  └ 51 lines…
+
+Splitting the last long sentence and doing a second dedup pass on main.tex (Appendix F duplicates §5 nearly verbatim).
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +4 -10
+  └ paper/main.tex
+
+✗ Edit main.tex
+  │ paper/main.tex
+  └ No match found
+
+● Read main.tex
+  │ paper/main.tex
+  └ L430:490 (61 lines read)
+
+● Edit main.tex +3 -5
+  └ paper/main.tex
+
+● Metrics and number check after dedup pass (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md
+  │ /home/angoyal/ws/language-research/paper/main.tex -v && echo "=== NUMBERS main.tex ===" &&
+  │ python3 numcheck.py orig/main.tex /home/angoyal/ws/language-research/paper/main.tex
+  └ 38 lines…
+
+All targets met. Verifying no number was actually lost and that LaTeX still compiles.
+
+● Verify specific numeric literals survive (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && for n in
+  │ '10\.55' '4096' '2\.55[^0-9]'; do echo "--- $n : orig=$(grep -o "$n" orig/main.tex | wc -l)
+  │ now=$(grep -o "$n" /home/angoyal/ws/language-research/paper/main.tex | wc -l)"; done; echo "---
+  │ standalone 8 ---"; grep -oP '(?<![\w.])8(?![\d.])' orig/main.tex | wc -l; grep -oP
+  │ '(?<![\w.])8(?![\d.])' /home/angoyal/ws/language-research/paper/main.tex | wc -l
+  └ 7 lines…
+
+● Locate the dropped standalone 8 (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo "===
+  │ orig standalone 8 ===" && grep -oP '.{55}(?<![\w.])8(?![\d.]).{25}' orig/main.tex && echo &&
+  │ echo "=== now ===" && grep -oP '.{55}(?<![\w.])8(?![\d.]).{25}'
+  │ /home/angoyal/ws/language-research/paper/main.tex
+  └ 12 lines…
+
+● Check for a LaTeX toolchain (shell)
+  │ which pdflatex latexmk xelatex 2>/dev/null; echo "exit=$?"
+  └ 2 lines…
+
+No LaTeX toolchain available, so I'll validate structurally instead.
+
+● Structural LaTeX validation (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ import re, collections
+  │ t = open('main.tex').read()
+  │ o = open('/home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files/orig
+  │ /main.tex').read()…
+  └ 34 lines…
+
+Structure is clean. Final read-through of both files.
+
+● Read PAPER.md
+  └ L1:60 (59 lines read)
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +1 -1
+
+● Read PAPER.md
+  └ L85:145 (61 lines read)
+
+● Read PAPER.md
+  └ L150:180 (31 lines read)
+
+● Edit PAPER.md +1 -1
+
+● Read main.tex
+  │ paper/main.tex
+  └ L186:240 (55 lines read)
+
+Final verification: hedges, forbidden words, and forbidden claims.
+
+● Verify load-bearing hedges survive in both files (shell)
+  │ cd /home/angoyal/ws/language-research && for f in PAPER.md paper/main.tex; do echo "### $f"; for
+  │ p in "not an identified reasoning deficit" "descriptive" "exploratory" "conditional on" "does
+  │ not substitute" "predicted" "no confirmatory claim" "not a validated normalizer" "still fails to
+  │ reject" "triage heuristic" "post-hoc"; do printf "  %-38s %s\n" "$p" "$(grep -oic "$p" $f)";
+  │ done; done
+  └ 25 lines…
+
+● Check register constraints (shell)
+  │ cd /home/angoyal/ws/language-research &&
+  │ S=/home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo "###
+  │ forbidden register words (new text)" && for w in dramatic striking surprising "we are the
+  │ first" "worth noting" importantly notably moreover furthermore "in other words" "as we shall
+  │ see" delve leverage; do a=$(grep -oic "$w" $S/orig/PAPER.md; grep -oic "$w" $S/orig/main.tex);…
+  └ 22 lines…
+
+● Final before/after metrics and number diff (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && echo
+  │ "######## BEFORE ########" && cat before.txt && echo "######## AFTER ########" && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md
+  │ /home/angoyal/ws/language-research/paper/main.tex && echo "######## NUMBER DIFF ########" &&
+  │ python3 numcheck.py orig/PAPER.md /home/angoyal/ws/language-research/PAPER.md | tail -3 && …
+  └ 57 lines…
+
+● Identify the remaining 42-word sentence (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md -v 2>&1 | grep -E '^\s+\['
+  └ 2 lines…
+
+● Edit PAPER.md +1 -1
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Final metrics run (shell)
+  │ cd /home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && python3
+  │ metrics.py /home/angoyal/ws/language-research/PAPER.md
+  │ /home/angoyal/ws/language-research/paper/main.tex -v && echo "### numbers ###" && python3
+  │ numcheck.py orig/PAPER.md /home/angoyal/ws/language-research/PAPER.md | tail -2 && python3
+  │ numcheck.py orig/main.tex /home/angoyal/ws/language-research/paper/main.tex | tail -2
+  └ 29 lines…
+
+● Final LaTeX structural + table/figure integrity check (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ import re, collections
+  │ t = open('main.tex').read()
+  │ b = collections.Counter(re.findall(r'\\begin\{([^}]*)\}', t))
+  │ e = collections.Counter(re.findall(r'\\end\{([^}]*)\}', t))…
+  └ 29 lines…
+
+● Verify limitations completeness and terminology consistency (shell)
+  │ cd /home/angoyal/ws/language-research && echo "### limitations items present ###" && for f in
+  │ PAPER.md paper/main.tex; do printf "%s: " $f; for i in i ii iii iv v vi vii; do printf
+  │ "(%s)=%s " $i "$(grep -c "($i) " $f)"; done; echo; done; echo; echo "### terminology counts
+  │ (before -> after) ###" &&
+  │ S=/home/angoyal/.copilot/session-state/4cdff0f5-6159-4ef6-a109-5f6a3a7e873e/files && for t in …
+  └ 16 lines…
+
+● Spot-check forbidden-claim guards and repo cleanliness (shell)
+  │ cd /home/angoyal/ws/language-research && echo "### key claims intact ###" && for f in PAPER.md
+  │ paper/main.tex; do echo "-- $f"; grep -c "second frozen family rather than a re-run" $f; grep
+  │ -c "75\\\\\?% of capped decodes" $f; grep -c "Thai SESOI test does not reject" $f; grep -c
+  │ "shift their argmax by one grid point\|shift their argmax" $f; done; echo; echo "### stray
+  │ files in repo (should be none) ###"; find . -maxdepth 2 \( -name '*.orig' -o -name '*.bak' -o …
+  └ 15 lines…
+
+✔ Todo completed
+
+Done. Both files edited and kept in sync; no `git` was run.
+
+## Before / after (§5 targets)
+
+| metric | PAPER.md | main.tex | **combined** |
+|---|---|---|---|
+| sentences > 40 words | 18 → **0** | 15 → **0** | 33 → **0** |
+| sentences > 60 words | 4 → **0** | 3 → **0** | 7 → **0** |
+| 3+ semicolon-joined clauses | 5 → **0** | 3 → **0** | 8 → **0** |
+| total body words | 4201 → **4128** | 4569 → **4377** | 8770 → **8505** |
+| longest sentence | 97 → **38** | 68 → **40** | — |
+| mean sentence length | 22.0 → 17.9 | 22.6 → 19.9 | — |
+
+**Abstract (§7):** ~300 → **198 words**, 7 sentences, longest 33. Opens with the problem, not Equation (1); keeps 39/38.9 points, 540,000 decodes, six Holm-corrected tests, 0.00/4.9/19%, and the `B*=1024` non-rejection as a clause ("still fails to reject").
+
+## Paragraphs restructured
+- **Abstract** — led with machinery; now problem → method → finding → credibility → takeaway.
+- **§1 item 1, Related Work ×3** — split 41–45-word sentences and a citation-semicolon chain.
+- **§2 strategies** — 4-clause semicolon list → four declarative sentences.
+- **§2 estimand** — added the *budget-binding regime* definition (PAPER.md lacked it) and glossed *score saturation* on first use, per §2 of the brief.
+- **§2 prefix budgets / scoring** — dropped a clause the next paragraph repeats; split the 43-word scoring sentence.
+- **§3.2 peaks, normalizer** — split at semicolons; front-loaded the normalizer paragraph with its conclusion.
+- **§3.3 p10, §4 audits opener, §4 GlotLID** — broke chains, split a 48-word sentence.
+- **§5 ladder** — First/Second/Third became separate paragraphs; split the 65/62/59/67/46-word sentences.
+- **§5 + Appendix F** — Appendix F restated §5's tokenizer construction verbatim; kept detail in the appendix, summary in §5 (largest word saving).
+- **§6 scope** — restated §3.2 and limitation (i); compressed to a cross-reference.
+- **Limitation (vii)** — 97-word / 4-semicolon sentence → six sentences; all seven items and numbering intact.
+- **Appendix E** — semicolon-delimited methods note → sentences.
+
+## Constraint verification
+- **No number changed.** Numeric-literal diff: 346/346 and 357/357 distinct values retained. Only `2.21` (an abstract rounding) drops; `2.207` remains in §5 and `2.195/2.218` in Appendix F. Every other reduced count was a duplicate (e.g. `10.55` kept in §5, dropped from (vii)).
+- **No hedge deleted** — all listed phrases still present in both files.
+- **No claim strengthened** — kept "can reverse", "still fails to reject", "second frozen family rather than a re-run"; Llama Thai non-replication and argmax shifts untouched.
+- **Tables, figures, equations, bibliography byte-identical**; braces/environments balanced, no dangling `\ref`, no lost `\label` or citation.
+
+
+
+Changes    +450 -88
+AI Credits 1442 (22m 27s)
+Tokens     ↑ 20.8m (20.5m cached, 271.2k written) • ↓ 98.3k (43.4k reasoning)
+Resume     copilot --resume=4cdff0f5-6159-4ef6-a109-5f6a3a7e873e
