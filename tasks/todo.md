@@ -149,3 +149,19 @@ RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPE
   `tests/test_parse_audit.py`). Use `.venv/bin/python` (3.11). This is the unchecked
   "uv project with pinned deps" item in Phase 0 and should be closed before Phase D.
 - Concurrency is not estimand-affecting but must be recorded in the run report (protocol §10).
+
+## Paper update (E1 folded in) — delegated to Copilot CLI, supervised
+- [x] Brief: `tasks/copilot-paper-update-brief.md` (pins exact claims + 7 forbidden claims)
+- [x] Copilot edited PAPER.md + paper/main.tex in sync; ran no git (HEAD verified unchanged)
+- [x] Supervisor review: all numeric claims re-verified against analysis-out/independent_scoring.json;
+      tabular column consistency OK; \( / \) balanced 219/219; braces balanced
+- [x] Limitation (i): resolved half deleted, exploratory claim narrowed to the crossovers /
+      off-family grid points / normalizer sensitivity, and REPLACED with the budget-aware
+      limitation (caps never condition the model; 75% bitwise-identical decodes)
+- [ ] **LENGTH: +748 words (~1.5 pages) on a 6-page paper. Needs a trim pass before submission.**
+      No LaTeX toolchain here, so this could not be compile-verified. ACL appendices are
+      unlimited: the two new §3.2 paragraphs (~350 w) are the natural candidate to compress
+      with detail moved to Appendix D.
+- Power-projection miss (§8 declared 1.13-1.43x SE inflation, actual 1.00-1.33x) is recorded in
+  this file and the Phase E commit but deliberately NOT in the paper - it is a fact about our
+  own protocol's power model, not about the result.
