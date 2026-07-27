@@ -85,7 +85,11 @@ RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPE
       seed would have made E1 literally replay). `budget_seed`: 0% — trajectories differ.
 - [x] Concurrency sweep: 16/32/64/128 -> 1.8k/3.1k/4.6k/5.9k out tok/s. Production = 128.
       133.1M tokens => ~6.3 h serial per the token-rate figure.
-- [ ] Pilot: 1 language x 2 caps x 20 items, parser round-trip + `verify_ledger` green
+- [x] Pilot PASSED: de, NATIVE+TRANSLATE-ACT, grid (128,), 20 items, k=8 -> 3 shards
+      (native B=128/B=199 via floor(1.559*128), translate_act B=128), 480 records, all verified.
+      Cross-arm seed sets equal at B=128 (pairing preserved); cross-budget seed sets disjoint.
+      Traces run to the cap (mean len 126.8/128, 191.9/199) as expected in a binding regime.
+      NATIVE eos @128 = 3.8% vs discovery truncation share 97.1% (eos 2.9%) -- consistent.
 
 ## Phase D — Generation (540,000 records, 270 shards)
 - [ ] Qwen3-8B (confirmatory primary)
@@ -94,6 +98,10 @@ RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPE
 
 ## Phase E — Analysis
 - [ ] Cap-indexed frame variant of `src/prefixes.py`
+- [ ] **Score from output_token_ids via the detokenize path, NOT record["text"]** -- the pilot
+      parsed raw text for convenience, but the decoder-parity audit showed raw vLLM text can
+      carry special-token markup (this was the Llama 0%-everywhere bug). Analysis must use the
+      same decode path as the discovery pipeline or the two frames are not comparable.
 - [ ] Score once against the frozen plan; Holm family of 6
 - [ ] Report independent and replay frames side by side
 
