@@ -50,3 +50,55 @@ Tracks `implementation-plan.md` (implements the frozen protocol `prereg-matched-
 ## Known carry-forward notes
 - Under self-host GPU pricing the dollar frame ≈ token frame (input ~250x cheaper); H3 has little room to diverge. H1/H2 don't use price. Reported under both price snapshots.
 - Input-token fidelity: ledger should record the server's actual prefill count (usage.prompt_tokens), not a raw re-tokenization of the prompt text.
+
+---
+
+# E1 — Independent-Decoding Confirmatory Replication
+
+Protocol: `prereg-independent-decoding.md`. Closes PAPER.md limitation (i) and the
+RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPERIMENTS.md`.
+
+## Phase A — Protocol freeze (GATE)
+- [x] `prereg-independent-decoding.md` written: estimand, scope fence, 6-test Holm family,
+      discovery/confirmation split, seed spec, cap table, power projection, exclusion rules
+- [x] Cap table verified mechanically against `configs/premiums.json` (caught 2 off-by-one
+      floor errors: Qwen th@768 1958 not 1959, th@2048 5223 not 5224; Llama sw@768 1482)
+- [x] Power projection computed BEFORE any confirmation data: SE inflation 1.13–1.43x;
+      all three Qwen confirmatory cells retain margin over the 5-point SESOI
+- [ ] **User review of the frozen protocol**
+- [ ] `git tag independent-protocol-freeze` — no generation into `runs-independent/` before this
+
+## Phase B — Harness
+- [x] `src/seeds.py`: `budget_seed(base, item, sample, budget)`; frozen `seed()` untouched
+- [x] `src/generate.py`: optional `budget` on `record_id`/`generation_record`/`generate_shard`;
+      legacy IDs byte-identical; `verify_ledger(..., expected_budget=)` enforces cap partition
+- [x] `src/run_independent.py`: cap-set derivation, cap-partitioned shards, resume, verification
+- [x] `tests/test_run_independent.py` (20 tests): seed independence, ID backward compat,
+      cap set vs premiums.json, 270-shard count, shard isolation, resume idempotency
+- [x] Full suite green on project interpreter: 183 passed, 3 skipped
+- [x] `scripts/run_independent.py` entry point (both models, `--concurrency`, run report)
+
+## Phase C — Smoke and throughput
+- [x] **Replay-equivalence probe PASSED** — the check the whole experiment rests on.
+      Shared frozen seed: 75% of cap-128 decodes bitwise identical to the truncated 4096
+      reference (confirms `max_tokens` does not condition the model, so reusing the frozen
+      seed would have made E1 literally replay). `budget_seed`: 0% — trajectories differ.
+- [x] Concurrency sweep: 16/32/64/128 -> 1.8k/3.1k/4.6k/5.9k out tok/s. Production = 128.
+      133.1M tokens => ~6.3 h serial per the token-rate figure.
+- [ ] Pilot: 1 language x 2 caps x 20 items, parser round-trip + `verify_ledger` green
+
+## Phase D — Generation (540,000 records, 270 shards)
+- [ ] Qwen3-8B (confirmatory primary)
+- [ ] Llama-3.1-8B-Instruct (secondary)
+- [ ] All 270 shards verify at 2000 records with correct budget; SHA-256 manifest
+
+## Phase E — Analysis
+- [ ] Cap-indexed frame variant of `src/prefixes.py`
+- [ ] Score once against the frozen plan; Holm family of 6
+- [ ] Report independent and replay frames side by side
+
+## Carry-forward
+- System `python3` is 3.9 and cannot even collect the suite (`int | None` at runtime in
+  `tests/test_parse_audit.py`). Use `.venv/bin/python` (3.11). This is the unchecked
+  "uv project with pinned deps" item in Phase 0 and should be closed before Phase D.
+- Concurrency is not estimand-affecting but must be recorded in the run report (protocol §10).

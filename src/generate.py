@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
 from src.engine import EngineProtocol, GenerationResult
+from src.seeds import budget_seed as derive_budget_seed
 from src.seeds import seed as derive_seed
 
 _REQUIRED_FIELDS = {
@@ -43,11 +44,24 @@ def _utc_now() -> str:
 
 
 def record_id(
-    model_id: str, language: str, arm: str, item_id: str, sample_index: int
+    model_id: str,
+    language: str,
+    arm: str,
+    item_id: str,
+    sample_index: int,
+    budget: int | None = None,
 ) -> str:
-    return "\x1f".join(
-        (model_id, language, arm, item_id, str(sample_index))
-    )
+    """Build a ledger record ID.
+
+    ``budget`` is appended only when supplied, so IDs written under the frozen
+    matched-budget protocol are unchanged. The independent-decoding ledger
+    (E1) always supplies it: one shard per cap means IDs would otherwise alias
+    across caps.
+    """
+    fields = [model_id, language, arm, item_id, str(sample_index)]
+    if budget is not None:
+        fields.append(f"B{budget}")
+    return "\x1f".join(fields)
 
 
 def _ledger_lock(path: Path) -> threading.Lock:
@@ -78,20 +92,14 @@ def read_ledger(path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def append_ledger_records(
-    path: Path, records: Iterable[Mapping[str, Any]]
-) -> int:
+def append_ledger_records(path: Path, records: Iterable[Mapping[str, Any]]) -> int:
     """Append complete records atomically for threads in this process."""
     serialized = []
     for record in records:
         missing = _REQUIRED_FIELDS - record.keys()
         if missing:
-            raise LedgerVerificationError(
-                f"record missing fields: {sorted(missing)}"
-            )
-        serialized.append(
-            json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n"
-        )
+            raise LedgerVerificationError(f"record missing fields: {sorted(missing)}")
+        serialized.append(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
     if not serialized:
         return 0
 
@@ -126,11 +134,22 @@ def generation_record(
     base_seed: int,
     max_tokens: int = 4096,
     tokenize_prompt: Callable[[str], Sequence[int]] | None = None,
+    budget: int | None = None,
 ) -> dict[str, Any]:
-    """Generate one trace and return it in the canonical ledger schema."""
-    generation_seed = derive_seed(base_seed, item_id, sample_index)
+    """Generate one trace and return it in the canonical ledger schema.
+
+    When ``budget`` is supplied the record belongs to the independent-decoding
+    ledger (E1): the budget *is* the cap, and the seed is derived per budget so
+    each cap is its own draw rather than a prefix of a shared trajectory.
+    """
+    if budget is None:
+        cap = max_tokens
+        generation_seed = derive_seed(base_seed, item_id, sample_index)
+    else:
+        cap = budget
+        generation_seed = derive_budget_seed(base_seed, item_id, sample_index, budget)
     started_at = _utc_now()
-    result = engine.generate(prompt, generation_seed, max_tokens)
+    result = engine.generate(prompt, generation_seed, cap)
     completed_at = _utc_now()
     return _generation_record_from_result(
         result=result,
@@ -144,6 +163,7 @@ def generation_record(
         started_at=started_at,
         completed_at=completed_at,
         tokenize_prompt=tokenize_prompt,
+        budget=budget,
     )
 
 
@@ -159,12 +179,11 @@ def _generation_record_from_result(
     started_at: str,
     completed_at: str,
     tokenize_prompt: Callable[[str], Sequence[int]] | None,
+    budget: int | None = None,
 ) -> dict[str, Any]:
     if result.input_token_count is not None:
         input_token_ids = (
-            list(result.input_token_ids)
-            if result.input_token_ids is not None
-            else []
+            list(result.input_token_ids) if result.input_token_ids is not None else []
         )
         input_token_count = result.input_token_count
     else:
@@ -173,10 +192,8 @@ def _generation_record_from_result(
         else:
             input_token_ids = list(tokenize_prompt(prompt))
         input_token_count = len(input_token_ids)
-    return {
-        "record_id": record_id(
-            model_id, language, arm, item_id, sample_index
-        ),
+    record = {
+        "record_id": record_id(model_id, language, arm, item_id, sample_index, budget),
         "model_id": model_id,
         "language": language,
         "arm": arm,
@@ -192,6 +209,9 @@ def _generation_record_from_result(
         "started_at": started_at,
         "completed_at": completed_at,
     }
+    if budget is not None:
+        record["budget"] = budget
+    return record
 
 
 def generate_shard(
@@ -205,6 +225,7 @@ def generate_shard(
     base_seed: int,
     max_tokens: int = 4096,
     tokenize_prompt: Callable[[str], Sequence[int]] | None = None,
+    budget: int | None = None,
 ) -> int:
     """Generate missing item/sample records and append them idempotently."""
     if samples_per_item <= 0:
@@ -228,7 +249,7 @@ def generate_shard(
 
         for sample_index in range(samples_per_item):
             current_record_id = record_id(
-                model_id, language, arm, item_id, sample_index
+                model_id, language, arm, item_id, sample_index, budget
             )
             if current_record_id in completed_ids:
                 continue
@@ -243,6 +264,7 @@ def generate_shard(
                 base_seed=base_seed,
                 max_tokens=max_tokens,
                 tokenize_prompt=tokenize_once,
+                budget=budget,
             )
             written += append_ledger_records(
                 output_path,
@@ -251,8 +273,16 @@ def generate_shard(
     return written
 
 
-def verify_ledger(path: Path, expected_count: int) -> dict[str, int]:
-    """Verify exact record count, IDs, and token-count consistency."""
+def verify_ledger(
+    path: Path, expected_count: int, expected_budget: int | None = None
+) -> dict[str, int]:
+    """Verify exact record count, IDs, and token-count consistency.
+
+    ``expected_budget`` additionally asserts that every record belongs to this
+    shard's cap and that no trace exceeded it. Shards in the independent-decoding
+    ledger are cap-partitioned, so a record carrying the wrong budget is a silent
+    aliasing bug that no other check would catch.
+    """
     records = read_ledger(path)
     if len(records) != expected_count:
         raise LedgerVerificationError(
@@ -263,13 +293,23 @@ def verify_ledger(path: Path, expected_count: int) -> dict[str, int]:
         raise LedgerVerificationError("duplicate record_id values")
     for record in records:
         # usage.prompt_tokens remains authoritative when a server omits prefill IDs.
-        if (
+        if record["input_token_ids"] and record["input_token_count"] != len(
             record["input_token_ids"]
-            and record["input_token_count"] != len(record["input_token_ids"])
         ):
             raise LedgerVerificationError("input token count mismatch")
         if record["output_token_count"] != len(record["output_token_ids"]):
             raise LedgerVerificationError("output token count mismatch")
+        if expected_budget is not None:
+            if record.get("budget") != expected_budget:
+                raise LedgerVerificationError(
+                    f"record {record['record_id']} has budget "
+                    f"{record.get('budget')!r}, expected {expected_budget}"
+                )
+            if record["output_token_count"] > expected_budget:
+                raise LedgerVerificationError(
+                    f"record {record['record_id']} exceeded its cap: "
+                    f"{record['output_token_count']} > {expected_budget}"
+                )
     return {"record_count": len(records), "unique_count": len(set(record_ids))}
 
 

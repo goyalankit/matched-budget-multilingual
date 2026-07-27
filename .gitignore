@@ -5,6 +5,8 @@ runs/
 runs-synthetic/
 .claude/
 runs-pilot/
+runs-independent/
+runs-independent-pilot/
 analysis-out/*.sqlite3
 /qwen.yaml
 paper/*.log
