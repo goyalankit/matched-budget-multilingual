@@ -197,7 +197,8 @@ def run_model_independent(
     completed = already_present
     print(
         f"{len(shard_specs)} shards, {total_units} units "
-        f"({already_present} already present), concurrency={concurrency}"
+        f"({already_present} already present), concurrency={concurrency}",
+        flush=True,
     )
     with ThreadPoolExecutor(max_workers=concurrency) as executor:
         futures = [executor.submit(generate_and_append, unit) for unit in work_units]
@@ -206,7 +207,7 @@ def run_model_independent(
             generated_this_run += 1
             completed += 1
             if completed % progress_interval == 0 or completed == total_units:
-                print(f"Progress: {completed}/{total_units}")
+                print(f"Progress: {completed}/{total_units}", flush=True)
 
     shard_reports = []
     for language, arm, cap, path, expected_count in shard_specs:
@@ -221,7 +222,7 @@ def run_model_independent(
                 **verification,
             }
         )
-    print(f"Verified {len(shard_reports)} shards")
+    print(f"Verified {len(shard_reports)} shards", flush=True)
 
     return {
         "model_id": model_key,

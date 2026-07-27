@@ -91,10 +91,21 @@ RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPE
       Traces run to the cap (mean len 126.8/128, 191.9/199) as expected in a binding regime.
       NATIVE eos @128 = 3.8% vs discovery truncation share 97.1% (eos 2.9%) -- consistent.
 
-## Phase D — Generation (540,000 records, 270 shards)
-- [ ] Qwen3-8B (confirmatory primary)
-- [ ] Llama-3.1-8B-Instruct (secondary)
-- [ ] All 270 shards verify at 2000 records with correct budget; SHA-256 manifest
+## Phase D — Generation (540,000 records, 270 shards) — COMPLETE
+- [x] Qwen3-8B: 135 shards, 270,000 records, 0 failures (report independent_run_qwen.json)
+- [x] Llama-3.1-8B-Instruct: 135 shards, 270,000 records, 0 failures
+- [x] All 270 shards verified at 2000 records with correct budget; no trace exceeded its cap
+- [x] SHA-256 manifest: analysis-out/independent_ledger_manifest.json (2.18 GB)
+- Ran both models concurrently at concurrency=128, ~90 min wall-clock (vs 19 GPU-h at the
+  originally measured 1,944 tok/s; the baseline was client-concurrency-limited).
+- Distribution cross-check vs truncated discovery: median |mean-length gap| 0.11% (Qwen) /
+  0.16% (Llama) of cap. The two frames measure the same generative process.
+- eos-rate monotonicity as cap grows: 7/123 (Qwen, max 1.65pp), 13/123 (Llama, max 0.70pp).
+  These are IMPOSSIBLE under replay (nested prefixes force monotonicity) and expected under
+  independent draws at ~1.1pp binomial SE -- a second distributional witness that the caps
+  are separate draws, alongside the 0%-agreement seed probe.
+- Thai premium cap 5223 (Qwen) / 4493 (Llama) generated successfully: the removed 4096
+  ceiling is real, not just permitted on paper.
 
 ## Phase E — Analysis
 - [ ] Cap-indexed frame variant of `src/prefixes.py`
