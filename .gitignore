@@ -16,3 +16,6 @@ paper/*.blg
 paper/*.out
 data/
 analysis-out/vocab_extension_tokenizers/
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
