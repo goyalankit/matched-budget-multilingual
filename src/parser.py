@@ -80,6 +80,18 @@ def _integer_digits(value: str, grammar: Dict[str, Any]) -> Optional[str]:
     return "".join(groups)
 
 
+def has_answer_line(text_prefix: str) -> bool:
+    """Return whether ``text_prefix`` contains an answer-delimiter line.
+
+    This is the *syntactic* test used by budget forcing (E2): whether the model
+    already emitted a ``#### …`` line at all. It deliberately does not require
+    the line to parse as a canonical integer — :func:`parse_answer` does that,
+    and forcing a second delimiter onto a trace that emitted an unparseable one
+    would create two answer lines and change what the scorer reads.
+    """
+    return any(_ANSWER_LINE.fullmatch(line) is not None for line in text_prefix.splitlines())
+
+
 def parse_answer(text_prefix: str, input_language: str, arm: str) -> Optional[int]:
     """Return the last canonical integer answer, or ``None`` for REJECT."""
     candidate = None

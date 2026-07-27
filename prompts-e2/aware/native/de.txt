@@ -1,0 +1,8 @@
+Löse die folgende Mathematikaufgabe.
+
+Denke Schritt für Schritt und schreibe deine gesamte Begründung auf Deutsch.
+Schreibe die endgültige Antwort in die letzte Zeile: vier Rautenzeichen, ein Leerzeichen und dann die ganzzahlige Antwort ausschließlich in ASCII-Ziffern — keine Wörter, keine Fett- oder Markdown-Formatierung, kein Währungssymbol und keine Einheiten. Beispiel: #### 42
+
+Für deine gesamte Antwort stehen dir höchstens {budget} Token zur Verfügung.
+Aufgabe:
+{problem}
