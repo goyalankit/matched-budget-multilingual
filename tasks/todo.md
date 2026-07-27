@@ -107,8 +107,36 @@ RESULTS.md outstanding "prospective binding-budget primary test". Catalog: `EXPE
 - Thai premium cap 5223 (Qwen) / 4493 (Llama) generated successfully: the removed 4096
   ceiling is real, not just permitted on paper.
 
-## Phase E — Analysis
-- [ ] Cap-indexed frame variant of `src/prefixes.py`
+## Phase E — Analysis — COMPLETE (scored once, 2026-07-27)
+- [x] `src/independent_scoring.py` + 10 tests. No prefix slicing needed: a record's
+      output_token_ids IS the trace at its cap. Delta mapped onto the frozen 5-D bootstrap
+      shape (item, lang, arm, checkpoint_kind={B, floor(rB)}, sample) so the frozen engine,
+      sup-t inversion, 1.3x conservatism and Holm are reused unchanged.
+- [x] Scored from output_token_ids via the production decoders, not record["text"]
+- [x] **RESULT: all six Qwen confirmatory tests REJECT -> `confirmatory_support`.**
+      R1 peaks: de 34.65 (discovery 34.20), th 38.60 (38.85), sw 13.70 (14.95) -- every
+      independent estimate inside the published discovery CI. R2 equivalence at B*=1024:
+      0.15 / -0.25 / -1.25, all well inside +/-5.
+- [x] Peak LOCATION replicates for all three Qwen languages (argmax = 192/256/128 as predicted).
+      Llama de and th argmax shift one grid point; both were flat cells (Llama th spans
+      2.20/2.30/2.00 across 128/192/256) and non-replication there was predicted in advance.
+- [x] Llama secondary: de 8.50 (8.35), th 2.10 (2.30), sw 17.65 (18.20). R1-th fails as
+      PREDICTED IN ADVANCE (discovery Delta 2.30 is below the 5-point SESOI by construction).
+- [x] CI widening within the §8 declared tolerance in all 6 cells (actual 1.00-1.33x vs
+      projected 1.13-1.43x). The projection was CONSERVATIVE for Qwen (1.00-1.07x actual vs
+      1.13-1.43x projected): item-clustering already absorbs most of the variance, so the
+      paired-prefix reduction was worth less than the Bernoulli model assumed. Reported as a
+      miss in the projection, not adjusted after the fact.
+- [x] Sweep vs replay: 18/24 Qwen and 14/24 Llama grid points inside the published replay
+      pointwise CI. Independent draws + pointwise (not simultaneous) CIs make partial
+      agreement expected; the confirmatory cells all agree.
+- Artifacts: analysis-out/independent_scoring.{json,md}
+- Scoring bug (fixed, score-neutral): exactly 1 trace of 540,000 (th, cap 5223, item 131,
+  s=1) emits a 5001-digit answer line and trips CPython's 4300-digit int() guard. Raised the
+  interpreter limit IN THE SCRIPT, not in the frozen parser: a 5001-digit value is not the
+  gold answer (940) so it scores 0 either way. That cap exists only because the 4096 ceiling
+  was removed, so the replay frame could not have surfaced this.
+- [x] Cap-indexed frame reader (superseded: no prefixes.py variant needed)
 - [ ] **Score from output_token_ids via the detokenize path, NOT record["text"]** -- the pilot
       parsed raw text for convenience, but the decoder-parity audit showed raw vLLM text can
       carry special-token markup (this was the Llama 0%-everywhere bug). Analysis must use the

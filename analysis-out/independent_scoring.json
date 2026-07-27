@@ -1,0 +1,746 @@
+{
+ "llama_curve": [
+  {
+   "acc_native_B": 0.0,
+   "acc_native_rB": 0.0,
+   "budget": 64,
+   "ci_high": 0.0,
+   "ci_low": 0.0,
+   "delta": 0.0,
+   "language": "de",
+   "premium_cap": 101
+  },
+  {
+   "acc_native_B": 0.05,
+   "acc_native_rB": 0.35,
+   "budget": 128,
+   "ci_high": 0.55,
+   "ci_low": 0.05,
+   "delta": 0.3,
+   "language": "de",
+   "premium_cap": 202
+  },
+  {
+   "acc_native_B": 0.2,
+   "acc_native_rB": 9.4,
+   "budget": 192,
+   "ci_high": 10.8,
+   "ci_low": 7.6,
+   "delta": 9.2,
+   "language": "de",
+   "premium_cap": 303
+  },
+  {
+   "acc_native_B": 4.7,
+   "acc_native_rB": 13.2,
+   "budget": 256,
+   "ci_high": 10.4,
+   "ci_low": 6.6,
+   "delta": 8.5,
+   "language": "de",
+   "premium_cap": 404
+  },
+  {
+   "acc_native_B": 12.15,
+   "acc_native_rB": 13.4,
+   "budget": 384,
+   "ci_high": 3.2,
+   "ci_low": -0.7,
+   "delta": 1.25,
+   "language": "de",
+   "premium_cap": 607
+  },
+  {
+   "acc_native_B": 13.0,
+   "acc_native_rB": 13.8,
+   "budget": 512,
+   "ci_high": 2.8,
+   "ci_low": -1.2,
+   "delta": 0.8,
+   "language": "de",
+   "premium_cap": 809
+  },
+  {
+   "acc_native_B": 12.95,
+   "acc_native_rB": 13.75,
+   "budget": 768,
+   "ci_high": 2.65,
+   "ci_low": -1.05,
+   "delta": 0.8,
+   "language": "de",
+   "premium_cap": 1214
+  },
+  {
+   "acc_native_B": 13.75,
+   "acc_native_rB": 13.65,
+   "budget": 1024,
+   "ci_high": 1.65,
+   "ci_low": -1.85,
+   "delta": -0.1,
+   "language": "de",
+   "premium_cap": 1619
+  },
+  {
+   "acc_native_B": 14.6,
+   "acc_native_rB": 14.3,
+   "budget": 2048,
+   "ci_high": 1.65,
+   "ci_low": -2.25,
+   "delta": -0.3,
+   "language": "de",
+   "premium_cap": 3239
+  },
+  {
+   "acc_native_B": 0.0,
+   "acc_native_rB": 0.15,
+   "budget": 64,
+   "ci_high": 0.35,
+   "ci_low": -0.05,
+   "delta": 0.15,
+   "language": "th",
+   "premium_cap": 140
+  },
+  {
+   "acc_native_B": 0.15,
+   "acc_native_rB": 2.1,
+   "budget": 128,
+   "ci_high": 2.7,
+   "ci_low": 1.2,
+   "delta": 1.95,
+   "language": "th",
+   "premium_cap": 280
+  },
+  {
+   "acc_native_B": 1.1,
+   "acc_native_rB": 3.2,
+   "budget": 192,
+   "ci_high": 3.05,
+   "ci_low": 1.15,
+   "delta": 2.1,
+   "language": "th",
+   "premium_cap": 421
+  },
+  {
+   "acc_native_B": 1.45,
+   "acc_native_rB": 4.1,
+   "budget": 256,
+   "ci_high": 3.75,
+   "ci_low": 1.55,
+   "delta": 2.65,
+   "language": "th",
+   "premium_cap": 561
+  },
+  {
+   "acc_native_B": 2.8,
+   "acc_native_rB": 4.3,
+   "budget": 384,
+   "ci_high": 2.6,
+   "ci_low": 0.4,
+   "delta": 1.5,
+   "language": "th",
+   "premium_cap": 842
+  },
+  {
+   "acc_native_B": 3.85,
+   "acc_native_rB": 3.25,
+   "budget": 512,
+   "ci_high": 0.6,
+   "ci_low": -1.8,
+   "delta": -0.6,
+   "language": "th",
+   "premium_cap": 1123
+  },
+  {
+   "acc_native_B": 4.55,
+   "acc_native_rB": 3.55,
+   "budget": 768,
+   "ci_high": 0.1,
+   "ci_low": -2.1,
+   "delta": -1.0,
+   "language": "th",
+   "premium_cap": 1685
+  },
+  {
+   "acc_native_B": 3.75,
+   "acc_native_rB": 4.3,
+   "budget": 1024,
+   "ci_high": 1.75,
+   "ci_low": -0.65,
+   "delta": 0.55,
+   "language": "th",
+   "premium_cap": 2246
+  },
+  {
+   "acc_native_B": 3.6,
+   "acc_native_rB": 3.15,
+   "budget": 2048,
+   "ci_high": 0.65,
+   "ci_low": -1.55,
+   "delta": -0.45,
+   "language": "th",
+   "premium_cap": 4493
+  },
+  {
+   "acc_native_B": 0.0,
+   "acc_native_rB": 0.2,
+   "budget": 64,
+   "ci_high": 0.4,
+   "ci_low": 0.0,
+   "delta": 0.2,
+   "language": "sw",
+   "premium_cap": 123
+  },
+  {
+   "acc_native_B": 0.3,
+   "acc_native_rB": 7.5,
+   "budget": 128,
+   "ci_high": 9.05,
+   "ci_low": 5.35,
+   "delta": 7.2,
+   "language": "sw",
+   "premium_cap": 247
+  },
+  {
+   "acc_native_B": 3.75,
+   "acc_native_rB": 17.55,
+   "budget": 192,
+   "ci_high": 16.15,
+   "ci_low": 11.45,
+   "delta": 13.8,
+   "language": "sw",
+   "premium_cap": 370
+  },
+  {
+   "acc_native_B": 7.85,
+   "acc_native_rB": 25.5,
+   "budget": 256,
+   "ci_high": 20.25,
+   "ci_low": 15.05,
+   "delta": 17.65,
+   "language": "sw",
+   "premium_cap": 494
+  },
+  {
+   "acc_native_B": 18.8,
+   "acc_native_rB": 29.75,
+   "budget": 384,
+   "ci_high": 13.85,
+   "ci_low": 8.05,
+   "delta": 10.95,
+   "language": "sw",
+   "premium_cap": 741
+  },
+  {
+   "acc_native_B": 26.95,
+   "acc_native_rB": 28.5,
+   "budget": 512,
+   "ci_high": 3.9,
+   "ci_low": -0.8,
+   "delta": 1.55,
+   "language": "sw",
+   "premium_cap": 988
+  },
+  {
+   "acc_native_B": 27.95,
+   "acc_native_rB": 28.75,
+   "budget": 768,
+   "ci_high": 3.2,
+   "ci_low": -1.6,
+   "delta": 0.8,
+   "language": "sw",
+   "premium_cap": 1482
+  },
+  {
+   "acc_native_B": 27.85,
+   "acc_native_rB": 27.75,
+   "budget": 1024,
+   "ci_high": 2.35,
+   "ci_low": -2.55,
+   "delta": -0.1,
+   "language": "sw",
+   "premium_cap": 1977
+  },
+  {
+   "acc_native_B": 27.0,
+   "acc_native_rB": 27.9,
+   "budget": 2048,
+   "ci_high": 3.3,
+   "ci_low": -1.5,
+   "delta": 0.9,
+   "language": "sw",
+   "premium_cap": 3954
+  }
+ ],
+ "llama_family": {
+  "alpha": 0.05,
+  "family_size": 6,
+  "model_id": "llama_3_1_8b_instruct",
+  "n_resamples": 10000,
+  "outcome": "confirmatory_support",
+  "protocol": "prereg-independent-decoding.md",
+  "rejected": [
+   "R1-de",
+   "R1-sw",
+   "R2-de",
+   "R2-th",
+   "R2-sw"
+  ],
+  "tail_conservatism": 1.3,
+  "tests": [
+   {
+    "budget": 256,
+    "delta": 8.5,
+    "discovery_delta": 8.35,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "de",
+    "local_alpha": 0.008333,
+    "p": 0.00013,
+    "premium_cap": 404,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 0.985,
+    "test": "R1-de"
+   },
+   {
+    "budget": 192,
+    "delta": 2.1,
+    "discovery_delta": 2.3,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "th",
+    "local_alpha": 0.05,
+    "p": 1.0,
+    "premium_cap": 421,
+    "raw_p": 1.0,
+    "reject": false,
+    "se": 0.471,
+    "test": "R1-th"
+   },
+   {
+    "budget": 256,
+    "delta": 17.65,
+    "discovery_delta": 18.2,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "sw",
+    "local_alpha": 0.01,
+    "p": 0.00013,
+    "premium_cap": 494,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 1.334,
+    "test": "R1-sw"
+   },
+   {
+    "budget": 1024,
+    "delta": -0.1,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "de",
+    "local_alpha": 0.0125,
+    "p": 0.00013,
+    "premium_cap": 1619,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 0.903,
+    "test": "R2-de"
+   },
+   {
+    "budget": 1024,
+    "delta": 0.55,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "th",
+    "local_alpha": 0.016667,
+    "p": 0.00013,
+    "premium_cap": 2246,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 0.612,
+    "test": "R2-th"
+   },
+   {
+    "budget": 1024,
+    "delta": -0.1,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "sw",
+    "local_alpha": 0.025,
+    "p": 0.00013,
+    "premium_cap": 1977,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 1.239,
+    "test": "R2-sw"
+   }
+  ]
+ },
+ "protocol": "prereg-independent-decoding.md",
+ "qwen_curve": [
+  {
+   "acc_native_B": 0.0,
+   "acc_native_rB": 0.1,
+   "budget": 64,
+   "ci_high": 0.3,
+   "ci_low": -0.1,
+   "delta": 0.1,
+   "language": "de",
+   "premium_cap": 99
+  },
+  {
+   "acc_native_B": 2.55,
+   "acc_native_rB": 18.35,
+   "budget": 128,
+   "ci_high": 18.8,
+   "ci_low": 12.8,
+   "delta": 15.8,
+   "language": "de",
+   "premium_cap": 199
+  },
+  {
+   "acc_native_B": 16.15,
+   "acc_native_rB": 50.8,
+   "budget": 192,
+   "ci_high": 38.75,
+   "ci_low": 30.55,
+   "delta": 34.65,
+   "language": "de",
+   "premium_cap": 299
+  },
+  {
+   "acc_native_B": 38.2,
+   "acc_native_rB": 69.0,
+   "budget": 256,
+   "ci_high": 35.3,
+   "ci_low": 26.3,
+   "delta": 30.8,
+   "language": "de",
+   "premium_cap": 399
+  },
+  {
+   "acc_native_B": 67.35,
+   "acc_native_rB": 78.75,
+   "budget": 384,
+   "ci_high": 14.45,
+   "ci_low": 8.35,
+   "delta": 11.4,
+   "language": "de",
+   "premium_cap": 598
+  },
+  {
+   "acc_native_B": 76.75,
+   "acc_native_rB": 78.65,
+   "budget": 512,
+   "ci_high": 4.1,
+   "ci_low": -0.3,
+   "delta": 1.9,
+   "language": "de",
+   "premium_cap": 798
+  },
+  {
+   "acc_native_B": 78.6,
+   "acc_native_rB": 80.75,
+   "budget": 768,
+   "ci_high": 4.05,
+   "ci_low": 0.25,
+   "delta": 2.15,
+   "language": "de",
+   "premium_cap": 1197
+  },
+  {
+   "acc_native_B": 79.55,
+   "acc_native_rB": 79.7,
+   "budget": 1024,
+   "ci_high": 1.75,
+   "ci_low": -1.45,
+   "delta": 0.15,
+   "language": "de",
+   "premium_cap": 1596
+  },
+  {
+   "acc_native_B": 78.75,
+   "acc_native_rB": 79.8,
+   "budget": 2048,
+   "ci_high": 2.9,
+   "ci_low": -0.8,
+   "delta": 1.05,
+   "language": "de",
+   "premium_cap": 3192
+  },
+  {
+   "acc_native_B": 0.0,
+   "acc_native_rB": 1.3,
+   "budget": 64,
+   "ci_high": 2.25,
+   "ci_low": 0.35,
+   "delta": 1.3,
+   "language": "th",
+   "premium_cap": 163
+  },
+  {
+   "acc_native_B": 0.05,
+   "acc_native_rB": 15.9,
+   "budget": 128,
+   "ci_high": 18.8,
+   "ci_low": 12.9,
+   "delta": 15.85,
+   "language": "th",
+   "premium_cap": 326
+  },
+  {
+   "acc_native_B": 2.3,
+   "acc_native_rB": 36.8,
+   "budget": 192,
+   "ci_high": 38.45,
+   "ci_low": 30.55,
+   "delta": 34.5,
+   "language": "th",
+   "premium_cap": 489
+  },
+  {
+   "acc_native_B": 6.95,
+   "acc_native_rB": 45.55,
+   "budget": 256,
+   "ci_high": 43.05,
+   "ci_low": 34.15,
+   "delta": 38.6,
+   "language": "th",
+   "premium_cap": 652
+  },
+  {
+   "acc_native_B": 23.45,
+   "acc_native_rB": 45.75,
+   "budget": 384,
+   "ci_high": 26.45,
+   "ci_low": 18.15,
+   "delta": 22.3,
+   "language": "th",
+   "premium_cap": 979
+  },
+  {
+   "acc_native_B": 40.15,
+   "acc_native_rB": 48.05,
+   "budget": 512,
+   "ci_high": 11.2,
+   "ci_low": 4.6,
+   "delta": 7.9,
+   "language": "th",
+   "premium_cap": 1305
+  },
+  {
+   "acc_native_B": 46.1,
+   "acc_native_rB": 47.6,
+   "budget": 768,
+   "ci_high": 4.05,
+   "ci_low": -1.05,
+   "delta": 1.5,
+   "language": "th",
+   "premium_cap": 1958
+  },
+  {
+   "acc_native_B": 46.55,
+   "acc_native_rB": 46.3,
+   "budget": 1024,
+   "ci_high": 2.15,
+   "ci_low": -2.65,
+   "delta": -0.25,
+   "language": "th",
+   "premium_cap": 2611
+  },
+  {
+   "acc_native_B": 47.45,
+   "acc_native_rB": 47.8,
+   "budget": 2048,
+   "ci_high": 2.95,
+   "ci_low": -2.25,
+   "delta": 0.35,
+   "language": "th",
+   "premium_cap": 5223
+  },
+  {
+   "acc_native_B": 0.35,
+   "acc_native_rB": 8.1,
+   "budget": 64,
+   "ci_high": 10.3,
+   "ci_low": 5.2,
+   "delta": 7.75,
+   "language": "sw",
+   "premium_cap": 123
+  },
+  {
+   "acc_native_B": 8.1,
+   "acc_native_rB": 21.8,
+   "budget": 128,
+   "ci_high": 16.35,
+   "ci_low": 11.05,
+   "delta": 13.7,
+   "language": "sw",
+   "premium_cap": 247
+  },
+  {
+   "acc_native_B": 16.9,
+   "acc_native_rB": 28.7,
+   "budget": 192,
+   "ci_high": 14.75,
+   "ci_low": 8.85,
+   "delta": 11.8,
+   "language": "sw",
+   "premium_cap": 371
+  },
+  {
+   "acc_native_B": 21.6,
+   "acc_native_rB": 30.95,
+   "budget": 256,
+   "ci_high": 12.1,
+   "ci_low": 6.6,
+   "delta": 9.35,
+   "language": "sw",
+   "premium_cap": 495
+  },
+  {
+   "acc_native_B": 31.15,
+   "acc_native_rB": 32.55,
+   "budget": 384,
+   "ci_high": 3.4,
+   "ci_low": -0.6,
+   "delta": 1.4,
+   "language": "sw",
+   "premium_cap": 743
+  },
+  {
+   "acc_native_B": 32.15,
+   "acc_native_rB": 31.65,
+   "budget": 512,
+   "ci_high": 1.85,
+   "ci_low": -2.85,
+   "delta": -0.5,
+   "language": "sw",
+   "premium_cap": 991
+  },
+  {
+   "acc_native_B": 32.55,
+   "acc_native_rB": 32.7,
+   "budget": 768,
+   "ci_high": 2.5,
+   "ci_low": -2.2,
+   "delta": 0.15,
+   "language": "sw",
+   "premium_cap": 1487
+  },
+  {
+   "acc_native_B": 33.85,
+   "acc_native_rB": 32.6,
+   "budget": 1024,
+   "ci_high": 0.9,
+   "ci_low": -3.4,
+   "delta": -1.25,
+   "language": "sw",
+   "premium_cap": 1982
+  },
+  {
+   "acc_native_B": 33.15,
+   "acc_native_rB": 33.65,
+   "budget": 2048,
+   "ci_high": 2.65,
+   "ci_low": -1.65,
+   "delta": 0.5,
+   "language": "sw",
+   "premium_cap": 3965
+  }
+ ],
+ "qwen_family": {
+  "alpha": 0.05,
+  "family_size": 6,
+  "model_id": "qwen3_8b",
+  "n_resamples": 10000,
+  "outcome": "confirmatory_support",
+  "protocol": "prereg-independent-decoding.md",
+  "rejected": [
+   "R1-de",
+   "R1-th",
+   "R1-sw",
+   "R2-de",
+   "R2-th",
+   "R2-sw"
+  ],
+  "tail_conservatism": 1.3,
+  "tests": [
+   {
+    "budget": 192,
+    "delta": 34.65,
+    "discovery_delta": 34.2,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "de",
+    "local_alpha": 0.008333,
+    "p": 0.00013,
+    "premium_cap": 299,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 2.101,
+    "test": "R1-de"
+   },
+   {
+    "budget": 256,
+    "delta": 38.6,
+    "discovery_delta": 38.85,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "th",
+    "local_alpha": 0.01,
+    "p": 0.00013,
+    "premium_cap": 652,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 2.257,
+    "test": "R1-th"
+   },
+   {
+    "budget": 128,
+    "delta": 13.7,
+    "discovery_delta": 14.95,
+    "kind": "peak SESOI (one-sided, Delta > 5)",
+    "language": "sw",
+    "local_alpha": 0.0125,
+    "p": 0.00013,
+    "premium_cap": 247,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 1.366,
+    "test": "R1-sw"
+   },
+   {
+    "budget": 1024,
+    "delta": 0.15,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "de",
+    "local_alpha": 0.016667,
+    "p": 0.00013,
+    "premium_cap": 1596,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 0.824,
+    "test": "R2-de"
+   },
+   {
+    "budget": 1024,
+    "delta": -0.25,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "th",
+    "local_alpha": 0.025,
+    "p": 0.00013,
+    "premium_cap": 2611,
+    "raw_p": 0.0001,
+    "reject": true,
+    "se": 1.205,
+    "test": "R2-th"
+   },
+   {
+    "budget": 1024,
+    "delta": -1.25,
+    "kind": "equivalence at B* (TOST, |Delta| < 5)",
+    "language": "sw",
+    "local_alpha": 0.05,
+    "p": 0.00026,
+    "premium_cap": 1982,
+    "raw_p": 0.0002,
+    "reject": true,
+    "se": 1.109,
+    "test": "R2-sw"
+   }
+  ]
+ }
+}
