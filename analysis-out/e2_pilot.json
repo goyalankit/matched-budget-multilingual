@@ -4,66 +4,58 @@
   2048
  ],
  "arm": "native",
- "cap": 2048,
- "conditions": {
-  "aware": {
-   "cells": [
-    {
-     "announced_budget": 128,
-     "censoring_share": 0.0005,
-     "condition": "aware",
-     "mean_output_tokens": 191.3535,
-     "median_output_tokens": 176.0,
-     "path": "runs-e2-pilot/qwen3_8b/de/native/aware/B02048_A00128/shard.jsonl",
-     "records": 2000
-    },
-    {
-     "announced_budget": 2048,
-     "censoring_share": 0.002,
-     "condition": "aware",
-     "mean_output_tokens": 312.232,
-     "median_output_tokens": 291.0,
-     "path": "runs-e2-pilot/qwen3_8b/de/native/aware/B02048/shard.jsonl",
-     "records": 2000
-    }
-   ],
-   "median_at_high": 291.0,
-   "median_at_low": 176.0,
-   "moves_in_the_predicted_direction": true,
-   "reduction": 115.0,
-   "reduction_share": 0.3951890034364261
+ "cells": [
+  {
+   "condition": "aware",
+   "language": "de",
+   "median_announced_128": 176.0,
+   "median_announced_2048": 291.0,
+   "n": 2000,
+   "passes_gate": true,
+   "reduction": 0.3952
   },
-  "tag": {
-   "cells": [
-    {
-     "announced_budget": 128,
-     "censoring_share": 0.0015,
-     "condition": "tag",
-     "mean_output_tokens": 289.6965,
-     "median_output_tokens": 268.0,
-     "path": "runs-e2-pilot/qwen3_8b/de/native/tag/B02048_A00128/shard.jsonl",
-     "records": 2000
-    },
-    {
-     "announced_budget": 2048,
-     "censoring_share": 0.0015,
-     "condition": "tag",
-     "mean_output_tokens": 291.914,
-     "median_output_tokens": 271.5,
-     "path": "runs-e2-pilot/qwen3_8b/de/native/tag/B02048/shard.jsonl",
-     "records": 2000
-    }
-   ],
-   "median_at_high": 271.5,
-   "median_at_low": 268.0,
-   "moves_in_the_predicted_direction": true,
-   "reduction": 3.5,
-   "reduction_share": 0.01289134438305709
+  {
+   "condition": "tag",
+   "language": "de",
+   "median_announced_128": 268.0,
+   "median_announced_2048": 271.5,
+   "n": 2000,
+   "passes_gate": false,
+   "reduction": 0.0129
+  },
+  {
+   "condition": "aware",
+   "language": "th",
+   "median_announced_128": 196.5,
+   "median_announced_2048": 349.0,
+   "n": 2000,
+   "passes_gate": true,
+   "reduction": 0.437
+  },
+  {
+   "condition": "aware",
+   "language": "sw",
+   "median_announced_128": 216.0,
+   "median_announced_2048": 240.0,
+   "n": 2000,
+   "passes_gate": false,
+   "reduction": 0.1
   }
- },
- "gating_condition": "tag",
- "language": "de",
+ ],
+ "decoupled_cap": 2048,
+ "gate": 0.3,
+ "gate_source": "D7 / \u00a78.4, declared before the pilot ran",
  "model": "qwen3_8b",
- "passed": true,
- "verdict": "confirmatory"
+ "protocol": "prereg-budget-aware.md \u00a78.6",
+ "verdict": {
+  "confirmatory_languages": [
+   "de",
+   "th"
+  ],
+  "exploratory_languages": [
+   "sw"
+  ],
+  "family_instrument": "aware",
+  "tag_status": "inert (de only; untested th/sw)"
+ }
 }
