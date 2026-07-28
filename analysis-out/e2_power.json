@@ -1,0 +1,151 @@
+{
+  "basis": "runs-independent/ (E1), split-half null within one cell",
+  "calibration": [
+    {
+      "difference": 0.0731283951752496,
+      "language": "de",
+      "published_bootstrap_se": 0.824,
+      "split_half_se": 0.8971283951752496
+    },
+    {
+      "difference": -0.013300004726958692,
+      "language": "th",
+      "published_bootstrap_se": 1.207,
+      "split_half_se": 1.1936999952730414
+    },
+    {
+      "difference": -0.10751217935661761,
+      "language": "sw",
+      "published_bootstrap_se": 1.107,
+      "split_half_se": 0.9994878206433824
+    }
+  ],
+  "cells": [
+    {
+      "accuracy": 78.75,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 2048,
+      "detection_threshold": 3.1742229537020163,
+      "eligible": true,
+      "language": "de",
+      "mde_80": 4.211362112826205,
+      "model_key": "qwen3_8b",
+      "se": 0.9479315888758824
+    },
+    {
+      "accuracy": 47.449999999999996,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 2048,
+      "detection_threshold": 3.8615062668347573,
+      "eligible": true,
+      "language": "th",
+      "mde_80": 5.123206979403466,
+      "model_key": "qwen3_8b",
+      "se": 1.153177903494701
+    },
+    {
+      "accuracy": 33.15,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 2048,
+      "detection_threshold": 3.6589954117636605,
+      "eligible": false,
+      "language": "sw",
+      "mde_80": 4.85452813896858,
+      "model_key": "qwen3_8b",
+      "se": 1.092701232696176
+    },
+    {
+      "accuracy": 88.05,
+      "alpha": 0.01,
+      "arm": "translate_act",
+      "cap": 2048,
+      "detection_threshold": 1.4035405639687553,
+      "eligible": true,
+      "language": "de",
+      "mde_80": 1.862130556399355,
+      "model_key": "qwen3_8b",
+      "se": 0.41914523846000534
+    },
+    {
+      "accuracy": 88.3,
+      "alpha": 0.01,
+      "arm": "translate_act",
+      "cap": 2048,
+      "detection_threshold": 2.062892811970386,
+      "eligible": true,
+      "language": "th",
+      "mde_80": 2.736918218369469,
+      "model_key": "qwen3_8b",
+      "se": 0.6160503812913004
+    },
+    {
+      "accuracy": 56.699999999999996,
+      "alpha": 0.01,
+      "arm": "translate_act",
+      "cap": 2048,
+      "detection_threshold": 2.821482254290103,
+      "eligible": true,
+      "language": "sw",
+      "mde_80": 3.743367633918343,
+      "model_key": "qwen3_8b",
+      "se": 0.8425911460236394
+    },
+    {
+      "accuracy": 79.55,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 1024,
+      "detection_threshold": 3.004104492139667,
+      "eligible": false,
+      "language": "de",
+      "mde_80": 3.985659490746554,
+      "model_key": "qwen3_8b",
+      "se": 0.8971283951752496
+    },
+    {
+      "accuracy": 46.550000000000004,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 1024,
+      "detection_threshold": 3.9971976557116284,
+      "eligible": false,
+      "language": "th",
+      "mde_80": 5.303233897010611,
+      "model_key": "qwen3_8b",
+      "se": 1.1936999952730414
+    },
+    {
+      "accuracy": 33.85,
+      "alpha": 0.01,
+      "arm": "native",
+      "cap": 1024,
+      "detection_threshold": 3.346863022039487,
+      "eligible": false,
+      "language": "sw",
+      "mde_80": 4.44041024635577,
+      "model_key": "qwen3_8b",
+      "se": 0.9994878206433824
+    }
+  ],
+  "family_size": 5,
+  "family_wise_alpha": 0.05,
+  "local_alpha_first_step": 0.01,
+  "model_id": "qwen3_8b",
+  "power_target": 0.8,
+  "split_a": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "split_b": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "tail_conservatism": 1.3
+}

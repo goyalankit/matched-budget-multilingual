@@ -20,7 +20,7 @@ from src.e2_cost import (
     gpu_hours,
     render_markdown,
 )
-from src.generate import AWARE, FORCED, PLACEBO
+from src.generate import AWARE, FORCED, PLACEBO, TAG
 from src.run_independent import E2_BUDGET_GRID
 
 
@@ -116,6 +116,42 @@ def test_only_forced_reports_the_unanswered_diagnostics() -> None:
     assert costs[FORCED]["unanswered_capped_segments"] == 4
 
 
+def test_a_cell_plan_prices_each_condition_over_its_own_cells() -> None:
+    """The decoupled block runs at one cap; it must not be billed the whole grid."""
+    cells = [
+        CapCost("m", "de", "native", 128, 10, 1000, 0),
+        CapCost("m", "de", "native", 2048, 10, 5000, 0),
+    ]
+    plan = {
+        ("de", "native"): (
+            (AWARE, 128, 128),
+            (AWARE, 2048, 2048),
+            (AWARE, 2048, 256),
+            (TAG, 2048, 256),
+        )
+    }
+
+    costs = condition_costs("m", cells, conditions=(AWARE, TAG), cell_plan=plan)
+
+    # AWARE: 128 once, 2048 twice (coupled, plus one decoupled announcement).
+    assert costs[AWARE]["output_tokens"] == 1000 + 5000 + 5000
+    assert costs[AWARE]["cells"] == 3
+    assert costs[TAG]["output_tokens"] == 5000
+    assert costs[TAG]["cells"] == 1
+
+
+def test_a_condition_with_no_cells_costs_nothing() -> None:
+    costs = condition_costs(
+        "m",
+        [CapCost("m", "de", "native", 128, 10, 1000, 0)],
+        conditions=(TAG,),
+        cell_plan={("de", "native"): ((AWARE, 128, 128),)},
+    )
+
+    assert costs[TAG]["output_tokens"] == 0
+    assert costs[TAG]["cells"] == 0
+
+
 def test_gpu_hours_uses_the_supplied_throughput() -> None:
     assert gpu_hours(5893 * 3600, 5893) == pytest.approx(1.0)
 
@@ -186,4 +222,4 @@ def test_render_markdown_reports_every_condition() -> None:
     assert "| m | aware |" in markdown
     assert "| m | forced |" in markdown
     assert "of which truncated" in markdown
-    assert "| m | de | 50.0% |" in markdown
+    assert "| m | native | de | 50.00% |" in markdown

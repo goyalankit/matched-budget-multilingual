@@ -7,6 +7,6 @@ Then solve the translated problem. Think step by step and write all of your reas
 Write the final answer as the last line, in the format:
 #### <number>
 
-You must keep to the exact answer format that is described above in your whole response.
+Think step by step and write the translation, all of your reasoning and the final answer in English as well.
 Problem:
 {problem}

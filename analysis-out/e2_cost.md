@@ -3,22 +3,25 @@
 Basis: `runs-independent/ (E1), hard-capped decodes at E2's own caps`.
 Cross-check: `runs/ (replay), Sigma_i min(n_i, B) per EXPERIMENTS.md`.
 
-Budgets `[128, 192, 256, 384, 512, 1024, 2048]`; arms `['native', 'translate_act']`; conditions `['aware', 'placebo', 'forced']`; NATIVE also at the premium caps `floor(r*B)`.
+Budgets `[128, 192, 256, 384, 512, 1024, 2048]`; arms `['native', 'translate_act']`; conditions `['aware', 'placebo', 'forced', 'tag']`; NATIVE also at the premium caps `floor(r*B)`.
+Decoupled block: conditions `['aware', 'tag']` at a fixed cap of 2048 with announced budgets `[128, 256, 2048]`. The announcement is a prompt fact and costs nothing beyond the decode it sits on; the announced-2048 cell coincides with the coupled cell at that cap and is generated once.
 Throughput 5,893 output tok/s (measured at concurrency 128, supplied by the brief).
 FORCED continuation cap 32 tokens.
 
 ## GPU-hours per model per condition
 
-| model | condition | records | output tokens | GPU-h |
-|---|---|---:|---:|---:|
-| qwen3_8b | aware | 126,000 | 34,560,630 | 1.63 |
-| qwen3_8b | placebo | 126,000 | 34,560,630 | 1.63 |
-| qwen3_8b | forced | 126,000 | 35,933,558 | 1.69 |
-| llama_3_1_8b_instruct | aware | 126,000 | 34,632,654 | 1.63 |
-| llama_3_1_8b_instruct | placebo | 126,000 | 34,632,654 | 1.63 |
-| llama_3_1_8b_instruct | forced | 126,000 | 37,320,654 | 1.76 |
+| model | condition | shards | records | output tokens | GPU-h |
+|---|---|---:|---:|---:|---:|
+| qwen3_8b | aware | 75 | 150,000 | 42,452,534 | 2.00 |
+| qwen3_8b | placebo | 63 | 126,000 | 34,560,630 | 1.63 |
+| qwen3_8b | forced | 63 | 126,000 | 35,933,558 | 1.69 |
+| qwen3_8b | tag | 18 | 36,000 | 11,837,856 | 0.56 |
+| llama_3_1_8b_instruct | aware | 75 | 150,000 | 42,485,562 | 2.00 |
+| llama_3_1_8b_instruct | placebo | 63 | 126,000 | 34,632,654 | 1.63 |
+| llama_3_1_8b_instruct | forced | 63 | 126,000 | 37,320,654 | 1.76 |
+| llama_3_1_8b_instruct | tag | 18 | 36,000 | 11,779,362 | 0.56 |
 
-**Total 211,640,780 output tokens, 9.98 GPU-hours.**
+**Total 251,002,810 output tokens, 11.83 GPU-hours, 438 shards.**
 
 ## Basis agreement
 
@@ -29,18 +32,25 @@ FORCED continuation cap 32 tokens.
 
 ## Binding regime — measured truncation share at each E2 budget
 
-Share of E1 records the cap censored (`eos=false`), NATIVE arm. This is
-what makes 1024 and 2048 the non-binding controls, and it is where the
-`PAPER.md` §5 test lives.
+Share of E1 records the cap censored (`eos=false`), by arm. This is what
+makes 2048 the decoupled block's enforced cap, and it is the pre-stated
+measurement that selects the confirmatory cells in
+`prereg-budget-aware.md` §8.3.
 
-| model | lang | B128 | B192 | B256 | B384 | B512 | B1024 | B2048 |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| qwen3_8b | de | 97.3% | 80.0% | 53.7% | 16.6% | 5.0% | 0.1% | 0.1% |
-| qwen3_8b | sw | 82.1% | 61.5% | 43.5% | 22.6% | 13.2% | 10.0% | 11.3% |
-| qwen3_8b | th | 99.5% | 95.9% | 84.5% | 48.6% | 20.2% | 0.8% | 0.4% |
-| llama_3_1_8b_instruct | de | 97.8% | 82.7% | 56.7% | 17.0% | 4.7% | 1.1% | 0.7% |
-| llama_3_1_8b_instruct | sw | 99.3% | 93.0% | 77.8% | 36.5% | 11.3% | 0.2% | 1.0% |
-| llama_3_1_8b_instruct | th | 98.7% | 90.8% | 74.9% | 35.8% | 10.6% | 1.0% | 0.5% |
+| model | arm | lang | B128 | B192 | B256 | B384 | B512 | B1024 | B2048 |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| qwen3_8b | native | de | 97.30% | 80.05% | 53.70% | 16.65% | 4.95% | 0.10% | 0.10% |
+| qwen3_8b | native | sw | 82.10% | 61.45% | 43.50% | 22.55% | 13.25% | 10.00% | 11.35% |
+| qwen3_8b | native | th | 99.50% | 95.90% | 84.45% | 48.60% | 20.25% | 0.85% | 0.40% |
+| qwen3_8b | translate_act | de | 98.75% | 75.25% | 46.20% | 9.75% | 2.05% | 0.45% | 0.30% |
+| qwen3_8b | translate_act | sw | 97.75% | 82.65% | 52.55% | 16.00% | 5.15% | 0.50% | 0.50% |
+| qwen3_8b | translate_act | th | 99.35% | 79.15% | 49.30% | 10.20% | 2.25% | 0.20% | 0.00% |
+| llama_3_1_8b_instruct | native | de | 97.85% | 82.70% | 56.70% | 17.00% | 4.70% | 1.10% | 0.70% |
+| llama_3_1_8b_instruct | native | sw | 99.35% | 93.00% | 77.80% | 36.45% | 11.35% | 0.25% | 1.00% |
+| llama_3_1_8b_instruct | native | th | 98.70% | 90.75% | 74.90% | 35.75% | 10.60% | 1.00% | 0.45% |
+| llama_3_1_8b_instruct | translate_act | de | 99.75% | 82.90% | 49.85% | 11.45% | 4.80% | 1.75% | 1.75% |
+| llama_3_1_8b_instruct | translate_act | sw | 98.45% | 82.10% | 47.65% | 11.65% | 4.45% | 2.35% | 2.30% |
+| llama_3_1_8b_instruct | translate_act | th | 99.25% | 81.00% | 48.60% | 12.60% | 5.25% | 2.30% | 2.20% |
 
 ## FORCED surcharge, and what it would actually be forcing
 

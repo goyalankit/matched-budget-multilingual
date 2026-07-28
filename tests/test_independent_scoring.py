@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 
 import numpy as np
@@ -82,7 +83,11 @@ def test_score_shard_rejects_incomplete_coverage(tmp_path) -> None:
 
 
 def _cell(language: str, budget: int, base_rate: float, prem_rate: float, n=250, k=8):
-    rng = np.random.default_rng(abs(hash((language, budget))) % 2**32)
+    # Seed from a stable digest, not Python's hash(): str hashing is salted per
+    # process, so hash-seeded fixtures draw different data on every run and the
+    # assertions below become flaky rather than reproducible.
+    digest = hashlib.sha256(f"{language}\x1f{budget}".encode("utf-8")).digest()
+    rng = np.random.default_rng(int.from_bytes(digest[:4], "big"))
     return Cell(
         language=language,
         budget=budget,

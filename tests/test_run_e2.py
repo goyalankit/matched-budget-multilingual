@@ -16,11 +16,14 @@ import pytest
 
 from src.engine import GenerationResult
 from src.generate import (
+    ANNOUNCING_CONDITIONS,
     AWARE,
     FORCED,
     PLACEBO,
+    TAG,
     LedgerVerificationError,
     forced_generation_record,
+    generation_record,
     read_ledger,
     record_id,
     verify_ledger,
@@ -32,6 +35,7 @@ from src.seeds import budget_seed, condition_seed
 _ROOT = Path(__file__).resolve().parents[1]
 _E2_LANGUAGES = ("de", "th", "sw")
 _E2_ARMS = ("native", "translate_act")
+_E2_CONDITIONS = (AWARE, PLACEBO, TAG)
 _ANCHORS = {
     ("native", "de"): "Aufgabe:",
     ("native", "th"): "โจทย์:",
@@ -46,14 +50,27 @@ _ANCHORS = {
 # edit to a template that breaks the tolerance fails here rather than silently.
 # See prompts-e2/NOTES.md §4 for the measurement and its caveats.
 _MEASURED_DELTAS = {
-    ("native", "de"): {"aware": (18, 19), "placebo": (19, 19)},
-    ("native", "th"): {"aware": (25, 26), "placebo": (25, 25)},
-    ("native", "sw"): {"aware": (20, 21), "placebo": (22, 22)},
-    ("translate_act", "de"): {"aware": (17, 18), "placebo": (17, 17)},
-    ("translate_act", "th"): {"aware": (17, 18), "placebo": (17, 17)},
-    ("translate_act", "sw"): {"aware": (17, 18), "placebo": (17, 17)},
+    ("native", "de"): {"aware": (29, 30), "placebo": (30, 30), "tag": (10, 11)},
+    ("native", "th"): {"aware": (37, 38), "placebo": (40, 40), "tag": (10, 11)},
+    ("native", "sw"): {"aware": (29, 30), "placebo": (27, 27), "tag": (10, 11)},
+    ("translate_act", "de"): {"aware": (23, 24), "placebo": (22, 22), "tag": (10, 11)},
+    ("translate_act", "th"): {"aware": (23, 24), "placebo": (22, 22), "tag": (10, 11)},
+    ("translate_act", "sw"): {"aware": (23, 24), "placebo": (22, 22), "tag": (10, 11)},
 }
 _LENGTH_TOLERANCE = 0.15
+
+# Noun phrases the frozen NATIVE templates already use for the two referents the
+# budget sentence has to distinguish. Rebuilding the AWARE and PLACEBO sentences
+# out of these is what removes the `Antwort`/`Begründung` collision by
+# construction (`prereg-budget-aware.md` §5, `prompts-e2/NOTES.md` §3).
+_AUDITED_REFERENTS = {
+    ("native", "de"): ("gesamte Begründung", "endgültige Antwort"),
+    ("native", "th"): ("เหตุผลทั้งหมดของคุณ", "คำตอบสุดท้าย"),
+    ("native", "sw"): ("hoja zako zote", "jibu la mwisho"),
+    ("translate_act", "de"): ("all of your reasoning", "the final answer"),
+    ("translate_act", "th"): ("all of your reasoning", "the final answer"),
+    ("translate_act", "sw"): ("all of your reasoning", "the final answer"),
+}
 
 
 class RecordingEngine:
@@ -146,6 +163,45 @@ def test_condition_seed_rejects_nonpositive_budget() -> None:
         condition_seed(20260726, "item-1", 0, 0, AWARE)
 
 
+# --- announced budget (the decoupled block) ---------------------------------
+
+
+def test_announced_equal_to_the_cap_leaves_the_seed_unchanged() -> None:
+    """The two blocks must share their common cell, not duplicate it."""
+    assert condition_seed(20260726, "item-1", 0, 2048, AWARE, 2048) == condition_seed(
+        20260726, "item-1", 0, 2048, AWARE
+    )
+
+
+def test_announced_budgets_are_independent_draws_at_one_cap() -> None:
+    seeds = {
+        condition_seed(20260726, "item-1", 0, 2048, AWARE, announced)
+        for announced in (128, 256, 2048)
+    }
+
+    assert len(seeds) == 3
+
+
+def test_announced_seed_still_separates_the_conditions() -> None:
+    assert condition_seed(20260726, "item-1", 0, 2048, AWARE, 128) != condition_seed(
+        20260726, "item-1", 0, 2048, TAG, 128
+    )
+
+
+def test_blind_cannot_announce_a_budget() -> None:
+    with pytest.raises(ValueError, match="announces nothing"):
+        condition_seed(20260726, "item-1", 0, 2048, None, 128)
+
+
+def test_condition_seed_rejects_a_nonpositive_announcement() -> None:
+    with pytest.raises(ValueError, match="announced must be positive"):
+        condition_seed(20260726, "item-1", 0, 2048, AWARE, 0)
+
+
+def test_announcing_conditions_are_exactly_aware_and_tag() -> None:
+    assert ANNOUNCING_CONDITIONS == (AWARE, TAG)
+
+
 # --- record_id -------------------------------------------------------------
 
 
@@ -167,6 +223,25 @@ def test_record_id_with_a_condition_disambiguates_conditions() -> None:
     assert tagged != record_id("m", "de", "native", "1", 6, 512, AWARE)
 
 
+def test_record_id_with_an_announcement_equal_to_the_cap_is_unchanged() -> None:
+    assert record_id("m", "de", "native", "1", 6, 2048, AWARE, 2048) == record_id(
+        "m", "de", "native", "1", 6, 2048, AWARE
+    )
+
+
+def test_record_id_disambiguates_announced_budgets_at_one_cap() -> None:
+    coupled = record_id("m", "de", "native", "1", 6, 2048, AWARE)
+    decoupled = record_id("m", "de", "native", "1", 6, 2048, AWARE, 128)
+
+    assert decoupled == coupled + "\x1fA128"
+    assert decoupled != record_id("m", "de", "native", "1", 6, 2048, AWARE, 256)
+
+
+def test_record_id_rejects_an_announcement_without_a_condition() -> None:
+    with pytest.raises(ValueError, match="needs a condition"):
+        record_id("m", "de", "native", "1", 6, 2048, None, 128)
+
+
 def test_record_id_rejects_an_empty_condition() -> None:
     with pytest.raises(ValueError):
         record_id("m", "de", "native", "1", 6, 256, "")
@@ -175,7 +250,7 @@ def test_record_id_rejects_an_empty_condition() -> None:
 # --- templates -------------------------------------------------------------
 
 
-@pytest.mark.parametrize("condition", [AWARE, PLACEBO])
+@pytest.mark.parametrize("condition", _E2_CONDITIONS)
 @pytest.mark.parametrize("arm", _E2_ARMS)
 @pytest.mark.parametrize("language", _E2_LANGUAGES)
 def test_e2_template_differs_from_the_frozen_one_by_one_inserted_line(
@@ -197,7 +272,7 @@ def test_e2_template_differs_from_the_frozen_one_by_one_inserted_line(
     assert inserted, "E2 template is not the frozen template plus one line"
 
 
-@pytest.mark.parametrize("condition", [AWARE, PLACEBO])
+@pytest.mark.parametrize("condition", _E2_CONDITIONS)
 @pytest.mark.parametrize("arm", _E2_ARMS)
 @pytest.mark.parametrize("language", _E2_LANGUAGES)
 def test_inserted_line_sits_immediately_above_the_problem_block(
@@ -217,20 +292,69 @@ def test_inserted_line_sits_immediately_above_the_problem_block(
 
 @pytest.mark.parametrize("arm", _E2_ARMS)
 @pytest.mark.parametrize("language", _E2_LANGUAGES)
-def test_only_aware_templates_carry_a_budget_placeholder(
+def test_only_announcing_templates_carry_a_budget_placeholder(
     arm: str, language: str
 ) -> None:
-    aware = (_ROOT / "prompts-e2" / AWARE / arm / f"{language}.txt").read_text(
-        encoding="utf-8"
-    )
-    placebo = (_ROOT / "prompts-e2" / PLACEBO / arm / f"{language}.txt").read_text(
-        encoding="utf-8"
-    )
     frozen = (_ROOT / "prompts" / arm / f"{language}.txt").read_text(encoding="utf-8")
 
-    assert "{budget}" in aware
-    assert "{budget}" not in placebo
     assert "{budget}" not in frozen
+    for condition in _E2_CONDITIONS:
+        template = (_ROOT / "prompts-e2" / condition / arm / f"{language}.txt").read_text(
+            encoding="utf-8"
+        )
+        assert ("{budget}" in template) == (condition in ANNOUNCING_CONDITIONS)
+
+
+@pytest.mark.parametrize("arm", _E2_ARMS)
+@pytest.mark.parametrize("language", _E2_LANGUAGES)
+def test_the_tag_line_is_the_same_string_in_every_cell(arm: str, language: str) -> None:
+    """The tag exists to de-confound manipulation strength from budget sensitivity.
+
+    If it were phrased differently per language it would confound them again, so
+    byte identity across all six cells is the property that makes it useful.
+    """
+    frozen = (_ROOT / "prompts" / arm / f"{language}.txt").read_text(
+        encoding="utf-8"
+    ).split("\n")
+    tagged = (_ROOT / "prompts-e2" / TAG / arm / f"{language}.txt").read_text(
+        encoding="utf-8"
+    ).split("\n")
+    inserted = [line for line in tagged if tagged.count(line) > frozen.count(line)]
+
+    assert inserted == ["TOKEN_BUDGET: {budget}"]
+
+
+@pytest.mark.parametrize("key", sorted(_AUDITED_REFERENTS))
+def test_budget_sentences_are_built_from_the_frozen_templates_own_phrases(
+    key: tuple[str, str],
+) -> None:
+    """The `Antwort`/`Begründung` collision is removed by construction.
+
+    Both referents the budget sentence has to distinguish — the reasoning and
+    the final answer — are named with the noun phrase the frozen template itself
+    already uses for them, so the sentence cannot be read as scoping over only
+    the answer line unless the frozen template can be too.
+    """
+    arm, language = key
+    reasoning, answer = _AUDITED_REFERENTS[key]
+    frozen = (_ROOT / "prompts" / arm / f"{language}.txt").read_text(encoding="utf-8")
+
+    assert reasoning in frozen
+    assert answer in frozen
+    for condition in (AWARE, PLACEBO):
+        template = (_ROOT / "prompts-e2" / condition / arm / f"{language}.txt").read_text(
+            encoding="utf-8"
+        )
+        inserted = [
+            line
+            for line in template.split("\n")
+            if line not in frozen.split("\n")
+        ]
+        assert len(inserted) == 1
+        # Casefolded: a sentence-initial phrase is capitalised in Latin scripts.
+        sentence = inserted[0].casefold()
+        assert reasoning.casefold() in sentence, inserted[0]
+        assert answer.casefold() in sentence, inserted[0]
 
 
 @pytest.mark.parametrize("key", sorted(_MEASURED_DELTAS))
@@ -246,6 +370,13 @@ def test_aware_and_placebo_token_lengths_are_within_tolerance(
     )
 
     assert worst <= _LENGTH_TOLERANCE
+
+
+def test_the_tag_costs_the_same_number_of_tokens_everywhere() -> None:
+    """No length matching is needed for the tag; identity does the work."""
+    deltas = {entry["tag"] for entry in _MEASURED_DELTAS.values()}
+
+    assert len(deltas) == 1
 
 
 @pytest.mark.parametrize("key", sorted(_MEASURED_DELTAS))
@@ -266,7 +397,7 @@ def test_stored_token_lengths_match_the_tokenizer(key: tuple[str, str]) -> None:
     frozen = (_ROOT / "prompts" / arm / f"{language}.txt").read_text(encoding="utf-8")
     base = len(tokenizer.encode(frozen, add_special_tokens=False))
 
-    for condition in (AWARE, PLACEBO):
+    for condition in _E2_CONDITIONS:
         template = (_ROOT / "prompts-e2" / condition / arm / f"{language}.txt").read_text(
             encoding="utf-8"
         )
@@ -339,6 +470,17 @@ def test_forced_and_blind_read_the_frozen_template() -> None:
     assert run_independent.template_path("native", "th", None) == frozen
     assert run_independent.template_path("native", "th", FORCED) == frozen
     assert run_independent.template_path("native", "th", AWARE) != frozen
+    assert run_independent.template_path("native", "th", TAG) != frozen
+
+
+def test_the_tag_template_states_the_announced_number() -> None:
+    import src.run_independent as run_independent
+
+    template = run_independent.load_template("translate_act", "sw", TAG)
+    prompt = run_independent.render_prompt(template, "Swali", 128)
+
+    assert "TOKEN_BUDGET: 128" in prompt
+    assert "{budget}" not in prompt
 
 
 def test_load_template_rejects_a_misplaced_budget_placeholder(
@@ -485,6 +627,8 @@ def _run(monkeypatch, tmp_path, **kwargs):
     monkeypatch.setattr(run_independent, "load_mgsm_questions", _questions)
     monkeypatch.setattr(run_independent, "load_premium", lambda *_: 2.0)
     engine = RecordingEngine(emit_answer=kwargs.pop("emit_answer", False))
+    kwargs.setdefault("decoupled_cap", 16)
+    kwargs.setdefault("announced_grid", (4, 8, 16))
     report = run_independent.run_model_e2(
         "mock_model",
         engine,
@@ -501,17 +645,55 @@ def _run(monkeypatch, tmp_path, **kwargs):
     return run_independent, engine, report
 
 
+# native caps {8,16} | {16,32} = 8,16,32 ; translate_act 8,16 ; x 3 conditions.
+_COUPLED_SHARDS = (3 + 2) * 3
+# Per arm: AWARE at announced 4 and 8 (16 is the coupled cell), TAG at 4, 8, 16.
+_DECOUPLED_SHARDS = (2 + 3) * 2
+_SHARDS = _COUPLED_SHARDS + _DECOUPLED_SHARDS
+
+
 def test_shards_are_partitioned_by_condition_and_cap(monkeypatch, tmp_path) -> None:
     _, _, report = _run(monkeypatch, tmp_path)
 
-    # native: {8,16} | {16,32} = 8,16,32 ; translate_act: 8,16 ; x 3 conditions
-    assert len(report["shards"]) == (3 + 2) * 3
+    assert len(report["shards"]) == _SHARDS
     assert {shard["condition"] for shard in report["shards"]} == {
         AWARE,
         PLACEBO,
         FORCED,
+        TAG,
     }
-    assert report["total_units"] == (3 + 2) * 3 * 2 * 2
+    assert report["total_units"] == _SHARDS * 2 * 2
+
+
+def test_the_decoupled_block_reuses_the_coupled_cell_it_shares(
+    monkeypatch, tmp_path
+) -> None:
+    """Announced == cap is one shard, not two: same prompt, cap, seed and IDs."""
+    _, _, report = _run(monkeypatch, tmp_path)
+
+    aware_at_16 = [
+        shard
+        for shard in report["shards"]
+        if shard["condition"] == AWARE
+        and shard["budget"] == 16
+        and shard["announced_budget"] == 16
+    ]
+
+    assert len(aware_at_16) == 2  # one per arm, not one per block
+
+
+def test_decoupled_shards_hold_the_cap_and_move_the_announcement(
+    monkeypatch, tmp_path
+) -> None:
+    _, engine, _ = _run(
+        monkeypatch, tmp_path, conditions=(), decoupled_conditions=(TAG,)
+    )
+
+    announced = {int(prompt.split("TOKEN_BUDGET: ")[1].split("\n")[0]) for prompt, *_ in engine.calls}
+    caps = {cap for *_, cap in engine.calls}
+
+    assert announced == {4, 8, 16}
+    assert caps == {16}, "the enforced cap must not move with the announcement"
 
 
 def test_no_record_lands_in_the_wrong_conditions_shard(monkeypatch, tmp_path) -> None:
@@ -519,14 +701,22 @@ def test_no_record_lands_in_the_wrong_conditions_shard(monkeypatch, tmp_path) ->
 
     seen = 0
     for path in Path(tmp_path).rglob("shard.jsonl"):
-        cap = int(path.parent.name.removeprefix("B"))
+        leaf = path.parent.name
+        cap = int(leaf.removeprefix("B").split("_")[0])
+        announced = (
+            int(leaf.split("_A")[1]) if "_A" in leaf else None
+        )
         condition = path.parent.parent.name
         for record in read_ledger(path):
             seen += 1
             assert record["condition"] == condition
             assert record["budget"] == cap
-            assert record["record_id"].endswith(f"\x1fB{cap}\x1fC{condition}")
-    assert seen == (3 + 2) * 3 * 2 * 2
+            expected_tail = f"\x1fB{cap}\x1fC{condition}"
+            if announced is not None:
+                expected_tail += f"\x1fA{announced}"
+                assert record["announced_budget"] == announced
+            assert record["record_id"].endswith(expected_tail)
+    assert seen == _SHARDS * 2 * 2
 
 
 def test_shard_paths_carry_the_condition_segment(monkeypatch, tmp_path) -> None:
@@ -541,6 +731,28 @@ def test_shard_paths_carry_the_condition_segment(monkeypatch, tmp_path) -> None:
     assert expected.parts[-4:] == ("native", "aware", "B00008", "shard.jsonl")
 
 
+def test_decoupled_shard_paths_carry_the_announced_budget(monkeypatch, tmp_path) -> None:
+    import src.run_independent as run_independent
+
+    _run(monkeypatch, tmp_path)
+    expected = run_independent.shard_path(
+        Path(tmp_path), "mock_model", "de", "native", 16, AWARE, 4
+    )
+
+    assert expected.is_file()
+    assert expected.parts[-4:] == ("native", "aware", "B00016_A00004", "shard.jsonl")
+
+
+def test_a_coupled_shard_path_is_unchanged_by_a_matching_announcement() -> None:
+    import src.run_independent as run_independent
+
+    assert run_independent.shard_path(
+        Path("runs-e2"), "qwen3_8b", "de", "native", 2048, AWARE, 2048
+    ) == run_independent.shard_path(
+        Path("runs-e2"), "qwen3_8b", "de", "native", 2048, AWARE
+    )
+
+
 def test_e1_shard_path_is_unchanged_when_the_condition_is_omitted() -> None:
     import src.run_independent as run_independent
 
@@ -550,14 +762,16 @@ def test_e1_shard_path_is_unchanged_when_the_condition_is_omitted() -> None:
 
 
 def test_aware_shard_prompts_state_their_own_cap(monkeypatch, tmp_path) -> None:
-    _, engine, _ = _run(monkeypatch, tmp_path, conditions=(AWARE,))
+    _, engine, _ = _run(
+        monkeypatch, tmp_path, conditions=(AWARE,), decoupled_conditions=()
+    )
 
     for prompt, _, cap in engine.calls:
         assert f"höchstens {cap} Token" in prompt or f"most {cap} tokens" in prompt
 
 
 def test_forced_shards_may_exceed_their_cap_but_verify(monkeypatch, tmp_path) -> None:
-    _run(monkeypatch, tmp_path, conditions=(FORCED,))
+    _run(monkeypatch, tmp_path, conditions=(FORCED,), decoupled_conditions=())
 
     overruns = 0
     for path in Path(tmp_path).rglob("shard.jsonl"):
@@ -583,10 +797,32 @@ def test_e2_defaults_match_the_protocol() -> None:
 
     assert run_independent.E2_BUDGET_GRID == (128, 192, 256, 384, 512, 1024, 2048)
     assert run_independent.E2_ARMS == ("native", "translate_act")
-    assert run_independent.E2_CONDITIONS == (AWARE, PLACEBO, FORCED)
+    assert run_independent.E2_COUPLED_CONDITIONS == (AWARE, PLACEBO, FORCED)
+    assert run_independent.E2_DECOUPLED_CONDITIONS == (AWARE, TAG)
+    assert run_independent.E2_CONDITIONS == (AWARE, PLACEBO, FORCED, TAG)
     assert run_independent.E2_CONTINUATION_MAX_TOKENS == 32
-    # The §5 test lives at the non-binding budgets; losing them guts the study.
-    assert {1024, 2048} <= set(run_independent.E2_BUDGET_GRID)
+    # The confirmatory family lives in the decoupled block, at a cap E1 measured
+    # as non-binding; losing either the cap or the low announcement guts it.
+    assert run_independent.E2_DECOUPLED_CAP == 2048
+    assert run_independent.E2_ANNOUNCED_GRID == (128, 256, 2048)
+    assert run_independent.E2_DECOUPLED_CAP in run_independent.E2_BUDGET_GRID
+    assert min(run_independent.E2_ANNOUNCED_GRID) < 256
+
+
+def test_a_condition_that_states_no_budget_cannot_be_decoupled() -> None:
+    import src.run_independent as run_independent
+
+    with pytest.raises(ValueError, match="states no budget"):
+        run_independent.e2_cell_plan(
+            "m",
+            "de",
+            "native",
+            (128,),
+            (),
+            (PLACEBO,),
+            2048,
+            (128,),
+        )
 
 
 def test_e1_defaults_are_untouched() -> None:
@@ -668,6 +904,97 @@ def test_verify_ledger_skips_the_condition_check_when_none(tmp_path) -> None:
         "record_count": 1,
         "unique_count": 1,
     }
+
+
+def test_verify_ledger_rejects_a_record_that_announced_another_number(
+    tmp_path,
+) -> None:
+    record = _record(
+        record_id=record_id("m", "de", "native", "1", 0, 2048, AWARE, 256),
+        budget=2048,
+        announced_budget=256,
+    )
+    path = _write(tmp_path, record)
+
+    with pytest.raises(LedgerVerificationError, match="announced"):
+        verify_ledger(
+            path,
+            1,
+            expected_budget=2048,
+            expected_condition=AWARE,
+            expected_announced=128,
+        )
+
+
+def test_verify_ledger_rejects_an_announcement_in_a_placebo_shard(tmp_path) -> None:
+    """PLACEBO states no number; a record that did is a template bug."""
+    record = _record(
+        record_id=record_id("m", "de", "native", "1", 0, 256, PLACEBO),
+        condition=PLACEBO,
+        announced_budget=256,
+    )
+    path = _write(tmp_path, record)
+
+    with pytest.raises(LedgerVerificationError, match="announced"):
+        verify_ledger(path, 1, expected_budget=256, expected_condition=PLACEBO)
+
+
+def test_verify_ledger_accepts_a_matching_announcement(tmp_path) -> None:
+    record = _record(
+        record_id=record_id("m", "de", "native", "1", 0, 2048, AWARE, 128),
+        budget=2048,
+        announced_budget=128,
+    )
+    path = _write(tmp_path, record)
+
+    assert verify_ledger(
+        path,
+        1,
+        expected_budget=2048,
+        expected_condition=AWARE,
+        expected_announced=128,
+    ) == {"record_count": 1, "unique_count": 1}
+
+
+def test_a_decoupled_record_states_the_announced_number_not_the_cap() -> None:
+    """The announcement is a prompt fact; the cap is a decode parameter."""
+    engine = RecordingEngine()
+    record = generation_record(
+        engine=engine,
+        model_id="m",
+        language="de",
+        arm="native",
+        item_id="1",
+        sample_index=0,
+        prompt="p",
+        base_seed=20260726,
+        budget=2048,
+        condition=AWARE,
+        announced=128,
+    )
+
+    assert record["budget"] == 2048
+    assert record["announced_budget"] == 128
+    assert engine.calls[0][2] == 2048
+
+
+def test_a_coupled_record_records_the_announcement_as_the_cap() -> None:
+    record = generation_record(
+        engine=RecordingEngine(),
+        model_id="m",
+        language="de",
+        arm="native",
+        item_id="1",
+        sample_index=0,
+        prompt="p",
+        base_seed=20260726,
+        budget=256,
+        condition=AWARE,
+        announced=256,
+    )
+
+    assert record["announced_budget"] == 256
+    assert record["record_id"] == record_id("m", "de", "native", "1", 0, 256, AWARE)
 
 
 def test_verify_ledger_still_rejects_an_overlong_non_forced_trace(tmp_path) -> None:

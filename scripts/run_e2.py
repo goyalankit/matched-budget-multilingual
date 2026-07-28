@@ -7,6 +7,10 @@ Protocol: `prereg-budget-aware.md`. Requires the supervisor's freeze tag.
 
 BLIND is not generated here. It is E1's ledger under `runs-independent/`, which
 is what `condition=None` produces byte for byte; see `prereg-budget-aware.md` §4.
+
+Two blocks are generated: the coupled block, where the announced budget is the
+enforced cap, and the decoupled block, where the cap is held at a non-binding
+value and only the announced number varies (`prereg-budget-aware.md` §5).
 """
 
 import argparse
@@ -19,8 +23,11 @@ sys.path.insert(0, str(_ROOT))
 
 from src.engine import VLLMEngine
 from src.run_independent import (
-    E2_CONDITIONS,
+    E2_ANNOUNCED_GRID,
+    E2_COUPLED_CONDITIONS,
     E2_CONTINUATION_MAX_TOKENS,
+    E2_DECOUPLED_CAP,
+    E2_DECOUPLED_CONDITIONS,
     run_model_e2,
 )
 
@@ -39,9 +46,29 @@ def main() -> None:
     parser.add_argument(
         "--conditions",
         nargs="+",
-        choices=list(E2_CONDITIONS),
-        default=list(E2_CONDITIONS),
-        help="generated conditions; BLIND is reused from E1 and is not one of them",
+        choices=list(E2_COUPLED_CONDITIONS),
+        default=list(E2_COUPLED_CONDITIONS),
+        help="coupled-block conditions; BLIND is reused from E1 and is not one of them",
+    )
+    parser.add_argument(
+        "--decoupled-conditions",
+        nargs="+",
+        choices=list(E2_DECOUPLED_CONDITIONS),
+        default=list(E2_DECOUPLED_CONDITIONS),
+        help="conditions run at a fixed cap with the announced budget varied",
+    )
+    parser.add_argument(
+        "--decoupled-cap",
+        type=int,
+        default=E2_DECOUPLED_CAP,
+        help="enforced cap of the decoupled block (protocol §5)",
+    )
+    parser.add_argument(
+        "--announced-grid",
+        nargs="+",
+        type=int,
+        default=list(E2_ANNOUNCED_GRID),
+        help="announced budgets at the decoupled cap",
     )
     parser.add_argument(
         "--continuation-max-tokens",
@@ -65,6 +92,9 @@ def main() -> None:
         concurrency=args.concurrency,
         out_dir=args.out_dir,
         continuation_max_tokens=args.continuation_max_tokens,
+        decoupled_conditions=tuple(args.decoupled_conditions),
+        decoupled_cap=args.decoupled_cap,
+        announced_grid=tuple(args.announced_grid),
     )
     payload = json.dumps(report, sort_keys=True)
     if args.report is not None:

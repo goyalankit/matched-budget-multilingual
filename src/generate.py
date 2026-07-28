@@ -25,6 +25,17 @@ AWARE = "aware"
 PLACEBO = "placebo"
 FORCED = "forced"
 
+# The language-neutral announcement. ``TOKEN_BUDGET: {budget}`` is the same
+# string in every language and in both arms, so a cross-language difference in
+# its effect cannot be a difference in how forcefully the sentence was phrased.
+# It carries a budget and is therefore an announcing condition, like AWARE.
+TAG = "tag"
+
+# Conditions whose prompt states a budget, and which therefore carry an
+# ``announced_budget``. FORCED changes the decode, not the prompt; PLACEBO
+# states no number by construction.
+ANNOUNCING_CONDITIONS: tuple[str, ...] = (AWARE, TAG)
+
 # The answer delimiter the frozen templates ask for ("#### <integer>" on its own
 # final line). Budget forcing appends it when the capped segment has none.
 ANSWER_DELIMITER = "\n#### "
@@ -66,6 +77,7 @@ def record_id(
     sample_index: int,
     budget: int | None = None,
     condition: str | None = None,
+    announced: int | None = None,
 ) -> str:
     """Build a ledger record ID.
 
@@ -78,6 +90,13 @@ def record_id(
     conditions at one cap, so without it the AWARE and PLACEBO records at
     ``B = 256`` would share an ID. Omitting it reproduces an E1 ID byte for
     byte, which is what makes E1 the BLIND arm rather than a separate ledger.
+
+    ``announced`` is one level down again, for E2's decoupled block: several
+    announced budgets are run at one enforced cap, so without it the
+    announced-128 and announced-256 records at ``B = 2048`` would collide. It is
+    appended only when it *differs* from ``budget``, so a coupled cell — where
+    the announcement is the cap — keeps the ID it had before the decoupled block
+    existed and the two blocks share their common cell instead of duplicating it.
     """
     fields = [model_id, language, arm, item_id, str(sample_index)]
     if budget is not None:
@@ -86,6 +105,10 @@ def record_id(
         if not condition:
             raise ValueError("condition must be a non-empty string or None")
         fields.append(f"C{condition}")
+    elif announced is not None and announced != budget:
+        raise ValueError("an announced budget needs a condition to announce it")
+    if announced is not None and announced != budget:
+        fields.append(f"A{announced}")
     return "\x1f".join(fields)
 
 
@@ -161,6 +184,7 @@ def generation_record(
     tokenize_prompt: Callable[[str], Sequence[int]] | None = None,
     budget: int | None = None,
     condition: str | None = None,
+    announced: int | None = None,
 ) -> dict[str, Any]:
     """Generate one trace and return it in the canonical ledger schema.
 
@@ -171,19 +195,32 @@ def generation_record(
     ``condition`` extends that to E2: the seed is derived per condition too, so
     AWARE and PLACEBO at one cap are independent draws. ``condition=None``
     reproduces the E1 seed and the E1 record exactly.
+
+    ``announced`` is the number the prompt states. It equals ``budget`` in the
+    coupled block and differs from it in the decoupled block, where the enforced
+    cap is held at a non-binding value and only the announcement moves. The cap
+    passed to the engine is always ``budget``: the announcement is a prompt
+    fact, never a decode parameter.
     """
     if condition == FORCED:
         raise ValueError(
             "the FORCED condition needs two decode stages; "
             "use forced_generation_record"
         )
+    if announced is not None:
+        if condition is None:
+            raise ValueError("BLIND announces nothing; `announced` must be None")
+        if announced <= 0:
+            raise ValueError("announced must be positive")
     if budget is None:
+        if announced is not None:
+            raise ValueError("an announced budget needs an enforced budget")
         cap = max_tokens
         generation_seed = derive_seed(base_seed, item_id, sample_index)
     else:
         cap = budget
         generation_seed = derive_condition_seed(
-            base_seed, item_id, sample_index, budget, condition
+            base_seed, item_id, sample_index, budget, condition, announced
         )
     started_at = _utc_now()
     result = engine.generate(prompt, generation_seed, cap)
@@ -202,6 +239,7 @@ def generation_record(
         tokenize_prompt=tokenize_prompt,
         budget=budget,
         condition=condition,
+        announced=announced,
     )
 
 
@@ -337,6 +375,7 @@ def _generation_record_from_result(
     tokenize_prompt: Callable[[str], Sequence[int]] | None,
     budget: int | None = None,
     condition: str | None = None,
+    announced: int | None = None,
 ) -> dict[str, Any]:
     if result.input_token_count is not None:
         input_token_ids = (
@@ -351,7 +390,14 @@ def _generation_record_from_result(
         input_token_count = len(input_token_ids)
     record = {
         "record_id": record_id(
-            model_id, language, arm, item_id, sample_index, budget, condition
+            model_id,
+            language,
+            arm,
+            item_id,
+            sample_index,
+            budget,
+            condition,
+            announced,
         ),
         "model_id": model_id,
         "language": language,
@@ -372,6 +418,11 @@ def _generation_record_from_result(
         record["budget"] = budget
     if condition is not None:
         record["condition"] = condition
+    if announced is not None:
+        # Written even when it equals the cap: a record must say what number its
+        # prompt stated, and "the same as the cap" is a fact about the coupled
+        # block rather than an absence of an announcement.
+        record["announced_budget"] = announced
     return record
 
 
@@ -439,6 +490,7 @@ def verify_ledger(
     expected_count: int,
     expected_budget: int | None = None,
     expected_condition: str | None = None,
+    expected_announced: int | None = None,
 ) -> dict[str, int]:
     """Verify exact record count, IDs, and token-count consistency.
 
@@ -451,6 +503,13 @@ def verify_ledger(
     are partitioned by condition as well as by cap. It is skipped when ``None``,
     exactly as ``expected_budget`` is, so E1 and the frozen ledger verify
     unchanged.
+
+    ``expected_announced`` is checked whenever ``expected_condition`` is set, and
+    is checked *exactly* — including against ``None``. E2's decoupled shards are
+    partitioned by the announced budget at one enforced cap, so a record that
+    stated a different number than its shard is the same class of aliasing bug,
+    and a PLACEBO record that somehow carries an announcement is a template bug.
+    E1 passes no condition and is therefore untouched by this check.
 
     FORCED records are the one exception to the cap rule: budget forcing decodes
     a bounded continuation *past* the cap by construction, so such a record may
@@ -474,13 +533,18 @@ def verify_ledger(
             raise LedgerVerificationError("input token count mismatch")
         if record["output_token_count"] != len(record["output_token_ids"]):
             raise LedgerVerificationError("output token count mismatch")
-        if expected_condition is not None and record.get("condition") != (
-            expected_condition
-        ):
-            raise LedgerVerificationError(
-                f"record {record['record_id']} has condition "
-                f"{record.get('condition')!r}, expected {expected_condition!r}"
-            )
+        if expected_condition is not None:
+            if record.get("condition") != expected_condition:
+                raise LedgerVerificationError(
+                    f"record {record['record_id']} has condition "
+                    f"{record.get('condition')!r}, expected {expected_condition!r}"
+                )
+            if record.get("announced_budget") != expected_announced:
+                raise LedgerVerificationError(
+                    f"record {record['record_id']} announced "
+                    f"{record.get('announced_budget')!r}, "
+                    f"expected {expected_announced!r}"
+                )
         if expected_budget is not None:
             if record.get("budget") != expected_budget:
                 raise LedgerVerificationError(

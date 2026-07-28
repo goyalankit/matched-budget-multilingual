@@ -21,9 +21,11 @@ from typing import Any, Sequence
 
 from src.engine import EngineProtocol
 from src.generate import (
+    ANNOUNCING_CONDITIONS,
     AWARE,
     FORCED,
     PLACEBO,
+    TAG,
     LedgerVerificationError,
     append_ledger_records,
     forced_generation_record,
@@ -48,16 +50,35 @@ ALL_ARMS: tuple[str, ...] = (NATIVE, TRANSLATE_ACT, PIVOT, CODE_SWITCHED)
 
 # --- E2 (`prereg-budget-aware.md`) -----------------------------------------
 
-# E2 §5. 128-512 sit in the binding regime; 1024 and 2048 are the non-binding
-# controls, and they are where the PAPER.md §5 adaptation-ladder test lives.
+# E2 §5. The coupled block: the announced budget is the enforced cap. 128-512
+# sit in the binding regime; 1024 and 2048 are the non-binding controls.
 E2_BUDGET_GRID: tuple[int, ...] = (128, 192, 256, 384, 512, 1024, 2048)
 
 # E2 §5. NATIVE and TRANSLATE-ACT only.
 E2_ARMS: tuple[str, ...] = (NATIVE, TRANSLATE_ACT)
 
-# E2 §5. BLIND is absent by design: it is `condition=None`, i.e. the E1 ledger,
-# and is reused rather than regenerated.
-E2_CONDITIONS: tuple[str, ...] = (AWARE, PLACEBO, FORCED)
+# E2 §5. Conditions of the coupled block. BLIND is absent by design: it is
+# `condition=None`, i.e. the E1 ledger, and is reused rather than regenerated.
+E2_COUPLED_CONDITIONS: tuple[str, ...] = (AWARE, PLACEBO, FORCED)
+
+# E2 §5. The decoupled block holds the enforced cap at a non-binding value and
+# varies only the *announced* number. Both of its conditions announce a budget:
+# a condition that states no number has nothing to decouple.
+E2_DECOUPLED_CONDITIONS: tuple[str, ...] = (AWARE, TAG)
+
+# E2 §5. Every condition that is generated anywhere in the study.
+E2_CONDITIONS: tuple[str, ...] = (AWARE, PLACEBO, FORCED, TAG)
+
+# E2 §5. The enforced cap of the decoupled block. Measured on E1 as non-binding
+# in five of the six (arm, language) cells on the confirmatory model; the sixth,
+# Qwen NATIVE Swahili, is excluded in advance on that measurement (§8.3).
+E2_DECOUPLED_CAP = 2048
+
+# E2 §5. Announced budgets at that cap. 128 is far below the median trace and is
+# a real constraint; 2048 is the cap itself and announces nothing binding; 256
+# interpolates. The announced-2048 cell coincides with the coupled cell at
+# B = 2048 and is generated once, not twice.
+E2_ANNOUNCED_GRID: tuple[int, ...] = (128, 256, 2048)
 
 # Conditions whose prompt is the frozen template, unchanged.
 _FROZEN_TEMPLATE_CONDITIONS = (None, FORCED)
@@ -123,16 +144,71 @@ def shard_path(
     arm: str,
     cap: int,
     condition: str | None = None,
+    announced: int | None = None,
 ) -> Path:
     """Path of one shard.
 
     The condition segment appears only when a condition is set, so an E1 path is
-    reproduced exactly by omitting it.
+    reproduced exactly by omitting it. The announced budget appears in the cap
+    directory only when it differs from the cap, so a coupled cell keeps the path
+    it had before the decoupled block existed.
     """
     base = output_root / model_key / language / arm
     if condition is not None:
         base = base / condition
-    return base / f"B{cap:05d}" / "shard.jsonl"
+    elif announced is not None and announced != cap:
+        raise ValueError("an announced budget needs a condition to announce it")
+    leaf = f"B{cap:05d}"
+    if announced is not None and announced != cap:
+        leaf = f"{leaf}_A{announced:05d}"
+    return base / leaf / "shard.jsonl"
+
+
+def announces_budget(condition: str | None) -> bool:
+    """Whether this condition's prompt states a number."""
+    return condition in ANNOUNCING_CONDITIONS
+
+
+def e2_cell_plan(
+    model_key: str,
+    language: str,
+    arm: str,
+    grid: Sequence[int] = E2_BUDGET_GRID,
+    conditions: Sequence[str] = E2_COUPLED_CONDITIONS,
+    decoupled_conditions: Sequence[str] = (),
+    decoupled_cap: int | None = None,
+    announced_grid: Sequence[int] = (),
+) -> tuple[tuple[str, int, int | None], ...]:
+    """Every ``(condition, cap, announced)`` cell for one (model, language, arm).
+
+    The coupled block runs each condition over the arm's full cap set with the
+    announcement pinned to the cap. The decoupled block runs its conditions at
+    one non-binding cap over the announced grid. Their common cell — announced
+    equal to the decoupled cap, in a condition that appears in both blocks — is
+    emitted once, because it is literally the same shard: same prompt, same cap,
+    same seed, same record IDs.
+    """
+    cells: list[tuple[str, int, int | None]] = []
+    seen: set[tuple[str, int, int | None]] = set()
+
+    def add(cell: tuple[str, int, int | None]) -> None:
+        if cell not in seen:
+            seen.add(cell)
+            cells.append(cell)
+
+    for condition in conditions:
+        for cap in cap_set(model_key, language, arm, grid):
+            add((condition, cap, cap if announces_budget(condition) else None))
+    if decoupled_cap is not None:
+        for condition in decoupled_conditions:
+            if not announces_budget(condition):
+                raise ValueError(
+                    f"condition {condition!r} states no budget and cannot be "
+                    "decoupled from the cap"
+                )
+            for announced in announced_grid:
+                add((condition, decoupled_cap, announced))
+    return tuple(cells)
 
 
 def template_path(arm: str, language: str, condition: str | None = None) -> Path:
@@ -152,12 +228,12 @@ def load_template(arm: str, language: str, condition: str | None = None) -> str:
     """Read a template and assert its ``{budget}`` placeholder matches its condition."""
     template = template_path(arm, language, condition).read_text(encoding="utf-8")
     has_budget = "{budget}" in template
-    if condition == AWARE and not has_budget:
+    if announces_budget(condition) and not has_budget:
         raise ValueError(
-            f"AWARE template {template_path(arm, language, condition)} has no "
-            "{budget} placeholder; it cannot state the budget"
+            f"template {template_path(arm, language, condition)} has no "
+            f"{{budget}} placeholder; condition {condition!r} cannot state a budget"
         )
-    if condition != AWARE and has_budget:
+    if not announces_budget(condition) and has_budget:
         raise ValueError(
             f"template {template_path(arm, language, condition)} has a {{budget}} "
             f"placeholder but condition is {condition!r}"
@@ -171,10 +247,13 @@ def load_template(arm: str, language: str, condition: str | None = None) -> str:
 
 
 def render_prompt(template: str, question: str, budget: int) -> str:
-    """Substitute the budget, then the problem.
+    """Substitute the announced budget, then the problem.
 
     In that order: an MGSM item that happened to contain the literal text
-    ``{budget}`` would otherwise have it replaced by the cap.
+    ``{budget}`` would otherwise have it replaced by the number.
+
+    ``budget`` here is the number the prompt is to *state*, which in the
+    decoupled block is not the cap the engine is given.
     """
     return template.replace("{budget}", str(budget)).replace("{problem}", question)
 
@@ -190,6 +269,7 @@ class _WorkUnit:
     template: str
     question: str
     condition: str | None = None
+    announced: int | None = None
 
 
 def run_model_independent(
@@ -204,12 +284,20 @@ def run_model_independent(
     out_dir: str | Path = "runs-independent",
     conditions: Sequence[str | None] = (None,),
     continuation_max_tokens: int = E2_CONTINUATION_MAX_TOKENS,
+    decoupled_conditions: Sequence[str] = (),
+    decoupled_cap: int | None = None,
+    announced_grid: Sequence[int] = (),
 ) -> dict[str, Any]:
     """Generate or resume every independent-decoding unit for one model.
 
     With the default ``conditions=(None,)`` this is E1 exactly. Passing E2's
     conditions adds the condition dimension to the shard path, the record ID,
     the seed, and the record, and routes FORCED through the two-stage decode.
+
+    ``decoupled_conditions`` / ``decoupled_cap`` / ``announced_grid`` add E2's
+    decoupled block, in which the enforced cap is held fixed and only the
+    announced number varies. They default to empty, so E1 and the coupled block
+    are unaffected.
     """
     if not model_key:
         raise ValueError("model_key must be non-empty")
@@ -223,19 +311,30 @@ def run_model_independent(
         raise ValueError("budgets must be positive")
     if continuation_max_tokens <= 0:
         raise ValueError("continuation_max_tokens must be positive")
-    if not conditions:
+    if not conditions and not decoupled_conditions:
         raise ValueError("conditions must not be empty")
     selected_conditions = tuple(
         _validate_condition(condition) for condition in conditions
     )
     if len(set(selected_conditions)) != len(selected_conditions):
         raise ValueError("conditions must not contain duplicates")
+    selected_decoupled = tuple(
+        _validate_condition(condition) for condition in decoupled_conditions
+    )
+    if len(set(selected_decoupled)) != len(selected_decoupled):
+        raise ValueError("decoupled_conditions must not contain duplicates")
+    if selected_decoupled and decoupled_cap is None:
+        raise ValueError("decoupled_conditions need a decoupled_cap")
+    if decoupled_cap is not None and decoupled_cap <= 0:
+        raise ValueError("decoupled_cap must be positive")
+    if any(announced <= 0 for announced in announced_grid):
+        raise ValueError("announced budgets must be positive")
 
     selected_languages = _validate_distinct("languages", languages)
     selected_arms = _validate_distinct("arms", arms)
     output_root = Path(out_dir)
     work_units: list[_WorkUnit] = []
-    shard_specs: list[tuple[str, str, int, str | None, Path, int]] = []
+    shard_specs: list[tuple[str, str, int, str | None, int | None, Path, int]] = []
     already_present = 0
 
     for language in selected_languages:
@@ -251,82 +350,108 @@ def run_model_independent(
             raise ValueError(f"duplicate MGSM item IDs for {language}")
 
         for arm in selected_arms:
-            for condition in selected_conditions:
-                template = load_template(arm, language, condition)
-                for cap in cap_set(model_key, language, arm, grid):
-                    path = shard_path(
-                        output_root, model_key, language, arm, cap, condition
+            templates = {
+                condition: load_template(arm, language, condition)
+                for condition in set(selected_conditions) | set(selected_decoupled)
+            }
+            plan = e2_cell_plan(
+                model_key,
+                language,
+                arm,
+                grid,
+                selected_conditions,
+                selected_decoupled,
+                decoupled_cap,
+                announced_grid,
+            )
+            for condition, cap, announced in plan:
+                template = templates[condition]
+                path = shard_path(
+                    output_root, model_key, language, arm, cap, condition, announced
+                )
+                expected_ids = {
+                    record_id(
+                        model_key,
+                        language,
+                        arm,
+                        item_id,
+                        sample_index,
+                        cap,
+                        condition,
+                        announced,
                     )
-                    expected_ids = {
-                        record_id(
+                    for item_id in item_ids
+                    for sample_index in range(k)
+                }
+                existing = read_ledger(path)
+                if any(
+                    record["model_id"] != model_key
+                    or record["language"] != language
+                    or record["arm"] != arm
+                    or record.get("budget") != cap
+                    or record.get("condition") != condition
+                    or record.get("announced_budget") != announced
+                    for record in existing
+                ):
+                    raise LedgerVerificationError(
+                        f"{path} contains records inconsistent with its shard"
+                    )
+                completed_ids = {record["record_id"] for record in existing}
+                if len(completed_ids) != len(existing):
+                    raise LedgerVerificationError(f"{path} contains duplicate records")
+                if completed_ids - expected_ids:
+                    raise LedgerVerificationError(
+                        f"{path} contains records outside the requested run"
+                    )
+                already_present += len(completed_ids)
+                shard_specs.append(
+                    (
+                        language,
+                        arm,
+                        cap,
+                        condition,
+                        announced,
+                        path,
+                        len(expected_ids),
+                    )
+                )
+
+                for item in selected:
+                    for sample_index in range(k):
+                        unit_id = record_id(
                             model_key,
                             language,
                             arm,
-                            item_id,
+                            item.item_id,
                             sample_index,
                             cap,
                             condition,
+                            announced,
                         )
-                        for item_id in item_ids
-                        for sample_index in range(k)
-                    }
-                    existing = read_ledger(path)
-                    if any(
-                        record["model_id"] != model_key
-                        or record["language"] != language
-                        or record["arm"] != arm
-                        or record.get("budget") != cap
-                        or record.get("condition") != condition
-                        for record in existing
-                    ):
-                        raise LedgerVerificationError(
-                            f"{path} contains records inconsistent with its shard"
-                        )
-                    completed_ids = {record["record_id"] for record in existing}
-                    if len(completed_ids) != len(existing):
-                        raise LedgerVerificationError(
-                            f"{path} contains duplicate records"
-                        )
-                    if completed_ids - expected_ids:
-                        raise LedgerVerificationError(
-                            f"{path} contains records outside the requested run"
-                        )
-                    already_present += len(completed_ids)
-                    shard_specs.append(
-                        (language, arm, cap, condition, path, len(expected_ids))
-                    )
-
-                    for item in selected:
-                        for sample_index in range(k):
-                            unit_id = record_id(
-                                model_key,
-                                language,
-                                arm,
-                                item.item_id,
-                                sample_index,
-                                cap,
-                                condition,
-                            )
-                            if unit_id not in completed_ids:
-                                work_units.append(
-                                    _WorkUnit(
-                                        shard_path=path,
-                                        language=language,
-                                        arm=arm,
-                                        cap=cap,
-                                        item_id=item.item_id,
-                                        sample_index=sample_index,
-                                        template=template,
-                                        question=item.question,
-                                        condition=condition,
-                                    )
+                        if unit_id not in completed_ids:
+                            work_units.append(
+                                _WorkUnit(
+                                    shard_path=path,
+                                    language=language,
+                                    arm=arm,
+                                    cap=cap,
+                                    item_id=item.item_id,
+                                    sample_index=sample_index,
+                                    template=template,
+                                    question=item.question,
+                                    condition=condition,
+                                    announced=announced,
                                 )
+                            )
 
     total_units = len(shard_specs) * n_items * k
     progress_interval = max(1, total_units // 100)
 
     def generate_and_append(unit: _WorkUnit) -> None:
-        prompt = render_prompt(unit.template, unit.question, unit.cap)
+        # The prompt states `announced`; the engine is capped at `cap`. They are
+        # the same number everywhere except in the decoupled block.
+        stated = unit.cap if unit.announced is None else unit.announced
+        prompt = render_prompt(unit.template, unit.question, stated)
         if unit.condition == FORCED:
             record = forced_generation_record(
                 engine=engine,
@@ -353,6 +478,7 @@ def run_model_independent(
                 base_seed=BASE_SEED,
                 budget=unit.cap,
                 condition=unit.condition,
+                announced=unit.announced,
             )
         append_ledger_records(unit.shard_path, [record])
 
@@ -373,12 +499,13 @@ def run_model_independent(
                 print(f"Progress: {completed}/{total_units}", flush=True)
 
     shard_reports = []
-    for language, arm, cap, condition, path, expected_count in shard_specs:
+    for language, arm, cap, condition, announced, path, expected_count in shard_specs:
         verification = verify_ledger(
             path,
             expected_count,
             expected_budget=cap,
             expected_condition=condition,
+            expected_announced=announced,
         )
         shard_reports.append(
             {
@@ -387,6 +514,7 @@ def run_model_independent(
                 "arm": arm,
                 "budget": cap,
                 "condition": condition,
+                "announced_budget": announced,
                 "path": str(path.relative_to(output_root)),
                 **verification,
             }
@@ -398,6 +526,9 @@ def run_model_independent(
         "base_seed": BASE_SEED,
         "grid": list(grid),
         "conditions": list(selected_conditions),
+        "decoupled_conditions": list(selected_decoupled),
+        "decoupled_cap": decoupled_cap,
+        "announced_grid": list(announced_grid),
         "continuation_max_tokens": continuation_max_tokens,
         "concurrency": concurrency,
         "total_units": total_units,
@@ -413,18 +544,22 @@ def run_model_e2(
     languages: Sequence[str] = ("de", "th", "sw"),
     arms: Sequence[str] = E2_ARMS,
     grid: Sequence[int] = E2_BUDGET_GRID,
-    conditions: Sequence[str] = E2_CONDITIONS,
+    conditions: Sequence[str] = E2_COUPLED_CONDITIONS,
     n_items: int = 250,
     k: int = 8,
     concurrency: int = 32,
     out_dir: str | Path = "runs-e2",
     continuation_max_tokens: int = E2_CONTINUATION_MAX_TOKENS,
+    decoupled_conditions: Sequence[str] = E2_DECOUPLED_CONDITIONS,
+    decoupled_cap: int | None = E2_DECOUPLED_CAP,
+    announced_grid: Sequence[int] = E2_ANNOUNCED_GRID,
 ) -> dict[str, Any]:
     """Generate or resume every E2 unit for one model (`prereg-budget-aware.md`).
 
     A thin set of defaults over :func:`run_model_independent`: E2's grid, its two
-    arms, and its three generated conditions. BLIND is not among them — it is
-    E1's ledger under ``runs-independent/`` and is read, never rewritten.
+    arms, the three conditions of the coupled block, and the decoupled block at
+    one non-binding cap. BLIND is not among them — it is E1's ledger under
+    ``runs-independent/`` and is read, never rewritten.
     """
     return run_model_independent(
         model_key,
@@ -438,4 +573,7 @@ def run_model_e2(
         out_dir=out_dir,
         conditions=conditions,
         continuation_max_tokens=continuation_max_tokens,
+        decoupled_conditions=decoupled_conditions,
+        decoupled_cap=decoupled_cap,
+        announced_grid=announced_grid,
     )

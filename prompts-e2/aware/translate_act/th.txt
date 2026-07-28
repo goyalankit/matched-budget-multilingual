@@ -7,6 +7,6 @@ Then solve the translated problem. Think step by step and write all of your reas
 Write the final answer as the last line, in the format:
 #### <number>
 
-You have a budget of at most {budget} tokens for your whole response.
+The translation, all of your reasoning and the final answer may take at most {budget} tokens in total.
 Problem:
 {problem}

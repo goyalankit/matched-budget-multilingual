@@ -104,12 +104,30 @@ channel through which the cap acts?
 3. **Budget-forced** — at the cap, append the answer delimiter and let the model emit
    (the s1 intervention, already cited in Related Work but never run here).
 
-**Why it matters.** Your §5 adaptation-ladder argument is that both token-count rungs act
-*only* by relieving truncation, so they cannot change an answer where the trace already
-fits. Condition 2 is the direct test of that claim: if budget-aware prompting moves
-accuracy where truncation is not binding, the channel is not truncation alone and the
-ladder analysis needs qualifying. If it does not, the ladder argument gets a great deal
-stronger.
+**Why it matters — corrected.** An earlier version of this entry read: "Your §5
+adaptation-ladder argument is that both token-count rungs act *only* by relieving truncation,
+so they cannot change an answer where the trace already fits. Condition 2 is the direct test of
+that claim." **That is wrong.** §5's "neither" quantifies over exactly two things, the cap and
+the tokenizer, and budget-aware prompting is neither of them — it is the prompting rung, which
+§5 explicitly declines to price. The sentence is also near-analytic as those two rungs are
+operationalised here: `max_tokens` "only stops decoding and never conditions the model", and the
+vocabulary rung holds the emitted text fixed and rescores it (limitation vii), so neither can
+change an answer that already fits, by construction. **No behavioural experiment can falsify
+it**, and E2 does not claim to. The error propagated into the first draft of
+`prereg-budget-aware.md`; see `analysis-out/e2_design_review.md` §1 and §4.1.
+
+What condition 2 *does* test is PAPER.md limitation (i) — "We have not tested whether a model
+told its budget in advance would behave differently" — and, through it, a **scope condition** on
+§5's triage heuristic ("extend the cap on a sample and see how much accuracy the longer prefixes
+recover"), which presupposes that acc(B) is a function of B alone. If accuracy also depends on
+whether B was *announced*, that heuristic is ill-posed for deployments that announce budgets. A
+positive result qualifies the heuristic's scope; it does not refute the ladder. `PAPER.md` §5
+needs no correction — this catalog entry did.
+
+One design consequence, since it changes what condition 2 has to look like: stating the budget
+*and* enforcing it at the same value makes the announcement 4–8× the median trace at any
+non-binding cap, so the manipulation has nothing to bite on. `prereg-budget-aware.md` §1.3
+decouples the announced number from the enforced cap for this reason.
 
 **Cost.** Roughly 2× E1 per condition added (budget-aware traces are shorter on average,
 budget-forced adds a second forward pass at the cap): **~4 GPU-h per model per condition**.

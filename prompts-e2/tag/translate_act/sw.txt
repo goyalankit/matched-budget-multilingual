@@ -1,4 +1,4 @@
-You will be given a math problem written in Thai.
+You will be given a math problem written in Swahili.
 
 First, translate the problem into English. When your translation is complete, write this exact line by itself:
 === TRANSLATION END ===
@@ -7,6 +7,6 @@ Then solve the translated problem. Think step by step and write all of your reas
 Write the final answer as the last line, in the format:
 #### <number>
 
-Think step by step and write the translation, all of your reasoning and the final answer in English as well.
+TOKEN_BUDGET: {budget}
 Problem:
 {problem}

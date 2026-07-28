@@ -18,19 +18,21 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 from src.generate import read_ledger
 from src.parser import has_answer_line
 from src.run_independent import (
-    AWARE,
+    E2_ANNOUNCED_GRID,
     E2_ARMS,
     E2_BUDGET_GRID,
-    E2_CONDITIONS,
     E2_CONTINUATION_MAX_TOKENS,
+    E2_COUPLED_CONDITIONS,
+    E2_DECOUPLED_CAP,
+    E2_DECOUPLED_CONDITIONS,
     FORCED,
     NATIVE,
-    PLACEBO,
+    e2_cell_plan,
     load_premium,
 )
 
@@ -178,15 +180,17 @@ def gpu_hours(output_tokens: int, tokens_per_second: int) -> float:
 def condition_costs(
     model_key: str,
     cap_costs: Sequence[CapCost],
-    conditions: Sequence[str] = E2_CONDITIONS,
+    conditions: Sequence[str] = E2_COUPLED_CONDITIONS,
     continuation_max_tokens: int = E2_CONTINUATION_MAX_TOKENS,
     tokens_per_second: int = OUTPUT_TOKENS_PER_SECOND,
+    cell_plan: Mapping[tuple[str, str], Sequence[tuple[str, int, int | None]]]
+    | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Price each generated condition from one model's per-cap cell costs.
 
-    AWARE and PLACEBO cost one capped decode per cell, so they are priced at the
-    BLIND totals. That is an **upper bound if the AWARE hypothesis is true**: a
-    model that shortens its trace on being told its budget generates fewer
+    AWARE, TAG and PLACEBO cost one capped decode per cell, so they are priced at
+    the BLIND totals. That is an **upper bound if the AWARE hypothesis is true**:
+    a model that shortens its trace on being told its budget generates fewer
     tokens than the BLIND draw whose length we are billing. It is not an upper
     bound if budget awareness makes traces *longer*, which the cap prevents from
     exceeding ``Σ B`` in any case.
@@ -194,15 +198,32 @@ def condition_costs(
     FORCED adds ``continuation_max_tokens`` for every record whose capped
     segment carried no answer line. That is the worst case: the continuation is
     a cap, not a length, and any continuation that stops early costs less.
+
+    ``cell_plan`` maps ``(language, arm)`` to the ``(condition, cap, announced)``
+    cells that condition actually runs. Without it every condition is assumed to
+    run every cell, which is the coupled block's own shape. With it, the
+    decoupled block is priced at its own cap — the announcement is a prompt fact
+    and costs nothing beyond the decode it sits on.
     """
-    base_tokens = sum(cost.output_tokens for cost in cap_costs)
-    unanswered = sum(cost.unanswered for cost in cap_costs)
-    unanswered_truncated = sum(cost.unanswered_truncated for cost in cap_costs)
-    unanswered_complete = sum(cost.unanswered_complete for cost in cap_costs)
-    records = sum(cost.records for cost in cap_costs)
+    by_cap = {(cost.language, cost.arm, cost.cap): cost for cost in cap_costs}
     report: dict[str, dict[str, Any]] = {}
     for condition in conditions:
-        tokens = base_tokens
+        if cell_plan is None:
+            selected = list(cap_costs)
+        else:
+            selected = []
+            for (language, arm), cells in cell_plan.items():
+                for cell_condition, cap, _announced in cells:
+                    if cell_condition != condition:
+                        continue
+                    cost = by_cap.get((language, arm, cap))
+                    if cost is not None:
+                        selected.append(cost)
+        tokens = sum(cost.output_tokens for cost in selected)
+        records = sum(cost.records for cost in selected)
+        unanswered = sum(cost.unanswered for cost in selected)
+        unanswered_truncated = sum(cost.unanswered_truncated for cost in selected)
+        unanswered_complete = sum(cost.unanswered_complete for cost in selected)
         surcharge = 0
         if condition == FORCED:
             surcharge = unanswered * continuation_max_tokens
@@ -210,6 +231,7 @@ def condition_costs(
         report[condition] = {
             "model_id": model_key,
             "condition": condition,
+            "cells": len(selected),
             "records": records,
             "output_tokens": tokens,
             "forced_continuation_tokens": surcharge,
@@ -230,19 +252,36 @@ def estimate(
     languages: Sequence[str] = LANGUAGES,
     arms: Sequence[str] = E2_ARMS,
     grid: Sequence[int] = E2_BUDGET_GRID,
-    conditions: Sequence[str] = E2_CONDITIONS,
+    conditions: Sequence[str] = E2_COUPLED_CONDITIONS,
+    decoupled_conditions: Sequence[str] = E2_DECOUPLED_CONDITIONS,
+    decoupled_cap: int | None = E2_DECOUPLED_CAP,
+    announced_grid: Sequence[int] = E2_ANNOUNCED_GRID,
     continuation_max_tokens: int = E2_CONTINUATION_MAX_TOKENS,
     tokens_per_second: int = OUTPUT_TOKENS_PER_SECOND,
 ) -> dict[str, Any]:
     """Full E2 cost estimate, on both bases, with per-cell detail."""
     capped_root = Path(capped_root)
     uncapped_root = Path(uncapped_root)
+    priced_conditions = tuple(conditions) + tuple(
+        condition for condition in decoupled_conditions if condition not in conditions
+    )
     per_model: dict[str, Any] = {}
     for model_key in models:
         cells: list[CapCost] = []
         cross_check: list[CapCost] = []
+        cell_plan: dict[tuple[str, str], tuple[tuple[str, int, int | None], ...]] = {}
         for language in languages:
             for arm in arms:
+                cell_plan[(language, arm)] = e2_cell_plan(
+                    model_key,
+                    language,
+                    arm,
+                    grid,
+                    conditions,
+                    decoupled_conditions,
+                    decoupled_cap,
+                    announced_grid,
+                )
                 lengths: list[int] | None = None
                 for cap in e2_cap_set(model_key, arm, language, grid):
                     path = _capped_shard_path(
@@ -267,15 +306,17 @@ def estimate(
                                 lengths, model_key, language, arm, cap
                             )
                         )
+        condition_report = condition_costs(
+            model_key,
+            cells,
+            conditions=priced_conditions,
+            continuation_max_tokens=continuation_max_tokens,
+            tokens_per_second=tokens_per_second,
+            cell_plan=cell_plan,
+        )
         per_model[model_key] = {
             "cells": [vars(cost) for cost in cells],
-            "conditions": condition_costs(
-                model_key,
-                cells,
-                conditions=conditions,
-                continuation_max_tokens=continuation_max_tokens,
-                tokens_per_second=tokens_per_second,
-            ),
+            "conditions": condition_report,
             "capped_basis_output_tokens": sum(cost.output_tokens for cost in cells),
             "uncapped_basis_output_tokens": sum(
                 cost.output_tokens for cost in cross_check
@@ -286,12 +327,15 @@ def estimate(
                 for language in languages
                 for arm in arms
             ),
+            "shards": sum(
+                cost["cells"] for cost in condition_report.values()
+            ),
         }
 
     total_tokens = sum(
         entry["conditions"][condition]["output_tokens"]
         for entry in per_model.values()
-        for condition in conditions
+        for condition in priced_conditions
     )
     return {
         "basis": "runs-independent/ (E1), hard-capped decodes at E2's own caps",
@@ -300,10 +344,15 @@ def estimate(
         "continuation_max_tokens": continuation_max_tokens,
         "budgets": list(grid),
         "arms": list(arms),
-        "conditions": list(conditions),
+        "conditions": list(priced_conditions),
+        "coupled_conditions": list(conditions),
+        "decoupled_conditions": list(decoupled_conditions),
+        "decoupled_cap": decoupled_cap,
+        "announced_grid": list(announced_grid),
         "models": per_model,
         "total_output_tokens": total_tokens,
         "total_gpu_hours": gpu_hours(total_tokens, tokens_per_second),
+        "total_shards": sum(entry["shards"] for entry in per_model.values()),
     }
 
 
@@ -318,25 +367,42 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"Budgets `{report['budgets']}`; arms `{report['arms']}`; "
         f"conditions `{report['conditions']}`; NATIVE also at the premium caps "
         "`floor(r*B)`.",
+    ]
+    if report.get("decoupled_cap") is not None:
+        lines.append(
+            f"Decoupled block: conditions `{report.get('decoupled_conditions')}` at a "
+            f"fixed cap of {report['decoupled_cap']} with announced budgets "
+            f"`{report.get('announced_grid')}`. The announcement is a prompt fact and "
+            "costs nothing beyond the decode it sits on; the announced-"
+            f"{report['decoupled_cap']} cell coincides with the coupled cell at that "
+            "cap and is generated once."
+        )
+    lines += [
         f"Throughput {report['tokens_per_second']:,} output tok/s "
         "(measured at concurrency 128, supplied by the brief).",
         f"FORCED continuation cap {report['continuation_max_tokens']} tokens.",
         "",
         "## GPU-hours per model per condition",
         "",
-        "| model | condition | records | output tokens | GPU-h |",
-        "|---|---|---:|---:|---:|",
+        "| model | condition | shards | records | output tokens | GPU-h |",
+        "|---|---|---:|---:|---:|---:|",
     ]
     for model_key, entry in report["models"].items():
         for condition, cost in entry["conditions"].items():
             lines.append(
-                f"| {model_key} | {condition} | {cost['records']:,} | "
+                f"| {model_key} | {condition} | {cost.get('cells', 0):,} | "
+                f"{cost['records']:,} | "
                 f"{cost['output_tokens']:,} | {cost['gpu_hours']:.2f} |"
             )
     lines += [
         "",
         f"**Total {report['total_output_tokens']:,} output tokens, "
-        f"{report['total_gpu_hours']:.2f} GPU-hours.**",
+        f"{report['total_gpu_hours']:.2f} GPU-hours"
+        + (
+            f", {report['total_shards']:,} shards.**"
+            if "total_shards" in report
+            else ".**"
+        ),
         "",
         "## Basis agreement",
         "",
@@ -352,29 +418,35 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## Binding regime — measured truncation share at each E2 budget",
         "",
-        "Share of E1 records the cap censored (`eos=false`), NATIVE arm. This is",
-        "what makes 1024 and 2048 the non-binding controls, and it is where the",
-        "`PAPER.md` §5 test lives.",
+        "Share of E1 records the cap censored (`eos=false`), by arm. This is what",
+        "makes 2048 the decoupled block's enforced cap, and it is the pre-stated",
+        "measurement that selects the confirmatory cells in",
+        "`prereg-budget-aware.md` §8.3.",
         "",
-        "| model | lang | " + " | ".join(f"B{b}" for b in report["budgets"]) + " |",
-        "|---|---|" + "---:|" * len(report["budgets"]),
+        "| model | arm | lang | " + " | ".join(f"B{b}" for b in report["budgets"]) + " |",
+        "|---|---|---|" + "---:|" * len(report["budgets"]),
     ]
     for model_key, entry in report["models"].items():
         by_cell = {
-            (cell["language"], cell["cap"]): cell
+            (cell["arm"], cell["language"], cell["cap"]): cell
             for cell in entry["cells"]
-            if cell["arm"] == NATIVE
         }
-        for language in sorted({cell["language"] for cell in entry["cells"]}):
-            shares = []
-            for budget in report["budgets"]:
-                cell = by_cell.get((language, budget))
-                shares.append(
-                    "n/a"
-                    if cell is None or not cell["records"]
-                    else f"{100 * cell['censored'] / cell['records']:.1f}%"
+        for arm in report["arms"]:
+            languages = sorted(
+                {cell["language"] for cell in entry["cells"] if cell["arm"] == arm}
+            )
+            for language in languages:
+                shares = []
+                for budget in report["budgets"]:
+                    cell = by_cell.get((arm, language, budget))
+                    shares.append(
+                        "n/a"
+                        if cell is None or not cell["records"]
+                        else f"{100 * cell['censored'] / cell['records']:.2f}%"
+                    )
+                lines.append(
+                    f"| {model_key} | {arm} | {language} | " + " | ".join(shares) + " |"
                 )
-            lines.append(f"| {model_key} | {language} | " + " | ".join(shares) + " |")
     lines += [
         "",
         "## FORCED surcharge, and what it would actually be forcing",

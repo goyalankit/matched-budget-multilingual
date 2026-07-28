@@ -1,4 +1,9 @@
 {
+  "announced_grid": [
+    128,
+    256,
+    2048
+  ],
   "arms": [
     "native",
     "translate_act"
@@ -16,10 +21,21 @@
   "conditions": [
     "aware",
     "placebo",
-    "forced"
+    "forced",
+    "tag"
   ],
   "continuation_max_tokens": 32,
+  "coupled_conditions": [
+    "aware",
+    "placebo",
+    "forced"
+  ],
   "cross_check_basis": "runs/ (replay), Sigma_i min(n_i, B) per EXPERIMENTS.md",
+  "decoupled_cap": 2048,
+  "decoupled_conditions": [
+    "aware",
+    "tag"
+  ],
   "models": {
     "llama_3_1_8b_instruct": {
       "capped_basis_output_tokens": 34632654,
@@ -785,17 +801,19 @@
       "cells_found": 63,
       "conditions": {
         "aware": {
+          "cells": 75,
           "condition": "aware",
           "forced_continuation_tokens": 0,
-          "gpu_hours": 1.6324761015894564,
+          "gpu_hours": 2.0026378754454437,
           "model_id": "llama_3_1_8b_instruct",
-          "output_tokens": 34632654,
-          "records": 126000,
+          "output_tokens": 42485562,
+          "records": 150000,
           "unanswered_capped_segments": null,
           "unanswered_complete": null,
           "unanswered_truncated": null
         },
         "forced": {
+          "cells": 63,
           "condition": "forced",
           "forced_continuation_tokens": 2688000,
           "gpu_hours": 1.7591801006844279,
@@ -807,6 +825,7 @@
           "unanswered_truncated": 40293
         },
         "placebo": {
+          "cells": 63,
           "condition": "placebo",
           "forced_continuation_tokens": 0,
           "gpu_hours": 1.6324761015894564,
@@ -816,8 +835,21 @@
           "unanswered_capped_segments": null,
           "unanswered_complete": null,
           "unanswered_truncated": null
+        },
+        "tag": {
+          "cells": 18,
+          "condition": "tag",
+          "forced_continuation_tokens": 0,
+          "gpu_hours": 0.555242660783981,
+          "model_id": "llama_3_1_8b_instruct",
+          "output_tokens": 11779362,
+          "records": 36000,
+          "unanswered_capped_segments": null,
+          "unanswered_complete": null,
+          "unanswered_truncated": null
         }
       },
+      "shards": 219,
       "uncapped_basis_output_tokens": 34657471
     },
     "qwen3_8b": {
@@ -1584,17 +1616,19 @@
       "cells_found": 63,
       "conditions": {
         "aware": {
+          "cells": 75,
           "condition": "aware",
           "forced_continuation_tokens": 0,
-          "gpu_hours": 1.629081113185135,
+          "gpu_hours": 2.0010810377660877,
           "model_id": "qwen3_8b",
-          "output_tokens": 34560630,
-          "records": 126000,
+          "output_tokens": 42452534,
+          "records": 150000,
           "unanswered_capped_segments": null,
           "unanswered_complete": null,
           "unanswered_truncated": null
         },
         "forced": {
+          "cells": 63,
           "condition": "forced",
           "forced_continuation_tokens": 1372928,
           "gpu_hours": 1.6937966891038332,
@@ -1606,6 +1640,7 @@
           "unanswered_truncated": 37886
         },
         "placebo": {
+          "cells": 63,
           "condition": "placebo",
           "forced_continuation_tokens": 0,
           "gpu_hours": 1.629081113185135,
@@ -1615,12 +1650,26 @@
           "unanswered_capped_segments": null,
           "unanswered_complete": null,
           "unanswered_truncated": null
+        },
+        "tag": {
+          "cells": 18,
+          "condition": "tag",
+          "forced_continuation_tokens": 0,
+          "gpu_hours": 0.5579998868714294,
+          "model_id": "qwen3_8b",
+          "output_tokens": 11837856,
+          "records": 36000,
+          "unanswered_capped_segments": null,
+          "unanswered_complete": null,
+          "unanswered_truncated": null
         }
       },
+      "shards": 219,
       "uncapped_basis_output_tokens": 34641670
     }
   },
   "tokens_per_second": 5893,
-  "total_gpu_hours": 9.976091219337444,
-  "total_output_tokens": 211640780
+  "total_gpu_hours": 11.831495465429795,
+  "total_output_tokens": 251002810,
+  "total_shards": 438
 }
