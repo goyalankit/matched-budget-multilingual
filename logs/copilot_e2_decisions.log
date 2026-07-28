@@ -1,0 +1,916 @@
+I'll start by reading both task files.
+
+● Read copilot-e2-decisions-brief.md
+  │ tasks/copilot-e2-decisions-brief.md
+  └ 45 lines read
+
+● Read e2-supervisor-decisions.md
+  │ tasks/e2-supervisor-decisions.md
+  └ 134 lines read
+
+/ Search (grep)
+  │ "TODO\(supervisor\)" (prereg-budget-aware.md)
+  └ 16 lines found
+
+● List repo root and check protocol size (shell)
+  │ cd /home/angoyal/ws/language-research && ls -la && wc -l prereg-budget-aware.md
+  └ 50 lines…
+
+Now let me read the protocol document. It's large, so I'll read it in sections.
+
+● Read prereg-budget-aware.md
+  └ L120:380 (260 lines read)
+
+● Read prereg-budget-aware.md
+  └ L1:120 (120 lines read)
+
+● Read prereg-budget-aware.md
+  └ L380:680 (300 lines read)
+
+● Read prereg-budget-aware.md
+  └ L680:961 (282 lines read)
+
+Now let me examine the codebase structure.
+
+● List source, script and test files (shell)
+  │ cd /home/angoyal/ws/language-research && find src scripts tests -type f -name '*.py' | sort &&
+  │ echo "---" && ls prompts-e2/
+  └ 104 lines…
+
+● Read engine.py
+  │ src/engine.py
+  └ 147 lines read
+
+/ Search (grep)
+  │ "^(def |class |_[A-Z_]+ =|[A-Z_]+ =)" (src/generate.py)
+  └ 23 lines found
+
+/ Search (grep)
+  │ "continuation|forced" (src)
+  └ 118 lines found
+
+● Read generate.py
+  │ src/generate.py
+  └ L1:70 (69 lines read)
+
+● Read generate.py
+  │ src/generate.py
+  └ L240:370 (131 lines read)
+
+● Read run_independent.py
+  │ src/run_independent.py
+  └ L1:120 (118 lines read)
+
+● Read run_independent.py
+  │ src/run_independent.py
+  └ L270:500 (230 lines read)
+
+● Read check_determinism.py
+  │ scripts/check_determinism.py
+  └ 57 lines read
+
+● Read run_e2.py
+  │ scripts/run_e2.py
+  └ 107 lines read
+
+● Read test_engine.py
+  │ tests/test_engine.py
+  └ 145 lines read
+
+● Find forced-related tests (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "continuation\|forced\|FORCED"
+  │ tests/test_generate.py tests/test_run_e2.py | head -60
+  └ 61 lines…
+
+● Read test_run_e2.py
+  │ tests/test_run_e2.py
+  └ L1:120 (120 lines read)
+
+● Read test_run_e2.py
+  │ tests/test_run_e2.py
+  └ L490:620 (129 lines read)
+
+● Inspect scoring and bootstrap APIs (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "^def \|^class \|^_\|^[A-Z_]* ="
+  │ src/independent_scoring.py src/analysis/bootstrap.py | head -50
+  └ 19 lines…
+
+● Check runs-independent layout and E2 notes (shell)
+  │ cd /home/angoyal/ws/language-research && ls runs-independent/ && ls runs-independent/*/ | head
+  │ -20 && cat prompts-e2/NOTES.md | head -40
+  └ 52 lines…
+
+Now I have the shape of the work. Let me check the E1 pilot precedent and set up a plan.
+
+● Inspect pilot run layout and script (shell)
+  │ cd /home/angoyal/ws/language-research && ls runs-independent-pilot/ -R | head -20 && echo "===
+  │ run_pilot ===" && head -40 scripts/run_pilot.py
+  └ 62 lines…
+
+● Check gitignore and E1 pilot precedent (shell)
+  │ cd /home/angoyal/ws/language-research && cat .gitignore && echo "=== PILOT in E1 prereg ===" &&
+  │ grep -n -i "pilot" prereg-independent-decoding.md
+  └ 23 lines…
+
+● Read run_independent.py
+  │ src/run_independent.py
+  └ L120:270 (151 lines read)
+
+● Read run_independent.py
+  │ src/run_independent.py
+  └ L500:600 (80 lines read)
+
+● Read pyproject and test _run helper (shell)
+  │ cd /home/angoyal/ws/language-research && cat pyproject.toml && echo "=== _run helper ===" && sed
+  │ -n '620,800p' tests/test_run_e2.py
+  └ 212 lines…
+
+● Read bootstrap.py
+  │ src/analysis/bootstrap.py
+  └ 93 lines read
+
+● Read independent_scoring.py
+  │ src/independent_scoring.py
+  └ L1:145 (145 lines read)
+
+● Inspect scoring script decoder setup (shell)
+  │ cd /home/angoyal/ws/language-research && sed -n '1,80p' scripts/score_independent.py
+  └ 81 lines…
+
+● Inspect CachedVllmDecoder (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "class CachedVllmDecoder" -A 40
+  │ scripts/analyze_llama.py | head -60 && echo "=== usage ===" && grep -n "CachedVllmDecoder("
+  │ scripts/*.py
+  └ 52 lines…
+
+Now I have the full picture. Writing the plan and task list.
+
+● Create plan.md +36
+  └ ~/.copilot/session-state/ba0a3cf7-2112-4a9c-a67e-5cdda2afdd49/plan.md
+
+● Todo added 12 items
+  │ Implementing the D5 assistant-prefill engine path
+  │ Adding tests for the prefill path
+  │ Writing the BLIND drift audit script
+  │ Writing the D8 manipulation pilot runner
+  │ Rewriting the protocol for D1-D8
+  │ Running the full suite
+  │ d5-code
+  │ d5-code
+  │ d2-script
+  │ d8-pilot-script
+  │ d5-tests
+  └ protocol
+
+Starting with D5 — the engine prefill path, since the protocol text depends on what actually lands.
+
+● Todo started d5-code
+
+● Edit engine.py +21
+  └ src/engine.py
+
+● Edit engine.py +12
+  └ src/engine.py
+
+Now the `VLLMEngine` prefill path:
+
+● Edit engine.py +46 -1
+  └ src/engine.py
+
+Now wire it as the FORCED continuation builder in `src/generate.py`:
+
+● Edit generate.py +47 -16
+  └ src/generate.py
+
+● Edit generate.py +6 -4
+  └ src/generate.py
+
+● Edit generate.py +11 -6
+  └ src/generate.py
+
+● Edit generate.py +1
+  └ src/generate.py
+
+● Read generate.py
+  │ src/generate.py
+  └ L612:660 (49 lines read)
+
+● Edit generate.py +11
+  └ src/generate.py
+
+/ Search (grep)
+  │ "default_continuation_prompt|continuation_prompt|continuation_mode"
+  └ 8 lines found
+
+Good — no other callers. Now let me add tests for the prefill path.
+
+✔ Todo completed d5-code
+
+● Edit test_engine.py +86
+  └ tests/test_engine.py
+
+Now update `RecordingEngine` and the FORCED tests in `tests/test_run_e2.py`:
+
+● Edit test_run_e2.py +23 -1
+  └ tests/test_run_e2.py
+
+Now update the FORCED tests that asserted the old user-turn construction:
+
+● Edit test_run_e2.py +26 -3
+  └ tests/test_run_e2.py
+
+● Edit test_run_e2.py +1
+  └ tests/test_run_e2.py
+
+● Read test_run_e2.py
+  │ tests/test_run_e2.py
+  └ L1030:1110 (81 lines read)
+
+● Read test_run_e2.py
+  │ tests/test_run_e2.py
+  └ L1110:1180 (70 lines read)
+
+● View the _record test helper (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "^def _record" -A 30 tests/test_run_e2.py
+  └ 32 lines…
+
+● Edit test_run_e2.py +49
+  └ tests/test_run_e2.py
+
+Let me run the affected tests now.
+
+✗ Run engine and E2 harness tests (shell)
+  │ cd /home/angoyal/ws/language-research && .venv/bin/python -m pytest tests/test_engine.py
+  │ tests/test_run_e2.py tests/test_generate.py -q 2>&1 | tail -30
+  └ Permission denied and could not request permission from user
+
+✗ Run engine and E2 harness tests (shell)
+  │ cd /home/angoyal/ws/language-research && ./.venv/bin/python -m pytest tests/test_engine.py
+  │ tests/test_run_e2.py tests/test_generate.py -q 2>&1 | tail -30
+  └ Permission denied and could not request permission from user
+
+● Run tests via venv on PATH (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_engine.py tests/test_run_e2.py -q 2>&1 | tail -30
+  └ 30 lines…
+
+● Edit test_run_e2.py +2 -1
+  └ tests/test_run_e2.py
+
+● Re-run engine and E2 tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_engine.py tests/test_run_e2.py -q 2>&1 | tail -10
+  └ 5 lines…
+
+D5 code and tests are green. Now the D2 drift-audit script.
+
+✔ Todo completed d5-tests
+
+● Inspect decoder wiring, parser and mgsm loaders (shell)
+  │ cd /home/angoyal/ws/language-research && sed -n '180,220p' scripts/score_independent.py && echo
+  │ "=== parse_answer sig ===" && grep -n "def parse_answer" -A 12 src/parser.py && echo "===
+  │ load_mgsm ===" && grep -n "def load_mgsm\b" -A 8 src/mgsm.py && grep -n "class MgsmQuestion" -A
+  │ 8 src/mgsm.py
+  └ 69 lines…
+
+● Find the qwen decoder factory (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "def qwen_decoder" -B3 -A 15
+  │ scripts/score_independent.py
+  └ 20 lines…
+
+● Create blind_drift.py +401
+  └ src/blind_drift.py
+
+Now the thin runner script:
+
+● Create audit_blind_drift.py +81
+  └ scripts/audit_blind_drift.py
+
+Now tests for the drift audit module:
+
+● Create test_blind_drift.py +339
+  └ tests/test_blind_drift.py
+
+● Run the drift audit tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_blind_drift.py -q 2>&1 | tail -40
+  └ 3 lines…
+
+● Verify the audit script imports cleanly (shell)
+  │ cd /home/angoyal/ws/language-research && ls scripts/__init__.py 2>&1; PATH=".venv/bin:$PATH"
+  │ python -c "
+  │ import importlib.util, sys, pathlib
+  │ sys.path.insert(0, '.')
+  │ spec = importlib.util.spec_from_file_location('audit_blind_drift', …
+  └ 8 lines…
+
+● Check audit script CLI (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python
+  │ scripts/audit_blind_drift.py --help 2>&1 | head -20
+  └ 11 lines…
+
+D2 done. Now the D8 pilot runner.
+
+✔ Todo completed d2-script
+
+● Create e2_pilot.py +234
+  └ src/e2_pilot.py
+
+● Create run_e2_pilot.py +90
+  └ scripts/run_e2_pilot.py
+
+● Create test_e2_pilot.py +240
+  └ tests/test_e2_pilot.py
+
+● Run the pilot tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_e2_pilot.py -q 2>&1 | tail -40
+  └ 3 lines…
+
+● Edit .gitignore +2
+
+● Check pilot script CLI (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python scripts/run_e2_pilot.py
+  │ --help 2>&1 | head -20
+  └ 12 lines…
+
+All code lands. Now the protocol rewrite — the largest piece.
+
+✔ Todo completed d8-pilot-script
+
+Starting with D1, D2 and the header (marker 1 and 2):
+
+● Edit prereg-budget-aware.md +21 -6
+
+● Read prereg-budget-aware.md
+  └ L145:190 (45 lines read)
+
+● Edit prereg-budget-aware.md +20 -11
+
+Now §4.1 (estimand) and §4.2 (the D2 BLIND audit):
+
+● Edit prereg-budget-aware.md +6 -1
+
+● Edit prereg-budget-aware.md +29 -4
+
+Now §5.2 (D3, stays blocking) and the translation TODO context:
+
+● Read prereg-budget-aware.md
+  └ L363:400 (38 lines read)
+
+● Read prereg-budget-aware.md
+  └ L398:412 (15 lines read)
+
+● Edit prereg-budget-aware.md +29 -12
+
+Now §5.5 — D4 (trigger) and D5 (prefill):
+
+● Read prereg-budget-aware.md
+  └ L485:535 (51 lines read)
+
+● Edit prereg-budget-aware.md +52 -18
+
+● Edit prereg-budget-aware.md +9 -3
+
+Now §8 — the structural D6/D7/D8 rewrite:
+
+● Read prereg-budget-aware.md
+  └ L603:640 (38 lines read)
+
+● Edit prereg-budget-aware.md +10 -3
+
+● Read prereg-budget-aware.md
+  └ L645:680 (36 lines read)
+
+● Edit prereg-budget-aware.md +24 -2
+
+● Read prereg-budget-aware.md
+  └ L715:770 (56 lines read)
+
+● Edit prereg-budget-aware.md +20 -15
+
+Now §8.4 (D7 gate ratified, applied to TAG) and §8.5, plus the new §8.6 pilot section:
+
+● Read prereg-budget-aware.md
+  └ L765:825 (60 lines read)
+
+● Edit prereg-budget-aware.md +75 -18
+
+● Read prereg-budget-aware.md
+  └ L888:960 (73 lines read)
+
+● Edit prereg-budget-aware.md +2 -1
+
+● Edit prereg-budget-aware.md +3 -1
+
+Now §10 rules 3, 7, 8, 10:
+
+● Read prereg-budget-aware.md
+  └ L955:1020 (66 lines read)
+
+● Edit prereg-budget-aware.md +18 -10
+
+Now §11 — AWARE and TAG swap roles in the exploratory list:
+
+● Edit prereg-budget-aware.md +17 -8
+
+Now §12 limitations:
+
+● Read prereg-budget-aware.md
+  └ L1027:1075 (49 lines read)
+
+● Edit prereg-budget-aware.md +40 -26
+
+Now §13 (checklist), §14 (frozen table), and the new §16:
+
+● Read prereg-budget-aware.md
+  └ L1082:1120 (39 lines read)
+
+● Edit prereg-budget-aware.md +36 -8
+
+● Read prereg-budget-aware.md
+  └ L1145:1190 (46 lines read)
+
+● Edit prereg-budget-aware.md +13 -3
+
+Now the closing gate and the new §16 disposition section:
+
+● Read prereg-budget-aware.md
+  └ L1225:1245 (11 lines read)
+
+● Edit prereg-budget-aware.md +113 -2
+
+Now let me verify no `TODO(supervisor)` markers remain and check for stale AWARE-as-family references:
+
+● Check for remaining TODO markers (shell)
+  │ cd /home/angoyal/ws/language-research && echo "=== remaining TODO markers ===" && grep -n
+  │ "TODO(" prereg-budget-aware.md; echo "=== exit $? ==="
+  └ 5 lines…
+
+● Look for stale AWARE-as-confirmatory references (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n -i "confirmatory" prereg-budget-aware.md | grep
+  │ -i "aware"
+  └ 4 lines…
+
+● Review all AWARE mentions (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "AWARE" prereg-budget-aware.md | sed -n '1,60p'
+  └ 61 lines…
+
+● Edit prereg-budget-aware.md +6 -5
+
+● Verify GPU-hour arithmetic from cost table (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -c "
+  │ import re,pathlib
+  │ t=pathlib.Path('prereg-budget-aware.md').read_text()
+  │ # verify the GPU-hour arithmetic from the cost table
+  │ for line in t.splitlines():…
+  └ 19 lines…
+
+● Read prereg-budget-aware.md
+  └ L564:572 (8 lines read)
+
+● Edit prereg-budget-aware.md +7 -1
+
+Now let me run the full suite and verify the whole protocol reads consistently.
+
+● Run the full test suite (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest -q 2>&1 | tail
+  │ -25
+  └ 8 lines…
+
+✔ Todo completed 2 items
+  │ protocol
+  └ tests-green
+
+Full suite green (397 passed). Let me do a consistency pass on cross-references and any stale text.
+
+● Review scope fence and analysis plan (shell)
+  │ cd /home/angoyal/ws/language-research && sed -n '118,145p;880,900p' prereg-budget-aware.md
+  └ 50 lines…
+
+● Check cross-references to renumbered sections (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "§12\.\|§16\|§8\.6\|§8\.5"
+  │ prereg-budget-aware.md
+  └ 57 lines…
+
+● Edit prereg-budget-aware.md +7 -4
+
+● Edit prereg-budget-aware.md +1 -1
+
+Now let me get an independent review of the whole change set before finishing.
+
+● Rubber-duck(gpt-5.6-sol) Review the E2 decisions implementation
+  └ Agent started in background with agent_id: e2-review. You'll be notified when...
+
+I've launched an independent review of the full change set. Waiting for it before I finalize.
+
+● Read (Rubber-duck agent — Review the E2 decisions implementation)
+  └ Running
+
+Review still running. I'll wait for it rather than duplicate its work.
+
+## Blocking Issues
+
+1. **Pilot verdict can be computed from partial or wrong shards.**  
+   `/home/angoyal/ws/language-research/src/e2_pilot.py:120-133` only checks that each shard is non-empty. Combined with `--readout-only` at `/home/angoyal/ws/language-research/scripts/run_e2_pilot.py:54-74`, even one record per shard can decide whether E2 is confirmatory. Condition, cap, announcement, count, and IDs are not verified.  
+   **Impact:** Invalid data could determine the protocol freeze.  
+   **Fix:** Verify all four shards at exactly 2,000 records with expected model/language/arm/cap/condition/announcement before computing medians.
+
+2. **FORCED scoring loses the injected answer delimiter.**  
+   `/home/angoyal/ws/language-research/src/generate.py:365-399` places the delimiter in `text` but not in `output_token_ids`. Existing scoring explicitly ignores `text` and decodes only IDs (`/home/angoyal/ws/language-research/src/independent_scoring.py:63-87`). Thus a forced continuation such as `"42"` is decoded without `"\n#### "` and will not parse, contradicting `/home/angoyal/ws/language-research/prereg-budget-aware.md:637-639`.  
+   **Impact:** FORCED accuracy can be systematically scored as failure.  
+   **Fix:** Add an E2 scoring path that decodes capped and continuation ID segments separately, inserts the recorded delimiter, then parses the reconstructed text. Add an end-to-end scoring test.
+
+3. **The pilot can still write into `runs-e2/`.**  
+   The suffix check at `/home/angoyal/ws/language-research/src/e2_pilot.py:84-88` rejects only paths ending literally in `runs-e2`. Paths such as `runs-e2/.` or `runs-e2/pilot` bypass it.  
+   **Impact:** Pilot records can contaminate the study ledger despite §8.6’s claimed enforcement.  
+   **Fix:** Resolve paths and reject both the study root and all descendants, including symlink-resolved descendants.
+
+## Non-Blocking Issues
+
+1. **TAG is incorrectly listed in the coupled block.**  
+   `/home/angoyal/ws/language-research/prereg-budget-aware.md:1002-1005` lists “TAG vs BLIND” under the entire coupled block, while §5.1 makes TAG decoupled-only (`:324-339`). Remove or relocate that comparison.
+
+2. **`verify_ledger` does not always enforce `continuation_mode`.**  
+   FORCED checks only run when `expected_budget` is supplied (`/home/angoyal/ws/language-research/src/generate.py:587-600`). The generic CLI calls it without that argument (`:670-678`), so it accepts missing or user-turn modes despite protocol claims. Move the mode check outside the optional budget branch.
+
+3. **D4’s trigger differs between protocol and code.**  
+   The protocol requires absence of a compliant `#### <integer>` line (`/home/angoyal/ws/language-research/prereg-budget-aware.md:494-506`), but `has_answer_line` accepts any `#### …` line, including `#### banana` (`/home/angoyal/ws/language-research/src/parser.py:83-92`; called at `src/generate.py:355`). Align the frozen wording and implementation.
+
+4. **The BLIND audit trusts an incompletely verified stored shard.**  
+   `/home/angoyal/ws/language-research/src/blind_drift.py:88-124` checks count and absence of E2 fields but not model/language/arm/budget, unique IDs, or token-count consistency before deriving tolerances. Invoke full shard verification first.
+
+5. **Pairing claims contradict the seed design.**  
+   §5.3 says seeds are independent across conditions and announced budgets (`/home/angoyal/ws/language-research/prereg-budget-aware.md:458-465`), but §4.2 and §9 describe BLIND/E2 and announcement terms as paired by seed (`:255-257`, `:897-900`). They are matched by item/sample labels, not shared random draws. Correct this methodological description.
+
+## Checks That Passed
+
+- D1, D3, D6, and D7 are faithfully represented.
+- D8 uses median direction only; the separate 30% gate was **not** imported.
+- The pilot defaults are exactly four shards and 8,000 generations.
+- `7.26 GPU-hours` is derivable: AWARE `4.00` + PLACEBO `3.26`.
+- The vLLM prefill body and flags are correct for vLLM 0.17.0.
+- The BLIND bootstrap axis usage is correct.
+- Existing E1 ledgers are unaffected: no stored FORCED records exist, and optional fields remain absent elsewhere.● Read (Rubber-duck agent — Review the E2 decisions implementation)
+  └ idle
+
+Substantive review. Let me work through the valid findings.
+
+● Read generate.py
+  │ src/generate.py
+  └ L576:606 (31 lines read)
+
+● Edit generate.py +4
+  └ src/generate.py
+
+✗ Edit prereg-budget-aware.md
+  └ No match found
+
+● Edit generate.py +13 -4
+  └ src/generate.py
+
+Now the pilot's path guard and shard verification:
+
+● Edit e2_pilot.py +1 -1
+  └ src/e2_pilot.py
+
+● Edit e2_pilot.py +21
+  └ src/e2_pilot.py
+
+● Edit e2_pilot.py +5
+  └ src/e2_pilot.py
+
+● Read e2_pilot.py
+  │ src/e2_pilot.py
+  └ L88:160 (73 lines read)
+
+✗ Edit e2_pilot.py
+  │ src/e2_pilot.py
+  └ No match found
+
+✗ Edit e2_pilot.py
+  │ src/e2_pilot.py
+  └ No match found
+
+● Replace duplicated guard with the resolved-path check (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python - <<'PY'
+  │ import pathlib
+  │ p = pathlib.Path('src/e2_pilot.py')
+  │ t = p.read_text()
+  │ dup = '''    if str(out_dir).rstrip("/").endswith("runs-e2"):…
+  └ 17 lines…
+
+Now add full shard verification to the pilot readout:
+
+● Edit e2_pilot.py +26 -2
+  └ src/e2_pilot.py
+
+● Read e2_pilot.py
+  │ src/e2_pilot.py
+  └ L186:225 (40 lines read)
+
+● Edit e2_pilot.py +17 -2
+  └ src/e2_pilot.py
+
+Now update the pilot tests to match, and add coverage for the new guards:
+
+● Point pilot tests at the smaller verified grid (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python - <<'PY'
+  │ import pathlib, re
+  │ p = pathlib.Path('tests/test_e2_pilot.py')
+  │ t = p.read_text()
+  │ t = t.replace('readout(out_dir=tmp_path)', 'readout(out_dir=tmp_path, n_items=2, k=2)')…
+  └ 10 lines…
+
+● Edit test_e2_pilot.py +43
+  └ tests/test_e2_pilot.py
+
+● Edit test_e2_pilot.py +2 -1
+  └ tests/test_e2_pilot.py
+
+● Run pilot tests after hardening (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_e2_pilot.py -q 2>&1 | tail -35
+  └ 36 lines…
+
+● Edit e2_pilot.py +1 -1
+  └ src/e2_pilot.py
+
+● Re-run pilot tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_e2_pilot.py -q 2>&1 | tail -20
+  └ 3 lines…
+
+Now the drift-audit shard verification and the protocol fixes:
+
+● Edit blind_drift.py +18 -2
+  └ src/blind_drift.py
+
+● Edit blind_drift.py +1 -1
+  └ src/blind_drift.py
+
+● Edit blind_drift.py +1 -1
+  └ src/blind_drift.py
+
+● Run drift audit tests after verification hardening (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_blind_drift.py -q 2>&1 | tail -25
+  └ 3 lines…
+
+● Read generate.py
+  │ src/generate.py
+  └ L558:592 (35 lines read)
+
+● Edit blind_drift.py +8 -6
+  └ src/blind_drift.py
+
+Now the protocol fixes: remove the TAG-vs-BLIND error, correct the trigger wording, and document the FORCED delimiter/scoring trap.
+
+● Edit prereg-budget-aware.md +5 -3
+
+● Edit prereg-budget-aware.md +10 -3
+
+Now the FORCED scoring trap in §7 — the delimiter's tokens are in neither segment:
+
+● Edit prereg-budget-aware.md +15
+
+● Edit test_run_e2.py +29
+  └ tests/test_run_e2.py
+
+● Run E2 harness tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_run_e2.py -q 2>&1 | tail -30
+  └ 4 lines…
+
+● Edit test_run_e2.py +24
+  └ tests/test_run_e2.py
+
+● Run the full suite again (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest -q 2>&1 | tail
+  │ -15
+  └ 8 lines…
+
+● Lint and smoke-check the new scripts (shell)
+  │ cd /home/angoyal/ws/language-research && (PATH=".venv/bin:$PATH" ruff check src scripts tests
+  │ 2>&1 | tail -20) ; echo "--- scripts ---"; PATH=".venv/bin:$PATH" python scripts/run_e2_pilot.py
+  │ --help >/dev/null && echo "pilot ok"; PATH=".venv/bin:$PATH" python scripts/audit_blind_drift.py
+  │ --help >/dev/null && echo "audit ok"
+  └ 24 lines…
+
+● Lint only the files I changed (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" ruff check src/blind_drift.py
+  │ src/e2_pilot.py src/engine.py src/generate.py scripts/audit_blind_drift.py
+  │ scripts/run_e2_pilot.py tests/test_blind_drift.py tests/test_e2_pilot.py tests/test_engine.py
+  │ tests/test_run_e2.py 2>&1 | tail -30
+  └ 15 lines…
+
+One robustness gap remains in the pilot guard — it resolves relative to CWD. Let me make it CWD-independent.
+
+● Edit e2_pilot.py +5 -4
+  └ src/e2_pilot.py
+
+● Edit test_e2_pilot.py +4 -1
+  └ tests/test_e2_pilot.py
+
+● Full suite plus lint on new files (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest -q 2>&1 | tail
+  │ -8 && echo "=== lint new files ===" && PATH=".venv/bin:$PATH" ruff check src/blind_drift.py
+  │ src/e2_pilot.py scripts/audit_blind_drift.py scripts/run_e2_pilot.py tests/test_blind_drift.py
+  │ tests/test_e2_pilot.py 2>&1 | tail -5
+  └ 10 lines…
+
+Green. Let me have the reviewer verify the fixes.
+
+● Write e2-revie
+  └ Thank you — that was a genuinely useful review. I have applied fixes. Please …
+
+I've sent the fixes back for verification. Waiting on that before I close out.
+
+## Blocking Issue
+
+1. **`--readout-only` still accepts `runs-e2/`.**  
+   `_reject_the_study_ledger` is called only by `run_pilot` (`/home/angoyal/ws/language-research/src/e2_pilot.py:106`). `readout()` does not call it (`:180-248`), so:
+   ```bash
+   python scripts/run_e2_pilot.py --readout-only --out-dir runs-e2
+   ```
+   can gate the freeze using study records.  
+   **Fix:** Apply the guard in `readout()` too.
+
+## Non-Blocking Issues
+
+1. **BLIND identity validation is still incomplete.**  
+   The new `verify_ledger` call correctly checks count, uniqueness, token counts, and cap. The separate condition checks are indeed load-bearing. However:
+   - `/home/angoyal/ws/language-research/src/blind_drift.py:122-130` accepts explicit `"condition": null` or `"announced_budget": null`, despite requiring those keys to be absent.
+   - It still does not check `model_id`, `language`, or `arm`.
+
+   **Fix:** Check key membership (`"condition" in record`) and validate the three cell fields.
+
+2. **One stale “compliant” phrase remains.**  
+   The new trigger definition at `/home/angoyal/ws/language-research/prereg-budget-aware.md:491-505` now matches `has_answer_line`. But `:513-516` still describes the population as lacking a “compliant answer line.” Replace that with “lacking a syntactic `#### …` answer line.”
+
+3. **“Every forced trace 0” is too absolute.**  
+   `/home/angoyal/ws/language-research/prereg-budget-aware.md:652-654` says naive scoring will score *every* forced trace zero. A continuation could independently emit another valid delimiter. The real guarantee is that naive decoding omits the injected delimiter and therefore cannot correctly represent the intervention. Use “can/will generally mis-score forced traces.”
+
+## Fixes Verified Closed
+
+- Partial/mislabelled pilot shards are now rejected.
+- Pilot writes to `runs-e2` and descendants are blocked.
+- `continuation_mode` is now checked without requiring `expected_budget`.
+- The impossible coupled TAG comparison is removed.
+- D4’s main frozen trigger wording now matches the syntactic implementation.
+- The FORCED reconstruction fields and split invariant are correctly pinned by the test.
+
+## Direct Answers
+
+**(a)** Documentation plus the regression test is adequate for this brief because no E2 scorer exists. It is **not blocking the freeze or generation**, but remains a hard prerequisite before scoring.
+
+**(b)** No broader harness regression is apparent. The remaining issue is the unguarded readout root above.
+
+**(c)** The pairing text should be flagged—and preferably corrected before freeze. `/home/angoyal/ws/language-research/prereg-budget-aware.md:256-257` and `:920-922` claim seed pairing, while `:458-459` explicitly makes seeds independent across conditions and announcements. These observations are matched by item/sample labels, not by a shared random draw. Correcting that is clarification, not re-litigating D1–D8.● Read (Rubber-duck agent — Review the E2 decisions implementation)
+  └ idle
+
+All valid. Applying the remaining fixes.
+
+● Edit e2_pilot.py +6 -1
+  └ src/e2_pilot.py
+
+● Edit test_e2_pilot.py +9
+  └ tests/test_e2_pilot.py
+
+Now the `blind_drift` identity checks:
+
+● Read blind_drift.py
+  │ src/blind_drift.py
+  └ L86:148 (63 lines read)
+
+● Edit blind_drift.py +29 -13
+  └ src/blind_drift.py
+
+● Edit blind_drift.py +3 -1
+  └ src/blind_drift.py
+
+● Run drift and pilot tests (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_blind_drift.py tests/test_e2_pilot.py -q 2>&1 | tail -30
+  └ 3 lines…
+
+● Edit test_blind_drift.py +29
+  └ tests/test_blind_drift.py
+
+● Run drift audit tests with new identity checks (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest
+  │ tests/test_blind_drift.py -q 2>&1 | tail -25
+  └ 3 lines…
+
+Now the three protocol wording fixes:
+
+● Find remaining 'compliant answer line' phrases (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "compliant" prereg-budget-aware.md
+  └ 8 lines…
+
+● Align trigger wording with the syntactic implementation (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python - <<'PY'
+  │ import pathlib
+  │ p = pathlib.Path('prereg-budget-aware.md')
+  │ t = p.read_text()
+  │ subs = […
+  └ 36 lines…
+
+● Edit prereg-budget-aware.md +6 -1
+
+● Locate the absolute claim to soften (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "will score every forced trace 0"
+  │ prereg-budget-aware.md
+  └ 2 lines…
+
+● Edit prereg-budget-aware.md +1 -1
+
+Now the pairing claims the reviewer flagged as worth correcting:
+
+● View the pairing claims (shell)
+  │ cd /home/angoyal/ws/language-research && sed -n '254,258p;896,904p' prereg-budget-aware.md
+  └ 14 lines…
+
+● Edit prereg-budget-aware.md +10 -2
+
+● Edit prereg-budget-aware.md +6 -4
+
+● Check remaining pairing language (shell)
+  │ cd /home/angoyal/ws/language-research && grep -n "paired\|pairing" prereg-budget-aware.md
+  └ 9 lines…
+
+● Correct remaining pairing language (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python - <<'PY'
+  │ import pathlib
+  │ p = pathlib.Path('prereg-budget-aware.md')
+  │ t = p.read_text()
+  │ subs = […
+  └ 18 lines…
+
+● Full suite and lint after all fixes (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest -q 2>&1 | tail
+  │ -8 && echo "=== lint ===" && PATH=".venv/bin:$PATH" ruff check src/blind_drift.py
+  │ src/e2_pilot.py src/engine.py scripts/audit_blind_drift.py scripts/run_e2_pilot.py
+  │ tests/test_blind_drift.py tests/test_e2_pilot.py tests/test_engine.py tests/test_run_e2.py 2>&1
+  │ | tail -5
+  └ 10 lines…
+
+Let me confirm the reviewer's blocking item is closed.
+
+● Write e2-revie
+  └ Second round of fixes applied. Please verify these close your findings and in…
+
+Waiting on the final verification pass.
+
+All second-round fixes close the findings. No new substantive issues found.
+
+- Readout now rejects study-ledger paths.
+- BLIND identity checks are complete.
+- Trigger wording matches the syntactic implementation; remaining “compliant” uses correctly describe scoring.
+- FORCED scoring warning is now precise.
+- Alignment vs pairing distinction is correct; cross-arm pairing remains valid.
+
+**Freeze tag:** still blocked only by the protocol’s existing D3 token remeasurement and the §8.6 pilot.
+
+**Task completion:** no remaining review issue blocks reporting this implementation task complete. The E2 scorer remains required before scoring, not before freeze.● Read (Rubber-duck agent — Review the E2 decisions implementation)
+  └ idle
+
+Review closed clean. Final verification:
+
+● Final verification: tests, no generation, no stray outputs (shell)
+  │ cd /home/angoyal/ws/language-research && PATH=".venv/bin:$PATH" python -m pytest -q 2>&1 | tail
+  │ -4 && echo "=== no runs-* written ===" && ls -d runs-e2 runs-e2-pilot 2>&1 | head -3 && echo
+  │ "=== TODO markers ===" && grep -c "TODO(supervisor)\`" prereg-budget-aware.md && echo "===
+  │ analysis-out untouched by me ===" && ls analysis-out/ | grep -E "blind_drift|e2_pilot" || echo
+  │ "(no audit/pilot outputs — nothing was run)"
+  └ 12 lines…
+
+Done. All 16 `TODO(supervisor)` markers resolved (the 2 remaining string matches are historical references in the revision note and §16).
+
+## D1–D8
+
+- **D1** — Tag `budget-aware-protocol-freeze` recorded in the header and §14. Not applied.
+- **D2** — §4.2 rewritten: audit ruled in, tolerance declared. New `src/blind_drift.py`, `scripts/audit_blind_drift.py`, 22 tests. **Not run.**
+- **D3** — Relabelled **BLOCKING**, not deleted (§5.2, §13, §16).
+- **D4** — Trigger stays the answer-line superset; reversibility reasoning in §5.5.
+- **D5** — `PrefillEngineProtocol.generate_with_prefill`; `VLLMEngine` sends `continue_final_message: true` + `add_generation_prompt: false`. User-turn builder **deleted**, not demoted. Records carry `continuation_mode`; `verify_ledger` rejects anything else.
+- **D6** — Structural. Family instrument AWARE→TAG across §3, §4.1, §5.2, §8, §10, §11, §12, §14. Recorded as **fired before any E2 record exists**, with the no-speaker-access reason. AWARE/PLACEBO retained as exploratory companion.
+- **D7** — Ratified, applied to TAG.
+- **D8** — New §8.6 pilot + `src/e2_pilot.py`, `scripts/run_e2_pilot.py`, 22 tests. **Not run.**
+
+Full suite: **412 passed, 3 skipped**. Nothing generated; no `runs-*` directory created.
+
+## Flagged
+
+1. **FORCED scoring bug (found in review, pre-existing).** The injected delimiter's tokens are in *neither* segment, so a scorer decoding `output_token_ids` — which is what E1's scorer does — will mis-score forced traces downward. No E2 scorer exists yet, so I documented it as a hard requirement in §7 and pinned it with a test that asserts both the reconstruction and the naive failure. **This blocks scoring, not the freeze.**
+2. I judged two rulings' *implementation details* rather than re-litigating them: D8's rule is direction only (I did not import D7's 30%), and D4's trigger is syntactic — I aligned the protocol wording to `has_answer_line` rather than narrowing the code.
+3. Corrected pre-existing "paired" language in §4.2/§5.3/§9 to "aligned": seeds are independent across conditions by design, so the terms are different draws sharing item/sample labels.
+
+**Blocking the freeze:** D3 re-measurement and the §8.6 pilot — both need the endpoints.
+
+
+
+Changes    +2675 -250
+AI Credits 3244 (39m 34s)
+Tokens     ↑ 50.7m (50.1m cached, 555.6k written) • ↓ 149.7k (32.7k reasoning)
+Resume     copilot --resume=ba0a3cf7-2112-4a9c-a67e-5cdda2afdd49

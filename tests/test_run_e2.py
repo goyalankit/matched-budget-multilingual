@@ -17,6 +17,7 @@ import pytest
 from src.engine import GenerationResult
 from src.generate import (
     ANNOUNCING_CONDITIONS,
+    ASSISTANT_PREFILL,
     AWARE,
     FORCED,
     PLACEBO,
@@ -77,11 +78,14 @@ class RecordingEngine:
     """Engine that echoes its seed and honours the cap.
 
     ``answer_at`` selects which prompts already contain an answer line, so the
-    FORCED path can be driven both ways.
+    FORCED path can be driven both ways. It also implements the assistant-prefill
+    path, because FORCED's stage two goes through it and an engine without it
+    cannot run the condition at all (`prereg-budget-aware.md` §5.5).
     """
 
     def __init__(self, emit_answer: bool = False) -> None:
         self.calls: list[tuple[str, int, int]] = []
+        self.prefill_calls: list[tuple[str, str, int, int]] = []
         self.emit_answer = emit_answer
         self._lock = Lock()
 
@@ -90,11 +94,30 @@ class RecordingEngine:
     ) -> GenerationResult:
         with self._lock:
             self.calls.append((prompt, generation_seed, max_tokens))
+        return self._result(generation_seed, max_tokens)
+
+    def generate_with_prefill(
+        self, prompt: str, prefill: str, generation_seed: int, max_tokens: int
+    ) -> GenerationResult:
+        with self._lock:
+            self.prefill_calls.append((prompt, prefill, generation_seed, max_tokens))
+        return self._result(generation_seed, max_tokens)
+
+    def _result(self, generation_seed: int, max_tokens: int) -> GenerationResult:
         text = f"seed={generation_seed}"
         if self.emit_answer:
             text += "\n#### 42"
         token_ids = list(text.encode("utf-8"))[:max_tokens]
         return GenerationResult(token_ids=token_ids, text=text[:max_tokens], eos=True)
+
+
+class PrefilllessEngine:
+    """An engine with no assistant-prefill path, i.e. one that cannot force."""
+
+    def generate(
+        self, prompt: str, generation_seed: int, max_tokens: int
+    ) -> GenerationResult:
+        return GenerationResult(token_ids=[1], text="no answer here", eos=True)
 
 
 def _questions(language: str) -> list[MgsmQuestion]:
@@ -527,9 +550,32 @@ def test_forced_appends_the_delimiter_when_the_capped_segment_lacks_one() -> Non
     record = _forced(engine)
 
     assert record["forced"] is True
-    assert len(engine.calls) == 2
-    assert engine.calls[1][0].endswith("\n#### ")
+    assert len(engine.calls) == 1  # stage one only; stage two is a prefill
+    assert len(engine.prefill_calls) == 1
     assert record["condition"] == FORCED
+
+
+def test_forced_continues_the_assistant_turn_rather_than_the_user_turn() -> None:
+    """D5. Appending the capped segment to the user turn is a different
+    manipulation: it shows the model its own partial reasoning as though a
+    person had written it. Stage two must prefill the assistant turn.
+    """
+    engine = RecordingEngine(emit_answer=False)
+
+    record = _forced(engine)
+
+    (stage_one_prompt, _, _) = engine.calls[0]
+    (prompt, prefill, _, _) = engine.prefill_calls[0]
+    assert prompt == stage_one_prompt, "the user turn must be the prompt, unchanged"
+    capped_text = record["text"].split("\n#### ")[0]
+    assert prefill == capped_text + "\n#### "
+    assert record["continuation_mode"] == ASSISTANT_PREFILL
+
+
+def test_forced_refuses_an_engine_that_cannot_prefill() -> None:
+    """FORCED is not runnable on an engine that cannot continue its own turn."""
+    with pytest.raises(TypeError, match="cannot prefill"):
+        _forced(PrefilllessEngine())
 
 
 def test_forced_does_not_append_when_an_answer_line_is_already_there() -> None:
@@ -541,6 +587,7 @@ def test_forced_does_not_append_when_an_answer_line_is_already_there() -> None:
     assert record["forced"] is False
     assert record["continuation_token_count"] == 0
     assert len(engine.calls) == 1
+    assert engine.prefill_calls == []
     assert record["output_token_count"] <= 64
 
 
@@ -550,7 +597,7 @@ def test_forced_respects_the_continuation_cap() -> None:
     record = _forced(engine, budget=8, continuation_max_tokens=4)
 
     assert engine.calls[0][2] == 8
-    assert engine.calls[1][2] == 4
+    assert engine.prefill_calls[0][3] == 4
     assert record["capped_token_count"] <= 8
     assert record["continuation_token_count"] <= 4
     assert record["continuation_max_tokens"] == 4
@@ -567,6 +614,35 @@ def test_forced_records_both_segments_and_they_sum() -> None:
     )
     assert record["output_token_count"] > 8 - 1  # the cap is genuinely exceeded
     assert record["answer_delimiter"] == "\n#### "
+
+
+def test_a_forced_record_carries_everything_needed_to_rebuild_its_scored_text() -> None:
+    """§7. The delimiter is injected, so its tokens are in neither segment.
+
+    A scorer that decodes `output_token_ids` alone will not see `\\n#### ` and
+    will score every forced trace 0. The record must therefore carry the split
+    point and the delimiter, so the E2 scorer can reconstruct the text.
+    """
+    engine = RecordingEngine(emit_answer=False)
+
+    record = _forced(engine, budget=8, continuation_max_tokens=4)
+
+    split = record["capped_token_count"]
+    capped_ids = record["output_token_ids"][:split]
+    continuation_ids = record["output_token_ids"][split:]
+    assert len(continuation_ids) == record["continuation_token_count"]
+
+    rebuilt = (
+        bytes(capped_ids).decode("utf-8")
+        + record["answer_delimiter"]
+        + bytes(continuation_ids).decode("utf-8")
+    )
+    assert rebuilt == record["text"]
+    assert has_answer_line(rebuilt)
+    # and the naive path, which the protocol warns against, does not:
+    assert not has_answer_line(
+        bytes(record["output_token_ids"]).decode("utf-8")
+    )
 
 
 def test_forced_uses_a_condition_specific_seed() -> None:
@@ -1022,12 +1098,85 @@ def test_verify_ledger_allows_a_forced_trace_inside_its_continuation_cap(
             capped_token_count=2,
             continuation_token_count=1,
             continuation_max_tokens=4,
+            continuation_mode=ASSISTANT_PREFILL,
         ),
     )
 
     assert verify_ledger(path, 1, expected_budget=2, expected_condition=FORCED)[
         "record_count"
     ] == 1
+
+
+def test_verify_ledger_rejects_a_forced_record_built_on_the_user_turn(
+    tmp_path,
+) -> None:
+    """D5. A shard produced by the user-turn construction is a different
+    intervention wearing FORCED's name and must fail rather than be scored.
+    """
+    path = _write(
+        tmp_path,
+        _record(
+            record_id=record_id("m", "de", "native", "1", 0, 2, FORCED),
+            condition=FORCED,
+            budget=2,
+            output_token_ids=[1, 2, 3],
+            output_token_count=3,
+            forced=True,
+            capped_token_count=2,
+            continuation_token_count=1,
+            continuation_max_tokens=4,
+            continuation_mode="user_turn",
+        ),
+    )
+
+    with pytest.raises(LedgerVerificationError, match="continuation_mode"):
+        verify_ledger(path, 1, expected_budget=2, expected_condition=FORCED)
+
+
+def test_verify_ledger_rejects_a_user_turn_forced_record_without_a_cap(
+    tmp_path,
+) -> None:
+    """The mode is a property of the record, so a bare verify must catch it too."""
+    path = _write(
+        tmp_path,
+        _record(
+            record_id=record_id("m", "de", "native", "1", 0, 2, FORCED),
+            condition=FORCED,
+            budget=2,
+            output_token_ids=[1, 2, 3],
+            output_token_count=3,
+            forced=True,
+            capped_token_count=2,
+            continuation_token_count=1,
+            continuation_max_tokens=4,
+            continuation_mode="user_turn",
+        ),
+    )
+
+    with pytest.raises(LedgerVerificationError, match="continuation_mode"):
+        verify_ledger(path, 1)
+
+
+def test_verify_ledger_rejects_a_forced_record_with_no_continuation_mode(
+    tmp_path,
+) -> None:
+    path = _write(
+        tmp_path,
+        _record(
+            record_id=record_id("m", "de", "native", "1", 0, 2, FORCED),
+            condition=FORCED,
+            budget=2,
+            output_token_ids=[1, 2, 3],
+            output_token_count=3,
+            forced=True,
+            capped_token_count=2,
+            continuation_token_count=1,
+            continuation_max_tokens=4,
+        ),
+    )
+
+    with pytest.raises(LedgerVerificationError, match="continuation_mode"):
+        verify_ledger(path, 1, expected_budget=2, expected_condition=FORCED)
 
 
 def test_verify_ledger_rejects_a_forced_trace_past_its_continuation_cap(

@@ -56,6 +56,27 @@ class EngineProtocol(Protocol):
         """Generate one deterministic-seed trace."""
 
 
+class PrefillEngineProtocol(EngineProtocol, Protocol):
+    """An engine that can *continue* an assistant turn it has already begun.
+
+    Budget forcing needs this and cannot be built out of :meth:`generate`
+    alone. Appending the capped segment to the user turn shows the model its
+    own partial reasoning wrapped in user-turn chat markup, as though a person
+    had written it, which is a different manipulation from the s1 intervention
+    budget forcing is named after (`prereg-budget-aware.md` §5.5). Only a real
+    assistant prefill continues the model's own turn.
+    """
+
+    def generate_with_prefill(
+        self, prompt: str, prefill: str, seed: int, max_tokens: int
+    ) -> GenerationResult:
+        """Continue an assistant turn that already contains ``prefill``.
+
+        The returned result describes the *continuation only*: its token IDs and
+        text exclude ``prefill``, which the caller already holds.
+        """
+
+
 class MockEngine:
     """Seed-driven character-token generator for offline harness tests."""
 
@@ -76,6 +97,18 @@ class MockEngine:
             text=text[:max_tokens],
             eos=eos,
         )
+
+    def generate_with_prefill(
+        self, prompt: str, prefill: str, seed: int, max_tokens: int
+    ) -> GenerationResult:
+        """Mock continuation of an assistant turn.
+
+        The mock has no chat template, so there is no markup for a prefill to
+        sit inside and the distinction the real engine draws does not exist
+        here. It derives the continuation from ``prompt + prefill`` so the
+        FORCED path is exercisable offline; it is not a fidelity claim.
+        """
+        return self.generate(prompt + prefill, seed, max_tokens)
 
 
 class VLLMEngine:
@@ -121,14 +154,59 @@ class VLLMEngine:
         return model_id
 
     def generate(self, prompt: str, seed: int, max_tokens: int) -> GenerationResult:
+        return self._complete(
+            [{"role": "user", "content": prompt}], seed, max_tokens
+        )
+
+    def generate_with_prefill(
+        self, prompt: str, prefill: str, seed: int, max_tokens: int
+    ) -> GenerationResult:
+        """Continue the assistant turn that already contains ``prefill``.
+
+        ``continue_final_message`` tells vLLM to render the final (assistant)
+        message and then keep decoding from its end, and
+        ``add_generation_prompt=False`` suppresses the fresh assistant header
+        that would otherwise start a *new* turn. Together they are the
+        assistant-prefill intervention budget forcing requires
+        (`prereg-budget-aware.md` §5.5): the model sees ``prefill`` as text it
+        wrote itself, not as text a user sent it.
+
+        The two flags are mutually exclusive in vLLM and are sent explicitly so
+        a server-side default cannot silently turn this back into a new turn.
+        """
+        if not prefill:
+            raise ValueError(
+                "an assistant prefill must be non-empty; there is nothing to "
+                "continue from an empty assistant turn"
+            )
+        return self._complete(
+            [
+                {"role": "user", "content": prompt},
+                {"role": "assistant", "content": prefill},
+            ],
+            seed,
+            max_tokens,
+            continue_final_message=True,
+        )
+
+    def _complete(
+        self,
+        messages: list[dict[str, str]],
+        seed: int,
+        max_tokens: int,
+        continue_final_message: bool = False,
+    ) -> GenerationResult:
         body: dict[str, object] = {
             "model": self.model_id,
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": messages,
             "max_tokens": max_tokens,
             "temperature": self.temperature,
             "seed": _to_signed_int64(seed),
             "return_token_ids": True,
         }
+        if continue_final_message:
+            body["continue_final_message"] = True
+            body["add_generation_prompt"] = False
         if not self.enable_thinking:
             body["chat_template_kwargs"] = {"enable_thinking": False}
 

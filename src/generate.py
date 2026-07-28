@@ -243,23 +243,53 @@ def generation_record(
     )
 
 
-def default_continuation_prompt(
-    prompt: str, capped_text: str, answer_delimiter: str
-) -> str:
-    """Build the stage-two prompt for budget forcing.
+def assistant_prefill_continuation(
+    engine: EngineProtocol,
+    prompt: str,
+    capped_text: str,
+    answer_delimiter: str,
+    generation_seed: int,
+    max_tokens: int,
+) -> GenerationResult:
+    """Stage two of budget forcing: continue the model's own assistant turn.
 
-    TODO(supervisor): this concatenates the capped segment and the delimiter
-    onto the *user* turn, because ``EngineProtocol.generate`` takes a single
-    prompt string and the served endpoint is ``/v1/chat/completions``. The s1
-    intervention this imitates prefills the *assistant* turn instead
-    (``add_generation_prompt=false`` / ``continue_final_message=true`` in vLLM),
-    which is not expressible through the current interface. The two differ in
-    the chat-template markup that surrounds the capped segment, so they are not
-    the same intervention. This function is a parameter of
-    :func:`forced_generation_record` precisely so a proper prefill can be
-    substituted without touching the driver.
+    The capped segment plus the injected delimiter is prefilled into the
+    *assistant* turn and decoding resumes from its end
+    (``continue_final_message=true`` / ``add_generation_prompt=false``). This is
+    the s1 intervention budget forcing is named after.
+
+    An earlier draft concatenated the capped segment onto the *user* turn,
+    because ``EngineProtocol.generate`` takes a single prompt string. That is a
+    different manipulation, not an approximation of this one: it shows the model
+    its own partial reasoning wrapped in user-turn chat markup, as though a
+    person had written it. It was removed rather than kept as an option, because
+    running it and calling the result budget forcing would put a mislabelled
+    intervention in the paper (`prereg-budget-aware.md` §5.5).
+
+    Engines that cannot prefill therefore cannot run FORCED, and say so here
+    rather than silently falling back to the user turn.
     """
-    return prompt + capped_text + answer_delimiter
+    generate_with_prefill = getattr(engine, "generate_with_prefill", None)
+    if generate_with_prefill is None:
+        raise TypeError(
+            f"{type(engine).__name__} cannot prefill an assistant turn, so it "
+            "cannot run FORCED: budget forcing continues the model's own turn "
+            "(see PrefillEngineProtocol)"
+        )
+    return generate_with_prefill(
+        prompt, capped_text + answer_delimiter, generation_seed, max_tokens
+    )
+
+
+# What the stage-two prompt was, recorded on every FORCED record. The condition
+# is only budget forcing when the continuation resumes the assistant turn, so
+# the ledger states which construction produced it rather than leaving a reader
+# to infer it from the harness version.
+ASSISTANT_PREFILL = "assistant_prefill"
+
+ContinuationBuilder = Callable[
+    [EngineProtocol, str, str, str, int, int], GenerationResult
+]
 
 
 def forced_generation_record(
@@ -275,7 +305,8 @@ def forced_generation_record(
     condition: str = FORCED,
     continuation_max_tokens: int = 32,
     answer_delimiter: str = ANSWER_DELIMITER,
-    continuation_prompt: Callable[[str, str, str], str] = default_continuation_prompt,
+    continuation: ContinuationBuilder = assistant_prefill_continuation,
+    continuation_mode: str = ASSISTANT_PREFILL,
     tokenize_prompt: Callable[[str], Sequence[int]] | None = None,
 ) -> dict[str, Any]:
     """Generate one budget-forced trace: decode to ``budget``, then force an answer.
@@ -285,10 +316,12 @@ def forced_generation_record(
     continuation — forcing a second delimiter onto a trace that answered would
     change what the scorer reads.
 
-    If it did not, stage two appends ``answer_delimiter`` and decodes a bounded
-    continuation. The continuation cap is a parameter, not a literal, because it
-    is the one free quantity in the intervention and the protocol must be able
-    to state the value it froze.
+    If it did not, stage two prefills ``answer_delimiter`` into the assistant
+    turn and decodes a bounded continuation from its end. The continuation cap
+    is a parameter, not a literal, because it is the one free quantity in the
+    intervention and the protocol must be able to state the value it froze. The
+    builder is a parameter for the same reason the mode is recorded: FORCED is
+    budget forcing only if the continuation resumes the model's own turn.
 
     ``capped_eos`` is stored because the trigger is *format* absence, not
     truncation, and on this ledger the two come apart badly: a trace can finish
@@ -311,6 +344,8 @@ def forced_generation_record(
         raise ValueError("continuation_max_tokens must be positive")
     if not condition:
         raise ValueError("condition must be a non-empty string")
+    if not continuation_mode:
+        raise ValueError("continuation_mode must be a non-empty string")
 
     generation_seed = derive_condition_seed(
         base_seed, item_id, sample_index, budget, condition
@@ -319,19 +354,22 @@ def forced_generation_record(
     capped = engine.generate(prompt, generation_seed, budget)
     forced = not has_answer_line(capped.text)
     if forced:
-        continuation = engine.generate(
-            continuation_prompt(prompt, capped.text, answer_delimiter),
+        continuation_result = continuation(
+            engine,
+            prompt,
+            capped.text,
+            answer_delimiter,
             generation_seed,
             continuation_max_tokens,
         )
         merged = GenerationResult(
-            token_ids=list(capped.token_ids) + list(continuation.token_ids),
-            text=capped.text + answer_delimiter + continuation.text,
-            eos=continuation.eos,
+            token_ids=list(capped.token_ids) + list(continuation_result.token_ids),
+            text=capped.text + answer_delimiter + continuation_result.text,
+            eos=continuation_result.eos,
             input_token_ids=capped.input_token_ids,
             input_token_count=capped.input_token_count,
         )
-        continuation_token_count = len(continuation.token_ids)
+        continuation_token_count = len(continuation_result.token_ids)
     else:
         merged = capped
         continuation_token_count = 0
@@ -357,6 +395,7 @@ def forced_generation_record(
     record["capped_eos"] = capped.eos
     record["continuation_token_count"] = continuation_token_count
     record["continuation_max_tokens"] = continuation_max_tokens
+    record["continuation_mode"] = continuation_mode
     record["answer_delimiter"] = answer_delimiter
     return record
 
@@ -558,6 +597,10 @@ def verify_ledger(
                     f"{record['output_token_count']} > {expected_budget + allowance}"
                 )
             _verify_forced_segments(record, expected_budget)
+        # The continuation mode is a property of the record alone, so it is
+        # checked whether or not a cap was supplied: a bare `verify-ledger` must
+        # not accept a FORCED shard built on the user turn.
+        _verify_forced_continuation_mode(record)
     return {"record_count": len(records), "unique_count": len(set(record_ids))}
 
 
@@ -611,6 +654,26 @@ def _verify_forced_segments(record: Mapping[str, Any], expected_budget: int) -> 
         raise LedgerVerificationError(
             f"record {record['record_id']} has forced=False "
             f"with a {continuation}-token continuation"
+        )
+
+
+def _verify_forced_continuation_mode(record: Mapping[str, Any]) -> None:
+    """Check that a FORCED record was built by continuing the assistant turn.
+
+    The condition is budget forcing only if stage two continued the model's own
+    turn. A record written by any other construction is a different intervention
+    wearing this condition's name, and must not be scored as it
+    (`prereg-budget-aware.md` §5.5). This is a property of the record alone, so
+    it is checked even when no cap was supplied to :func:`verify_ledger`.
+    """
+    if record.get("condition") != FORCED:
+        return
+    mode = record.get("continuation_mode")
+    if mode != ASSISTANT_PREFILL:
+        raise LedgerVerificationError(
+            f"record {record['record_id']} is FORCED but carries "
+            f"continuation_mode={mode!r}; budget forcing requires "
+            f"{ASSISTANT_PREFILL!r}"
         )
 
 

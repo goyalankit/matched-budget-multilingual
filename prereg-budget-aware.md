@@ -1,6 +1,8 @@
 # Study Protocol: Budget-Aware and Budget-Forced Decoding (E2)
 
-**Status:** DRAFT — not frozen. `TODO(supervisor)`: freeze tag.
+**Status:** DRAFT — not frozen. **Freeze tag: `budget-aware-protocol-freeze`** (§16), an
+annotated tag on `main` alongside `protocol-freeze` and `independent-protocol-freeze`. The tag is
+not yet applied: two items block it and both need the vLLM endpoints back (§13).
 **Executor:** GitHub Copilot CLI (drafted this file). **Supervisor:** Claude (reviews, freezes,
 commits, runs generation). Nothing in this file is final until the supervisor has reviewed it.
 **Relationship to prior work:** the behavioural counterpart of `prereg-independent-decoding.md`
@@ -10,13 +12,26 @@ exploratory sweep in `PAPER.md` §3.2–3.3 run under `prereg-matched-budgets.md
 **Internal freeze, not a public preregistration.** No OSF filing; the protocol is frozen by git
 tag before any generation into `runs-e2/`, as with both prior protocols.
 
-**Revision note.** This is the second draft. The first was reviewed adversarially in
+**Revision note.** This is the third draft. The first was reviewed adversarially in
 `analysis-out/e2_design_review.md` and the review found seven errors in it, one of them
 load-bearing: the first draft claimed E2 could falsify `PAPER.md` §5, and it cannot. §1 and §8.1
-are rewritten around what E2 *can* test, the confirmatory family has moved to a condition where
-the manipulation has content, the six NATIVE sentences have been rebuilt, and §9 now carries the
-MDE table the first draft wrongly said was impossible. §15 tracks all seven errors and their
-disposition.
+are rewritten around what E2 *can* test, the six NATIVE sentences have been rebuilt, and §9 now
+carries the MDE table the first draft wrongly said was impossible. §15 tracks all seven errors and
+their disposition.
+
+The second draft left sixteen `TODO(supervisor)` markers, reducing to eight decisions. They are
+now ruled — see `tasks/e2-supervisor-decisions.md` for the reasoning as it was recorded, and §16
+for the disposition of each. Two consequences are structural and are not confined to one section:
+
+- **The confirmatory family's instrument is TAG, not AWARE** (D6). The §8.3 contingency has
+  **fired**, before any E2 record exists, because the user has no access to German, Thai or
+  Swahili speakers and the six NATIVE sentences therefore cannot be verified. Same five cells,
+  same estimand, same announced values, same α. AWARE and PLACEBO are still generated and are
+  reported as the exploratory companion.
+- **The family is gated on a manipulation pilot that runs before the freeze** (D8, §8.6). If the
+  pilot shows the announcement moves median output length, the confirmatory family is frozen. If
+  it does not, E2 is frozen as exploratory in full.
+
 
 ---
 
@@ -117,12 +132,15 @@ here does not answer it — see the manipulation check in §8.4, which exists pr
 interpretable.
 
 **It is not a general study of budget-forcing.** FORCED as implemented triggers on the absence of
-a compliant `#### <integer>` line, which on this ledger conflates two populations; §5 quantifies
-the conflation and §11 keeps every FORCED analysis outside the confirmatory family because of it.
+a syntactic `#### …` answer line, which on this ledger conflates two populations; §5.5 quantifies
+the conflation, states why the trigger stays the superset, and §11 keeps every FORCED analysis
+outside the confirmatory family because of it.
 
 **It is not a validation of the word "token."** No condition here establishes that a model can
-map `Token` / `โทเค็น` / `tokeni` / `tokens` onto its own subword units. §12.1 states this as the
-first limitation, and it is unverified in *every* language including English.
+map `Token` / `โทเค็น` / `tokeni` / `tokens` — or the bare integer of `TOKEN_BUDGET: 128` — onto
+its own subword units. §12.1 states this as the first limitation, and it is unverified in *every*
+language including English. Moving the confirmatory family to TAG (§8.3) removes the *translation*
+risk and does not touch this one, which is why §8.6 pilots the manipulation before the freeze.
 
 Out of scope and unchanged from both prior protocols: causal claims about reasoning ability;
 disentangling prompt language, reformulation, format compliance, translation quality, and
@@ -132,11 +150,11 @@ reasoning-trace language, which remain jointly confounded.
 
 | condition | prompt | announces | decode | status |
 |---|---|---|---|---|
-| BLIND | frozen template, unchanged | — | `max_tokens = B` | **reused from E1, not regenerated** (§4.2) |
-| AWARE | frozen template + one recombined budget sentence | yes | `max_tokens = B` | generated |
-| PLACEBO | frozen template + one length-matched sentence stating no budget | no | `max_tokens = B` | generated |
-| TAG | frozen template + `TOKEN_BUDGET: {budget}` | yes | `max_tokens = B` | generated |
-| FORCED | frozen template, unchanged | — | decode to `B`, then append the delimiter and decode a bounded continuation | generated |
+| BLIND | frozen template, unchanged | — | `max_tokens = B` | **reused from E1, not regenerated** (§4.2), subject to the §4.2 drift audit |
+| AWARE | frozen template + one recombined budget sentence | yes | `max_tokens = B` | generated; **exploratory companion** (§8.3) |
+| PLACEBO | frozen template + one length-matched sentence stating no budget | no | `max_tokens = B` | generated; exploratory |
+| TAG | frozen template + `TOKEN_BUDGET: {budget}` | yes | `max_tokens = B` | generated; **the confirmatory family's instrument** (§8.3) |
+| FORCED | frozen template, unchanged | — | decode to `B`, then prefill the delimiter into the assistant turn and decode a bounded continuation | generated; exploratory |
 
 ### 3.1 Why PLACEBO exists
 
@@ -146,7 +164,13 @@ uninterpretable on its own — it could be budget awareness, or it could be that
 instruction makes the model terser. PLACEBO holds instruction count and token length fixed while
 removing the budget information.
 
-### 3.2 Why TAG exists
+PLACEBO is length-matched to AWARE, not to TAG, and it remains AWARE's control. Now that the
+family runs on TAG (§8.3) the study has no length-matched placebo for its confirmatory
+instrument. That costs nothing there, because the family's contrast is a dose contrast *within*
+TAG in which the sentence is present on both sides and cancels exactly (§3.3); PLACEBO exists for
+the between-condition decomposition, which is exploratory.
+
+### 3.2 Why TAG exists, and why it is now the family's instrument
 
 Even if all six NATIVE sentences were perfect translations they would not be equally **forceful**.
 A cross-language difference in the AWARE effect therefore confounds *budget sensitivity* with
@@ -155,16 +179,19 @@ is byte-identical in every language and both arms, and costs the same 10–11 to
 cells (`prompts-e2/NOTES.md` §4), so a cross-language difference under TAG is not a difference in
 the instrument.
 
-TAG is also the one announcing condition whose wording needs no speaker to verify. §8.3 makes
-that a pre-stated contingency rather than a consolation.
+TAG is also the one announcing condition whose wording needs no speaker to verify. §8.3 drafted
+that as a pre-stated contingency rather than a consolation, and **the contingency has fired**: the
+six NATIVE sentences cannot be verified, so the confirmatory family runs on TAG. §8.3 records when
+and why.
 
 ### 3.3 The two contrasts, and which one carries the study
 
-- **Within-condition dose contrast (headline, confirmatory).** At the decoupled cap, `AWARE`
-  announcing 128 against `AWARE` announcing 2048. The two prompts differ **only in the integer**,
+- **Within-condition dose contrast (headline, confirmatory).** At the decoupled cap, `TAG`
+  announcing 128 against `TAG` announcing 2048. The two prompts differ **only in the integer**,
   which is a one-token difference. Every nuisance channel PLACEBO exists to absorb — an extra
   instruction is present, the prompt is longer, the frame changed — is identical on both sides
-  and cancels exactly. This is a strictly cleaner contrast than AWARE − PLACEBO.
+  and cancels exactly. This is a strictly cleaner contrast than AWARE − PLACEBO. The same contrast
+  is run and reported within `AWARE`, as the exploratory companion (§8.3).
 - **Between-condition contrast (secondary).** `AWARE` against `PLACEBO` at a fixed cap, the
   first draft's headline. It is retained everywhere as a decomposition, and it is the only
   contrast available in the coupled block, but it is no longer what the family tests.
@@ -180,11 +207,16 @@ intention to treat.
 **The confirmatory estimand is the announcement dose contrast at a fixed cap:**
 
 ```
-Delta_ann(A, L; a_low, a_high) = acc_A^{AWARE,a_low}(B*) - acc_A^{AWARE,a_high}(B*)
+Delta_ann(A, L; a_low, a_high) = acc_A^{TAG,a_low}(B*) - acc_A^{TAG,a_high}(B*)
 ```
 
 with `B* = 2048`, `a_low = 128`, `a_high = 2048`. `B*` is the same in both terms, so truncation
 is identical in both terms.
+
+The condition is `TAG` rather than `AWARE` because the §8.3 contingency has fired (§8.3, §16 D6).
+The same functional with `c = AWARE` is the **exploratory companion**, computed on the same cells
+and reported alongside; it is the same object with a different instrument, and it is never
+combined with the confirmatory one nor substituted for it.
 
 **The secondary condition contrast**, retained from the first draft, is
 
@@ -221,20 +253,53 @@ is **byte-identical in every field that defines the draw**:
   subset of E1's. Every E2 cell has an E1 shard already, including the decoupled cap.
 
 BLIND is therefore the same condition drawn under the same protocol, not a historical control.
-The base seed is unchanged at `20260726`, so the BLIND draws are *paired* with the E2 draws at the
-item and sample level in the same way E1's arms are paired with each other.
+The base seed is unchanged at `20260726`, which keeps the E2 draws **aligned with the BLIND draws
+at the item and sample level**, in the same way E1's arms are aligned with each other.
+
+**"Aligned" is the accurate word, and "paired" would not be.** Because `condition_seed` derives a
+distinct seed for every condition and announcement (§5.3), a BLIND record and the E2 record for
+the same `(item, sample, cap)` are *different random draws*, not one draw observed twice. What is
+shared is the item and the sample index — the labels the item-clustered bootstrap resamples on —
+so contrasts are computed per item and clustered per item, exactly as in E1. Nothing in the
+analysis assumes a common trajectory, and the seed independence is deliberate: if the conditions
+shared a draw, a condition difference could not be separated from that single draw.
 
 **What reuse costs.** BLIND was generated earlier, on the same served checkpoints and settings but
 not in the same session. vLLM bitwise non-determinism (~46% on repeat, documented in
 `prereg-independent-decoding.md` §9.4) means a regenerated BLIND would not reproduce E1 trace for
 trace either, so re-running buys nothing beyond temporal proximity. Any drift in the served stack
 between E1 and E2 would confound BLIND-involving contrasts — and this is a further reason the
-confirmatory contrast is a dose contrast *within* AWARE, generated in one session, which carries
+confirmatory contrast is a dose contrast *within* TAG, generated in one session, which carries
 no such exposure at all.
 
-**Gate.** Before scoring, every reused BLIND shard is re-verified with `verify_ledger` at 2000
-records. `TODO(supervisor)`: decide whether re-verification alone is sufficient or whether a small
-BLIND regeneration audit (e.g. one shard) should be run to bound stack drift.
+**Gate: re-verification, and a one-shard regeneration audit.** Before scoring, every reused BLIND
+shard is re-verified with `verify_ledger` at 2000 records. That is necessary and not sufficient:
+re-verification proves the file is intact, and cannot detect that the serving stack has drifted
+since E1, which is the risk this section is reasoning about. The endpoints have already gone down
+and will come back on some new process, so drift is a live possibility here rather than a
+hypothetical.
+
+**One shard is therefore regenerated and compared** — Qwen3-8B NATIVE `de` at `B = 192`, the
+confirmatory peak cell of E1, so that any drift shows up where it would matter most — using the
+E1 seeds, on three statistics: mean output length, `eos` rate, and accuracy under the frozen
+strict parser.
+
+The comparison is **not bitwise**. E1 documents ~46% bitwise determinism on repeat, so a bitwise
+comparison would fail for reasons that have nothing to do with drift. The bitwise-identical share
+is reported as description and is never a tolerance.
+
+**Tolerance, declared here and before the audit runs:** each statistic's own **E1 within-cell
+bootstrap standard error**, computed on the *stored* shard by the item-clustered bootstrap the
+protocol uses everywhere else (10,000 resamples, seed 20260726). If any of the three statistics
+moves by more than its own standard error, **BLIND is regenerated rather than reused**, and that
+decision is recorded in the freeze commit.
+
+The audit costs ~2000 records, about a minute. It is implemented in `src/blind_drift.py`, run by
+`scripts/audit_blind_drift.py`, and tested in `tests/test_blind_drift.py`. It writes to
+`analysis-out/blind_drift_audit.{json,md}` and to no `runs*` directory: the regenerated records
+are held in memory and discarded, because `runs-independent/` is read-only for this study (§10
+rule 7). It must run after the servers return and before any E2 scoring. **It has not been run:
+the endpoints are down.**
 
 ## 5. Design
 
@@ -326,13 +391,23 @@ All six cells are inside the 15% tolerance; the worst is 10.0%.
 The TAG line is `TOKEN_BUDGET: {budget}` in all six cells and costs **Δ 10–11 tokens in every one
 of them**, which is what makes it a de-confounder rather than a seventh translation.
 
-**TODO(verify-translation)** — the six non-English sentences above (German ×2, Thai ×2, Swahili
-×2) are still the executor's own and have not been checked by a speaker. What has changed is the
-size of the unverified surface: counting items that do not occur anywhere in the frozen template,
-it is **15, down from 35** in the first draft, and it is now almost entirely the quantifier frame
-rather than the referents:
+**RESOLVED — the translations will not be verified, and the §8.3 contingency has fired.** The six
+non-English sentences above (German ×2, Thai ×2, Swahili ×2) are the executor's own and have not
+been checked by a speaker. **They will not be:** the user has no access to German, Thai or Swahili
+speakers, so the condition the contingency was written against has resolved, before any E2 record
+exists. The confirmatory family therefore runs on TAG, whose wording is language-neutral and needs
+no translator (§8.3, §16 D6).
 
-| cell | first draft | this draft | what is left to verify |
+AWARE and PLACEBO are still generated and still reported, as the exploratory companion, with the
+translation risk stated. They are frozen **unverified and disclosed**, which is admissible because
+nothing confirmatory rests on them; it would not have been admissible for the family's instrument,
+which is why the contingency exists.
+
+What had already changed is the size of that unverified surface: counting items that do not occur
+anywhere in the frozen template, it is **15, down from 35** in the first draft, and it is now
+almost entirely the quantifier frame rather than the referents:
+
+| cell | first draft | this draft | what is left unverified |
 |---|---:|---:|---|
 | `aware/native/de` | 6 of 10 | 5 of 12 | `dürfen`, `zusammen`, `höchstens`, `Token`, `umfassen` |
 | `placebo/native/de` | 5 of 10 | 1 of 16 | `zusammen` |
@@ -341,15 +416,22 @@ rather than the referents:
 | `aware/native/sw` | 5 of 8 | 3 of 11 | `pamoja`, `zisizidi`, `tokeni` |
 | `placebo/native/sw` | 8 of 10 | 1 of 12 | `pamoja` |
 
-`prompts-e2/NOTES.md` §3 lists each with its intended gloss and the specific thing to check.
-**The protocol must not be frozen until they are verified.** Three of the fifteen items
+`prompts-e2/NOTES.md` §3 lists each with its intended gloss and the specific thing to check, so a
+speaker who becomes available later can audit what was frozen. Three of the fifteen items
 (`Token`, `โทเค็น`, `tokeni`) are unavoidable: no frozen template contains a word for the model's
 subword units in any language, and no amount of recombination can supply one.
 
-**TODO(supervisor)** — the token lengths above are measured on Qwen3-8B only, from the local
-snapshot `b968826d…` rather than the served revision `2069b3fa…`. Llama's tokenizer is gated and
-not locally cached, and its premiums were originally measured through the served vLLM `/tokenize`
-endpoint. Re-measure both before the freeze.
+**BLOCKING — token lengths must be re-measured on the served revisions and on Llama.** The Δtok
+figures above are Qwen3-8B only, measured on the local snapshot `b968826d…` rather than the served
+revision `2069b3fa…`. Llama's tokenizer is gated and not locally cached; its premiums were
+originally measured through the served vLLM `/tokenize` endpoint. **Both endpoints are down, so
+this cannot be resolved now.** It blocks the freeze, not the drafting.
+
+When the servers return: re-measure all fifteen sentences on both served revisions, confirm that
+AWARE and PLACEBO stay within the declared 15% band per language, and only then freeze. **If the
+band is violated the sentences are re-balanced before freezing, never after.** The stored figures
+in `tests/test_run_e2.py::_MEASURED_DELTAS` are the local-snapshot measurement and are the thing
+to be re-measured against, not the authority for it. See §16 D3.
 
 ### 5.3 Seeds
 
@@ -390,8 +472,9 @@ with `_FIELD_SEPARATOR = b"\x1f"`, i.e. the same SHA-256 / `\x1f` construction a
   their common cell instead of duplicating it;
 - **equal to E1's** when `condition is None`, which is what makes §4.2 hold.
 
-`base_seed = 20260726`, unchanged from E1, deliberately: the E2 conditions must be paired with the
-reused BLIND draws item-for-item, and a new base seed would break that pairing for no gain.
+`base_seed = 20260726`, unchanged from E1, deliberately: the E2 conditions must line up with the
+reused BLIND draws item-for-item, and a new base seed would break that alignment for no gain. The
+alignment is on the item and sample labels, not on a shared draw (§4.2).
 
 ### 5.4 Condition spec
 
@@ -417,18 +500,27 @@ E1's and would silently create a condition that is not the baseline.
 FORCED is a two-stage decode:
 
 1. decode to `max_tokens = B` exactly as BLIND does;
-2. if the capped segment contains **no compliant `#### <integer>` line**, append the delimiter
-   `"\n#### "` and decode a continuation capped at `E2_CONTINUATION_MAX_TOKENS = 32`;
+2. if the capped segment contains **no `#### …` answer line**, prefill the capped segment plus the
+   delimiter `"\n#### "` into the *assistant* turn and decode a continuation capped at
+   `E2_CONTINUATION_MAX_TOKENS = 32`;
 3. if it already contains one, stop — forcing a second delimiter onto a trace that answered would
    change what the scorer reads.
 
+The trigger is **syntactic, not parsed**: `has_answer_line` matches the `#### ` line shape and does
+not check that what follows is an integer, so a trace ending `#### banana` is *not* forced even
+though the strict scorer will score it 0. That is deliberate and is the same asymmetry step 3
+exists for — injecting a second delimiter after a line the model already wrote as its answer would
+change the trace rather than complete it. It is stated here so the frozen wording matches
+`src/parser.py::has_answer_line`, which is what actually runs.
+
 Both segments and the continuation length are recorded (`capped_token_count`,
-`continuation_token_count`, `continuation_max_tokens`, `forced`, `capped_eos`, `answer_delimiter`).
-A FORCED record's `output_token_count` therefore **exceeds `B`** by up to 32, and `verify_ledger`
-allows that for FORCED only, bounded by the record's own recorded continuation cap.
+`continuation_token_count`, `continuation_max_tokens`, `continuation_mode`, `forced`,
+`capped_eos`, `answer_delimiter`). A FORCED record's `output_token_count` therefore **exceeds `B`**
+by up to 32, and `verify_ledger` allows that for FORCED only, bounded by the record's own recorded
+continuation cap.
 
 **The FORCED trigger conflates two populations, and this is measured, not speculative.** A capped
-segment can lack a compliant answer line either because the cap truncated it (`eos = false`) or
+segment can lack a `#### …` answer line either because the cap truncated it (`eos = false`) or
 because the model finished and wrote the answer inline (`Antwort: #### 3`, `eos = true`), which
 the strict parser does not accept. Counted over E1 at exactly E2's caps:
 
@@ -439,29 +531,67 @@ the strict parser does not accept. Counted over E1 at exactly E2's caps:
 
 For Llama, **over half** of all forcing events would be repairing a formatting failure rather than
 relieving a budget. FORCED as specified therefore measures "delimiter injection" and not "budget
-forcing" for that model. `TODO(supervisor)`: choose one —
+forcing" for that model.
 
-- (a) keep the trigger as the brief specifies (absence of an answer line) and report the two
-  populations separately using the stored `capped_eos`, which is why that field exists; or
-- (b) narrow the trigger to `eos == false`, making FORCED purely a budget intervention and
-  leaving format repair unmeasured.
+**RULED: the trigger stays the absence of a `#### …` answer line, and the two populations are
+reported separately** using the stored `capped_eos`, which is why that field exists. The narrower
+alternative — trigger on `eos == false`, making FORCED purely a budget intervention — was
+rejected, and the reason is reversibility rather than taste: **the answer-line trigger is a
+superset of the truncation trigger, and the narrower population is recoverable from it.** With
+`capped_eos` on every record, the budget-only population is obtained at analysis time by
+filtering. The reverse is not true: choosing `eos == false` would discard the format-repair
+population permanently and require regenerating to get it back. Where two options differ only in
+what they foreclose, take the one that stays reversible in analysis.
 
-This draft implements (a) and keeps every FORCED analysis out of the confirmatory family (§11).
+The format-repair population is independently worth having. It quantifies how much of Llama's
+apparent multilingual failure is formatting rather than reasoning, which bears directly on the
+never-emission rates of 80.2 / 93.2 / 46.0% in `PAPER.md` §4. Every FORCED analysis stays outside
+the confirmatory family (§11) regardless. See §16 D4.
 
-**Continuation-prompt construction.** `TODO(supervisor)`: the two-stage decode appends the capped
-segment and delimiter to the *user* turn, because `EngineProtocol.generate` takes one prompt
-string against `/v1/chat/completions`. The s1 intervention this imitates prefills the *assistant*
-turn (`continue_final_message` / `add_generation_prompt=false`). The two differ in the chat-template
-markup surrounding the capped segment and are not the same intervention.
-`src.generate.default_continuation_prompt` is a parameter of `forced_generation_record` so a
-proper prefill can be substituted without touching the driver.
+**Continuation-prompt construction: RULED — a real assistant prefill, and FORCED did not run until
+it existed.** The second draft appended the capped segment and delimiter to the *user* turn,
+because `EngineProtocol.generate` took one prompt string against `/v1/chat/completions`. The s1
+intervention FORCED is named after prefills the *assistant* turn. These are not an approximation
+of each other: in the user-turn form the model is shown its own partial reasoning wrapped in
+user-turn chat markup, as though a person had written it. Running that and calling it budget
+forcing would put a mislabelled intervention in the paper.
+
+The prefill has been implemented rather than approximated, and FORCED is unblocked by it:
+
+- `EngineProtocol` is extended by `PrefillEngineProtocol`, whose `generate_with_prefill` continues
+  an assistant turn the model has already begun. `VLLMEngine` implements it by sending the capped
+  segment as a trailing `assistant` message with **`continue_final_message: true` and
+  `add_generation_prompt: false`**. The two flags are mutually exclusive in vLLM and are sent
+  explicitly, so a server-side default cannot silently reopen a new turn.
+- `src.generate.assistant_prefill_continuation` is the continuation builder, and it is the
+  default. The user-turn function was **removed, not retained as an option**: keeping the
+  mislabelled construction one keyword argument away is the failure mode this ruling exists to
+  prevent.
+- An engine that cannot prefill raises rather than falling back to the user turn, so FORCED is
+  *unrunnable* on such an engine by construction rather than by discipline.
+- Every FORCED record carries `continuation_mode = "assistant_prefill"`, and `verify_ledger`
+  **rejects a FORCED record that carries anything else or nothing**. A shard produced by any other
+  construction fails verification instead of being scored as budget forcing.
+
+Tests: `tests/test_engine.py` fixes the request body and both flags;
+`tests/test_run_e2.py` fixes that stage two goes through the prefill path with the user turn
+unchanged, that a prefill-less engine cannot run FORCED, and that a user-turn shard fails
+verification. **Outstanding:** the prefill path has not been exercised against a live endpoint,
+because both endpoints are down. It is covered by the same server-return checklist as §5.2, and it
+is a smoke check rather than a design question. See §16 D5.
 
 ### 5.6 Scale
 
 Per model: AWARE 75 shards, PLACEBO 63, FORCED 63, TAG 18 — **219 shards**. Two models,
 **438 shards × 2000 records = 876,000 generations**, ≈251.0M output tokens, ≈11.83 GPU-hours at
 5,893 output tok/s (§6). BLIND adds nothing: it is already on disk. The decoupled block is 60 of
-the 438 shards, i.e. 14% of the study, and it is where the entire confirmatory family lives.
+the 438 shards, i.e. 14% of the study, and it is where the entire confirmatory family lives — in
+its TAG cells (§8.3).
+
+Two runs sit outside this total and outside the ledger it prices. The §8.6 pilot adds 4 shards and
+8,000 generations under `runs-e2-pilot/`, and it runs **before** the freeze. The §4.2 drift audit
+adds ~2,000 regenerations that are written nowhere at all. Neither is study data and neither is
+scored.
 
 ## 6. Cost
 
@@ -502,9 +632,15 @@ sentences (§5.2) do not appear in this table.
 Unchanged from `prereg-independent-decoding.md` §6, plus `condition` on every E2 record,
 `announced_budget` on every record whose prompt states a number, and, on FORCED records only,
 `forced`, `capped_token_count`, `capped_eos`, `continuation_token_count`,
-`continuation_max_tokens`, and `answer_delimiter`. `record_id` gains a trailing `C{condition}`
-component, and a further `A{announced}` component when the announcement differs from the cap. All
-additions default to absent, so every existing ledger and every existing record ID is unchanged.
+`continuation_max_tokens`, `continuation_mode`, and `answer_delimiter`. `record_id` gains a
+trailing `C{condition}` component, and a further `A{announced}` component when the announcement
+differs from the cap. All additions default to absent, so every existing ledger and every existing
+record ID is unchanged.
+
+`continuation_mode` is `"assistant_prefill"` on every FORCED record and is checked by
+`verify_ledger`. It exists because the condition is budget forcing only if stage two continued the
+model's own turn (§5.5): a ledger must state which construction produced it rather than leaving a
+reader to infer it from the harness version.
 
 `announced_budget` is written even when it equals the cap. A record must say what number its
 prompt stated, and "the same as the cap" is a fact about the coupled block rather than the
@@ -518,10 +654,37 @@ For FORCED, the scored text is the **concatenation of both segments including th
 delimiter**. That is the intervention's output, and scoring the capped segment alone would measure
 BLIND with extra steps.
 
-## 8. Confirmatory family — recommendation and reasoning
+**This requires care, and the E2 scorer must be written for it.** The delimiter is *injected* text
+rather than sampled output, so its tokens are recorded in `answer_delimiter` and counted in
+**neither** segment: `output_token_ids` is `capped ++ continuation` with no delimiter between
+them, which is what keeps `capped_token_count + continuation_token_count == output_token_count`
+(§10 rule 3). E1's scorer decodes `output_token_ids` directly — deliberately, because raw engine
+text can carry special-token markup that corrupts the answer line — and **a scorer that does that
+to a FORCED record will not see the delimiter and will mis-score forced traces.**
 
-**The supervisor decides. The executor's recommendation is: confirmatory, a family of five,
-confined to the announcement dose contrast in the decoupled block; everything else exploratory.**
+The E2 scorer must therefore reconstruct: split `output_token_ids` at `capped_token_count`, decode
+the two segments separately, and splice the record's own `answer_delimiter` between them before
+parsing. Every field needed to do so is on the record, and `tests/test_run_e2.py` asserts that the
+split point and the delimiter are both recoverable. Scoring is a single pass run after generation
+(§9) and no E2 record exists yet, so this is a requirement on code not yet written rather than a
+defect in code that is. The naive path does not merely lose a little fidelity: the injected
+delimiter is the *only* thing making the continuation an answer line, so a forced trace whose
+continuation is `42` decodes to `…42` with no `#### ` anywhere and parses to nothing. A
+continuation that happens to emit its own `#### n` would still parse, so the failure is not
+literally universal — but it is the common case, it is silent, and it biases FORCED accuracy
+downward in exactly the population the condition exists to measure.
+
+## 8. Confirmatory family — the ruling and its reasoning
+
+**RULED: confirmatory, a family of five, confined to the announcement dose contrast in the
+decoupled block, on the TAG instrument, at family-wise α = 0.05 — and gated on a manipulation
+pilot that runs before the freeze (§8.6). Everything else is exploratory.**
+
+Three things about that sentence are decisions rather than restatements of the second draft, and
+each has its own subsection: the instrument is **TAG** and not AWARE, because the §8.3 contingency
+has fired (§8.3); the numeric manipulation gate is **ratified and applies to TAG** (§8.4); and the
+family is **not frozen until a pilot shows the manipulation is not inert** (§8.6). The structure —
+confirmatory, five tests, one α — is unchanged and matches E1.
 
 ### 8.1 Why confirmatory at all
 
@@ -546,14 +709,37 @@ we do not have would be theatre.
 More importantly, **the entire coupled block is a design in which the manipulation cannot bite**
 (§1.3): at 128–512 the announcement is swamped by truncation, and at 1024–2048 it is 4–8× the
 trace. A family placed there would be a guaranteed null, which is the same trap the first draft
-fell into. The coupled block, TRANSLATE-ACT's binding regime, Llama, TAG, and every FORCED
+fell into. The coupled block, TRANSLATE-ACT's binding regime, Llama, AWARE, and every FORCED
 analysis are therefore exploratory by construction (§11).
 
-### 8.3 The proposed family
+### 8.3 The family, and the instrument it runs on
 
 Qwen3-8B only, matching E1's and the frozen protocol's designation of Qwen as confirmatory primary
 and Llama as procedurally matched secondary with no confirmatory claims. **Both arms**: the object
 at risk is whether `acc(B)` is a function of `B` alone, and that question is not arm-specific.
+
+**The contingency has fired: the family's instrument is TAG.** The second draft carried a
+pre-stated contingency — if the six NATIVE sentences were not verified by a speaker before the
+freeze, the family would move to TAG on the same five cells, with the same estimand, the same
+announced values and the same α. That contingency is now **exercised**, and the circumstances are
+exactly the ones under which the draft permitted it:
+
+- The condition it was written against has **resolved**: the user has no access to German, Thai or
+  Swahili speakers, so the six sentences will not be verified (§5.2).
+- It has resolved **before any E2 record exists**. Nothing has been generated into `runs-e2/`, and
+  the servers are down, so no datum could have informed the switch even in principle.
+
+This is therefore a pre-specified branch that was taken, not a post-hoc family switch. Exercising
+it after data existed would be the latter, and §10 rule 10 continues to forbid that. The record of
+when it fired is this paragraph, the freeze commit, and §16 D6.
+
+**AWARE and PLACEBO are still generated and still reported**, as the exploratory companion, with
+the translation risk stated. Two things make that worth the 7.26 GPU-hours the two conditions cost
+across both models (§6). AWARE is the **ecologically realistic** form of the manipulation: real
+deployments announce budgets in prose, not as a machine tag, so a result that held only for
+`TOKEN_BUDGET: 128` would be a result about a tag. And the **AWARE-versus-TAG comparison is itself
+informative** about how much the phrasing matters, which is the one thing neither condition can
+tell you alone.
 
 Cells are selected by a **measured, pre-stated criterion**, not by assertion: a cell is eligible
 if the E1 censoring share (`eos = false`) at the decoupled cap `B* = 2048` is **below 2%**. This
@@ -583,30 +769,35 @@ censored at 2048 — so it is excluded from the family in advance, on the measur
 the result. Every other Qwen cell qualifies. **Swahili is not lost from the family**, because
 TRANSLATE-ACT Swahili at 0.50% does qualify; the first draft, being NATIVE-only, lost it.
 
-This leaves five cells:
+This leaves five cells. Every one of them is a dose contrast **within TAG**:
 
 | # | Test | Arm | Lang | Statement |
 |---|---|---|---|---|
-| A1-nat-de | announcement dose | NATIVE | de | `Delta_ann(NATIVE, de; 128, 2048) ≠ 0`, two-sided |
-| A1-nat-th | announcement dose | NATIVE | th | `Delta_ann(NATIVE, th; 128, 2048) ≠ 0`, two-sided |
-| A1-ta-de | announcement dose | TRANSLATE-ACT | de | `Delta_ann(TA, de; 128, 2048) ≠ 0`, two-sided |
-| A1-ta-th | announcement dose | TRANSLATE-ACT | th | `Delta_ann(TA, th; 128, 2048) ≠ 0`, two-sided |
-| A1-ta-sw | announcement dose | TRANSLATE-ACT | sw | `Delta_ann(TA, sw; 128, 2048) ≠ 0`, two-sided |
+| A1-nat-de | announcement dose, TAG | NATIVE | de | `Delta_ann(NATIVE, de; 128, 2048) ≠ 0`, two-sided |
+| A1-nat-th | announcement dose, TAG | NATIVE | th | `Delta_ann(NATIVE, th; 128, 2048) ≠ 0`, two-sided |
+| A1-ta-de | announcement dose, TAG | TRANSLATE-ACT | de | `Delta_ann(TA, de; 128, 2048) ≠ 0`, two-sided |
+| A1-ta-th | announcement dose, TAG | TRANSLATE-ACT | th | `Delta_ann(TA, th; 128, 2048) ≠ 0`, two-sided |
+| A1-ta-sw | announcement dose, TAG | TRANSLATE-ACT | sw | `Delta_ann(TA, sw; 128, 2048) ≠ 0`, two-sided |
 
 **Holm step-down over the five tests at family-wise α = 0.05** (local α = 0.01 at the first step).
 Rejecting any one of them establishes that `acc(B)` is not a function of `B` alone once `B` is
 announced, and that §5's triage heuristic needs a scope caveat.
 
-The intermediate announced value 256 is **not** in the family. It is a dose-response
-interpolation, reported exploratorily, and adding it would take the family to ten tests and the
-first-step α to 0.005 for no extra decision.
+The same five contrasts under **AWARE** are computed and reported as the exploratory companion.
+They are not family members, they carry no multiplicity correction of their own, and **a rejection
+under AWARE is not a confirmatory result** — it is a finding about a sentence, generated in the
+same session, worth reporting and not worth over-claiming.
 
-**TODO(supervisor)** — the contingency, decided now rather than after seeing data. If the six
-NATIVE translations are **not** verified by a speaker before the freeze, the family moves to the
-TAG condition on the same five cells, with the same α, the same estimand and the same announced
-values. TAG's wording is language-neutral and needs no verification, so it is the one instrument
-that is certain to be available. This switch is conditioned on an event that resolves *before* any
-E2 record exists; it is not a post-hoc choice and must not be exercised after generation begins.
+The intermediate announced value 256 is **not** in the family, in either condition. It is a
+dose-response interpolation, reported exploratorily, and adding it would take the family to ten
+tests and the first-step α to 0.005 for no extra decision.
+
+**What the move to TAG costs, stated rather than buried.** The MDE table in §9.1 is estimated from
+E1's within-cell variance, which is a property of the cell and not of the announcing sentence, so
+the detection thresholds carry over to TAG unchanged. What does not carry over is ecological
+reading: TAG's `TOKEN_BUDGET: 128` is a machine-formatted directive, and a rejection under it
+speaks to deployments that announce budgets *in that form*. The prose form is AWARE, and it is
+exploratory. §12 records this as a limitation rather than leaving it implicit.
 
 **Companion equivalence result, outside the family.** The TOST at the 5-point SESOI carried over
 from `prereg-matched-budgets.md` §3, on the same five cells. It answers the complementary
@@ -645,36 +836,93 @@ exactly the BLIND median:
 | TRANSLATE-ACT th | 255 | 128 | 127 |
 | TRANSLATE-ACT sw | 267 | 128 | 139 |
 
-**Declared numeric gate, `TODO(supervisor)` to ratify.** The gate passes if, in at least four of
-the five family cells, the median output length under announced-128 is **at least 30% below** the
-median under announced-2048 in the same cell and condition. 30% is set below the R1 prediction
-(which is a 49–66% reduction in these cells) and far above the R2 prediction (0%), so the
-threshold discriminates the two readings without being tuned to either. Censoring share is
-reported alongside but is not part of the gate: at cap 2048 it is already 0.0–0.5% in every
-family cell and has no room to inform.
+**Declared numeric gate — RULED, ratified, and applied to TAG.** The gate passes if, in at least
+four of the five family cells, the median output length under announced-128 is **at least 30%
+below** the median under announced-2048 in the same cell and condition. 30% is set below the R1
+prediction (which is a 49–66% reduction in these cells) and far above the R2 prediction (0%), so
+the threshold sits between the two readings it must discriminate and is **not tuned to either**.
+It is declared before data. Censoring share is reported alongside but is not part of the gate: at
+cap 2048 it is already 0.0–0.5% in every family cell and has no room to inform.
+
+One consequence of the contingency firing (§8.3): the gate now applies to **TAG**, since that is
+the family's instrument. It is run on AWARE as well and both are reported, but **only TAG's result
+gates the family**. See §16 D7.
 
 **What a pass does and does not license.** A pass rules out R2 and rules out an inert
 manipulation. It does **not** certify R1: any misreading that induces brevity — "you have at most
 128 tokens" parsed as a generic exhortation to be terse — produces the same shortening. The check
 separates {R1, generic-brevity} from {R2, inert}, and no more. **It is not a substitute for a
-translator** and does not discharge the `TODO(verify-translation)` in §5.2.
+translator**, and since the six NATIVE sentences will now never be verified (§5.2) that is a
+permanent limitation of the AWARE companion rather than a temporary one.
 
 This is a gate on interpretation, not a family member and not an exclusion rule: the data are
 reported either way, and no record is dropped on its basis. If the gate fails, the family has
 tested a manipulation that never took, and the write-up must say so rather than reporting support
 for the heuristic.
 
-### 8.5 The alternative the supervisor may prefer
+### 8.5 The alternative, and when it is taken
 
-Declaring **all of E2 exploratory** is defensible, and the executor no longer argues against it as
-firmly as the first draft did — the first draft's reason for rejecting it was the
-§5-falsification framing, which does not hold. The argument for it: the announcement manipulation
-is unvalidated in *every* language including English (§12.1), no discovery sample exists for any
-E2 quantity, and a frozen family built on an unvalidated instrument buys confidence it has not
-earned. The argument against it, and the reason the executor still recommends a family: the
-triage heuristic is already in print, an exploratory test of it cannot discharge it, and the
-decoupled block plus the §8.4 gate is a design where the instrument's validity is itself measured
-before the family is interpreted.
+Declaring **all of E2 exploratory** is defensible. The argument for it: the announcement
+manipulation is unvalidated in *every* language including English (§12.1), no discovery sample
+exists for any E2 quantity, and a frozen family built on an unvalidated instrument buys confidence
+it has not earned. The argument against: the triage heuristic is already in print, an exploratory
+test of it cannot discharge it, and the decoupled block plus the §8.4 gate is a design where the
+instrument's validity is itself measured before the family is interpreted.
+
+**This is no longer a matter of preference.** §8.6 turns it into a decision rule with an
+observation attached: the pilot runs before the freeze, and if the manipulation does not move
+output length, E2 is frozen as exploratory in full and this subsection is what that means.
+
+### 8.6 Manipulation pilot — the gate on the freeze itself
+
+**RULED (D8): a pilot runs before the freeze, and the confirmatory family is frozen only if it
+passes.** The structure of §8.3 is right. What was wrong was the *sequencing*.
+
+The family would otherwise be frozen on an instrument whose efficacy is unvalidated, and the
+objection applies to TAG exactly as much as it applied to AWARE: **"token" is not verifiable as a
+manipulation in any language, English included** (§12.1). The model must map the word onto its own
+subword units, and nothing on any ledger here establishes that it does. If the manipulation is
+inert, the §8.4 gate fails, the family is void, and 11.83 GPU-hours have bought nothing
+confirmatory. Discovering that after the study has run is avoidable for almost nothing.
+
+**The pilot.**
+
+| item | value |
+|---|---|
+| model | Qwen3-8B, the confirmatory model |
+| cell | NATIVE `de`, one cell |
+| conditions | TAG and AWARE |
+| announced | {128, 2048}; the intermediate 256 is not run |
+| enforced cap | 2048, the decoupled cap |
+| size | 250 items × 8 samples × 2 announced × 2 conditions = **8,000 generations**, ≈4 minutes at the measured throughput |
+| output | `runs-e2-pilot/`, its own root |
+| readout | median output length by (condition, announced); censoring share as context |
+| runner | `scripts/run_e2_pilot.py`, implemented in `src/e2_pilot.py`, tested in `tests/test_e2_pilot.py` |
+
+**Decision rule, declared here and before the pilot runs.** TAG gates, because TAG is the family's
+instrument (§8.3):
+
+- **The manipulation moves median output length in the predicted direction under TAG** — the
+  median under announced-128 lies below the median under announced-2048 — then the confirmatory
+  family of §8.3 is frozen as specified.
+- **It does not** — then **E2 is frozen as exploratory in full** (§8.5), and the write-up says the
+  instrument did not work rather than reporting a null as support for §5's heuristic.
+
+The rule is *direction*, not magnitude. §8.4's 30% threshold is the gate on interpreting the
+family after it has run; applying it here as well would be a second, stricter hurdle that the
+ruling does not impose. The reduction share is computed and reported beside the direction so a
+reader can see how close the pilot came to the §8.4 threshold, but it does not decide anything.
+AWARE is run and reported in the same table and does not gate.
+
+**The pilot is a gate on the protocol, not part of the study.** Its records live under
+`runs-e2-pilot/`, are **never scored as data**, and are excluded from the frozen ledger. This
+mirrors the E1 pilot's role under `runs-independent-pilot/`. Three things enforce it rather than
+merely asking for it: the runner refuses an output root that is the study ledger; the readout
+computes median length and censoring share and **does not compute accuracy at all**; and
+`runs-e2-pilot/` is outside `runs-e2/`, which §10 rule 7 makes the only output root of the study.
+
+**Status: not run. The endpoints are down.** The pilot and the §5.2 token re-measurement are the
+two items blocking the freeze (§13).
 
 ## 9. Analysis plan and power
 
@@ -683,12 +931,15 @@ paired bootstrap, 10,000 resamples), `src/analysis/supt.py` (studentized sup-t, 
 conservatism), `src/analysis/holm.py` (step-down), `src/analysis/mcb.py`.
 
 The bootstrap resamples 250 items with replacement, retaining all 8 samples per selected item.
-The two terms of the dose contrast come from different generations, so they are not paired within
-a trace. They are paired within *item* and within `(item, sample, cap)` by the shared base seed,
-and the item-clustered bootstrap is applied to the per-item difference exactly as in E1. No new
-estimator is introduced.
+The two terms of the dose contrast come from different generations under different seeds (§5.3),
+so they are not paired within a trace and the analysis never assumes they are. They are **aligned
+by label** — the same 250 items and the same 8 sample indices appear on both sides — and the
+item-clustered bootstrap is applied to the per-item difference exactly as in E1. That is all the
+estimator needs: clustering is on the item, not on a shared random draw. No new estimator is
+introduced.
 
-Scoring is run **once**, after all 438 E2 shards and every reused BLIND shard verify.
+Scoring is run **once**, after all 438 E2 shards and every reused BLIND shard verify, and after
+the §4.2 drift audit returns a `reuse` verdict.
 
 ### 9.1 Power
 
@@ -718,7 +969,9 @@ Agreement to 0.07–0.11 points on a 250×8 design. The estimator is credible.
 **The MDE table.** At the decoupled cap `B* = 2048`, at Holm's first-step local α = 0.01 over the
 five-cell family. `detection` is the smallest |Δ| that would clear the test at all — the boundary
 of the rejection region, i.e. 50% power. `MDE 80%` is the smallest |Δ| caught with probability
-0.8. Both include the 1.3× inflation.
+0.8. Both include the 1.3× inflation. The estimates come from E1's within-cell variance, which is
+a property of the cell rather than of the announcing sentence, so they apply unchanged to the TAG
+family and to the AWARE companion alike.
 
 | arm | lang | acc at B* | SE(Δ) | detection | MDE 80% | in family |
 |---|---|---:|---:|---:|---:|---|
@@ -754,41 +1007,57 @@ size of effect the design could see if there were one.
    announcement is checked exactly, including against `None`: a PLACEBO record that carries an
    announcement is a template bug and must fail verification rather than be scored.
 3. A FORCED record may exceed its budget by at most its own recorded `continuation_max_tokens`,
-   and its two segment counts must sum to `output_token_count`. No other condition may exceed its
-   budget by any amount — including in the decoupled block, where the announcement is not a cap
-   and does not license an overrun in either direction.
+   and its two segment counts must sum to `output_token_count`. Its `continuation_mode` must be
+   `"assistant_prefill"`: a FORCED shard built on any other construction fails verification rather
+   than being scored as budget forcing (§5.5). No other condition may exceed its budget by any
+   amount — including in the decoupled block, where the announcement is not a cap and does not
+   license an overrun in either direction.
 4. Generation failures are retried by the resume path; a record is written only on success.
 5. vLLM bitwise non-determinism (~46% on repeat) is tolerated, as in both prior protocols. It is
    not an exclusion criterion. Each (budget, condition, announcement) is its own draw by design.
 6. If any shard fails verification, that shard is regenerated in full; partial shards are never
    scored.
-7. Reused BLIND shards are re-verified before scoring and are **never rewritten**. `runs-e2/` is
-   the only output root; `runs/`, `runs-independent/`, and every other `runs-*` directory are
-   read-only for this study.
+7. Reused BLIND shards are re-verified before scoring, are subject to the §4.2 drift audit, and are
+   **never rewritten**. `runs-e2/` is the only output root of the study; `runs/`,
+   `runs-independent/`, `runs-e2-pilot/`, and every other `runs-*` directory are read-only for it.
+   The §8.6 pilot writes to `runs-e2-pilot/` and its records are never scored as study data.
 8. The confirmatory family's cells are fixed by the censoring table in §8.3, which is measured on
    E1, covers **both arms**, and is stated here **before any E2 record exists**. They are not
-   re-selected on E2 data. The family's announced values `{128, 2048}` are likewise fixed here.
+   re-selected on E2 data. The family's announced values `{128, 2048}` are likewise fixed here, and
+   so is its instrument, TAG.
 9. Items are not excluded for having no compliant BLIND answer. Intention to treat is unchanged:
    a non-compliant trace scores 0, in every condition, including FORCED.
-10. The §8.3 contingency (family moves to TAG if the translations are not verified) may be
-    exercised **only before generation begins**, and the choice must be recorded in the freeze
-    commit.
+10. The §8.3 contingency (family moves to TAG if the translations are not verified) could be
+    exercised **only before generation begins**. **It has been exercised**, before any E2 record
+    exists and while the servers were down, and the choice is recorded in §8.3 and in the freeze
+    commit. It is now spent: the family's instrument is TAG and cannot move again, in either
+    direction, once generation begins.
+11. The §8.6 pilot decides confirmatory versus exploratory and must run **before** the freeze. Its
+    decision rule is fixed in §8.6 and is not re-read after the pilot's numbers are seen.
 
 ## 11. Secondary and exploratory (explicitly non-confirmatory)
 
 - **The entire coupled block**, both arms, both models, all seven budgets: AWARE vs PLACEBO,
   AWARE vs BLIND, PLACEBO vs BLIND. This is where the first draft put its family. It is
   exploratory here because the announcement is either swamped by truncation (128–512) or 4–8×
-  the trace (1024–2048), so neither a positive nor a null result there identifies anything.
+  the trace (1024–2048), so neither a positive nor a null result there identifies anything. TAG
+  does not appear in this list: it runs only in the decoupled block (§5.1), so there is no coupled
+  TAG cell to compare.
 - **The announced-256 cell** in the decoupled block, in both conditions: dose-response
   interpolation, deliberately outside the family (§8.3).
-- **The TAG condition everywhere.** Pre-specified, reported alongside AWARE, and the fallback
-  instrument under §8.3's contingency — but outside the family unless that contingency fires.
-  Its most useful reading is the *cross-language comparison of the dose response under one
-  instrument*, which is the only such comparison in the study that is not confounded by
-  manipulation strength.
+- **The AWARE condition everywhere, including its dose contrast on the five family cells.**
+  Pre-specified, generated in the same session as TAG, and reported alongside it as the
+  exploratory companion (§8.3). It is the *ecologically realistic* form of the manipulation —
+  deployments announce budgets in prose, not as a machine tag — which is exactly why it is worth
+  the GPU-hours even though its six NATIVE sentences will never be speaker-verified (§5.2). A
+  rejection here is not a confirmatory result.
 - **AWARE against TAG at a matched announcement**, which decomposes "does the model respond to a
-  budget" from "does the model respond to this sentence".
+  budget" from "does the model respond to this sentence". This is the comparison that prices what
+  the move to TAG cost the study, and it is the only one that can.
+- **The cross-language comparison of the dose response under TAG.** TAG's wording is byte-identical
+  in every language and both arms, so this is the only cross-language comparison in the study that
+  is not confounded by manipulation strength. It sits outside the family because the family tests
+  each cell separately and never contrasts them.
 - **Output-length response.** Median and quantile output length, and censoring share, by
   condition, cap and announced value. This is the §8.4 gate in its descriptive form, and the most
   direct behavioural readout in the study.
@@ -807,45 +1076,67 @@ size of effect the design could see if there were one.
   generation cost. If E2 NATIVE compliance falls below the 92–99% band `PAPER.md` §4 reports, the
   NATIVE arm's construct validity is compromised and the write-up must say so.
 
+The §8.6 pilot is not on this list, because it is not an analysis of the study at all. Its records
+are never scored as data and are excluded from the frozen ledger.
+
 ## 12. Known limitations to state upfront
 
 1. **The manipulation is unvalidated as a manipulation, in every language including English.** The
-   model must map `Token` / `โทเค็น` / `tokeni` / `tokens` onto its own subword units, and nothing
-   on any ledger here says it can. The English sentence is *verifiable* — anyone can read it — but
-   verifiability is not validity. The §8.4 gate and the TAG condition are the only parts of the
-   design that address this, and the gate can only rule out inertness, not confirm the intended
-   reading.
-2. **Six NATIVE sentences remain unverified translations at freeze time** (§5.2). The unverified
-   surface is 15 items rather than 35, and the `Antwort`/`Begründung` collision is gone, but "much
-   smaller" is not "zero". Three of the fifteen (`Token`, `โทเค็น`, `tokeni`) cannot be removed by
-   any amount of recombination.
-3. **The AWARE sentence is one sentence, not `EXPERIMENTS.md`'s sentence-plus-directive.** The
+   model must map `Token` / `โทเค็น` / `tokeni` / `tokens` — and the bare integer of
+   `TOKEN_BUDGET: 128` — onto its own subword units, and nothing on any ledger here says it can.
+   The English sentence is *verifiable* — anyone can read it — but verifiability is not validity,
+   and moving the family to TAG does not repair this: TAG is language-neutral, not
+   self-interpreting. The §8.6 pilot and the §8.4 gate are what address it, and both can only rule
+   out inertness, never confirm the intended reading.
+2. **Six NATIVE sentences are frozen as unverified translations, permanently** (§5.2). The
+   unverified surface is 15 items rather than 35, and the `Antwort`/`Begründung` collision is gone,
+   but "much smaller" is not "zero", and unlike the second draft this is no longer a temporary
+   state: no speaker is available, so it will not be discharged later. Nothing confirmatory rests
+   on those sentences — that is what the move to TAG bought — but every AWARE and PLACEBO result
+   does, and each must be reported with the caveat attached.
+3. **The confirmatory instrument is a machine tag, not prose.** `TOKEN_BUDGET: 128` is not how a
+   deployment announces a budget to a user; it is how a harness does. A rejection under TAG is
+   therefore evidence about announcements *in that form*, and the ecologically realistic prose form
+   is AWARE, which is exploratory (§8.3). This is a real narrowing of what the family licenses and
+   is a direct cost of the contingency having fired.
+4. **The AWARE sentence is one sentence, not `EXPERIMENTS.md`'s sentence-plus-directive.** The
    spec reads "You have at most B tokens. Give your answer as `#### <integer>` before you run
    out." The recombined sentence carries the directive's *content* — the budget is predicated
    jointly over the reasoning and the final answer, so the answer must land inside it — but not a
    second imperative clause. This is a deliberate narrowing, taken to keep the unverified surface
-   small, and it is disclosed rather than hidden. The first draft narrowed the manipulation
-   further, to a bare number, and did not disclose it at all.
-4. **FORCED conflates budget forcing with format repair**, measurably so, and for Llama the format
-   half is the majority (§5.5). At the non-binding caps it is almost entirely format repair.
-5. **The FORCED continuation is not a true assistant prefill** (§5.5), so it is an approximation of
-   the s1 intervention rather than a reproduction of it.
-6. **BLIND was generated in an earlier session** (§4.2). Contrasts involving it carry a
-   stack-drift exposure that the within-AWARE dose contrast does not.
-7. **Qwen NATIVE Swahili has no non-binding cap on this grid**, so the NATIVE half of the family
+   small, and it is disclosed rather than hidden. TAG narrows further still: it carries no
+   directive at all, only a labelled number.
+5. **FORCED conflates budget forcing with format repair**, measurably so, and for Llama the format
+   half is the majority (§5.5). At the non-binding caps it is almost entirely format repair. This
+   is deliberate and reversible: the trigger is the superset, and the budget-only population is
+   recovered at analysis time by filtering on `capped_eos` (§16 D4).
+6. **The FORCED prefill has not been exercised against a live endpoint.** The continuation is now a
+   real assistant prefill rather than a user-turn approximation (§5.5), and the request body is
+   fixed by tests, but both endpoints are down and no FORCED record has ever been generated through
+   it. That is a smoke check outstanding, not a design question.
+7. **BLIND was generated in an earlier session** (§4.2). Contrasts involving it carry a
+   stack-drift exposure that the within-TAG dose contrast does not. The §4.2 audit bounds that
+   exposure on one shard; it does not eliminate it, and it does not speak for the shards it did not
+   regenerate.
+8. **Qwen NATIVE Swahili has no non-binding cap on this grid**, so the NATIVE half of the family
    answers for two of three languages. TRANSLATE-ACT covers all three.
-8. **A null cannot be strengthened into "the model cannot use budget information"** — only into
-   "this sentence, in this template, at these announced values, at this cap, did not move
+9. **A null cannot be strengthened into "the model cannot use budget information"** — only into
+   "this announcement, in this template, at these announced values, at this cap, did not move
    accuracy."
-9. **A rejection does not falsify `PAPER.md` §5** (§1.1). It establishes a scope condition on §5's
-   triage heuristic: that the heuristic is ill-posed where budgets are announced.
-10. **The MDE table is a sensitivity statement, not a prediction** (§9.1). No prior on the
+10. **A rejection does not falsify `PAPER.md` §5** (§1.1). It establishes a scope condition on §5's
+    triage heuristic: that the heuristic is ill-posed where budgets are announced.
+11. **The MDE table is a sensitivity statement, not a prediction** (§9.1). No prior on the
     announcement effect exists.
-11. **Scope unchanged:** MGSM, three languages, two 8B models, two arms.
-12. **The confounds are unchanged.** Prompt language, reformulation, format compliance, translation
+12. **Scope unchanged:** MGSM, three languages, two 8B models, two arms.
+13. **The confounds are unchanged.** Prompt language, reformulation, format compliance, translation
     quality, and trace language remain jointly varied.
 
 ## 13. Freeze completeness
+
+**Everything the supervisor was asked to rule on is ruled (§16). Two items block the freeze and
+both need the vLLM endpoints back.**
+
+Settled:
 
 - [x] Estimand stated, and distinguished from E1's
 - [x] Headline contrast named (the announcement dose contrast) and the reason PLACEBO exists stated
@@ -869,33 +1160,63 @@ size of effect the design could see if there were one.
 - [x] Cost recomputed from the ledger, on two bases, for the new condition set
 - [x] Secondary/exploratory analyses separated from the family
 - [x] The seven review errors carried forward with their disposition (§15)
-- [ ] **Translations verified** — `TODO(verify-translation)`, six sentences, 15 items, blocking
-- [ ] **Token lengths re-measured on the served revisions and on Llama** — `TODO(supervisor)`
-- [ ] **FORCED trigger decision (a) or (b)** — `TODO(supervisor)`
-- [ ] **Manipulation-check gate ratified at 30% in ≥4 of 5 cells** — `TODO(supervisor)`
-- [ ] **§8.3 contingency ratified (family moves to TAG if translations fail)** — `TODO(supervisor)`
-- [ ] **BLIND re-verification vs regeneration audit decided** — `TODO(supervisor)`
-- [ ] **Confirmatory vs exploratory ratified** — `TODO(supervisor)`
-- [ ] **Freeze tag** — `TODO(supervisor)`
+- [x] **Freeze tag name decided** — `budget-aware-protocol-freeze` (§16 D1)
+- [x] **BLIND drift audit decided, specified and implemented** — one shard, tolerance declared
+      (§4.2, §16 D2)
+- [x] **FORCED trigger decided** — absence of an answer line, both populations reported (§5.5,
+      §16 D4)
+- [x] **FORCED continuation implemented as a real assistant prefill** — user-turn construction
+      removed, `verify_ledger` rejects it (§5.5, §16 D5)
+- [x] **§8.3 contingency resolved** — it fired, before any E2 record exists; the family's
+      instrument is TAG (§8.3, §16 D6)
+- [x] **Manipulation-check gate ratified at 30% in ≥4 of 5 cells, applied to TAG** (§8.4, §16 D7)
+- [x] **Confirmatory status ruled** — confirmatory, five tests, α = 0.05 family-wise, conditional
+      on the §8.6 pilot (§16 D8)
+- [x] **Translations resolved** — they will not be verified; the contingency fired and AWARE /
+      PLACEBO are frozen unverified and disclosed (§5.2, §12.2)
+
+**Blocking the freeze — both need the servers:**
+
+- [ ] **Token lengths re-measured on the served revisions and on Llama** (§5.2, §16 D3). The
+      figures in §5.2 come from the local Qwen snapshot `b968826d…`, not the served `2069b3fa…`;
+      Llama's tokenizer is gated and was measured through the served `/tokenize` endpoint. Confirm
+      AWARE and PLACEBO stay inside the 15% band per language, re-balance before freezing if not.
+- [ ] **§8.6 manipulation pilot run, and its verdict recorded** (§8.6, §16 D8). Pass freezes the
+      confirmatory family; fail freezes E2 as exploratory in full.
+- [ ] **Freeze tag `budget-aware-protocol-freeze` applied** — the name is decided (§16 D1); the tag
+      is not applied, because it is downstream of the two items above.
+
+Not blocking the freeze, but blocking scoring:
+
+- [ ] **§4.2 BLIND drift audit run**, and its `reuse` / `regenerate` verdict recorded. It needs the
+      servers too, but it gates scoring rather than the freeze.
+- [ ] **FORCED prefill smoke-checked against a live endpoint** (§12.6).
 
 ## 14. Frozen implementation details
 
 | Field | Value |
 |---|---|
-| Output root | `runs-e2/` (`runs/`, `runs-independent/` read-only) |
+| Freeze tag | `budget-aware-protocol-freeze`, annotated, on `main` (§16 D1) |
+| Output root | `runs-e2/` (`runs/`, `runs-independent/`, `runs-e2-pilot/` read-only) |
 | Shard path (coupled) | `runs-e2/{model}/{lang}/{arm}/{condition}/B{cap:05d}/shard.jsonl` |
 | Shard path (decoupled) | `runs-e2/{model}/{lang}/{arm}/{condition}/B{cap:05d}_A{announced:05d}/shard.jsonl` |
 | BLIND source | `runs-independent/{model}/{lang}/{arm}/B{cap:05d}/shard.jsonl`, read-only |
 | Records per shard | 2000 (250 items × 8 samples) |
 | Shards generated | 438 (219 per model: AWARE 75, PLACEBO 63, FORCED 63, TAG 18) |
-| `base_seed` | 20260726 (unchanged from E1, to preserve pairing with BLIND) |
+| `base_seed` | 20260726 (unchanged from E1, to preserve item/sample alignment with BLIND) |
 | Seed derivation | `condition_seed`, §5.3 |
 | Coupled conditions | `aware`, `placebo`, `forced` |
 | Decoupled conditions | `aware`, `tag` |
 | Decoupled cap `B*` | 2048 |
 | Announced grid | `{128, 256, 2048}` |
+| **Confirmatory instrument** | **`tag`** — the §8.3 contingency fired before any E2 record existed (§16 D6) |
+| Confirmatory contrast | dose contrast within `tag`, announced 128 vs 2048, at `B* = 2048` |
+| Exploratory companion | the same contrast within `aware`, same cells, no confirmatory claim |
+| FORCED trigger | absence of a syntactic `#### …` answer line (not parsed); populations split by `capped_eos` (§16 D4) |
+| FORCED continuation | assistant prefill — `continue_final_message: true`, `add_generation_prompt: false` (§16 D5) |
 | FORCED continuation cap | 32 tokens |
 | FORCED delimiter | `"\n#### "` |
+| FORCED `continuation_mode` | `"assistant_prefill"`, checked by `verify_ledger` |
 | Temperature | 0.6 |
 | dtype | bfloat16, no quantization |
 | `enable_thinking` | false (Qwen, every request) |
@@ -905,8 +1226,11 @@ size of effect the design could see if there were one.
 | Premiums | `configs/premiums.json`, unchanged |
 | Bootstrap resamples | 10,000 |
 | Tail conservatism | 1.3× |
-| Family size / α | 5 / 0.05 family-wise, local α₁ = 0.01 (recommended; `TODO(supervisor)` to ratify) |
-| Manipulation gate | median length at announced-128 ≥30% below announced-2048, in ≥4 of 5 cells |
+| Family size / α | 5 / 0.05 family-wise, local α₁ = 0.01 — **ratified** (§16 D8), conditional on the §8.6 pilot |
+| Manipulation gate | median length at announced-128 ≥30% below announced-2048, in ≥4 of 5 cells, **on TAG** (§16 D7) |
+| Pilot (§8.6) | Qwen NATIVE `de`, TAG + AWARE, announced `{128, 2048}`, cap 2048, 8,000 generations, `runs-e2-pilot/`, never scored |
+| Pilot decision rule | TAG median at announced-128 below announced-2048 → confirmatory; otherwise E2 is exploratory in full |
+| BLIND drift audit (§4.2) | Qwen NATIVE `de` `B=192`, E1 seeds; mean output length / `eos` rate / accuracy; tolerance = E1 within-cell bootstrap SE |
 
 Client concurrency is not estimand-affecting and is not frozen, but the value used must be
 recorded in the run report.
@@ -946,7 +1270,7 @@ see what was wrong before and what was done about it.
    *Disposition:* **substantially fixed, and disclosed.** The recombined sentence predicates the
    budget jointly over the reasoning and the final answer, which carries the directive's content
    ("the answer must land inside the budget") using audited phrases only. The absence of a second
-   imperative clause is disclosed in §12.3.
+   imperative clause is disclosed in §12.4.
 7. **The risk that "token" is unactionable in any language, English included, was not listed.**
    *Disposition:* **fixed.** It is now §12.1, the *first* limitation, is restated in the §2 scope
    fence, is the stated motive for the TAG condition (§3.2), and is the explicit boundary on what
@@ -957,5 +1281,116 @@ first draft's §8.3 published a NATIVE-only censoring table while §10 rule 8 cl
 cells were fixed by a pre-stated measurement. A two-arm family requires a two-arm table. §8.3 now
 publishes both arms and both models before the freeze, and rule 8 says so.
 
-**Gate:** no generation into `runs-e2/` before this file is reviewed, the translations are
-verified, and the supervisor commits and tags it. `TODO(supervisor)`: freeze tag name.
+A ninth, from the second draft rather than the first, is carried in §16 D5: the budget-forcing
+continuation was built on the user turn and described as an approximation of the s1 intervention.
+It was not an approximation of it; it was a different manipulation. It is now a real assistant
+prefill, and the user-turn construction is gone from the codebase.
+
+## 16. Disposition of the supervisor's decisions
+
+The second draft left sixteen `TODO(supervisor)` markers, reducing to eight decisions. All eight
+are ruled. The reasoning as it was recorded is in `tasks/e2-supervisor-decisions.md`; this section
+records where each landed in the protocol.
+
+| # | Decision | Ruling | Where it lands |
+|---|---|---|---|
+| D1 | Freeze tag name | `budget-aware-protocol-freeze` | header, §14 |
+| D2 | BLIND: re-verify, or audit by regeneration? | **run the audit**, one shard, tolerance declared | §4.2, §9, §10 r7, §14 |
+| D3 | Re-measure token lengths on served revisions and Llama | **blocked on the servers** | §5.2, §13 |
+| D4 | FORCED trigger: no `#### …` answer line, or `eos == false`? | **no answer line** — the superset, reversible in analysis | §5.5, §11, §12.5 |
+| D5 | Continuation: user turn, or assistant prefill? | **assistant prefill; FORCED did not run until it existed** | §5.5, §7, §10 r3, §12.6, §14 |
+| D6 | Contingency if the NATIVE translations are unverified | **it fires; the family runs on TAG** | §3, §4.1, §5.2, §8.3, §10 r10, §11, §12.2–3, §14 |
+| D7 | Manipulation gate at 30% in ≥4 of 5 cells | **ratified, applied to TAG** | §8.4, §14 |
+| D8 | Confirmatory vs exploratory, family size | **confirmatory, 5 tests, α = 0.05 — gated on a new pre-freeze pilot** | §8, §8.5, §8.6, §10 r11, §14 |
+
+**D1.** `budget-aware-protocol-freeze` matches the existing convention (`protocol-freeze`,
+`independent-protocol-freeze`). Annotated tag, on `main`, alongside the other two. The name is
+decided; the tag is not applied, because D3 and the D8 pilot both block it.
+
+**D2.** Re-verifying a stored shard proves the file is intact. It cannot detect that the serving
+stack has drifted since E1, which is the risk the reuse argument actually carries, and the servers
+have already gone down and will return on a new process. One shard is regenerated — Qwen NATIVE
+`de` at `B = 192`, the confirmatory peak cell, so drift shows up where it would matter most —
+under the E1 seeds, compared on mean output length, `eos` rate and accuracy. Not bitwise: E1
+documents ~46% bitwise determinism, so a bitwise comparison would fail for reasons unrelated to
+drift. The tolerance is declared before the run: any statistic moving by more than the E1
+within-cell bootstrap SE means BLIND is regenerated rather than reused, and that decision is
+recorded. ~2,000 records, about a minute. Implemented; **not run**.
+
+**D3. BLOCKED.** Cannot be resolved now. Llama's tokenizer is gated and not locally cached; its
+premiums were originally measured through the served vLLM `/tokenize` endpoint, and **both
+endpoints are down**. The Qwen figures in §5.2 come from local snapshot `b968826d…` rather than the
+served revision `2069b3fa…`. This blocks the freeze, not the drafting. When the servers return:
+re-measure all fifteen sentences on both served revisions, confirm AWARE and PLACEBO stay within
+the declared 15% band per language, and only then freeze. If the band is violated, the sentences
+are re-balanced before freezing, never after.
+
+**D4.** The decisive reason is that the answer-line trigger is a **superset** of the truncation
+trigger **and the narrower population is recoverable from it**. With `capped_eos` stored per
+record, the budget-only population is obtained at analysis time by filtering; the reverse is not
+true, and choosing `eos == false` would discard the format-repair population permanently. Prefer
+the option that stays reversible in analysis. The two populations are reported separately, and
+FORCED stays outside the confirmatory family. The format-repair population is independently worth
+having: it quantifies how much of Llama's apparent multilingual failure is formatting rather than
+reasoning, which bears on `PAPER.md` §4's never-emission rates of 80.2 / 93.2 / 46.0%.
+
+**D5.** The second draft appended the capped segment and delimiter to the *user* turn; the s1
+intervention it claimed to imitate prefills the *assistant* turn. These are different
+manipulations, not one approximating the other: in the user-turn form the model is shown its own
+partial reasoning wrapped in user-turn chat markup, as though a person had written it. Running that
+and calling it budget forcing would put a mislabelled intervention in the paper. FORCED is
+exploratory-only, so this blocked nothing in the confirmatory family; it simply did not run until
+it was the thing it is named after. It now is: `PrefillEngineProtocol.generate_with_prefill`,
+`VLLMEngine` sending `continue_final_message: true` with `add_generation_prompt: false`, the
+user-turn builder deleted rather than demoted, and `verify_ledger` rejecting any FORCED record that
+does not carry `continuation_mode = "assistant_prefill"`.
+
+**D6.** The user has **no access to German, Thai or Swahili speakers**. The condition the drafted
+contingency was written against has therefore already resolved, before any E2 record exists, which
+is exactly the circumstance under which the protocol permits it to be exercised. The confirmatory
+family moves to **TAG** on the same five cells, with the same estimand, the same announced values
+and the same α; `TOKEN_BUDGET: {budget}` is language-neutral and needs no translator. AWARE and
+PLACEBO are still generated and still reported as the exploratory companion, with the translation
+risk stated, for two reasons: AWARE is the ecologically realistic form of the manipulation, since
+real deployments announce budgets in prose rather than as a tag, and the AWARE-versus-TAG
+comparison is itself informative about how much the phrasing matters. **Recorded as fired before
+generation, not as an option still open** — exercising it after data existed would be a post-hoc
+family switch, and §10 rule 10 continues to forbid that.
+
+**D7.** The 30% threshold sits between the two readings it must discriminate — the whole-output
+reading predicts a 49–66% reduction in these cells, the final-answer-line reading predicts 0% —
+and is therefore not tuned to either. Declared before data. One consequence of D6: the gate now
+applies to **TAG**, since that is the family's instrument. It is run on AWARE as well and both are
+reported, but only TAG's result gates the family.
+
+**D8.** The structure is right and matches E1. What was wrong was the sequencing: the family would
+have been frozen on an instrument whose efficacy is unvalidated, and the objection applies to TAG
+as much as to AWARE — **"token" is not verifiable as a manipulation in any language, English
+included**. If the manipulation is inert, the §8.4 gate fails, the family is void, and 11.83
+GPU-hours have bought nothing confirmatory. §8.6 adds a pilot before the freeze: one cell (Qwen
+NATIVE `de`), TAG and AWARE, announced 128 against 2048, at the decoupled cap — 8,000 generations,
+roughly four minutes. If it moves median length in the predicted direction, the confirmatory family
+is frozen; if it does not, E2 is frozen as **exploratory in full**, which is §8.5's fallback and
+the honest outcome if the instrument does not work. The pilot is a gate on the protocol, not part
+of the study: its records live under `runs-e2-pilot/`, are never scored as data, and are excluded
+from the frozen ledger, mirroring the E1 pilot's role.
+
+### Freeze state
+
+| item | state |
+|---|---|
+| D1 tag name | ruled — `budget-aware-protocol-freeze` |
+| D2 BLIND audit | ruled and implemented — **run before scoring** |
+| D3 token lengths | **BLOCKED on the servers** |
+| D4 FORCED trigger | ruled — absence of an answer line |
+| D5 continuation prefill | ruled and **implemented**; FORCED unblocked |
+| D6 family instrument | ruled — TAG, contingency fired before any E2 record existed |
+| D7 manipulation gate | ruled — ratified, applies to TAG |
+| D8 confirmatory status | ruled — conditional on the pilot |
+| §8.6 manipulation pilot | **must run before the freeze** |
+| freeze | **blocked on D3 and the pilot, both needing the servers** |
+
+**Gate:** no generation into `runs-e2/` before this file is reviewed, the §5.2 token lengths are
+re-measured on the served revisions, the §8.6 pilot has run and its verdict is recorded, and the
+supervisor commits and applies the tag `budget-aware-protocol-freeze`. The §8.6 pilot is the one
+piece of generation that precedes the tag, and it writes to `runs-e2-pilot/`, never to `runs-e2/`.

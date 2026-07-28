@@ -132,6 +132,92 @@ def test_vllm_engine_can_leave_model_thinking_configuration_unchanged() -> None:
     assert result.input_token_count == 3
 
 
+def test_vllm_engine_prefills_the_assistant_turn_for_budget_forcing() -> None:
+    """`prereg-budget-aware.md` §5.5 / D5: stage two continues the model's turn.
+
+    The two flags are load-bearing and mutually exclusive: without
+    `add_generation_prompt=false` the server opens a fresh assistant turn and
+    the capped segment becomes context rather than a prefix being continued.
+    """
+    opener = FakeOpener(
+        {
+            "choices": [
+                {
+                    "token_ids": [55, 56],
+                    "message": {"content": "42"},
+                    "finish_reason": "stop",
+                    "prompt_token_ids": [1, 2],
+                }
+            ],
+            "usage": {"prompt_tokens": 2},
+        }
+    )
+
+    result = VLLMEngine(
+        "http://[::1]:9002", model_id="Qwen/Qwen3-8B", opener=opener
+    ).generate_with_prefill(
+        "Solve this.", "partial reasoning\n#### ", seed=7, max_tokens=32
+    )
+
+    generation_request, _ = opener.requests[0]
+    assert json.loads(generation_request.data) == {
+        "model": "Qwen/Qwen3-8B",
+        "messages": [
+            {"role": "user", "content": "Solve this."},
+            {"role": "assistant", "content": "partial reasoning\n#### "},
+        ],
+        "max_tokens": 32,
+        "temperature": 0.6,
+        "seed": 7,
+        "return_token_ids": True,
+        "continue_final_message": True,
+        "add_generation_prompt": False,
+        "chat_template_kwargs": {"enable_thinking": False},
+    }
+    assert result.text == "42"
+    assert result.eos
+
+
+def test_plain_generation_never_continues_a_final_message() -> None:
+    """An ordinary decode must not carry the prefill flags."""
+    opener = FakeOpener(
+        {
+            "choices": [
+                {
+                    "token_ids": [1],
+                    "message": {"content": "x"},
+                    "finish_reason": "stop",
+                }
+            ],
+            "prompt_token_ids": [1],
+            "usage": {"prompt_tokens": 1},
+        }
+    )
+
+    VLLMEngine("http://[::1]:9002", model_id="m", opener=opener).generate(
+        "Solve this.", seed=1, max_tokens=4
+    )
+
+    body = json.loads(opener.requests[0][0].data)
+    assert "continue_final_message" not in body
+    assert "add_generation_prompt" not in body
+
+
+def test_prefill_rejects_an_empty_assistant_turn() -> None:
+    engine = VLLMEngine("http://[::1]:9002", model_id="m", opener=FakeOpener())
+
+    with pytest.raises(ValueError, match="non-empty"):
+        engine.generate_with_prefill("prompt", "", seed=1, max_tokens=4)
+
+
+def test_mock_engine_supports_the_prefill_path() -> None:
+    engine = MockEngine()
+
+    result = engine.generate_with_prefill("prompt", "prefix", 42, 4096)
+
+    assert result == engine.generate("promptprefix", 42, 4096)
+
+
 @pytest.mark.skipif(
     not _real_server_is_reachable(),
     reason="LR_VLLM_URL is unset or the vLLM server is unreachable",

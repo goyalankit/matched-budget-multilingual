@@ -7,6 +7,8 @@ runs-synthetic/
 runs-pilot/
 runs-independent/
 runs-independent-pilot/
+runs-e2/
+runs-e2-pilot/
 analysis-out/*.sqlite3
 /qwen.yaml
 paper/*.log
