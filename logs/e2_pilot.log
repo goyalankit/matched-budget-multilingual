@@ -1,0 +1,117 @@
+pilot: tag/aware at cap 2048, announcing 128 against 2048 -> runs-e2-pilot
+4 shards, 8000 units (0 already present), concurrency=128
+Progress: 80/8000
+Progress: 160/8000
+Progress: 240/8000
+Progress: 320/8000
+Progress: 400/8000
+Progress: 480/8000
+Progress: 560/8000
+Progress: 640/8000
+Progress: 720/8000
+Progress: 800/8000
+Progress: 880/8000
+Progress: 960/8000
+Progress: 1040/8000
+Progress: 1120/8000
+Progress: 1200/8000
+Progress: 1280/8000
+Progress: 1360/8000
+Progress: 1440/8000
+Progress: 1520/8000
+Progress: 1600/8000
+Progress: 1680/8000
+Progress: 1760/8000
+Progress: 1840/8000
+Progress: 1920/8000
+Progress: 2000/8000
+Progress: 2080/8000
+Progress: 2160/8000
+Progress: 2240/8000
+Progress: 2320/8000
+Progress: 2400/8000
+Progress: 2480/8000
+Progress: 2560/8000
+Progress: 2640/8000
+Progress: 2720/8000
+Progress: 2800/8000
+Progress: 2880/8000
+Progress: 2960/8000
+Progress: 3040/8000
+Progress: 3120/8000
+Progress: 3200/8000
+Progress: 3280/8000
+Progress: 3360/8000
+Progress: 3440/8000
+Progress: 3520/8000
+Progress: 3600/8000
+Progress: 3680/8000
+Progress: 3760/8000
+Progress: 3840/8000
+Progress: 3920/8000
+Progress: 4000/8000
+Progress: 4080/8000
+Progress: 4160/8000
+Progress: 4240/8000
+Progress: 4320/8000
+Progress: 4400/8000
+Progress: 4480/8000
+Progress: 4560/8000
+Progress: 4640/8000
+Progress: 4720/8000
+Progress: 4800/8000
+Progress: 4880/8000
+Progress: 4960/8000
+Progress: 5040/8000
+Progress: 5120/8000
+Progress: 5200/8000
+Progress: 5280/8000
+Progress: 5360/8000
+Progress: 5440/8000
+Progress: 5520/8000
+Progress: 5600/8000
+Progress: 5680/8000
+Progress: 5760/8000
+Progress: 5840/8000
+Progress: 5920/8000
+Progress: 6000/8000
+Progress: 6080/8000
+Progress: 6160/8000
+Progress: 6240/8000
+Progress: 6320/8000
+Progress: 6400/8000
+Progress: 6480/8000
+Progress: 6560/8000
+Progress: 6640/8000
+Progress: 6720/8000
+Progress: 6800/8000
+Progress: 6880/8000
+Progress: 6960/8000
+Progress: 7040/8000
+Progress: 7120/8000
+Progress: 7200/8000
+Progress: 7280/8000
+Progress: 7360/8000
+Progress: 7440/8000
+Progress: 7520/8000
+Progress: 7600/8000
+Progress: 7680/8000
+Progress: 7760/8000
+Progress: 7840/8000
+Progress: 7920/8000
+Progress: 8000/8000
+Verified 4 shards
+# E2 manipulation pilot
+
+`prereg-budget-aware.md` §8.6. One cell: qwen3_8b native `de` at the decoupled cap `B* = 2048`, announcing 128 against 2048. Never scored as study data.
+
+| condition | median @128 | median @2048 | reduction | share | direction |
+|---|---:|---:|---:|---:|---|
+| tag (gates) | 268.0 | 271.5 | +3.5 | 1.3% | as predicted |
+| aware | 176.0 | 291.0 | +115.0 | 39.5% | as predicted |
+
+The decision rule is direction under **tag**, which is the confirmatory family's instrument (§8.3). The reduction share is reported beside it for context against §8.4's 30% gate, but the pilot does not apply that threshold.
+
+**Verdict: freeze E2 as confirmatory.** The manipulation moves median length in the predicted direction, so the confirmatory family of five is frozen as §8.3 specifies.
+
+wrote analysis-out/e2_pilot.{json,md}
