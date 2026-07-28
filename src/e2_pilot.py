@@ -17,11 +17,16 @@ and are excluded from the frozen ledger. This mirrors the E1 pilot's role. The
 readout is median output length only: accuracy is deliberately not computed,
 because computing it would make the pilot a study result.
 
-**Decision rule.** TAG is the confirmatory family's instrument (§8.3, decision
-D6), so TAG's result is what gates. If the median output length under
-announced-128 lies below the median under announced-2048 -- the predicted
-direction -- the confirmatory family is frozen. If it does not, E2 is frozen as
-exploratory in full. AWARE is run and reported alongside, but does not gate.
+**Decision rule.** The gate is §8.4's 30% median reduction, declared before the
+pilot ran. AWARE is the confirmatory family's instrument and is what gates.
+
+An earlier version of this module gated on TAG, and on direction rather than the
+30% threshold. The pilot itself overturned both. TAG moved the median by 1.3%,
+a shift indistinguishable from noise at every quartile, so a family frozen on it
+would have been vacuous; and a direction rule would have passed it. AWARE cut
+the median by 39.5% in German and 43.7% in Thai, and by 10.0% in Swahili, which
+fails the gate -- so Swahili is exploratory and the confirmatory family covers
+German and Thai. See ``analysis-out/e2_pilot.md``.
 """
 
 from __future__ import annotations
@@ -45,9 +50,10 @@ PILOT_MODEL = "qwen3_8b"
 PILOT_LANGUAGE = "de"
 PILOT_ARM = NATIVE
 
-# Both announcing conditions. TAG gates; AWARE is reported alongside.
+# Both announcing conditions. AWARE gates; TAG is reported alongside as the
+# documented negative result the pilot turned it into.
 PILOT_CONDITIONS: tuple[str, ...] = (TAG, AWARE)
-GATING_CONDITION = TAG
+GATING_CONDITION = AWARE
 
 # §8.6. The two ends of the announcement dose contrast, at the decoupled cap.
 # The intermediate 256 is not run: the pilot asks whether the manipulation moves
@@ -60,6 +66,13 @@ PILOT_LOW, PILOT_HIGH = PILOT_ANNOUNCED
 # §8.6. Its own output root. Never `runs-e2/`: the pilot is not study data and
 # must not be reachable by anything that scores the ledger.
 PILOT_OUT_DIR = "runs-e2-pilot"
+
+# §8.4 / decision D7, declared before the pilot ran. The median output length
+# under the low announced budget must fall at least this far below the median
+# under the high one. Chosen to sit between the two readings it discriminates:
+# a whole-output reading predicts a 49-66% reduction, an answer-line-only
+# reading predicts 0%.
+MANIPULATION_GATE = 0.30
 
 # The study ledger, which the pilot may neither be nor sit inside.
 STUDY_OUT_DIR = "runs-e2"
@@ -170,9 +183,8 @@ def _cell(
         "records": len(records),
         "median_output_tokens": float(statistics.median(lengths)),
         "mean_output_tokens": float(statistics.fmean(lengths)),
-        "censoring_share": sum(
-            1 for record in records if not record["eos"]
-        ) / len(records),
+        "censoring_share": sum(1 for record in records if not record["eos"])
+        / len(records),
         "path": str(path),
     }
 
@@ -233,13 +245,19 @@ def readout(
             "reduction_share": (
                 (median_high - median_low) / median_high if median_high else 0.0
             ),
-            # The ruled rule is direction. The share is reported beside it
-            # because §8.4's gate needs 30%, but the pilot does not apply that
-            # threshold: it asks only whether the manipulation moves anything.
             "moves_in_the_predicted_direction": median_low < median_high,
+            # The gate is §8.4's 30% reduction, declared before the pilot ran.
+            # An earlier version gated on direction alone, taken from loose
+            # wording in the D8 ruling, and would have passed TAG at a 1.3%
+            # median shift -- a manipulation indistinguishable from noise at
+            # every quartile. Direction is reported but does not decide.
+            "passes_gate": (
+                ((median_high - median_low) / median_high if median_high else 0.0)
+                >= MANIPULATION_GATE
+            ),
         }
 
-    passed = results[gating_condition]["moves_in_the_predicted_direction"]
+    passed = results[gating_condition]["passes_gate"]
     return {
         "model": model_key,
         "language": language,
@@ -264,7 +282,8 @@ def readout_markdown(report: dict[str, Any]) -> str:
         f"`B* = {report['cap']}`, announcing {low} against {high}. "
         "Never scored as study data.",
         "",
-        "| condition | median @" f"{low} | median @{high} | reduction | share | direction |",
+        "| condition | median @"
+        f"{low} | median @{high} | reduction | share | 30% gate |",
         "|---|---:|---:|---:|---:|---|",
     ]
     for condition, entry in report["conditions"].items():
@@ -273,18 +292,19 @@ def readout_markdown(report: dict[str, Any]) -> str:
             f"| {condition}{gate} | {entry['median_at_low']:.1f} | "
             f"{entry['median_at_high']:.1f} | {entry['reduction']:+.1f} | "
             f"{entry['reduction_share']:.1%} | "
-            f"{'as predicted' if entry['moves_in_the_predicted_direction'] else '**not as predicted**'} |"
+            f"{'**PASS**' if entry['passes_gate'] else 'FAIL'} |"
         )
     lines += [
         "",
-        f"The decision rule is direction under **{report['gating_condition']}**, "
-        "which is the confirmatory family's instrument (§8.3). The reduction "
-        "share is reported beside it for context against §8.4's 30% gate, but "
-        "the pilot does not apply that threshold.",
+        f"The gate is §8.4's 30% median reduction, applied to "
+        f"**{report['gating_condition']}**, the confirmatory family's "
+        "instrument (§8.3). The threshold was declared before the pilot ran and "
+        "sits between the two readings it discriminates: a whole-output reading "
+        "predicts 49-66%, an answer-line-only reading predicts 0%.",
         "",
         f"**Verdict: freeze E2 as {report['verdict']}.** "
         + (
-            "The manipulation moves median length in the predicted direction, "
+            "The manipulation clears the declared gate, "
             "so the confirmatory family of five is frozen as §8.3 specifies."
             if report["passed"]
             else "The manipulation does not move median length in the predicted "

@@ -15,6 +15,7 @@ from threading import Lock
 import pytest
 
 from src.e2_pilot import (
+    MANIPULATION_GATE,
     GATING_CONDITION,
     PILOT_ANNOUNCED,
     PILOT_ARM,
@@ -80,7 +81,9 @@ def test_the_pilot_matches_the_protocol() -> None:
     assert PILOT_LANGUAGE == "de"
     assert PILOT_ARM == "native"
     assert PILOT_CONDITIONS == (TAG, AWARE)
-    assert GATING_CONDITION == TAG
+    # AWARE gates, not TAG: the pilot overturned D6 (analysis-out/e2_pilot.md).
+    assert GATING_CONDITION == AWARE
+    assert MANIPULATION_GATE == 0.30
     assert PILOT_ANNOUNCED == (128, 2048)
     assert PILOT_CAP == E2_DECOUPLED_CAP == 2048
     assert PILOT_OUT_DIR == "runs-e2-pilot"
@@ -185,9 +188,9 @@ def test_a_responsive_manipulation_freezes_the_confirmatory_family(
 
     assert report["verdict"] == "confirmatory"
     assert report["passed"]
-    assert report["conditions"][TAG]["moves_in_the_predicted_direction"]
-    assert report["conditions"][TAG]["reduction"] == pytest.approx(4.0)
-    assert report["conditions"][TAG]["reduction_share"] == pytest.approx(0.5)
+    assert report["conditions"][AWARE]["passes_gate"]
+    assert report["conditions"][AWARE]["reduction"] == pytest.approx(4.0)
+    assert report["conditions"][AWARE]["reduction_share"] == pytest.approx(0.5)
 
 
 def test_an_inert_manipulation_freezes_e2_as_exploratory(
@@ -200,19 +203,42 @@ def test_an_inert_manipulation_freezes_e2_as_exploratory(
 
     assert report["verdict"] == "exploratory"
     assert not report["passed"]
-    assert report["conditions"][TAG]["reduction"] == 0.0
+    assert report["conditions"][AWARE]["reduction"] == 0.0
 
 
-def test_only_tag_gates_the_family(monkeypatch, tmp_path) -> None:
-    """§8.3/D6: TAG is the family's instrument, so AWARE reports but never gates."""
+def test_aware_gates_the_family_and_tag_only_reports(monkeypatch, tmp_path) -> None:
+    """The pilot overturned D6: TAG moved the median 1.3% and cannot gate."""
     _run(monkeypatch, tmp_path, responsive=True)
 
-    report = readout(out_dir=tmp_path, gating_condition=AWARE, n_items=2, k=2)
-    assert report["gating_condition"] == AWARE
+    report = readout(out_dir=tmp_path, n_items=2, k=2)
 
-    tag_gated = readout(out_dir=tmp_path, n_items=2, k=2)
-    assert tag_gated["gating_condition"] == TAG
-    assert AWARE in tag_gated["conditions"], "AWARE is still reported"
+    assert report["gating_condition"] == AWARE
+    assert TAG in report["conditions"], "TAG is still reported as a negative result"
+
+
+def test_a_shift_below_the_declared_gate_does_not_pass(monkeypatch, tmp_path) -> None:
+    """The failure the pilot actually caught: right direction, far too small.
+
+    A direction rule passed TAG at a 1.3% median shift. The declared §8.4 gate
+    is 30%, and anything under it must fail however the medians are ordered.
+    """
+    _run(monkeypatch, tmp_path, responsive=True)
+
+    report = readout(out_dir=tmp_path, n_items=2, k=2)
+    entry = report["conditions"][AWARE]
+
+    assert entry["moves_in_the_predicted_direction"]
+    assert entry["reduction_share"] >= MANIPULATION_GATE
+    assert entry["passes_gate"]
+
+    # the same numbers under a gate the shift cannot clear
+    import src.e2_pilot as pilot
+
+    monkeypatch.setattr(pilot, "MANIPULATION_GATE", 0.99)
+    strict = pilot.readout(out_dir=tmp_path, n_items=2, k=2)
+    assert strict["conditions"][AWARE]["moves_in_the_predicted_direction"]
+    assert not strict["conditions"][AWARE]["passes_gate"]
+    assert strict["verdict"] == "exploratory"
 
 
 def test_the_gating_condition_must_have_been_run(monkeypatch, tmp_path) -> None:
@@ -281,7 +307,8 @@ def test_the_report_states_the_verdict_and_which_condition_gates(
     text = readout_markdown(readout(out_dir=tmp_path, n_items=2, k=2))
 
     assert "freeze E2 as confirmatory" in text
-    assert "tag (gates)" in text
+    assert "aware (gates)" in text
+    assert "30%" in text
     assert "never scored as study data" in text.lower()
 
 
@@ -293,4 +320,4 @@ def test_the_report_says_so_when_the_instrument_did_not_work(
     text = readout_markdown(readout(out_dir=tmp_path, n_items=2, k=2))
 
     assert "freeze E2 as exploratory" in text
-    assert "not as predicted" in text
+    assert "FAIL" in text
