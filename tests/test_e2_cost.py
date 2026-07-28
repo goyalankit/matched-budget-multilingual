@@ -12,12 +12,15 @@ from pathlib import Path
 import pytest
 
 from src.e2_cost import (
+    CONFIRMATORY_INSTRUMENT,
     CapCost,
     cap_cost_from_capped_ledger,
     cap_cost_from_uncapped_ledger,
     condition_costs,
     e2_cap_set,
+    family_cost,
     gpu_hours,
+    holm_local_alpha,
     render_markdown,
 )
 from src.generate import AWARE, FORCED, PLACEBO, TAG
@@ -223,3 +226,100 @@ def test_render_markdown_reports_every_condition() -> None:
     assert "| m | forced |" in markdown
     assert "of which truncated" in markdown
     assert "| m | native | de | 50.00% |" in markdown
+
+
+# --- The confirmatory family after the §8.6 pilot -------------------------
+
+
+def _decoupled_cells() -> list[CapCost]:
+    """One cap-2048 cell per (language, arm), with NATIVE `sw` still censored."""
+    return [
+        CapCost("qwen3_8b", "de", "native", 2048, 2000, 100, 0, censored=2),
+        CapCost("qwen3_8b", "de", "translate_act", 2048, 2000, 200, 0, censored=6),
+        CapCost("qwen3_8b", "th", "native", 2048, 2000, 400, 0, censored=8),
+        CapCost("qwen3_8b", "th", "translate_act", 2048, 2000, 800, 0, censored=0),
+        CapCost("qwen3_8b", "sw", "native", 2048, 2000, 1600, 0, censored=227),
+        CapCost("qwen3_8b", "sw", "translate_act", 2048, 2000, 3200, 0, censored=10),
+    ]
+
+
+def test_the_family_is_the_four_de_and_th_cells_at_alpha_0_0125() -> None:
+    """The pilot reversed D6 and restricted the family to German and Thai."""
+    family = family_cost("qwen3_8b", _decoupled_cells())
+
+    assert family["instrument"] == CONFIRMATORY_INSTRUMENT
+    assert {(cell["language"], cell["arm"]) for cell in family["cells"]} == {
+        ("de", "native"),
+        ("de", "translate_act"),
+        ("th", "native"),
+        ("th", "translate_act"),
+    }
+    assert family["family_size"] == 4
+    assert family["holm_local_alpha"] == pytest.approx(0.0125)
+    # Both ends of the dose contrast, at one cap.
+    assert family["shards_read"] == 8
+    assert family["output_tokens"] == 2 * (100 + 200 + 400 + 800)
+
+
+def test_the_pilot_is_credited_only_with_the_cell_censoring_had_left_eligible() -> None:
+    """NATIVE `sw` was already out on censoring; the pilot removed TRANSLATE-ACT `sw`."""
+    family = family_cost("qwen3_8b", _decoupled_cells())
+
+    assert [
+        (cell["language"], cell["arm"]) for cell in family["demoted_by_the_pilot"]
+    ] == [("sw", "translate_act")]
+    assert [
+        (cell["language"], cell["arm"]) for cell in family["excluded_for_censoring"]
+    ] == [("sw", "native")]
+    assert family["demoted_output_tokens"] == 2 * 3200
+
+
+def test_the_demotion_does_not_change_what_is_generated() -> None:
+    """Swahili still runs in every condition; only its confirmatory claim is gone."""
+    cells = _decoupled_cells()
+    with_sw = condition_costs("qwen3_8b", cells, conditions=(AWARE, TAG))
+    family = family_cost("qwen3_8b", cells)
+
+    assert with_sw[AWARE]["output_tokens"] == sum(cell.output_tokens for cell in cells)
+    assert family["family_size"] < len(cells)
+
+
+def test_holm_local_alpha_matches_the_family_size() -> None:
+    assert holm_local_alpha(5) == pytest.approx(0.01)
+    assert holm_local_alpha(4) == pytest.approx(0.0125)
+    with pytest.raises(ValueError):
+        holm_local_alpha(0)
+
+
+def test_render_markdown_reports_the_family_and_the_demotion() -> None:
+    report = {
+        "basis": "b",
+        "cross_check_basis": "c",
+        "tokens_per_second": 5893,
+        "continuation_max_tokens": 32,
+        "budgets": [2048],
+        "arms": ["native", "translate_act"],
+        "conditions": [AWARE],
+        "models": {
+            "qwen3_8b": {
+                "capped_basis_output_tokens": 100,
+                "uncapped_basis_output_tokens": 100,
+                "cells": [],
+                "conditions": condition_costs(
+                    "qwen3_8b", _decoupled_cells(), conditions=(AWARE,)
+                ),
+                "confirmatory_family": family_cost("qwen3_8b", _decoupled_cells()),
+            }
+        },
+        "total_output_tokens": 100,
+        "total_gpu_hours": 0.01,
+    }
+
+    markdown = render_markdown(report)
+
+    assert "Confirmatory family, after the §8.6 pilot" in markdown
+    assert "Family size 4" in markdown
+    assert "Holm first-step local alpha 0.0125" in markdown
+    assert "| sw | translate_act | 0.50% | no — pilot |" in markdown
+    assert "| sw | native | 11.35% | no — censoring |" in markdown
+    assert "The demotion changes no total above." in markdown

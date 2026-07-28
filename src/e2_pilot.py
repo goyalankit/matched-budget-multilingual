@@ -7,10 +7,14 @@ model must map the word onto its own subword units and nothing establishes that
 it does. If the manipulation is inert the §8.4 gate fails, the family is void,
 and 11.8 GPU-hours have bought nothing confirmatory.
 
-The pilot runs one cell — Qwen3-8B NATIVE ``de`` — in both announcing
-conditions at the decoupled cap, announcing 128 against announcing 2048. That
-is 250 items x 8 samples x 2 announced values x 2 conditions = 8,000
-generations.
+The pilot runs one (arm, language) cell at a time — the module's own defaults are
+Qwen3-8B NATIVE ``de`` — in both announcing conditions at the decoupled cap,
+announcing 128 against announcing 2048. That is 250 items x 8 samples x 2
+announced values = 4,000 generations per condition, in two shards. ``language``
+and ``conditions`` are parameters, and the readout that decided the freeze
+covers AWARE in ``de``, ``th`` and ``sw`` and TAG in ``de``: eight shards,
+16,000 records. ``analysis-out/e2_pilot.{json,md}`` is the authoritative record
+of what was run and what it decided.
 
 Its records live under ``runs-e2-pilot/``, are **never scored as study data**,
 and are excluded from the frozen ledger. This mirrors the E1 pilot's role. The
@@ -44,8 +48,10 @@ from src.run_independent import (
 )
 from src.run_full import NATIVE
 
-# §8.6. The pilot cell: the confirmatory model, the arm and language whose
-# family cell has the largest R1/R2 separation on the E1 ledger.
+# §8.6. The pilot's default cell: the confirmatory model, and the arm and
+# language whose family cell has the largest R1/R2 separation on the E1 ledger.
+# `run_pilot` and `readout` both take `language`, and the readout that decided
+# the freeze was taken over `de`, `th` and `sw`.
 PILOT_MODEL = "qwen3_8b"
 PILOT_LANGUAGE = "de"
 PILOT_ARM = NATIVE
@@ -304,12 +310,13 @@ def readout_markdown(report: dict[str, Any]) -> str:
         "",
         f"**Verdict: freeze E2 as {report['verdict']}.** "
         + (
-            "The manipulation clears the declared gate, "
-            "so the confirmatory family of five is frozen as §8.3 specifies."
+            "The manipulation clears the declared gate, so the confirmatory "
+            "family is frozen as §8.3 specifies -- on this instrument, in the "
+            "languages that cleared it."
             if report["passed"]
-            else "The manipulation does not move median length in the predicted "
-            "direction. E2 is frozen as exploratory in full (§8.5), and the "
-            "write-up says the instrument did not work."
+            else "The manipulation does not clear the declared 30% gate. E2 is "
+            "frozen as exploratory here (§8.5), and the write-up says the "
+            "instrument did not work."
         ),
         "",
     ]

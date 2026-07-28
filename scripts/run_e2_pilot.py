@@ -3,20 +3,21 @@
     python scripts/run_e2_pilot.py --concurrency 128
     python scripts/run_e2_pilot.py --readout-only
 
-**This runs before the freeze, and the freeze depends on its outcome.** One cell
-— Qwen3-8B NATIVE `de` — in TAG and AWARE, announcing 128 against 2048, at the
-decoupled cap of 2048. 8,000 generations, roughly four minutes at the measured
-throughput.
+**This runs before the freeze, and the freeze depends on its outcome.** Qwen3-8B
+NATIVE, in AWARE and TAG, announcing 128 against 2048 at the decoupled cap of
+2048. Two shards per (condition, language), 2000 records each.
 
 The pilot is a gate on the protocol, not part of the study. Its records live
 under `runs-e2-pilot/`, are never scored as study data, and are excluded from
 the frozen ledger. The readout is median output length only; accuracy is
 deliberately not computed.
 
-TAG gates, because TAG is the confirmatory family's instrument (§8.3). If the
-median under announced-128 lies below the median under announced-2048, the
-confirmatory family is frozen. If it does not, E2 is frozen as exploratory in
-full.
+AWARE gates, because AWARE is the confirmatory family's instrument (§8.3). The
+gate is §8.4's declared 30% median reduction, not direction: the pilot itself
+showed why. TAG moved the German median by 1.3% -- the right direction, and a
+shift indistinguishable from noise at every quartile -- so a direction rule
+would have frozen the family on an inert instrument. See
+`analysis-out/e2_pilot.md`, which is the authoritative readout.
 """
 
 from __future__ import annotations

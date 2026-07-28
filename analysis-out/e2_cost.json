@@ -24,6 +24,7 @@
     "forced",
     "tag"
   ],
+  "confirmatory_model": "qwen3_8b",
   "continuation_max_tokens": 32,
   "coupled_conditions": [
     "aware",
@@ -1663,6 +1664,92 @@
           "unanswered_complete": null,
           "unanswered_truncated": null
         }
+      },
+      "confirmatory_family": {
+        "announced": [
+          128,
+          2048
+        ],
+        "cap": 2048,
+        "cells": [
+          {
+            "arm": "native",
+            "cap": 2048,
+            "censored_share": 0.001,
+            "language": "de",
+            "non_binding": true,
+            "output_tokens": 1154382,
+            "records": 4000
+          },
+          {
+            "arm": "translate_act",
+            "cap": 2048,
+            "censored_share": 0.003,
+            "language": "de",
+            "non_binding": true,
+            "output_tokens": 1079140,
+            "records": 4000
+          },
+          {
+            "arm": "native",
+            "cap": 2048,
+            "censored_share": 0.004,
+            "language": "th",
+            "non_binding": true,
+            "output_tokens": 1607272,
+            "records": 4000
+          },
+          {
+            "arm": "translate_act",
+            "cap": 2048,
+            "censored_share": 0.0,
+            "language": "th",
+            "non_binding": true,
+            "output_tokens": 1084694,
+            "records": 4000
+          }
+        ],
+        "censoring_threshold": 0.02,
+        "demoted_by_the_pilot": [
+          {
+            "arm": "translate_act",
+            "cap": 2048,
+            "censored_share": 0.005,
+            "language": "sw",
+            "non_binding": true,
+            "output_tokens": 1186372,
+            "records": 4000
+          }
+        ],
+        "demoted_gpu_hours": 0.055921903576748304,
+        "demoted_languages": [
+          "sw"
+        ],
+        "demoted_output_tokens": 1186372,
+        "excluded_for_censoring": [
+          {
+            "arm": "native",
+            "cap": 2048,
+            "censored_share": 0.1135,
+            "language": "sw",
+            "non_binding": false,
+            "output_tokens": 1780044,
+            "records": 4000
+          }
+        ],
+        "family_size": 4,
+        "family_wise_alpha": 0.05,
+        "gpu_hours": 0.2321722571035315,
+        "holm_local_alpha": 0.0125,
+        "instrument": "aware",
+        "languages": [
+          "de",
+          "th"
+        ],
+        "model_id": "qwen3_8b",
+        "output_tokens": 4925488,
+        "records": 16000,
+        "shards_read": 8
       },
       "shards": 219,
       "uncapped_basis_output_tokens": 34641670

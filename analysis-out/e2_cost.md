@@ -23,6 +23,27 @@ FORCED continuation cap 32 tokens.
 
 **Total 251,002,810 output tokens, 11.83 GPU-hours, 438 shards.**
 
+## Confirmatory family, after the §8.6 pilot
+
+Instrument `aware`, model `qwen3_8b`, cap 2048, announced {128, 2048}. The pilot (`analysis-out/e2_pilot.md`) reversed decision D6: TAG moved the median output length by 1.3% and is inert, AWARE cut it by 39.5% in German and 43.7% in Thai, and by 10.0% in Swahili — a third of the declared 30% gate. Swahili is therefore demoted to exploratory as an **instrument failure**, not as a result about budgets.
+
+Family size 4, family-wise alpha 0.05, Holm first-step local alpha 0.0125.
+
+The family reads two decodes of each cell — the two ends of the announcement dose contrast at one cap — so a cell's bill is its E1 total at that cap, twice.
+
+| lang | arm | censored at cap | in family | records | output tokens |
+|---|---|---:|---|---:|---:|
+| de | native | 0.10% | yes | 4,000 | 1,154,382 |
+| de | translate_act | 0.30% | yes | 4,000 | 1,079,140 |
+| th | native | 0.40% | yes | 4,000 | 1,607,272 |
+| th | translate_act | 0.00% | yes | 4,000 | 1,084,694 |
+| sw | translate_act | 0.50% | no — pilot | 4,000 | 1,186,372 |
+| sw | native | 11.35% | no — censoring | 4,000 | 1,780,044 |
+
+The family reads 8 shards, 16,000 records, 4,925,488 output tokens, 0.23 GPU-hours. The one cell the pilot demoted accounts for 1,186,372 output tokens, 0.06 GPU-hours.
+
+**The demotion changes no total above.** Swahili is still generated in every condition and still reported; what it is no longer entitled to is a confirmatory reading. The bill is unchanged and the family is smaller, which is the whole shape of the finding: the GPU-hours bought a measurement of the instrument, not fewer decodes.
+
 ## Basis agreement
 
 | model | capped basis (E1) | uncapped basis (replay) | ratio |

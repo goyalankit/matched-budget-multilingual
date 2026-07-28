@@ -7,10 +7,14 @@ touched, and nothing is generated.
         --json-out analysis-out/e2_power.json \
         --markdown-out analysis-out/e2_power.md
 
-Cell eligibility for the confirmatory family is *measured*, not asserted: a cell
-qualifies if the E1 censoring share (`eos = false`) at the decoupled cap is
-below the protocol's pre-stated 2% threshold. The threshold and the measurement
-both predate any E2 record.
+Cell eligibility for the confirmatory family is *measured*, not asserted, and it
+now carries two criteria. A cell qualifies if the E1 censoring share
+(`eos = false`) at the decoupled cap is below the protocol's pre-stated 2%
+threshold — that threshold and that measurement both predate any E2 record — and
+if the §8.6 pilot cleared the declared 30% manipulation gate in its language.
+The pilot (`analysis-out/e2_pilot.md`) cleared it in German (39.5%) and Thai
+(43.7%) and failed it in Swahili (10.0%), so Swahili is exploratory and the
+family is four cells at Holm first-step local alpha 0.0125.
 """
 
 from __future__ import annotations
@@ -22,7 +26,10 @@ from pathlib import Path
 _ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_ROOT))
 
-from src.e2_cost import cap_cost_from_capped_ledger  # noqa: E402
+from src.e2_cost import (  # noqa: E402
+    CONFIRMATORY_LANGUAGES,
+    cap_cost_from_capped_ledger,
+)
 from src.e2_power import calibration, estimate, write_report  # noqa: E402
 from src.independent_scoring import shard_path  # noqa: E402
 from src.run_independent import E2_ARMS, E2_DECOUPLED_CAP  # noqa: E402
@@ -63,6 +70,11 @@ def build_cells(model: str, root: Path) -> list[tuple[str, str, int, bool]]:
                 path, model, language, arm, E2_DECOUPLED_CAP
             )
             eligible = cost.censored_share < NON_BINDING_CENSORING_THRESHOLD
+            # The §8.6 pilot is the second criterion. A language whose
+            # announcement does not move median output length by the declared
+            # 30% has no working instrument in that language, so its cells are
+            # exploratory however little the cap censors them.
+            eligible = eligible and language in CONFIRMATORY_LANGUAGES
             cells.append((arm, language, E2_DECOUPLED_CAP, eligible))
     # Calibration cells: E1's own R2 cells, never in the family.
     cells += [("native", language, 1024, False) for language in LANGUAGES]

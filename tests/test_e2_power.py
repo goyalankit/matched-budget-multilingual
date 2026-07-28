@@ -8,11 +8,13 @@ right answer is known analytically.
 
 from __future__ import annotations
 
+from pathlib import Path
 from statistics import NormalDist
 
 import numpy as np
 import pytest
 
+from src.e2_cost import CapCost
 from src.e2_power import (
     SPLIT_A,
     SPLIT_B,
@@ -30,6 +32,9 @@ from src.e2_power import (
 
 def _matrix(values) -> np.ndarray:
     return np.asarray(values, dtype=np.float64)
+
+
+_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_a_cell_with_no_within_item_variation_has_zero_contrast_se() -> None:
@@ -196,3 +201,63 @@ def test_render_markdown_flags_the_ineligible_cells() -> None:
 
     assert "| native | sw | 2048 | 40.0 | 1.00 | 2.50 | 3.60 | no |" in markdown
     assert "Calibration against E1's published bootstrap SEs" in markdown
+
+
+# --- Family eligibility, as the report script computes it ------------------
+
+
+def test_build_cells_requires_both_the_censoring_and_the_pilot_criteria(
+    monkeypatch, tmp_path
+) -> None:
+    """A non-binding cap is necessary and not sufficient: the pilot also gates.
+
+    `scripts/estimate_e2_power.py` is what sets the `in family` column and the
+    Holm first-step alpha in `analysis-out/e2_power.md`. Swahili's cells are
+    non-binding at the decoupled cap in TRANSLATE-ACT (0.50%), so a
+    censoring-only rule would put that cell back in the family and silently
+    restore the five-cell alpha the §8.6 pilot removed.
+    """
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "estimate_e2_power", _ROOT / "scripts" / "estimate_e2_power.py"
+    )
+    script = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(script)
+
+    censoring = {
+        ("native", "de"): 0.001,
+        ("native", "th"): 0.004,
+        ("native", "sw"): 0.1135,
+        ("translate_act", "de"): 0.003,
+        ("translate_act", "th"): 0.000,
+        ("translate_act", "sw"): 0.005,
+    }
+
+    def fake_cost(_path, _model, language, arm, cap):
+        return CapCost(
+            "qwen3_8b",
+            language,
+            arm,
+            cap,
+            records=2000,
+            output_tokens=1,
+            unanswered=0,
+            censored=int(round(2000 * censoring[(arm, language)])),
+        )
+
+    monkeypatch.setattr(script, "cap_cost_from_capped_ledger", fake_cost)
+    monkeypatch.setattr(script, "shard_path", lambda *_: tmp_path / "shard.jsonl")
+
+    cells = script.build_cells("qwen3_8b", tmp_path)
+    eligible = {(arm, lang) for arm, lang, cap, ok in cells if ok}
+
+    assert eligible == {
+        ("native", "de"),
+        ("native", "th"),
+        ("translate_act", "de"),
+        ("translate_act", "th"),
+    }
+    # The demotion the pilot made, isolated: non-binding, and still out.
+    assert ("translate_act", "sw", 2048, False) in cells
+    assert holm_local_alpha(len(eligible)) == pytest.approx(0.0125)

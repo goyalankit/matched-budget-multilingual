@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-from src.generate import read_ledger
+from src.generate import AWARE, read_ledger
 from src.parser import has_answer_line
 from src.run_independent import (
     E2_ANNOUNCED_GRID,
@@ -43,6 +43,26 @@ OUTPUT_TOKENS_PER_SECOND = 5_893
 
 MODELS: tuple[str, ...] = ("qwen3_8b", "llama_3_1_8b_instruct")
 LANGUAGES: tuple[str, ...] = ("de", "th", "sw")
+
+# --- The confirmatory family, after the §8.6 pilot -------------------------
+#
+# The pilot (`analysis-out/e2_pilot.md`) reversed decision D6. TAG moved the
+# median output length by 1.3% in German — inert — so it cannot carry the
+# family; AWARE cut it by 39.5% in German and 43.7% in Thai, and by 10.0% in
+# Swahili, which is a third of the declared 30% gate. The family's instrument is
+# therefore AWARE, and Swahili is demoted to exploratory as a documented
+# *instrument* failure rather than as a result about budgets.
+#
+# None of this changes what is generated: every condition still runs in every
+# language, so the totals above are untouched. What changes is which decoupled
+# cells the confirmatory family is entitled to read, which is why the demotion
+# is accounted here rather than subtracted from the bill.
+CONFIRMATORY_MODEL = "qwen3_8b"
+CONFIRMATORY_INSTRUMENT = AWARE
+CONFIRMATORY_LANGUAGES: tuple[str, ...] = ("de", "th")
+DEMOTED_LANGUAGES: tuple[str, ...] = ("sw",)
+CONFIRMATORY_ANNOUNCED: tuple[int, ...] = (128, E2_DECOUPLED_CAP)
+FAMILY_WISE_ALPHA = 0.05
 
 
 def e2_cap_set(
@@ -245,6 +265,100 @@ def condition_costs(
     return report
 
 
+def holm_local_alpha(
+    family_size: int, family_wise_alpha: float = FAMILY_WISE_ALPHA
+) -> float:
+    """Local level of Holm's first step over a family of ``family_size`` tests."""
+    if family_size < 1:
+        raise ValueError("family_size must be at least 1")
+    return family_wise_alpha / family_size
+
+
+def family_cost(
+    model_key: str,
+    cap_costs: Sequence[CapCost],
+    instrument: str = CONFIRMATORY_INSTRUMENT,
+    languages: Sequence[str] = CONFIRMATORY_LANGUAGES,
+    demoted: Sequence[str] = DEMOTED_LANGUAGES,
+    arms: Sequence[str] = E2_ARMS,
+    cap: int = E2_DECOUPLED_CAP,
+    announced: Sequence[int] = CONFIRMATORY_ANNOUNCED,
+    censoring_threshold: float = 0.02,
+    family_wise_alpha: float = FAMILY_WISE_ALPHA,
+    tokens_per_second: int = OUTPUT_TOKENS_PER_SECOND,
+) -> dict[str, Any]:
+    """What the confirmatory family costs, and what the demotion moved out of it.
+
+    A cell is in the family if two measured conditions both hold. The first
+    predates any E2 record: the E1 censoring share at the decoupled cap is below
+    ``censoring_threshold``, so truncation is constant across the block
+    (`prereg-budget-aware.md` §8.3). The second comes from the §8.6 pilot: the
+    announcement must move median output length by at least the declared 30% in
+    that language, which German and Thai clear and Swahili does not.
+
+    Both terms of the dose contrast are priced, and both are the *same* cap, so
+    the family's bill is two decodes of the ``cap`` cell per (language, arm).
+    The announced-``cap`` term is the coupled cell at that cap, generated once
+    and read twice; it is counted here because the family reads it, not because
+    the demotion changed what has to be generated. It did not: Swahili's
+    decoupled cells are still generated and still reported, as exploratory.
+    """
+    by_cell = {(cost.language, cost.arm, cost.cap): cost for cost in cap_costs}
+
+    def rows(selected: Sequence[str]) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = []
+        for language in selected:
+            for arm in arms:
+                cost = by_cell.get((language, arm, cap))
+                if cost is None:
+                    continue
+                non_binding = cost.censored_share < censoring_threshold
+                out.append(
+                    {
+                        "language": language,
+                        "arm": arm,
+                        "cap": cap,
+                        "censored_share": cost.censored_share,
+                        "non_binding": non_binding,
+                        "records": cost.records * len(announced),
+                        "output_tokens": cost.output_tokens * len(announced),
+                    }
+                )
+        return out
+
+    kept = rows(languages)
+    demoted_language_rows = rows(demoted)
+    eligible = [row for row in kept if row["non_binding"]]
+    # A cell the censoring criterion already refused was never in the family, in
+    # either language set, so the pilot cannot be credited with removing it.
+    excluded = [row for row in kept + demoted_language_rows if not row["non_binding"]]
+    demoted_rows = [row for row in demoted_language_rows if row["non_binding"]]
+
+    tokens = sum(row["output_tokens"] for row in eligible)
+    demoted_tokens = sum(row["output_tokens"] for row in demoted_rows)
+    return {
+        "model_id": model_key,
+        "instrument": instrument,
+        "cap": cap,
+        "announced": list(announced),
+        "languages": list(languages),
+        "demoted_languages": list(demoted),
+        "censoring_threshold": censoring_threshold,
+        "cells": eligible,
+        "excluded_for_censoring": excluded,
+        "demoted_by_the_pilot": demoted_rows,
+        "family_size": len(eligible),
+        "family_wise_alpha": family_wise_alpha,
+        "holm_local_alpha": holm_local_alpha(max(len(eligible), 1), family_wise_alpha),
+        "shards_read": 2 * len(eligible),
+        "records": sum(row["records"] for row in eligible),
+        "output_tokens": tokens,
+        "gpu_hours": gpu_hours(tokens, tokens_per_second),
+        "demoted_output_tokens": demoted_tokens,
+        "demoted_gpu_hours": gpu_hours(demoted_tokens, tokens_per_second),
+    }
+
+
 def estimate(
     capped_root: Path | str = "runs-independent",
     uncapped_root: Path | str = "runs",
@@ -258,8 +372,13 @@ def estimate(
     announced_grid: Sequence[int] = E2_ANNOUNCED_GRID,
     continuation_max_tokens: int = E2_CONTINUATION_MAX_TOKENS,
     tokens_per_second: int = OUTPUT_TOKENS_PER_SECOND,
+    confirmatory_model: str = CONFIRMATORY_MODEL,
 ) -> dict[str, Any]:
-    """Full E2 cost estimate, on both bases, with per-cell detail."""
+    """Full E2 cost estimate, on both bases, with per-cell detail.
+
+    The confirmatory family is priced for ``confirmatory_model`` only, because
+    Llama carries no confirmatory claims in either protocol.
+    """
     capped_root = Path(capped_root)
     uncapped_root = Path(uncapped_root)
     priced_conditions = tuple(conditions) + tuple(
@@ -331,6 +450,14 @@ def estimate(
                 cost["cells"] for cost in condition_report.values()
             ),
         }
+        if model_key == confirmatory_model:
+            per_model[model_key]["confirmatory_family"] = family_cost(
+                model_key,
+                cells,
+                arms=arms,
+                cap=decoupled_cap if decoupled_cap is not None else E2_DECOUPLED_CAP,
+                tokens_per_second=tokens_per_second,
+            )
 
     total_tokens = sum(
         entry["conditions"][condition]["output_tokens"]
@@ -349,11 +476,79 @@ def estimate(
         "decoupled_conditions": list(decoupled_conditions),
         "decoupled_cap": decoupled_cap,
         "announced_grid": list(announced_grid),
+        "confirmatory_model": confirmatory_model,
         "models": per_model,
         "total_output_tokens": total_tokens,
         "total_gpu_hours": gpu_hours(total_tokens, tokens_per_second),
         "total_shards": sum(entry["shards"] for entry in per_model.values()),
     }
+
+
+def _family_section(report: dict[str, Any]) -> list[str]:
+    """The confirmatory family's own bill, and what the §8.6 pilot moved out of it."""
+    family = None
+    for entry in report.get("models", {}).values():
+        if "confirmatory_family" in entry:
+            family = entry["confirmatory_family"]
+            break
+    if family is None:
+        return []
+    announced = ", ".join(str(value) for value in family["announced"])
+    lines = [
+        "## Confirmatory family, after the §8.6 pilot",
+        "",
+        f"Instrument `{family['instrument']}`, model `{family['model_id']}`, "
+        f"cap {family['cap']}, announced {{{announced}}}. The pilot "
+        "(`analysis-out/e2_pilot.md`) reversed decision D6: TAG moved the median "
+        "output length by 1.3% and is inert, AWARE cut it by 39.5% in German and "
+        "43.7% in Thai, and by 10.0% in Swahili — a third of the declared 30% "
+        "gate. Swahili is therefore demoted to exploratory as an **instrument "
+        "failure**, not as a result about budgets.",
+        "",
+        f"Family size {family['family_size']}, family-wise alpha "
+        f"{family['family_wise_alpha']}, Holm first-step local alpha "
+        f"{family['holm_local_alpha']:.4f}.",
+        "",
+        "The family reads two decodes of each cell — the two ends of the "
+        "announcement dose contrast at one cap — so a cell's bill is its E1 "
+        "total at that cap, twice.",
+        "",
+        "| lang | arm | censored at cap | in family | records | output tokens |",
+        "|---|---|---:|---|---:|---:|",
+    ]
+    rows = (
+        [(row, "yes") for row in family["cells"]]
+        + [(row, "no — pilot") for row in family["demoted_by_the_pilot"]]
+        + [(row, "no — censoring") for row in family["excluded_for_censoring"]]
+    )
+    for row, verdict in rows:
+        lines.append(
+            f"| {row['language']} | {row['arm']} | "
+            f"{100 * row['censored_share']:.2f}% | {verdict} | "
+            f"{row['records']:,} | {row['output_tokens']:,} |"
+        )
+    demoted_count = len(family["demoted_by_the_pilot"])
+    demoted_phrase = (
+        "The one cell the pilot demoted accounts for"
+        if demoted_count == 1
+        else f"The {demoted_count} cells the pilot demoted account for"
+    )
+    lines += [
+        "",
+        f"The family reads {family['shards_read']} shards, "
+        f"{family['records']:,} records, {family['output_tokens']:,} output "
+        f"tokens, {family['gpu_hours']:.2f} GPU-hours. {demoted_phrase} "
+        f"{family['demoted_output_tokens']:,} output tokens, "
+        f"{family['demoted_gpu_hours']:.2f} GPU-hours.",
+        "",
+        "**The demotion changes no total above.** Swahili is still generated in "
+        "every condition and still reported; what it is no longer entitled to is "
+        "a confirmatory reading. The bill is unchanged and the family is smaller, "
+        "which is the whole shape of the finding: the GPU-hours bought a "
+        "measurement of the instrument, not fewer decodes.",
+        "",
+    ]
+    return lines
 
 
 def render_markdown(report: dict[str, Any]) -> str:
@@ -404,6 +599,9 @@ def render_markdown(report: dict[str, Any]) -> str:
             else ".**"
         ),
         "",
+    ]
+    lines += _family_section(report)
+    lines += [
         "## Basis agreement",
         "",
         "| model | capped basis (E1) | uncapped basis (replay) | ratio |",
@@ -419,11 +617,14 @@ def render_markdown(report: dict[str, Any]) -> str:
         "## Binding regime — measured truncation share at each E2 budget",
         "",
         "Share of E1 records the cap censored (`eos=false`), by arm. This is what",
-        "makes 2048 the decoupled block's enforced cap, and it is the pre-stated",
-        "measurement that selects the confirmatory cells in",
-        "`prereg-budget-aware.md` §8.3.",
+        "makes 2048 the decoupled block's enforced cap, and it is the first of",
+        "the two criteria that select the confirmatory cells in",
+        "`prereg-budget-aware.md` §8.3. It predates any E2 record. The second is",
+        "the §8.6 pilot's 30% manipulation gate, which is what demoted Swahili.",
         "",
-        "| model | arm | lang | " + " | ".join(f"B{b}" for b in report["budgets"]) + " |",
+        "| model | arm | lang | "
+        + " | ".join(f"B{b}" for b in report["budgets"])
+        + " |",
         "|---|---|---|" + "---:|" * len(report["budgets"]),
     ]
     for model_key, entry in report["models"].items():
