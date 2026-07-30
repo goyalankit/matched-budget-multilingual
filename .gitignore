@@ -23,3 +23,4 @@ paper/*.fls
 paper/*.synctex.gz
 runs-e2-pilot/
 runs-e2/
+runs-e2-pilot-swv*/

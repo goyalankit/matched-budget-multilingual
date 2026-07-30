@@ -1,0 +1,41 @@
+{
+ "comparison": {
+  "de": 0.395,
+  "th": 0.437
+ },
+ "gate": 0.3,
+ "variants": [
+  {
+   "label": "baseline (Claude-drafted)",
+   "median_128": 216.0,
+   "median_2048": 240.0,
+   "passes_gate": false,
+   "reduction": 0.1,
+   "sentence": "Hoja zako zote na jibu la mwisho kwa pamoja zisizidi tokeni {budget}."
+  },
+  {
+   "label": "variant 1 (user)",
+   "median_128": 201.0,
+   "median_2048": 222.0,
+   "passes_gate": false,
+   "reduction": 0.0946,
+   "sentence": "Majibu yako yote \u2014 hoja zako zote pamoja na jibu la mwisho \u2014 hayapaswi kuzidi tokeni {budget}."
+  },
+  {
+   "label": "variant 2 (user)",
+   "median_128": 212.0,
+   "median_2048": 252.0,
+   "passes_gate": false,
+   "reduction": 0.1587,
+   "sentence": "Jibu lako lote \u2014 hoja zako zote pamoja na jibu la mwisho \u2014 lazima lisizidi tokeni {budget}."
+  },
+  {
+   "label": "variant 3 (user)",
+   "median_128": 203.0,
+   "median_2048": 232.5,
+   "passes_gate": false,
+   "reduction": 0.1269,
+   "sentence": "Jibu lako lote - hoja zako zote pamoja na jibu la mwisho - lazima lisizidi tokeni za {budget}."
+  }
+ ]
+}
