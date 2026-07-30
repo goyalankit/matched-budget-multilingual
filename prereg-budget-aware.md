@@ -807,6 +807,17 @@ instrument once generation begins, and that prohibition is now in force.
 10.0%, a third of the declared gate. That is a fact about the Swahili *sentence*, not about
 whether Swahili speakers' budgets bind: an announcement that does not shorten the trace has not
 been delivered, so nothing about budget sensitivity can be read off a null in that cell.
+
+The demotion does not rest on one sentence. Three further Swahili phrasings, written independently
+of this protocol, were run through the same pilot cell; all four fail, spanning 9.5% to 15.9%
+(`analysis-out/e2_pilot_swahili_variants.md`). They differ structurally and not only lexically —
+two open on `Jibu lako lote`, one on `Majibu yako yote`, one on `Hoja zako zote` — and land in the
+same band while German and Thai sit four times higher under the same construction. Rewording is
+therefore not what would fix this cell. Two limits on that reading are recorded with it: the claim
+is about this model's Swahili and not about Swahili, and the gate is relative, so a language whose
+untold baseline is already short has less room to shrink — Swahili sits at 222–252 against German's
+291 and Thai's 349, though against an announced 128 none of the three reaches the target and
+Swahili moves least.
 **`analysis-out/e2_design_review.md` predicted this cell by name** — §Q5(d) records that `tokeni`
 is a coinage and that Qwen Swahili is the study's worst cell (94.1% compliance, 25.1%
 unparseable), and rejected a Swahili-anchored design partly for that reason. The prediction was
