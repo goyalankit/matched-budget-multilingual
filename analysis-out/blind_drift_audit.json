@@ -1,0 +1,37 @@
+{
+ "arm": "native",
+ "base_seed": 20260726,
+ "bitwise_identical_share": 0.589,
+ "bootstrap_seed": 20260726,
+ "cap": 192,
+ "language": "de",
+ "model": "qwen3_8b",
+ "n_resamples": 10000,
+ "records": 2000,
+ "shard": "/home/angoyal/ws/language-research/runs-independent/qwen3_8b/de/native/B00192/shard.jsonl",
+ "statistics": {
+  "accuracy": {
+   "difference": -0.0020000000000000018,
+   "regenerated": 0.1595,
+   "stored": 0.1615,
+   "tolerance": 0.017831575251365236,
+   "within_tolerance": true
+  },
+  "eos_rate": {
+   "difference": -0.0005000000000000004,
+   "regenerated": 0.199,
+   "stored": 0.1995,
+   "tolerance": 0.020255515340276458,
+   "within_tolerance": true
+  },
+  "mean_output_tokens": {
+   "difference": -0.06400000000002137,
+   "regenerated": 184.7025,
+   "stored": 184.7665,
+   "tolerance": 1.0006229633178865,
+   "within_tolerance": true
+  }
+ },
+ "verdict": "reuse",
+ "within_tolerance": true
+}
