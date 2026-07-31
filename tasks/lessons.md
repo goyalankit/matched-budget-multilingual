@@ -333,3 +333,27 @@
   fails under NumPy 2.x before returning a label. The `language-id` optional
   dependency therefore constrains NumPy below 2; the real GlotLID pass ran with
   NumPy 1.26.4.
+
+## Copilot cannot execute `.venv/bin/python` — the supervisor verifies
+
+**Discovered:** 2026-07-31, breadth Phase 1 Task 1.
+
+Copilot's execution layer refuses to run any binary under the project-local `.venv/`.
+System `python3` runs; `ls .venv/bin` runs; `.venv/bin/python -c 'print(2+2)'` is denied with
+"Permission denied and could not request permission from user". `--allow-tool
+'shell(.venv/bin/python)'` does not lift it, and it is unrelated to `--deny-tool 'shell(git)'`.
+It reads as a guard against executing repo-shipped binaries, which is worth keeping.
+
+There is no system Python 3.11 on this host, and `python3` is 3.9 and cannot collect the suite.
+Invoking the uv-managed interpreter directly (`~/.local/share/uv/python/.../python3.11` with
+`PYTHONPATH` pointed at the venv's site-packages) would work, and is deliberately NOT used: it
+defeats the protection rather than satisfying it.
+
+**How to apply:** Copilot writes code and tests per the plan and reports that it could not run
+them. The supervisor runs red/green at the review gate before committing. State this in every
+brief so a "tests pass" claim is never expected or fabricated — in Task 1 Copilot said "no plan
+error was found" when it meant "I could not check", and the plan's test was in fact wrong.
+
+This splits the TDD loop, which is a real cost. It is tolerable here because the plan already
+contains the exact test and implementation code, so the executor is largely transcribing. If a
+future plan leaves genuine design latitude, run that task inline instead of delegating it.
