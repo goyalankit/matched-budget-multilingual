@@ -1,0 +1,8 @@
+[qwen3_8b] scoring the family under v0 and v1 ...
+[qwen3_8b]   v0: rejected ['A1-nat-th']; uninformative ['A1-ta-de', 'A1-ta-th']
+[qwen3_8b]   v1: rejected ['A1-nat-th']; uninformative none
+[llama_3_1_8b_instruct] scoring the family under v0 and v1 ...
+[llama_3_1_8b_instruct]   v0: rejected ['A1-nat-de', 'A1-nat-th']; uninformative ['A1-nat-de', 'A1-nat-th', 'A1-ta-de', 'A1-ta-th']
+[llama_3_1_8b_instruct]   v1: rejected ['A1-nat-de', 'A1-nat-th']; uninformative ['A1-nat-de', 'A1-nat-th', 'A1-ta-de', 'A1-ta-th']
+
+wrote analysis-out/e2b_scoring.{json,md}
