@@ -1,0 +1,102 @@
+{
+ "adopted": "v1 must-not-exceed",
+ "gate": 0.3,
+ "variants": [
+  {
+   "language": "de",
+   "median_128": 222,
+   "median_2048": 260,
+   "passes_gate": false,
+   "reduction": 0.1462,
+   "sentence": "The translation, all of your reasoning and the final answer may take at most {budget} tokens in total.",
+   "translation_128": 57,
+   "translation_2048": 57,
+   "translation_reduction": 0.0,
+   "variant": "v0 shipped"
+  },
+  {
+   "language": "th",
+   "median_128": 264,
+   "median_2048": 293,
+   "passes_gate": false,
+   "reduction": 0.099,
+   "sentence": "The translation, all of your reasoning and the final answer may take at most {budget} tokens in total.",
+   "translation_128": 76,
+   "translation_2048": 76,
+   "translation_reduction": 0.0,
+   "variant": "v0 shipped"
+  },
+  {
+   "language": "de",
+   "median_128": 141,
+   "median_2048": 214,
+   "passes_gate": true,
+   "reduction": 0.3411,
+   "sentence": "Your entire response must not exceed {budget} tokens. Keep the translation as short as possible, reason concisely, and write the #### line before you reach the limit.",
+   "translation_128": 54,
+   "translation_2048": 57,
+   "translation_reduction": 0.0526,
+   "variant": "v1 must-not-exceed"
+  },
+  {
+   "language": "th",
+   "median_128": 158,
+   "median_2048": 250,
+   "passes_gate": true,
+   "reduction": 0.368,
+   "sentence": "Your entire response must not exceed {budget} tokens. Keep the translation as short as possible, reason concisely, and write the #### line before you reach the limit.",
+   "translation_128": 63,
+   "translation_2048": 75,
+   "translation_reduction": 0.16,
+   "variant": "v1 must-not-exceed"
+  },
+  {
+   "language": "de",
+   "median_128": 189,
+   "median_2048": 192,
+   "passes_gate": false,
+   "reduction": 0.0156,
+   "sentence": "You have {budget} tokens in total. The translation counts against that budget, so translate tersely, then solve in as few steps as you can and give the #### line.",
+   "translation_128": 56,
+   "translation_2048": 56,
+   "translation_reduction": 0.0,
+   "variant": "v2 counts-against"
+  },
+  {
+   "language": "th",
+   "median_128": 197,
+   "median_2048": 204,
+   "passes_gate": false,
+   "reduction": 0.0343,
+   "sentence": "You have {budget} tokens in total. The translation counts against that budget, so translate tersely, then solve in as few steps as you can and give the #### line.",
+   "translation_128": 58,
+   "translation_2048": 58,
+   "translation_reduction": 0.0,
+   "variant": "v2 counts-against"
+  },
+  {
+   "language": "de",
+   "median_128": 175,
+   "median_2048": 207,
+   "passes_gate": false,
+   "reduction": 0.1546,
+   "sentence": "Hard limit: {budget} tokens for everything below, translation included. Translate briefly, keep the reasoning short, and make sure the #### line is written within the limit.",
+   "translation_128": 56,
+   "translation_2048": 56,
+   "translation_reduction": 0.0,
+   "variant": "v3 hard-limit"
+  },
+  {
+   "language": "th",
+   "median_128": 181,
+   "median_2048": 214,
+   "passes_gate": false,
+   "reduction": 0.1542,
+   "sentence": "Hard limit: {budget} tokens for everything below, translation included. Translate briefly, keep the reasoning short, and make sure the #### line is written within the limit.",
+   "translation_128": 57,
+   "translation_2048": 58,
+   "translation_reduction": 0.0172,
+   "variant": "v3 hard-limit"
+  }
+ ]
+}
