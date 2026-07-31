@@ -83,6 +83,14 @@ E2_ANNOUNCED_GRID: tuple[int, ...] = (128, 256, 2048)
 # Conditions whose prompt is the frozen template, unchanged.
 _FROZEN_TEMPLATE_CONDITIONS = (None, FORCED)
 
+# E2 §5.2. The root the announcing templates are read from. E2b (`prereg-e2b.md`)
+# reads `prompts-e2b/` instead, which holds one condition and one arm: the v1
+# TRANSLATE-ACT AWARE sentence. It is a parameter rather than a fork so the two
+# instruments run through the same driver, the same seeds and the same record
+# IDs, and differ in exactly the file the prompt is read from.
+E2_PROMPT_DIR = "prompts-e2"
+E2B_PROMPT_DIR = "prompts-e2b"
+
 # E2 §5. Bounded continuation after the delimiter is appended.
 E2_CONTINUATION_MAX_TOKENS = 32
 
@@ -211,38 +219,51 @@ def e2_cell_plan(
     return tuple(cells)
 
 
-def template_path(arm: str, language: str, condition: str | None = None) -> Path:
+def template_path(
+    arm: str,
+    language: str,
+    condition: str | None = None,
+    prompt_dir: str = E2_PROMPT_DIR,
+) -> Path:
     """Prompt template for one (arm, language, condition).
 
     BLIND and FORCED both read the frozen template: FORCED changes the *decode*
     procedure, not the prompt, which is what makes it a clean comparison against
     BLIND at the same cap. AWARE and PLACEBO read their E2 template, which is the
     frozen file plus one inserted line.
+
+    ``prompt_dir`` selects which announcing-template root is read. It defaults to
+    ``prompts-e2``, so every existing caller is unchanged; E2b passes
+    ``prompts-e2b`` (`prereg-e2b.md` §3). It never affects BLIND or FORCED, whose
+    prompt is the frozen template in either study.
     """
     if condition in _FROZEN_TEMPLATE_CONDITIONS:
         return _ROOT / "prompts" / arm / f"{language}.txt"
-    return _ROOT / "prompts-e2" / condition / arm / f"{language}.txt"
+    return _ROOT / prompt_dir / condition / arm / f"{language}.txt"
 
 
-def load_template(arm: str, language: str, condition: str | None = None) -> str:
+def load_template(
+    arm: str,
+    language: str,
+    condition: str | None = None,
+    prompt_dir: str = E2_PROMPT_DIR,
+) -> str:
     """Read a template and assert its ``{budget}`` placeholder matches its condition."""
-    template = template_path(arm, language, condition).read_text(encoding="utf-8")
+    path = template_path(arm, language, condition, prompt_dir)
+    template = path.read_text(encoding="utf-8")
     has_budget = "{budget}" in template
     if announces_budget(condition) and not has_budget:
         raise ValueError(
-            f"template {template_path(arm, language, condition)} has no "
+            f"template {path} has no "
             f"{{budget}} placeholder; condition {condition!r} cannot state a budget"
         )
     if not announces_budget(condition) and has_budget:
         raise ValueError(
-            f"template {template_path(arm, language, condition)} has a {{budget}} "
+            f"template {path} has a {{budget}} "
             f"placeholder but condition is {condition!r}"
         )
     if "{problem}" not in template:
-        raise ValueError(
-            f"template {template_path(arm, language, condition)} has no "
-            "{problem} placeholder"
-        )
+        raise ValueError(f"template {path} has no {{problem}} placeholder")
     return template
 
 
@@ -287,6 +308,7 @@ def run_model_independent(
     decoupled_conditions: Sequence[str] = (),
     decoupled_cap: int | None = None,
     announced_grid: Sequence[int] = (),
+    prompt_dir: str = E2_PROMPT_DIR,
 ) -> dict[str, Any]:
     """Generate or resume every independent-decoding unit for one model.
 
@@ -298,6 +320,9 @@ def run_model_independent(
     decoupled block, in which the enforced cap is held fixed and only the
     announced number varies. They default to empty, so E1 and the coupled block
     are unaffected.
+
+    ``prompt_dir`` selects the announcing-template root and defaults to E2's, so
+    every existing call is byte-for-byte unchanged. E2b passes ``prompts-e2b``.
     """
     if not model_key:
         raise ValueError("model_key must be non-empty")
@@ -351,7 +376,7 @@ def run_model_independent(
 
         for arm in selected_arms:
             templates = {
-                condition: load_template(arm, language, condition)
+                condition: load_template(arm, language, condition, prompt_dir)
                 for condition in set(selected_conditions) | set(selected_decoupled)
             }
             plan = e2_cell_plan(
@@ -529,6 +554,7 @@ def run_model_independent(
         "decoupled_conditions": list(selected_decoupled),
         "decoupled_cap": decoupled_cap,
         "announced_grid": list(announced_grid),
+        "prompt_dir": prompt_dir,
         "continuation_max_tokens": continuation_max_tokens,
         "concurrency": concurrency,
         "total_units": total_units,
@@ -553,6 +579,7 @@ def run_model_e2(
     decoupled_conditions: Sequence[str] = E2_DECOUPLED_CONDITIONS,
     decoupled_cap: int | None = E2_DECOUPLED_CAP,
     announced_grid: Sequence[int] = E2_ANNOUNCED_GRID,
+    prompt_dir: str = E2_PROMPT_DIR,
 ) -> dict[str, Any]:
     """Generate or resume every E2 unit for one model (`prereg-budget-aware.md`).
 
@@ -576,4 +603,5 @@ def run_model_e2(
         decoupled_conditions=decoupled_conditions,
         decoupled_cap=decoupled_cap,
         announced_grid=announced_grid,
+        prompt_dir=prompt_dir,
     )

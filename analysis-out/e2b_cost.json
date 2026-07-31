@@ -1,0 +1,570 @@
+{
+ "arm": "translate_act",
+ "basis": "v0 ledger token totals for the same (model, language, cap, announced) cells E2b regenerates",
+ "condition": "aware",
+ "confirmatory_model_only": {
+  "gpu_hours": 0.6244,
+  "output_tokens": 13245497,
+  "records": 54000,
+  "shards": 27
+ },
+ "is_upper_bound": true,
+ "models": {
+  "llama_3_1_8b_instruct": {
+   "by_language": {
+    "de": {
+     "gpu_hours": 0.2091,
+     "output_tokens": 4435833,
+     "records": 18000,
+     "shards": 9
+    },
+    "sw": {
+     "gpu_hours": 0.2003,
+     "output_tokens": 4249007,
+     "records": 18000,
+     "shards": 9
+    },
+    "th": {
+     "gpu_hours": 0.2097,
+     "output_tokens": 4449575,
+     "records": 18000,
+     "shards": 9
+    }
+   },
+   "shards": [
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01202,
+     "language": "de",
+     "output_tokens": 254917,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01751,
+     "language": "de",
+     "output_tokens": 371488,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02129,
+     "language": "de",
+     "output_tokens": 451736,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.02449,
+     "language": "de",
+     "output_tokens": 519523,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.0253,
+     "language": "de",
+     "output_tokens": 536675,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02657,
+     "language": "de",
+     "output_tokens": 563616,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.02618,
+     "language": "de",
+     "output_tokens": 555322,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.0269,
+     "language": "de",
+     "output_tokens": 570611,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02885,
+     "language": "de",
+     "output_tokens": 611945,
+     "path": "llama_3_1_8b_instruct/de/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01198,
+     "language": "th",
+     "output_tokens": 254085,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01726,
+     "language": "th",
+     "output_tokens": 366226,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02093,
+     "language": "th",
+     "output_tokens": 444041,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.02414,
+     "language": "th",
+     "output_tokens": 512206,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.02481,
+     "language": "th",
+     "output_tokens": 526289,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02683,
+     "language": "th",
+     "output_tokens": 569105,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.02628,
+     "language": "th",
+     "output_tokens": 557615,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.02806,
+     "language": "th",
+     "output_tokens": 595287,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02945,
+     "language": "th",
+     "output_tokens": 624721,
+     "path": "llama_3_1_8b_instruct/th/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01188,
+     "language": "sw",
+     "output_tokens": 252112,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01699,
+     "language": "sw",
+     "output_tokens": 360538,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02048,
+     "language": "sw",
+     "output_tokens": 434516,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.0233,
+     "language": "sw",
+     "output_tokens": 494266,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.02419,
+     "language": "sw",
+     "output_tokens": 513195,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02561,
+     "language": "sw",
+     "output_tokens": 543368,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.0241,
+     "language": "sw",
+     "output_tokens": 511327,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.02599,
+     "language": "sw",
+     "output_tokens": 551334,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02773,
+     "language": "sw",
+     "output_tokens": 588351,
+     "path": "llama_3_1_8b_instruct/sw/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    }
+   ],
+   "total": {
+    "gpu_hours": 0.6191,
+    "output_tokens": 13134415,
+    "records": 54000,
+    "shards": 27
+   }
+  },
+  "qwen3_8b": {
+   "by_language": {
+    "de": {
+     "gpu_hours": 0.1972,
+     "output_tokens": 4182862,
+     "records": 18000,
+     "shards": 9
+    },
+    "sw": {
+     "gpu_hours": 0.2097,
+     "output_tokens": 4448562,
+     "records": 18000,
+     "shards": 9
+    },
+    "th": {
+     "gpu_hours": 0.2175,
+     "output_tokens": 4614073,
+     "records": 18000,
+     "shards": 9
+    }
+   },
+   "shards": [
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01198,
+     "language": "de",
+     "output_tokens": 254222,
+     "path": "qwen3_8b/de/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01722,
+     "language": "de",
+     "output_tokens": 365295,
+     "path": "qwen3_8b/de/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02046,
+     "language": "de",
+     "output_tokens": 434153,
+     "path": "qwen3_8b/de/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.02404,
+     "language": "de",
+     "output_tokens": 509903,
+     "path": "qwen3_8b/de/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.02511,
+     "language": "de",
+     "output_tokens": 532670,
+     "path": "qwen3_8b/de/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02578,
+     "language": "de",
+     "output_tokens": 547006,
+     "path": "qwen3_8b/de/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.02248,
+     "language": "de",
+     "output_tokens": 476860,
+     "path": "qwen3_8b/de/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.02374,
+     "language": "de",
+     "output_tokens": 503681,
+     "path": "qwen3_8b/de/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02635,
+     "language": "de",
+     "output_tokens": 559072,
+     "path": "qwen3_8b/de/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01205,
+     "language": "th",
+     "output_tokens": 255542,
+     "path": "qwen3_8b/th/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01752,
+     "language": "th",
+     "output_tokens": 371691,
+     "path": "qwen3_8b/th/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02156,
+     "language": "th",
+     "output_tokens": 457488,
+     "path": "qwen3_8b/th/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.02644,
+     "language": "th",
+     "output_tokens": 560828,
+     "path": "qwen3_8b/th/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.02802,
+     "language": "th",
+     "output_tokens": 594518,
+     "path": "qwen3_8b/th/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02877,
+     "language": "th",
+     "output_tokens": 610361,
+     "path": "qwen3_8b/th/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.02628,
+     "language": "th",
+     "output_tokens": 557472,
+     "path": "qwen3_8b/th/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.02718,
+     "language": "th",
+     "output_tokens": 576633,
+     "path": "qwen3_8b/th/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02967,
+     "language": "th",
+     "output_tokens": 629540,
+     "path": "qwen3_8b/th/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 128,
+     "gpu_hours": 0.01201,
+     "language": "sw",
+     "output_tokens": 254839,
+     "path": "qwen3_8b/sw/translate_act/aware/B00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 192,
+     "cap": 192,
+     "gpu_hours": 0.01737,
+     "language": "sw",
+     "output_tokens": 368537,
+     "path": "qwen3_8b/sw/translate_act/aware/B00192/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 256,
+     "gpu_hours": 0.02099,
+     "language": "sw",
+     "output_tokens": 445337,
+     "path": "qwen3_8b/sw/translate_act/aware/B00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 384,
+     "cap": 384,
+     "gpu_hours": 0.02529,
+     "language": "sw",
+     "output_tokens": 536614,
+     "path": "qwen3_8b/sw/translate_act/aware/B00384/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 512,
+     "cap": 512,
+     "gpu_hours": 0.02693,
+     "language": "sw",
+     "output_tokens": 571361,
+     "path": "qwen3_8b/sw/translate_act/aware/B00512/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 1024,
+     "cap": 1024,
+     "gpu_hours": 0.02786,
+     "language": "sw",
+     "output_tokens": 591082,
+     "path": "qwen3_8b/sw/translate_act/aware/B01024/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 128,
+     "cap": 2048,
+     "gpu_hours": 0.02463,
+     "language": "sw",
+     "output_tokens": 522579,
+     "path": "qwen3_8b/sw/translate_act/aware/B02048_A00128/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 256,
+     "cap": 2048,
+     "gpu_hours": 0.02605,
+     "language": "sw",
+     "output_tokens": 552603,
+     "path": "qwen3_8b/sw/translate_act/aware/B02048_A00256/shard.jsonl",
+     "records": 2000
+    },
+    {
+     "announced": 2048,
+     "cap": 2048,
+     "gpu_hours": 0.02855,
+     "language": "sw",
+     "output_tokens": 605610,
+     "path": "qwen3_8b/sw/translate_act/aware/B02048/shard.jsonl",
+     "records": 2000
+    }
+   ],
+   "total": {
+    "gpu_hours": 0.6244,
+    "output_tokens": 13245497,
+    "records": 54000,
+    "shards": 27
+   }
+  }
+ },
+ "output_tokens_per_second": 5893,
+ "protocol": "prereg-e2b.md",
+ "total": {
+  "gpu_hours": 1.2435,
+  "output_tokens": 26379912,
+  "records": 108000,
+  "shards": 54
+ },
+ "upper_bound_note": "Priced at v0 token totals. v1 shortens traces (the pilot measured 34.1% de / 36.8% th median reduction at announced-128), so the realised bill is lower than this. It is not revised downward here: a 108,000-record estimate must not be scaled by 3,000 pilot records from two of three languages.",
+ "v0_ledger": "/home/angoyal/ws/language-research/runs-e2"
+}
