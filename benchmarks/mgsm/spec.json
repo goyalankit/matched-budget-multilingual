@@ -1,0 +1,11 @@
+{
+  "name": "mgsm",
+  "dataset": "juletxara/mgsm",
+  "language_configs": {"de": "de", "th": "th", "sw": "sw"},
+  "split": "test",
+  "expected_items": 250,
+  "question_field": "question",
+  "gold_field": "answer_number",
+  "answer_kind": "integer",
+  "generation_caps": {"qwen3_8b": 4096, "llama_3_1_8b_instruct": 4096}
+}

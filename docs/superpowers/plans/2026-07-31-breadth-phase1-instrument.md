@@ -105,9 +105,30 @@ def test_verify_manifest_rejects_a_tampered_template(tmp_path):
         target.parent.mkdir(parents=True, exist_ok=True)
         if item.is_file():
             target.write_bytes(item.read_bytes())
-    (copied / "templates" / "de.txt").write_text("tampered", encoding="utf-8")
+    # Tamper while KEEPING the {problem} placeholder, so the spec still loads
+    # and the manifest is what catches the change. A tamper that also broke the
+    # placeholder is caught earlier, by load_spec, and never reaches
+    # verify_manifest -- see the next test.
+    (copied / "templates" / "de.txt").write_text(
+        "tampered\n\n{problem}", encoding="utf-8"
+    )
     with pytest.raises(ManifestError, match="templates/de.txt"):
         verify_manifest(load_spec("mgsm", root=tmp_path))
+
+
+def test_a_tamper_that_breaks_the_placeholder_is_caught_at_load(tmp_path):
+    """The earlier of the two guards fires first, and says which one it is."""
+    spec = load_spec("mgsm")
+    copied = tmp_path / "mgsm"
+    copied.mkdir()
+    for item in spec.root.rglob("*"):
+        target = copied / item.relative_to(spec.root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if item.is_file():
+            target.write_bytes(item.read_bytes())
+    (copied / "templates" / "de.txt").write_text("tampered", encoding="utf-8")
+    with pytest.raises(ValueError, match=r"\{problem\}"):
+        load_spec("mgsm", root=tmp_path)
 
 
 def test_missing_placeholder_is_rejected(tmp_path):
@@ -278,7 +299,7 @@ Run: `.venv/bin/python -c "from src.benchmark_spec import load_spec, write_manif
 - [ ] **Step 6: Run tests to verify they pass**
 
 Run: `.venv/bin/python -m pytest tests/test_benchmark_spec.py -v`
-Expected: PASS, 5 tests
+Expected: PASS, 6 tests
 
 - [ ] **Step 7: Run the full suite**
 
@@ -838,7 +859,7 @@ def predict_delta(
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `.venv/bin/python -m pytest tests/test_emission_prediction.py -v`
-Expected: PASS, 5 tests
+Expected: PASS, 6 tests
 
 - [ ] **Step 5: Validate against the existing ledger**
 

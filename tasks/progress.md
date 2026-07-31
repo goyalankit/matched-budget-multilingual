@@ -128,3 +128,18 @@
   0.02624 and zero degenerate calibration datasets. The observed rate was not
   above nominal; the smoke run remains low-resolution by design.
 - Tests: 82 passed, 3 skipped dependency-gated backend tests.
+
+## Breadth Phase 1 — Task 1: Benchmark spec loading and manifest verification
+
+- Built `src/benchmark_spec.py`, the frozen MGSM benchmark data directory
+  (`spec.json`, `grammar.json`, byte-copied German/Thai/Swahili templates, and
+  SHA-256 manifest), and `tests/test_benchmark_spec.py` with five planned tests.
+- Tests: unavailable. Both required `.venv/bin/python` pytest commands were
+  blocked before process launch by the non-interactive execution permission
+  layer, so no test result or count was produced.
+- Decisions: used the plan's implementation and test code verbatim; copied the
+  audited templates with `cp`. Because the prescribed Python manifest command
+  was also permission-blocked, computed the same SHA-256 values with local
+  `sha256sum` and wrote the exact sorted/indented `write_manifest` output shape.
+- Deferred: targeted and full-suite pytest validation must be run by the
+  supervisor in an environment that permits `.venv/bin/python` execution.
