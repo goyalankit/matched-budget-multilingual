@@ -1,0 +1,459 @@
+I'll start by reading the brief.
+
+● List repo and read brief (shell)
+  │ ls && cat tasks/copilot-paper-e2-brief.md
+  └ 159 lines…
+
+● Check file sizes (shell)
+  │ wc -l PAPER.md paper/main.tex && ls paper/ && ls analysis-out/ | head -50
+  └ 69 lines…
+
+● Read PAPER.md
+  └ 1 line read
+
+● Read PAPER.md
+  └ L1:110 (109 lines read)
+
+● Read PAPER.md
+  └ L110:210 (101 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L1:120 (119 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L120:320 (201 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L320:490 (171 lines read)
+
+● Read e2 scoring md (shell)
+  │ cat analysis-out/e2_scoring.md
+  └ 10 lines…
+
+● Read e2 scoring head (shell)
+  │ head -120 analysis-out/e2_scoring.md
+  └ 121 lines…
+
+● Find forcing section (shell)
+  │ grep -n -i "forc\|capped_eos" analysis-out/e2_scoring.md | head -40
+  └ 13 lines…
+
+● Read forcing table (shell)
+  │ sed -n '196,215p' analysis-out/e2_scoring.md
+  └ 21 lines…
+
+● Read e2b scoring (shell)
+  │ head -90 analysis-out/e2b_scoring.md
+  └ 90 lines…
+
+● Check translate segment diagnostic (shell)
+  │ grep -rn "57\b" analysis-out/e2b_pilot_translate_act.md | head -20; echo ---; head -40
+  │ analysis-out/e2b_pilot_translate_act.md
+  └ 39 lines…
+
+● Check latex toolchain (shell)
+  │ cd /home/angoyal/ws/language-research/paper && which pdflatex latexmk bibtex 2>&1; pdfinfo
+  │ main.pdf 2>/dev/null | grep -i pages
+  └ 4 lines…
+
+No LaTeX toolchain here, so I'll manage length by word budget. Let me measure the current body.
+
+● Count body words per section (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ import re
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ body=t[s:e]…
+  └ 25 lines…
+
+Now I'll make the edits to `paper/main.tex`, starting with the abstract and the new results subsection.
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +9
+  └ paper/main.tex
+
+● Edit main.tex +1 -5
+  └ paper/main.tex
+
+● Edit main.tex +2
+  └ paper/main.tex
+
+Now the instrument-validity paragraph in the audits section.
+
+● Edit main.tex +2
+  └ paper/main.tex
+
+● Edit main.tex +5 -17
+  └ paper/main.tex
+
+● Edit main.tex +16 -24
+  └ paper/main.tex
+
+Now the limitation (i) fix and the new appendices.
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +31
+  └ paper/main.tex
+
+Now the two new appendices for the E2 and E2b tables.
+
+● Edit main.tex +134
+  └ paper/main.tex
+
+● Recount body words (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Per-section counts after edits (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ import re
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ body=t[s:e]…
+  └ 18 lines…
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Edit main.tex +4 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● View scope section (shell)
+  │ cd /home/angoyal/ws/language-research/paper && grep -n "Scope and implications" -A 12 main.tex |
+  │ head -30
+  └ 14 lines…
+
+● Edit main.tex +3 -4
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Inspect duplicated limitations (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '337,342p' main.tex
+  └ 7 lines…
+
+● Remove duplicated limitations text (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ p='main.tex'
+  │ t=open(p).read()
+  │ dup=" vLLM repeat generation was only 46\\% bitwise deterministic, preserving the
+  │ stored-ledger estimand but weakening reproducibility and shared-seed interpretation. (iii) …
+  └ 24 lines…
+
+● Delete duplicate line (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ p='main.tex'
+  │ lines=open(p).read().split('\n')
+  │ idx=[i for i,l in enumerate(lines) if l.startswith(' vLLM repeat generation')]
+  │ assert len(idx)==1, idx…
+  └ 8 lines…
+
+● View peak discussion paragraphs (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '113,122p' main.tex
+  └ 10 lines…
+
+● Edit main.tex +1 -5
+  └ paper/main.tex
+
+● View ladder measurement paragraph (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '196,232p' main.tex
+  └ 38 lines…
+
+● Edit main.tex +13 -14
+  └ paper/main.tex
+
+● View patterns paragraphs (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '253,300p' main.tex
+  └ 49 lines…
+
+● Edit main.tex +12 -15
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● View triage guidance paragraph (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '290,320p' main.tex
+  └ 32 lines…
+
+● Edit main.tex +9 -12
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● View intro (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '25,60p' main.tex
+  └ 37 lines…
+
+● Edit main.tex +3 -3
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● View 3.2 (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '100,150p' main.tex
+  └ 52 lines…
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Find sections (shell)
+  │ cd /home/angoyal/ws/language-research/paper && grep -n "section{Measurement
+  │ audits}\|section{Scope\|subsection{Announcing" main.tex
+  └ 4 lines…
+
+● Read main.tex
+  │ paper/main.tex
+  └ L160:190 (30 lines read)
+
+● Read main.tex
+  │ paper/main.tex
+  └ L319:340 (21 lines read)
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount body (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ EOF
+  └ 2 lines…
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Edit main.tex +1 -1
+  └ paper/main.tex
+
+● Recount (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ print('body tokens now:',len(t[s:e].split()), 'was 5129')
+  │ a=t.index('\\begin{abstract}'); b=t.index('\\end{abstract}')…
+  └ 5 lines…
+
+Body is now 75 words under baseline (abstract +33), giving net headroom. Now mirroring all edits into `PAPER.md`.
+
+● View PAPER.md head (shell)
+  │ sed -n '1,12p' PAPER.md; echo ---; sed -n '15,30p' PAPER.md
+  └ 30 lines…
+
+Now applying the mirrored edits to `PAPER.md`.
+
+● Edit PAPER.md +1 -1
+
+● Edit PAPER.md +3 -3
+
+● View PAPER.md 3.2-4 (shell)
+  │ sed -n '95,135p' PAPER.md
+  └ 42 lines…
+
+● Edit PAPER.md +8
+
+Now the instrument-validity paragraph in §4 and the §5 scope condition.
+
+● Edit PAPER.md +2
+
+● View section 5 tail and limitations (shell)
+  │ sed -n '160,180p' PAPER.md
+  └ 22 lines…
+
+● Edit PAPER.md +2
+
+● Edit PAPER.md +1 -1
+
+Now appending Appendices G and H to `PAPER.md`.
+
+● View PAPER.md tail (shell)
+  │ tail -8 PAPER.md
+  └ 9 lines…
+
+● Append appendices G and H (shell)
+  │ cat >> PAPER.md <<'EOF'
+  │
+  │ ## Appendix G. Budget announcement (E2)
+  │
+  │ All cells decode at a real cap of 2048 tokens; only the announced number varies. The …
+  └ 67 lines…
+
+● Verify E2b numbers (shell)
+  │ sed -n '1,60p' analysis-out/e2b_scoring.md
+  └ 60 lines…
+
+● View E2b appendix in main.tex (shell)
+  │ cd /home/angoyal/ws/language-research/paper && grep -n "app:instrument" -A 45 main.tex | tail
+  │ -50
+  └ 51 lines…
+
+● Edit PAPER.md +1 -1
+
+Now verifying the E2 appendix numbers in `main.tex` and doing a final constraint check.
+
+● View E2 appendix (shell)
+  │ cd /home/angoyal/ws/language-research/paper && sed -n '/app:announce/,/app:instrument/p'
+  │ main.tex | head -70
+  └ 71 lines…
+
+● Final constraint checks (shell)
+  │ echo "== banned phrases =="; grep -ni "it is worth noting\|importantly,\|moreover" PAPER.md
+  │ paper/main.tex || echo none
+  │ echo "== itemize in body (main.tex) =="; python3 - <<'EOF'
+  │ t=open('paper/main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')…
+  └ 14 lines…
+
+● Check pre-existing itemize (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ s=t.index('\\section{Introduction}'); e=t.index('\\bibliography{custom}')
+  │ b=t[s:e]
+  │ i=b.index('\\begin{itemize}')…
+  └ 16 lines…
+
+● Cross-check key numbers in both files (shell)
+  │ for n in "876,000" "announcement_effect_detected" "63.20" "5.10" "0.0029" "23.72" "34.4" "37.5"
+  │ "2.4" "uninformative"; do printf "%-30s md=%s tex=%s\n" "$n" "$(grep -c -- "$n" PAPER.md)"
+  │ "$(grep -c -- "$n" paper/main.tex)"; done
+  └ 11 lines…
+
+● Check appendix ordering (shell)
+  │ grep -n "^## Appendix" PAPER.md; echo ---; grep -n "^\\\\section{" paper/main.tex | sed -n
+  │ '6,20p'
+  └ 15 lines…
+
+● Check PAPER.md appendix section structure (shell)
+  │ sed -n '188,200p' PAPER.md
+  └ 14 lines…
+
+● Match PAPER.md appendix heading style (shell)
+  │ python3 - <<'EOF'
+  │ p='PAPER.md'
+  │ t=open(p).read()
+  │ t=t.replace('## Appendix G. Budget announcement (E2)\n','G. Budget announcement (E2).\n')
+  │ t=t.replace('## Appendix H. Instrument validity (E2b)\n','H. Instrument validity (E2b).\n')…
+  └ 7 lines…
+
+● Check boundary around F/G (shell)
+  │ sed -n '218,232p' PAPER.md
+  └ 16 lines…
+
+● Edit PAPER.md +1 -1
+
+● Structural sanity check (shell)
+  │ cd /home/angoyal/ws/language-research/paper && python3 - <<'EOF'
+  │ t=open('main.tex').read()
+  │ # brace balance check on new regions
+  │ for lbl in ['app:announce','app:instrument','subsec:announce']:
+  │ print(lbl, 'present' if lbl in t else 'MISSING')…
+  └ 16 lines…
+
+Done. Both files are edited in sync.
+
+**Body length (hard constraint):** body prose went 5129 → **5054 words (−75)**; abstract +33. Net **−42 words**, so the compiled body should still fit 8 pages. Offsetting cuts: normalizer-sensitivity thresholds, ladder per-language token/premium detail, triage numerics, and limitation (vii) detail were moved to Appendices C/F; Intro items, Related Work, §3.2 Llama/parser/decoder-parity, GlotLID caveats and §5 patterns were tightened.
+
+**Additions:**
+- Abstract: one sentence on the third frozen family (announced 128 vs 2048, Thai NATIVE +5.1).
+- New §3.4 *Announcing the budget changes behavior* — announcement/cap decoupling (real cap 2048, announced ∈ {128,256,2048}), the four confirmatory cells, the Thai rejection with its monotone dose, the TAG null and the forcing result split into its two populations.
+- §4 *Instrument validity* paragraph — the 30% gate, the two failing v0 TRANSLATE-ACT cells labelled uninformative (not negative), the 57/76-token diagnostic, v1 passing at 34.4%/37.5%, and Llama's 2.4–9.3% gate failure.
+- §5: triage heuristic qualified as a **scope condition**, explicitly not a refutation — the truncation argument quantifies over cap and tokenizer, and an announcement is neither.
+- Limitation (i): removed the now-false "we have not tested…" sentence; replaced with the untested interaction and external validity.
+- New Appendices G (E2 confirmatory + dose tables, TAG, forcing) and H (E2b two-instrument table, both sentence texts, pilot, Llama).
+
+**Section 4 compliance:** no uninformative cell is read as evidence of no effect; Llama's two rejections are explicitly not budget findings; the B*=1024 non-rejection is untouched; the Thai direction is hedged as one cell/model/benchmark; no invented numbers — all trace to `analysis-out/e2_scoring.md`, `e2b_scoring.md`, `e2b_pilot_translate_act.md`.
+
+⚠️ **Caveat:** no LaTeX toolchain is installed (`pdflatex`/`latexmk` absent), so I could not compile. The 8-page limit was managed by word-count proxy; please compile and confirm the body still ends on page 8, and that `tab:e2-dose` and `tab:e2b` typeset without column overflow.
+
+
+
+Changes    +280 -123
+AI Credits 473 (15m 6s)
+Tokens     ↑ 6.1m (5.9m cached, 175.1k written) • ↓ 26.9k (2.1k reasoning)
+Resume     copilot --resume=597e1d7b-251b-4782-9316-28d8f6bbd52d
