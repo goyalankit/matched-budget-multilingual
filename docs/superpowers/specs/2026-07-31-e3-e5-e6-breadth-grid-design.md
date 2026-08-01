@@ -34,7 +34,7 @@ independent replications; they are the cells the prediction is tested across.
 | E6 evidential status | Two-stage: exploratory tranche 1, frozen rule, prospective tranche 2 | Real out-of-sample test without committing to a form sight-unseen. |
 | Held-out axis | **Held-out model and held-out benchmark** | A held-out *pairing* tests only the model×benchmark interaction after both main effects are already in the fit; if variance is mostly additive it is nearly in-sample. Axis holdout tests extrapolation to a genuinely new model and a genuinely new task, at the same 25-pair total cost. |
 | Models | Qwen3-8B, Llama-3.1-8B-Instruct (existing) + Aya-23-8B, Gemma-2-9B-it, one pinned Mistral checkpoint | Spread in the predictor is a calibration virtue but a representativeness weakness; selection is therefore **primarily across architecture/training families**, with predictor coverage reported rather than optimised. None is reasoning-tuned; those are E7. |
-| Benchmarks | MGSM, MMATH, Global-MMLU-Lite, XCOPA, Belebele | The multiple-choice benchmarks anchor the early-emission end of the predictor range. They are retained, but a predicted zero counts only under an equivalence test (§6.4). |
+| Benchmarks | MGSM, MMATH, Global-MMLU-Lite, Belebele (**XCOPA dropped**) | The multiple-choice benchmarks anchor the early-emission end of the predictor range. They are retained, but a predicted zero counts only under an equivalence test (§6.4). |
 | Arms | **NATIVE only** | E6 needs NATIVE alone — TRANSLATE-ACT cancels algebraically in Eq. (1). Belebele TRANSLATE-ACT would mean self-translating an entire passage then comprehending in English, which is a different task, not an analogue of MGSM. Dropping it halves generation and removes the translation-design problem. |
 | Budget grid | **Fixed geometric primary**, F_E-derived points secondary | A grid derived from F_E does not leak the outcome, but centring the candidate support on the predicted peak inflates peak-location agreement and can hide an unpredicted maximum. |
 | Architecture | Data-driven benchmark specs, one generic pipeline | `configs/locales/*.json` already proves the pattern here. But **code and dependency versions are frozen too** (§10) — freezing data manifests alone is unsafe. |
@@ -62,16 +62,22 @@ wrong in one place.
 | Benchmark | Languages | Items/lang | Gold field | Gold encoding |
 |---|---|---:|---|---|
 | MGSM | de, th, sw | 250 | `answer_number` | integer (string, zero-padded) |
-| MMATH | **UNRESOLVED** | — | — | — |
+| MMATH | **zh, fr, th** (premium-matched) | 374 (356 after LaTeX exclusion) | `answer` | value |
 | Global-MMLU-Lite | de, sw — **no Thai** | 400 | `answer` | letter (`"C"`) |
-| XCOPA | th, sw — no German | 500 | `label` | **0-based** index |
 | Belebele | de, th, sw | 900 | `correct_answer_num` | **1-based** index (string) |
 
 **Global-MMLU-Lite has no Thai.** `EXPERIMENTS.md` §E5 lists it as de/th/sw; the dataset ships
 23 configs and Thai is not among them. Unlike XCOPA's missing German this was not known.
 
-**The grid is therefore ragged: 3 / 3 / 2 / 2 / 3 language-cells per model = 13**, so 65 units
-rather than 70 (50 if MMATH does not resolve). This is accepted rather than forced into
+**XCOPA is dropped.** Its `question` field carries the `cause`/`effect` relation that makes an
+item answerable, and the language-neutral loader has nowhere to put it: rendering the English
+word would code-switch, and a per-relation template would double the unverifiable prose in
+exactly the language whose instrument already failed in E2. Thai is uniformly `effect`, but
+Swahili is 213 `cause` / 287 `effect`, so 213 items would drift toward chance while looking like
+a result. It was already the weakest cell — binary choice, no German, expected to show nothing.
+
+**The grid is therefore ragged: 3 / 3 / 2 / 3 language-cells per model = 11**, so **55 units**
+across 5 models × 4 benchmarks = 20 pairs. This is accepted rather than forced into
 balance: the crossed resampling of §6.5 already handles unbalanced cells, and discarding real
 data for symmetry would be worse. It is a stated limitation that **Thai is absent from both
 multiple-choice benchmarks that were expected to carry it**, which thins the early-emission end
@@ -146,9 +152,8 @@ All three must be named before any capped generation exists.
 
 **Tranche structure:**
 
-- **Tranche 1** — the 4×4 block of the four non-held-out models × four non-held-out
-  benchmarks: **16 pairs**.
-- **Tranche 2** — the **9 pairs** involving the held-out model or the held-out benchmark,
+- **Tranche 1** — the four non-held-out models × three non-held-out benchmarks: **12 pairs**.
+- **Tranche 2** — the **8 pairs** involving the held-out model or the held-out benchmark,
   including the one pair where **both** axes are unseen.
 
 ### Phase 3 — Tranche-1 sweep, exploratory E6.

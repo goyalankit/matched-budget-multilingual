@@ -107,7 +107,22 @@ def test_multiple_choice_fields_are_assembled_with_one_indexed_options(monkeypat
 
 
 def test_zero_based_dataset_gold_maps_to_the_numbered_option(monkeypatch):
-    spec = dataclasses.replace(load_spec("xcopa"), expected_items=1)
+    """The off-by-one guard, kept after XCOPA was dropped.
+
+    XCOPA was the only benchmark shipping a 0-based gold index. It is gone, but
+    the mapping is the kind of error that scores an entire benchmark wrong while
+    looking plausible, so the guard is retained against a synthetic spec rather
+    than deleted with its only user.
+    """
+    spec = dataclasses.replace(
+        load_spec("belebele"),
+        expected_items=1,
+        gold_source_encoding="index0",
+        gold_field="label",
+        passage_field=None,
+        question_field="premise",
+        option_fields=("choice1", "choice2"),
+    )
     rows = [{
         "premise": "question",
         "choice1": "first",
@@ -117,8 +132,7 @@ def test_zero_based_dataset_gold_maps_to_the_numbered_option(monkeypatch):
     monkeypatch.setattr("src.benchmark_data._load_split", _fake_loader(rows))
 
     item = load_items(spec, "sw")[0]
-
-    assert item.question == "question\n\n1. first\n2. second"
+    # 0-based label 1 is the SECOND option, displayed as 2.
     assert item.gold == 2
 
 

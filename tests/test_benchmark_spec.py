@@ -32,7 +32,7 @@ def test_verify_manifest_accepts_the_shipped_spec():
 
 
 @pytest.mark.parametrize(
-    "benchmark", ["global_mmlu_lite", "xcopa", "belebele"]
+    "benchmark", ["global_mmlu_lite", "belebele"]
 )
 def test_verify_manifest_accepts_shipped_multiple_choice_specs(benchmark):
     verify_manifest(load_spec(benchmark))
@@ -112,7 +112,6 @@ def test_missing_placeholder_is_rejected(tmp_path):
             None,
             ("option_a", "option_b", "option_c", "option_d"),
         ),
-        ("xcopa", ("sw", "th"), "index0", None, ("choice1", "choice2")),
         (
             "belebele",
             ("de", "sw", "th"),
@@ -139,8 +138,6 @@ def test_load_multiple_choice_specs(
     [
         ("global_mmlu_lite", "de"),
         ("global_mmlu_lite", "sw"),
-        ("xcopa", "sw"),
-        ("xcopa", "th"),
         ("belebele", "de"),
         ("belebele", "sw"),
         ("belebele", "th"),
