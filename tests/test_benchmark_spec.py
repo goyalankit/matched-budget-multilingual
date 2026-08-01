@@ -38,6 +38,25 @@ def test_verify_manifest_accepts_shipped_multiple_choice_specs(benchmark):
     verify_manifest(load_spec(benchmark))
 
 
+def test_load_mmath_spec_declares_local_json_and_fixed_cnmo_exclusion():
+    spec = load_spec("mmath")
+    assert spec.dataset == "RUCAIBox/MMATH"
+    assert spec.loader == "local_json"
+    assert spec.path_template == "data/mmath/{language}.json"
+    assert spec.languages == ("fr", "th", "zh")
+    assert spec.expected_items == 356
+    assert spec.item_id_field == "gid"
+    assert spec.answer_kind == "numeric"
+    assert spec.gold_encoding == "value"
+    assert spec.exclusion_field == "data_source"
+    assert spec.exclusion_values == ("CNMO",)
+    assert not (spec.root / "templates").exists()
+
+
+def test_verify_manifest_accepts_shipped_mmath_spec():
+    verify_manifest(load_spec("mmath"))
+
+
 def test_verify_manifest_rejects_a_tampered_template(tmp_path):
     spec = load_spec("mgsm")
     copied = tmp_path / "mgsm"

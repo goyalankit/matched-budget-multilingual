@@ -272,3 +272,25 @@
   grammar. Leaving it unchanged would break item loading. No other prior-task
   implementation file and no frozen file was modified.
 - Stopped after Task 8. Task 9 was not started.
+# Task 9 progress
+
+- Added `src/pipeline_equivalence.py`, a recursive structural comparator that reports all value,
+  key, type, and sequence-length differences with indexed field paths.
+- Added `scripts/check_pipeline_equivalence.py`. It reads only the immutable Qwen3-8B NATIVE MGSM
+  shards for `de`, `th`, and `sw`, uses the cached tokenizer in offline mode, compares frozen
+  parser/checkpoint results and `score_ledger` correctness against the benchmark-spec,
+  benchmark-data, and answer-grammar path, and writes
+  `analysis-out/pipeline_equivalence.json`. Llama is recorded as a tokenizer-cache STOP.
+- Added comparator coverage for identity, one flipped cell, and differing lengths.
+- Added a fixed-clock, spec-driven `MockEngine` schema test against
+  `tests/golden/pipeline_equivalence_mock.jsonl`.
+- Tests and the gate were not run — interpreter blocked.
+# MMATH progress
+
+- Added a spec-declared local-JSON loader while preserving the HuggingFace loader default.
+- Added stable `gid` item IDs and a loader-level `data_source == "CNMO"` exclusion.
+- Added the MMATH benchmark spec and exact-rational numeric grammar without templates.
+- Added tests for local loading, the exact 18-item exclusion, 356-item source composition,
+  cross-language gid alignment, `Fraction` gold normalization, and manifest verification.
+- Updated the breadth-grid design with the verified MMATH source and exclusion rule.
+- Tests not run — interpreter blocked.

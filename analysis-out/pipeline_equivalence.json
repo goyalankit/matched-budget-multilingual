@@ -1,0 +1,36 @@
+{
+  "comparison_size": {
+    "checkpoints_per_record": 4,
+    "languages": 3,
+    "note": "record IDs, token counts, EOS flags, parser results at every checkpoint, and correctness matrices",
+    "parser_comparisons": 24000,
+    "records_per_language": 2000
+  },
+  "equivalent": true,
+  "mismatches": [],
+  "negative_control": {
+    "method": "flip one correctness cell in the new path and re-run",
+    "performed": true,
+    "result": "equivalent=false, exactly 1 mismatch, exit 1",
+    "why": "a gate that cannot fail is not a gate; this proves it is not vacuous"
+  },
+  "scope": {
+    "arm": "native",
+    "benchmark": "mgsm",
+    "checkpoints": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "languages": [
+      "de",
+      "th",
+      "sw"
+    ],
+    "model": "qwen3_8b"
+  },
+  "stops": {
+    "llama_3_1_8b_instruct": "STOP \u2014 tokenizer not cached locally; no download permitted"
+  }
+}

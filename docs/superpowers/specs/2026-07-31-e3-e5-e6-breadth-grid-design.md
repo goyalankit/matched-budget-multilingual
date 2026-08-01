@@ -62,7 +62,7 @@ wrong in one place.
 | Benchmark | Languages | Items/lang | Gold field | Gold encoding |
 |---|---|---:|---|---|
 | MGSM | de, th, sw | 250 | `answer_number` | integer (string, zero-padded) |
-| MMATH | **zh, fr, th** (premium-matched) | 374 (356 after LaTeX exclusion) | `answer` | value |
+| MMATH | **zh, fr, th** (premium-matched) | 374 (356 after CNMO exclusion) | `answer` | value |
 | Global-MMLU-Lite | de, sw — **no Thai** | 400 | `answer` | letter (`"C"`) |
 | Belebele | de, th, sw | 900 | `correct_answer_num` | **1-based** index (string) |
 
@@ -88,10 +88,12 @@ of the predictor range specifically for Thai.
 The 0-based/1-based split between XCOPA and Belebele is the kind of off-by-one that scores a
 whole benchmark wrong while looking entirely plausible; it is pinned in data, not inferred.
 
-**MMATH is unresolved.** No Hub identifier matches the multilingual math benchmark §E5
-describes, and its item count was already flagged unverified there. It is the only long-CoT
-addition and the only `numeric` benchmark. Blocking on a supervisor-supplied identifier;
-substituting a similarly-named dataset would be a silent benchmark swap.
+**MMATH is repository JSON, not a Hub dataset.** The source is `RUCAIBox/MMATH`, stored locally
+at `data/mmath/{zh,fr,th}.json`; the corpora remain gitignored. The three 374-row files have
+identical `gid` sequences and gold answers. The fixed, pre-generation exclusion is
+`data_source == "CNMO"`: this removes the complete 18-item CNMO subset (gids 45–62), leaving
+356 aligned items per language (AIME2024 30 + AIME2025 15 + MATH500 311). This metadata rule is
+deliberately independent of whether the numeric parser happens to accept an answer string.
 
 ---
 
@@ -100,7 +102,7 @@ substituting a similarly-named dataset would be a silent benchmark swap.
 ### Phase 1 — Instrument build. No generation.
 
 - Benchmark spec format and generic pipeline (§5).
-- Five benchmark specs, MGSM ported from the existing frozen configuration.
+- Four benchmark specs, MGSM ported from the existing frozen configuration.
 - Three models onboarded: chat template, thinking-channel verification, FLORES-200 premium
   (tokenizer-only, CPU), decoder-parity audit.
 - **Pin the exact Mistral checkpoint** against the cluster mount and record `hf_repo` +
@@ -174,19 +176,26 @@ generate tranche-2 pairs and score once.
 
 ```
 benchmarks/<name>/
-  spec.json        dataset repo, per-language config, split, expected item count,
-                   question field, gold field, answer_kind, per-model generation caps
-  templates/       3 frozen NATIVE prompt templates (1 arm × 3 languages); 2 for XCOPA
+  spec.json        dataset source and loader, per-language config, split, expected item count,
+                   item/question/gold fields, exclusions, answer_kind, generation caps
+  templates/       frozen NATIVE prompt templates when framing has been approved
   grammar.json     answer grammar for this benchmark's answer_kind
   manifest.json    SHA-256 over spec.json, every template, and grammar.json
 ```
 
+The default loader remains HuggingFace `datasets`. A spec can instead declare
+`loader: "local_json"` and a repository-relative `path_template`; MMATH uses this route because
+its source is GitHub JSON. Its `item_id_field` is `gid`, and its CNMO exclusion is applied by the
+loader before the expected count is checked, so every consumer sees the same 356-item corpus.
+MMATH intentionally has no templates yet: as long-CoT math it should reuse audited math framing,
+and selecting that framing is a supervisor decision.
+
 ### 5.1 The multiple-choice contract
 
-The four new benchmarks need NATIVE prompts in German, Thai and Swahili, and **no speaker is
-available to verify them**. That is exactly how E2 shipped six unaudited sentences and lost the
-Swahili instrument across four phrasings. The contract below exists to shrink the unverifiable
-surface to the minimum.
+The new multiple-choice benchmarks need NATIVE prompts in their covered languages, and **no
+speaker is available to verify them**. That is exactly how E2 shipped six unaudited sentences
+and lost the Swahili instrument across four phrasings. The contract below exists to shrink the
+unverifiable surface to the minimum.
 
 All three audited templates share one structure: task framing / reasoning instruction / answer
 format / field label / `{problem}`. Parts 2–4 are reused **verbatim**:
@@ -213,7 +222,7 @@ carrying it.
 
 Three answer kinds, each with its own golden-case test set: **`integer`** (existing locale
 grammars, unchanged — MGSM's parsing path stays byte-for-byte what it is today, and **the
-multiple-choice trio also uses this kind** under §5.1's numbered-option contract); **`numeric`**
+multiple-choice benchmarks also use this kind** under §5.1's numbered-option contract); **`numeric`**
 (MMATH — decimals and fractions, equality rule stated in the grammar, not inferred at scoring
 time); **`choice`** (implemented and tested, currently unused — see §5.1).
 

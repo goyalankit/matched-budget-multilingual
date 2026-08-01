@@ -1,4 +1,8 @@
 import dataclasses
+import json
+from collections import Counter
+from fractions import Fraction
+from pathlib import Path
 
 import pytest
 
@@ -82,6 +86,39 @@ def test_gold_is_normalised_to_the_answer_kind(monkeypatch):
     assert items[0].gold == 42
     assert isinstance(items[0].gold, int)
     assert answers_equal(42, items[0].gold, "integer")
+
+
+def test_mmath_local_json_loader_excludes_the_complete_cnmo_subset():
+    spec = load_spec("mmath")
+    raw = json.loads(Path("data/mmath/zh.json").read_text(encoding="utf-8"))
+    items = load_items(spec, "zh")
+
+    assert len(raw) == 374
+    assert sum(row["data_source"] == "CNMO" for row in raw) == 18
+    assert len(items) == 356
+    assert len(raw) - len(items) == 18
+    assert Counter(
+        row["data_source"] for row in raw if row["data_source"] != "CNMO"
+    ) == {"AIME2024": 30, "AIME2025": 15, "MATH500": 311}
+    excluded_ids = {
+        str(row["gid"]) for row in raw if row["data_source"] == "CNMO"
+    }
+    assert excluded_ids.isdisjoint({item.item_id for item in items})
+
+
+def test_mmath_languages_remain_gid_aligned_after_exclusion():
+    spec = load_spec("mmath")
+    ids_by_language = [
+        [item.item_id for item in load_items(spec, language)]
+        for language in ("zh", "fr", "th")
+    ]
+    assert ids_by_language[0] == ids_by_language[1] == ids_by_language[2]
+
+
+def test_mmath_numeric_gold_is_normalised_to_fraction():
+    items = load_items(load_spec("mmath"), "fr")
+    assert all(isinstance(item.gold, Fraction) for item in items)
+    assert items[0].gold == Fraction(204)
 
 
 def test_multiple_choice_fields_are_assembled_with_one_indexed_options(monkeypatch):

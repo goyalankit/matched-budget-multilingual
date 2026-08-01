@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[1]
@@ -33,20 +33,32 @@ class ManifestError(ValueError):
 
 @dataclass(frozen=True)
 class BenchmarkSpec:
+    # Core fields, required. Everything below the divider carries a default so
+    # that adding an optional capability (a new loader, an exclusion rule) does
+    # not break every existing construction site -- which is exactly what
+    # happened when the MMATH loader and the equivalence gate were built in
+    # parallel: disjoint FILE ownership, shared TYPE.
     name: str
     dataset: str
     language_configs: dict[str, str]
     split: str
     expected_items: int
     question_field: str
-    passage_field: str | None
-    option_fields: tuple[str, ...]
     gold_field: str
     answer_kind: str
     gold_encoding: str
-    gold_source_encoding: str
-    generation_caps: dict[str, int]
     root: Path
+
+    # Optional capabilities.
+    loader: str = "datasets"
+    path_template: str | None = None
+    item_id_field: str | None = None
+    passage_field: str | None = None
+    option_fields: tuple[str, ...] = ()
+    gold_source_encoding: str = "value"
+    exclusion_field: str | None = None
+    exclusion_values: tuple[str, ...] = ()
+    generation_caps: dict[str, int] = field(default_factory=dict)
 
     @property
     def languages(self) -> tuple[str, ...]:
@@ -62,6 +74,12 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
         raise ValueError(f"{name}: spec.json missing fields {sorted(missing)}")
     if payload["answer_kind"] not in _KINDS:
         raise ValueError(f"{name}: unknown answer_kind {payload['answer_kind']!r}")
+    loader = payload.get("loader", "datasets")
+    if loader not in {"datasets", "local_json"}:
+        raise ValueError(f"{name}: unknown loader {loader!r}")
+    path_template = payload.get("path_template")
+    if loader == "local_json" and not path_template:
+        raise ValueError(f"{name}: local_json loader requires path_template")
     allowed_encodings = _ENCODINGS_BY_KIND[payload["answer_kind"]]
     if payload["gold_encoding"] not in allowed_encodings:
         raise ValueError(
@@ -77,13 +95,27 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
     option_fields = tuple(payload.get("option_fields", ()))
     if payload["gold_encoding"] == "index1" and not option_fields:
         raise ValueError(f"{name}: index1 gold requires option_fields")
+    exclusion = payload.get("exclusion")
+    if exclusion is None:
+        exclusion_field = None
+        exclusion_values = ()
+    else:
+        if set(exclusion) != {"field", "values"} or not exclusion["values"]:
+            raise ValueError(
+                f"{name}: exclusion requires exactly a field and non-empty values"
+            )
+        exclusion_field = str(exclusion["field"])
+        exclusion_values = tuple(str(value) for value in exclusion["values"])
 
     spec = BenchmarkSpec(
         name=payload["name"],
         dataset=payload["dataset"],
+        loader=loader,
+        path_template=path_template,
         language_configs=dict(payload["language_configs"]),
         split=payload["split"],
         expected_items=int(payload["expected_items"]),
+        item_id_field=payload.get("item_id_field"),
         question_field=payload["question_field"],
         passage_field=payload.get("passage_field"),
         option_fields=option_fields,
@@ -91,6 +123,8 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
         answer_kind=payload["answer_kind"],
         gold_encoding=payload["gold_encoding"],
         gold_source_encoding=gold_source_encoding,
+        exclusion_field=exclusion_field,
+        exclusion_values=exclusion_values,
         generation_caps=dict(payload["generation_caps"]),
         root=directory,
     )

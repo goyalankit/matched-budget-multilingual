@@ -471,3 +471,31 @@ multiple-choice trio uses the `choice` answer kind and a single-letter answer,
 contradicting the controlling numbered-integer decision at lines 189–205.
 Also, "options are numbered 1–4" cannot literally apply to two-option XCOPA;
 the loader numbers every actual option from 1, so XCOPA renders options 1–2.
+# Task 9 lessons
+
+- The checked-in plan is broader than the executor brief. The brief deliberately limits the
+  live-ledger gate to Qwen NATIVE and removes prompts, seeds, and emission indices from the
+  required comparison. The implementation follows the later, task-specific brief.
+- "All three languages" is interpreted as German (`de`), Thai (`th`), and Swahili (`sw`), the
+  languages declared by the MGSM benchmark spec and present in the Qwen NATIVE ledger.
+- "Through the new pipeline" in the schema byte test is interpreted as loading a spec-driven
+  benchmark item with `src.benchmark_data`, rendering its benchmark template, and passing the
+  resulting prompt to the canonical `generate_shard` ledger writer. There is no separate generic
+  generation entry point in the current benchmark abstraction.
+- The requested mismatch artifact can only be written after a completed comparison. Import,
+  cache, or ledger-validation failures intentionally remain hard errors rather than being
+  converted into success-shaped mismatch reports.
+- One read-only shell inspection attempt was refused with: `Permission denied and could not
+  request permission from user`. No workaround was attempted.
+# MMATH lessons
+
+- The brief says 18 answers are excluded, but its breakdown explicitly identifies two scalar
+  LaTeX answers plus 12 interval/set answers, which accounts for 14 rather than 18. The
+  independently fixed rule is still unambiguous: exclude the complete 18-item CNMO subset by
+  `data_source`, not by parser acceptance.
+- `BenchmarkSpec.languages` sorts language keys, so the runtime order is `fr, th, zh` even though
+  the premium-matched triple is conventionally written `zh, fr, th`. Alignment is keyed by
+  `gid`, so this presentation-order difference does not change pairing.
+- The brief calls the exclusion "content-based", while the executable rule is metadata-based
+  (`data_source == "CNMO"`). Its substantive requirement is clear: freeze an item property before
+  generation rather than filtering according to parser acceptance.

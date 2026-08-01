@@ -1,0 +1,19 @@
+{
+  "name": "mmath",
+  "dataset": "RUCAIBox/MMATH",
+  "loader": "local_json",
+  "path_template": "data/mmath/{language}.json",
+  "language_configs": {"zh": "zh", "fr": "fr", "th": "th"},
+  "split": "test",
+  "expected_items": 356,
+  "item_id_field": "gid",
+  "question_field": "question",
+  "gold_field": "answer",
+  "answer_kind": "numeric",
+  "gold_encoding": "value",
+  "exclusion": {
+    "field": "data_source",
+    "values": ["CNMO"]
+  },
+  "generation_caps": {}
+}
