@@ -380,3 +380,23 @@ agreement test would compare string generic golds with integer frozen-loader gol
 the dataset-backed test were enabled. The plan's test and implementation were kept verbatim as
 required; the supervisor must decide whether generic loading should normalize by `answer_kind`
 or the comparison should use answer-grammar-aware equality.
+
+## Breadth Task 4 emission plan has two internal inconsistencies
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 4.
+
+The existing emission test asserted a 16-token grid, while Task 4 requires changing the grid to
+one token but says only to add two tests. Leaving the old assertion untouched would make the
+specified implementation fail deterministically, so its expected resolution was updated to one.
+
+The plan also says `_emission_indices` short-circuits decode calls at the first matching prefix.
+It does not: it materializes and decodes every candidate prefix first, then skips later parser
+calls after finding a match. A coarse-to-fine scan cannot safely preserve the emission index
+because parsing is non-monotonic: a prefix can transiently parse as the final answer before a
+later coarse checkpoint parses differently. Task 4 therefore retains the existing batched
+decode structure and exact one-token candidate set; no unproven scan optimization was added.
+
+The new classifier's prescribed condition classifies `eos=True` at exactly the cap as censored,
+despite its docstring saying a trace that reached EOS genuinely never emits. The implementation
+keeps the prescribed condition. The supervisor should decide whether exact-cap EOS is possible
+and, if so, whether EOS or token count takes precedence.

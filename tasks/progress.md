@@ -184,3 +184,31 @@
 - Deferred: all runtime validation and resolution of the MGSM gold-normalization
   mismatch require supervisor review in an environment that permits the mandated
   interpreter.
+
+## Breadth Phase 1 — Task 4: Emission grid and censoring
+
+- Refined `src/explore_budget.py` from a 16-token to a one-token emission grid
+  without changing the emission-index definition: E remains the first evaluated
+  prefix whose parsed answer equals the full trace's parsed answer. Preserved all
+  existing cell keys and added `n_right_censored`, `n_never_emitted`, and
+  `fraction_right_censored`; the ledger's established 4096-token generation cap
+  drives the new classification.
+- Extended `tests/test_explore_budget.py` with the two planned tests and updated
+  the existing grid-resolution assertion from 16 to 1, which is required by the
+  specified implementation.
+- Tests not run — interpreter blocked. Step 2
+  `.venv/bin/python -m pytest tests/test_explore_budget.py -k "fine_grid or right_censored" -v`,
+  Step 4 `.venv/bin/python -m pytest tests/test_explore_budget.py -v`, and Step 6
+  `.venv/bin/python -m pytest -q` each refused before process launch with the
+  exact text `Permission denied and could not request permission from user`.
+- Step 5's real-ledger/decoder regression check was not run and is deferred to
+  the supervisor; no published emission figures were fabricated.
+- Decisions: retained `_DECODE_BATCH_RECORDS` and the existing exact-prefix
+  batching/parser short-circuit behavior. No coarse scan was added because answer
+  parsing is non-monotonic and such a scan cannot provably return the identical
+  first matching prefix. Preserved legacy `fraction_never_emitted` as the total
+  non-emission fraction so existing callers and its meaning remain unchanged,
+  while the new keys expose the censored/true-never split.
+- Plan inconsistencies concerning the old 16-token test assertion, claimed decode
+  short-circuit, and exact-cap EOS classification are recorded in
+  `tasks/lessons.md`.

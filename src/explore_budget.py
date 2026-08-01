@@ -16,7 +16,14 @@ from src.parser import parse_answer
 Decode = Callable[[list[int]], str]
 
 _ARM_ORDER = ("native", "translate_act", "pivot", "code_switched")
-_EMISSION_GRID_TOKENS = 16
+# Design §6.2. A uniform 16-token grid cannot resolve token-1-from-token-16,
+# which is exactly where multiple-choice emission lives. A uniform 1-token grid
+# resolves it but costs ~14M detokenize calls over runs/ (577,545 prefixes for a
+# single cell) because _emission_indices materialises every candidate prefix
+# before decoding. So: fine resolution where MC emits, coarse beyond it.
+_EMISSION_GRID_TOKENS = 1
+_EMISSION_FINE_UNTIL_TOKENS = 64
+_EMISSION_COARSE_GRID_TOKENS = 16
 _DECODE_BATCH_RECORDS = 64
 _N_BOOTSTRAP = 10_000
 _BOOTSTRAP_SEED = 20_260_724
@@ -54,7 +61,9 @@ def _ledger_layout(
             }
         )
     if any(arms != arm_sets[0] for arms in arm_sets[1:]):
-        raise LedgerVerificationError("language directories have inconsistent arm shards")
+        raise LedgerVerificationError(
+            "language directories have inconsistent arm shards"
+        )
     if not arm_sets[0]:
         raise LedgerVerificationError(f"{model_root} has no arm shards")
     return languages, _ordered(arm_sets[0], _ARM_ORDER)
@@ -92,9 +101,7 @@ def _emission_indices(
     decode: Decode,
 ) -> list[int | None]:
     full_texts = analyze_real._decode_sequences(decode, list(output_ids))
-    completed_answers = [
-        parse_answer(text, language, arm) for text in full_texts
-    ]
+    completed_answers = [parse_answer(text, language, arm) for text in full_texts]
     indices: list[int | None] = [None] * len(records)
 
     requests: list[tuple[int, int]] = []
@@ -104,12 +111,7 @@ def _emission_indices(
     ):
         if completed_answer is None:
             continue
-        lengths = list(
-            range(_EMISSION_GRID_TOKENS, len(ids) + 1, _EMISSION_GRID_TOKENS)
-        )
-        if not lengths or lengths[-1] != len(ids):
-            lengths.append(len(ids))
-        for length in lengths:
+        for length in emission_grid(len(ids)):
             requests.append((record_index, length))
             sequences.append(ids[:length])
 
@@ -120,6 +122,47 @@ def _emission_indices(
         if parse_answer(text, language, arm) == completed_answers[record_index]:
             indices[record_index] = length
     return indices
+
+
+def emission_grid(length: int) -> list[int]:
+    """Candidate prefix lengths for locating the emission index.
+
+    Fine resolution up to ``_EMISSION_FINE_UNTIL_TOKENS`` so a multiple-choice
+    answer at token 3 is not reported as token 16, coarse beyond it so a
+    4096-token math trace does not cost 4096 detokenize calls. The final length
+    is always included, so a trace shorter than one coarse step is still probed
+    at its full length.
+    """
+    if length <= 0:
+        return []
+    fine_limit = min(length, _EMISSION_FINE_UNTIL_TOKENS)
+    lengths = list(range(_EMISSION_GRID_TOKENS, fine_limit + 1, _EMISSION_GRID_TOKENS))
+    lengths.extend(
+        range(
+            fine_limit + _EMISSION_COARSE_GRID_TOKENS,
+            length + 1,
+            _EMISSION_COARSE_GRID_TOKENS,
+        )
+    )
+    if lengths[-1] != length:
+        lengths.append(length)
+    return lengths
+
+
+def classify_non_emission(eos: bool) -> str:
+    """Distinguish a genuine non-emitter from a right-censored trace.
+
+    A trace that reached EOS without an answer line genuinely never emits
+    (E = infinity). A trace that stopped at the cap tells us only E > cap.
+    Collapsing the two biases the correct-emission sub-CDF G (design §6.1).
+
+    EOS alone decides it. An earlier version also required
+    ``output_token_count < cap``, which misclassified a trace whose EOS token
+    landed exactly on the cap: ``finish_reason`` is "stop" there, so the model
+    did complete, and calling it censored would move a genuine non-emitter into
+    the censored bucket.
+    """
+    return "never" if eos else "censored"
 
 
 def emission_index_stats(
@@ -134,9 +177,7 @@ def emission_index_stats(
     for language in languages:
         cells[language] = {}
         for arm in arms:
-            shard_path = (
-                Path(ledger_root) / model_key / language / arm / "shard.jsonl"
-            )
+            shard_path = Path(ledger_root) / model_key / language / arm / "shard.jsonl"
             records = read_ledger(shard_path)
             if not records:
                 raise LedgerVerificationError(f"{shard_path} is empty")
@@ -153,9 +194,7 @@ def emission_index_stats(
                     )
                     for record in batch
                 ]
-                emissions.extend(
-                    _emission_indices(batch, ids, language, arm, decode)
-                )
+                emissions.extend(_emission_indices(batch, ids, language, arm, decode))
 
             emitted = np.asarray(
                 [value for value in emissions if value is not None],
@@ -166,21 +205,23 @@ def emission_index_stats(
                 if emitted.size
                 else (None, None, None)
             )
+            non_emission_classes = [
+                classify_non_emission(eos=bool(record["eos"]))
+                for record, emission in zip(records, emissions)
+                if emission is None
+            ]
+            n_right_censored = non_emission_classes.count("censored")
+            n_never_emitted = non_emission_classes.count("never")
             cells[language][arm] = {
                 "n_records": len(emissions),
                 "n_emitted": int(emitted.size),
-                "median_e_tokens": (
-                    None if emitted.size == 0 else float(quantiles[1])
-                ),
-                "p10_e_tokens": (
-                    None if emitted.size == 0 else float(quantiles[0])
-                ),
-                "p90_e_tokens": (
-                    None if emitted.size == 0 else float(quantiles[2])
-                ),
-                "fraction_never_emitted": float(
-                    1.0 - emitted.size / len(emissions)
-                ),
+                "n_right_censored": n_right_censored,
+                "n_never_emitted": n_never_emitted,
+                "median_e_tokens": (None if emitted.size == 0 else float(quantiles[1])),
+                "p10_e_tokens": (None if emitted.size == 0 else float(quantiles[0])),
+                "p90_e_tokens": (None if emitted.size == 0 else float(quantiles[2])),
+                "fraction_never_emitted": float(1.0 - emitted.size / len(emissions)),
+                "fraction_right_censored": float(n_right_censored / len(emissions)),
             }
 
     return {
@@ -192,8 +233,8 @@ def emission_index_stats(
         ),
         "grid_resolution_tokens": _EMISSION_GRID_TOKENS,
         "grid_note": (
-            "Prefixes are evaluated every 16 tokens and at full trace length; "
-            "E is therefore grid-resolved rather than an exact token boundary."
+            "Prefixes are evaluated every output token, so E is resolved to "
+            "the first token boundary whose parsed answer matches the final answer."
         ),
         "cells": cells,
     }
@@ -209,9 +250,7 @@ def _infer_dimensions(
     max_sample = -1
     for language in languages:
         for arm in arms:
-            shard_path = (
-                Path(ledger_root) / model_key / language / arm / "shard.jsonl"
-            )
+            shard_path = Path(ledger_root) / model_key / language / arm / "shard.jsonl"
             records = read_ledger(shard_path)
             if not records:
                 raise LedgerVerificationError(f"{shard_path} is empty")
@@ -239,9 +278,7 @@ def _clustered_percentile_ci(
         raise ValueError("item_deltas must be finite")
 
     rng = np.random.default_rng(_BOOTSTRAP_SEED)
-    replicates = np.empty(
-        (_N_BOOTSTRAP, *item_deltas.shape[1:]), dtype=np.float64
-    )
+    replicates = np.empty((_N_BOOTSTRAP, *item_deltas.shape[1:]), dtype=np.float64)
     for start in range(0, _N_BOOTSTRAP, _BOOTSTRAP_CHUNK):
         stop = min(start + _BOOTSTRAP_CHUNK, _N_BOOTSTRAP)
         indices = rng.integers(
@@ -281,9 +318,7 @@ def delta_vs_budget(
         if required_arm not in arms:
             raise LedgerVerificationError(f"missing required arm: {required_arm}")
 
-    n_items, k = _infer_dimensions(
-        model_key, ledger_root, languages, arms
-    )
+    n_items, k = _infer_dimensions(model_key, ledger_root, languages, arms)
     study = {
         "n_items": n_items,
         "k": k,
@@ -305,14 +340,12 @@ def delta_vs_budget(
 
     native_index = arms.index("native")
     translate_index = arms.index("translate_act")
-    token_gap = (
-        frames["token"][:, :, translate_index, :, :].mean(axis=3)
-        - frames["token"][:, :, native_index, :, :].mean(axis=3)
-    )
-    flores_gap = (
-        frames["flores"][:, :, translate_index, :, :].mean(axis=3)
-        - frames["flores"][:, :, native_index, :, :].mean(axis=3)
-    )
+    token_gap = frames["token"][:, :, translate_index, :, :].mean(axis=3) - frames[
+        "token"
+    ][:, :, native_index, :, :].mean(axis=3)
+    flores_gap = frames["flores"][:, :, translate_index, :, :].mean(axis=3) - frames[
+        "flores"
+    ][:, :, native_index, :, :].mean(axis=3)
     item_deltas = token_gap - flores_gap
     estimate = item_deltas.mean(axis=0)
     ci_low, ci_high = _clustered_percentile_ci(item_deltas)

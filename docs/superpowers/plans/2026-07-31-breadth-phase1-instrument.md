@@ -720,22 +720,38 @@ Expected: FAIL — grid returns 16, and `classify_non_emission` does not exist
 
 In `src/explore_budget.py`, change the grid constant and add the classifier:
 
-```python
-_EMISSION_GRID_TOKENS = 1  # design §6.2: 16 could not resolve MC emission
-```
+The grid must be **adaptive**, not uniformly fine. A uniform 1-token grid resolves
+multiple-choice emission but costs ~14M detokenize calls over `runs/` (577,545
+prefixes for a single cell), because `_emission_indices` materialises every
+candidate prefix *before* decoding — it does **not** short-circuit at the first
+match, contrary to the cost note in an earlier revision of this plan.
 
 ```python
-def classify_non_emission(eos: bool, output_token_count: int, cap: int) -> str:
+_EMISSION_GRID_TOKENS = 1
+_EMISSION_FINE_UNTIL_TOKENS = 64
+_EMISSION_COARSE_GRID_TOKENS = 16
+```
+
+Add `emission_grid(length) -> list[int]`: every token up to 64, every 16 beyond,
+final length always included. That is 157,040 prefixes per cell — ~3.8M over
+`runs/`, against 36,096 per cell for the old uniform-16 grid. Fine where
+multiple-choice emits, near status quo for long-CoT.
+
+```python
+def classify_non_emission(eos: bool) -> str:
     """Distinguish a genuine non-emitter from a right-censored trace.
 
     A trace that reached EOS without an answer line genuinely never emits
     (E = infinity). A trace that stopped at the cap tells us only E > cap.
     Collapsing the two biases the correct-emission sub-CDF G (design §6.1).
     """
-    if eos and output_token_count < cap:
-        return "never"
-    return "censored"
+    return "never" if eos else "censored"
 ```
+
+EOS alone decides it. Also requiring `output_token_count < cap` misclassifies a
+trace whose EOS token lands exactly on the cap: `finish_reason` is "stop" there,
+so the model did complete, and calling it censored moves a genuine non-emitter
+into the censored bucket.
 
 In `emission_index_stats`, accumulate both counts per cell and add the three new keys.
 

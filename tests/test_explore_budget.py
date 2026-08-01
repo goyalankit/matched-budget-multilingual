@@ -76,7 +76,62 @@ def test_emission_index_detects_first_parseable_prefix(tmp_path) -> None:
     assert cell["p10_e_tokens"] == 13
     assert cell["p90_e_tokens"] == 13
     assert cell["fraction_never_emitted"] == 0
-    assert result["grid_resolution_tokens"] == 16
+    assert result["grid_resolution_tokens"] == 1
+
+
+def test_fine_grid_resolves_emission_before_token_16(tmp_path):
+    """A trace answering at token 3 must not be reported as emitting at 16."""
+    from src.explore_budget import _emission_indices
+
+    records = [{"model_id": "m", "language": "de", "arm": "native"}]
+    ids = [[1, 2, 3, 4, 5, 6]]
+
+    def decode(sequence):
+        # The answer line is complete from token 3 onward.
+        return "#### 42" if len(sequence) >= 3 else "##"
+
+    assert _emission_indices(records, ids, "de", "native", decode) == [3]
+
+
+def test_right_censored_is_distinguished_from_never_emitted(tmp_path):
+    from src.explore_budget import classify_non_emission
+
+    assert classify_non_emission(eos=True) == "never"
+    assert classify_non_emission(eos=False) == "censored"
+
+
+def test_eos_exactly_at_the_cap_is_a_completion_not_censoring(tmp_path):
+    """finish_reason is "stop" there, so the model completed.
+
+    An earlier rule also required output_token_count < cap, which moved such a
+    trace into the censored bucket and would have biased the sub-CDF G.
+    """
+    from src.explore_budget import classify_non_emission
+
+    assert classify_non_emission(eos=True) == "never"
+
+
+def test_emission_grid_is_fine_early_and_coarse_late(tmp_path):
+    from src.explore_budget import emission_grid
+
+    # Fine resolution where multiple-choice answers emit.
+    assert emission_grid(5) == [1, 2, 3, 4, 5]
+    assert emission_grid(70)[:64] == list(range(1, 65))
+    # Coarse beyond the fine window, and the final length is always probed.
+    assert emission_grid(70)[64:] == [70]
+    assert emission_grid(100)[64:] == [80, 96, 100]
+    assert emission_grid(0) == []
+
+
+def test_emission_grid_costs_far_less_than_a_uniform_one_token_grid(tmp_path):
+    """The reason the grid is adaptive at all.
+
+    A uniform 1-token grid over runs/ implies ~14M detokenize calls, because
+    _emission_indices materialises every candidate prefix before decoding.
+    """
+    from src.explore_budget import emission_grid
+
+    assert len(emission_grid(4096)) < 4096 // 8
 
 
 def test_delta_vs_budget_has_expected_small_budget_sign_and_ci(
