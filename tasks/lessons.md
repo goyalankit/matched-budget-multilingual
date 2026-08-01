@@ -400,3 +400,29 @@ The new classifier's prescribed condition classifies `eos=True` at exactly the c
 despite its docstring saying a trace that reached EOS genuinely never emits. The implementation
 keeps the prescribed condition. The supervisor should decide whether exact-cap EOS is possible
 and, if so, whether EOS or token count takes precedence.
+
+## Breadth Task 6 helper cannot identify the requested first parsed answer
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 6.
+
+Task 6 requires the answer at the first prefix that parses and directs the script to use
+`src.explore_budget._emission_indices`. That helper instead parses the full trace first and
+returns the first prefix whose parsed answer equals the full-trace answer. If an early parsed
+answer is later revised, the helper deliberately skips it; using its returned prefix as the
+emission-time answer would make every emitted answer equal the final answer by construction and
+force all change counts to zero.
+
+The measurement script therefore calls `_emission_indices` to establish an exact-prefix upper
+bound and populate a batch-scoped decode cache, then scans those already-decoded token prefixes
+for the first non-`None` `parse_answer`. No Task 1–5 code was changed.
+
+The revised brief also requests `correct_to_correct_changed` for differently written answers.
+`parse_answer` returns a canonical integer, so two differently written correct MGSM answers
+normalize to the same value and cannot count as an answer change under the required parsed-answer
+definition. The field is reported for schema completeness but is structurally zero. Measuring
+surface-form revisions would require a separately specified raw-answer representation.
+
+Task 6 does not state the denominator for `fraction_correctness_changed`. The script uses all
+NATIVE records, matching the plan's record-level approximation claim; non-emitting records remain
+in the denominator and cannot contribute a correctness transition. The report states this
+definition explicitly.

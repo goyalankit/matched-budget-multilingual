@@ -212,3 +212,31 @@
 - Plan inconsistencies concerning the old 16-token test assertion, claimed decode
   short-circuit, and exact-cap EOS classification are recorded in
   `tasks/lessons.md`.
+
+## Breadth Phase 1 — Task 6: Non-absorbing correctness measurement
+
+- Built `scripts/measure_answer_stability.py`, a local-cache-only, read-only
+  measurement over every Qwen NATIVE record in `runs/`. It reports per-language
+  and aggregate record/emission/revision counts, the full directional correctness
+  transition matrix, and the fixed threshold band to
+  `analysis-out/answer_stability.{json,md}` when run.
+- Script not run — interpreter blocked. The prescribed Step 2 command
+  `.venv/bin/python scripts/measure_answer_stability.py` refused before process
+  launch with the exact text
+  `Permission denied and could not request permission from user`. No result
+  artifacts or numerical claims were produced; the supervisor must run the
+  script.
+- STOP: Llama is excluded because its tokenizer is not cached locally and
+  downloads are prohibited. The generated reports record
+  `STOP — tokenizer not cached locally; no download permitted`.
+- Decisions: `fraction_correctness_changed` uses all NATIVE records as its
+  denominator; opposing correct→wrong and wrong→correct transitions remain
+  separate; wrong→wrong changed is included to complete the transition matrix.
+  Tokenizer and dataset loaders are forced offline.
+- Plan errors: `_emission_indices` finds the first prefix equal to the final
+  answer, not the first prefix that parses, and canonical integer parsing makes
+  `correct_to_correct_changed` structurally zero. The script uses the helper as
+  an exact-prefix bound/decode-cache path and separately selects the first parsed
+  prefix. These issues and the unspecified fraction denominator are recorded in
+  `tasks/lessons.md`.
+- Stopped at Task 6 Step 4. Task 8 was not started.

@@ -1,0 +1,80 @@
+{
+  "aggregate": {
+    "correct_to_correct": 2939,
+    "correct_to_correct_changed": 0,
+    "correct_to_wrong": 3,
+    "fraction_correctness_changed": 0.044,
+    "n_answer_changed": 513,
+    "n_correctness_changed": 264,
+    "n_emitted": 5316,
+    "n_records": 6000,
+    "wrong_to_correct": 261,
+    "wrong_to_wrong": 2113,
+    "wrong_to_wrong_changed": 249
+  },
+  "analysis_label": "MEASUREMENT, not a fit (breadth design \u00a76.1)",
+  "cells": [
+    {
+      "correct_to_correct": 1460,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 1,
+      "fraction_correctness_changed": 0.0605,
+      "language": "de",
+      "model": "qwen3_8b",
+      "n_answer_changed": 145,
+      "n_correctness_changed": 121,
+      "n_emitted": 1844,
+      "n_records": 2000,
+      "wrong_to_correct": 120,
+      "wrong_to_wrong": 263,
+      "wrong_to_wrong_changed": 24
+    },
+    {
+      "correct_to_correct": 869,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 1,
+      "fraction_correctness_changed": 0.0385,
+      "language": "th",
+      "model": "qwen3_8b",
+      "n_answer_changed": 177,
+      "n_correctness_changed": 77,
+      "n_emitted": 1963,
+      "n_records": 2000,
+      "wrong_to_correct": 76,
+      "wrong_to_wrong": 1017,
+      "wrong_to_wrong_changed": 100
+    },
+    {
+      "correct_to_correct": 610,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 1,
+      "fraction_correctness_changed": 0.033,
+      "language": "sw",
+      "model": "qwen3_8b",
+      "n_answer_changed": 191,
+      "n_correctness_changed": 66,
+      "n_emitted": 1509,
+      "n_records": 2000,
+      "wrong_to_correct": 65,
+      "wrong_to_wrong": 833,
+      "wrong_to_wrong_changed": 125
+    }
+  ],
+  "definition": "Emission-time answer is the parsed answer at the first output-token prefix for which parse_answer returns a value. Final answer is parse_answer on the full token-decoded trace.",
+  "fraction_denominator": "all NATIVE records",
+  "model": {
+    "display_name": "Qwen3-8B",
+    "key": "qwen3_8b"
+  },
+  "source": "runs/ NATIVE ledger",
+  "stops": [
+    {
+      "model": "llama_3_1_8b_instruct",
+      "status": "STOP \u2014 tokenizer not cached locally; no download permitted"
+    }
+  ],
+  "verdict": {
+    "band": "1\u20135%",
+    "decision": "Proceed, but Phase 4's protocol must carry this as a named bias term."
+  }
+}
