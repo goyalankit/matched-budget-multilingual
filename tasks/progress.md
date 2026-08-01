@@ -161,3 +161,26 @@
   implementation, but runtime behavior could not be checked.
 - Deferred: targeted parser-audit and full-suite pytest validation must be run by
   the supervisor in an environment that permits `.venv/bin/python` execution.
+
+## Breadth Phase 1 — Task 3: Generic benchmark item loading
+
+- Built `src/benchmark_data.py` with the frozen `Item` dataclass, spec-driven
+  language split loading, expected-count validation, and cross-language gold
+  parallelism reporting. Added the plan's three unit tests plus the intentionally
+  skipped frozen-MGSM comparison in `tests/test_benchmark_data.py`.
+- Tests not run — interpreter blocked. Step 2
+  `.venv/bin/python -m pytest tests/test_benchmark_data.py -v`, Step 4's identical
+  invocation, and Step 6 `.venv/bin/python -m pytest -q` each refused before
+  process launch with the exact text
+  `Permission denied and could not request permission from user`.
+- Decisions: used the plan's test and implementation code verbatim and retained
+  Step 5's `pytest.mark.skip(reason="requires the MGSM dataset download")`; made
+  no interpreter workaround and no network or dataset access.
+- Static review found a plan error: generic `load_items` preserves the raw
+  `answer_number`, while frozen `load_mgsm` casts it to `int`. Existing MGSM tests
+  model the source values as strings, so the skipped comparison would compare
+  string generic golds against integer frozen golds and fail if enabled. This is
+  recorded in `tasks/lessons.md`; neither prescribed side was adjusted.
+- Deferred: all runtime validation and resolution of the MGSM gold-normalization
+  mismatch require supervisor review in an environment that permits the mandated
+  interpreter.

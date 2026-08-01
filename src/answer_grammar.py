@@ -115,6 +115,24 @@ def parse_for_kind(
     raise ValueError(f"unknown answer kind: {kind!r}")
 
 
+def normalize_gold(value: Any, kind: str) -> Any:
+    """Coerce a dataset's raw gold field into the kind's canonical type.
+
+    Datasets are not consistent about this: MGSM ships ``answer_number`` as a
+    STRING, including zero-padded values like "0042", which is why the frozen
+    ``src/mgsm.py`` applies ``int()``. Leaving it raw makes ``answers_equal(42,
+    "0042", "integer")`` False and silently scores every item zero -- the same
+    shape as the Llama 0%-everywhere bug.
+    """
+    if kind == "integer":
+        return int(value)
+    if kind == "numeric":
+        return Fraction(str(value))
+    if kind == "choice":
+        return str(value).strip().upper()
+    raise ValueError(f"unknown answer kind: {kind!r}")
+
+
 def answers_equal(parsed: Any, gold: Any, kind: str) -> bool:
     """Compare a parsed answer to gold under the kind's equality rule."""
     if parsed is None:

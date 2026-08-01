@@ -152,3 +152,14 @@ def test_two_decimal_separators_are_rejected():
 
 def test_numeric_still_rejects_prose():
     assert parse_for_kind("#### about 3", "de", "native", "numeric", NUMERIC) is None
+
+
+def test_normalize_gold_coerces_per_kind():
+    from fractions import Fraction as F
+
+    from src.answer_grammar import normalize_gold
+
+    assert normalize_gold("0042", "integer") == 42
+    assert normalize_gold(42, "integer") == 42
+    assert normalize_gold("0.5", "numeric") == F(1, 2)
+    assert normalize_gold(" c ", "choice") == "C"

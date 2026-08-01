@@ -509,6 +509,12 @@ Expected: PASS, unchanged counts
 
 **Interfaces:**
 - Consumes: `BenchmarkSpec`, `load_spec` from Task 1; `src.mgsm.load_mgsm`
+
+**Gold must be normalised by answer kind at load time.** Datasets are inconsistent: MGSM ships
+`answer_number` as a STRING, including zero-padded values like `"0042"`, which is why the frozen
+`src/mgsm.py` applies `int()`. Assigning the raw field makes `answers_equal(42, "0042",
+"integer")` False and silently scores every item zero. `normalize_gold` lives in
+`src/answer_grammar.py` so kind semantics stay in one place.
 - Produces: `Item` frozen dataclass (`item_id: str`, `question: str`, `gold: Any`); `load_items(spec: BenchmarkSpec, language: str) -> list[Item]`; `verify_parallelism(spec: BenchmarkSpec) -> dict[str, Any]`
 
 - [ ] **Step 1: Write the failing test**
@@ -584,6 +590,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from src.answer_grammar import normalize_gold
 from src.benchmark_spec import BenchmarkSpec
 
 
@@ -613,7 +620,7 @@ def load_items(spec: BenchmarkSpec, language: str) -> list[Item]:
         Item(
             item_id=str(index),
             question=row[spec.question_field],
-            gold=row[spec.gold_field],
+            gold=normalize_gold(row[spec.gold_field], spec.answer_kind),
         )
         for index, row in enumerate(rows)
     ]

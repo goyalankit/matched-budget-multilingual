@@ -367,3 +367,16 @@ explicitly says to attempt the Step 2 and Step 4 invocations once each and not t
 the interpreter block. Follow the narrower execution brief: make exactly those two attempts,
 confirm the frozen parser by read-only inspection and by not editing it, and report the
 full-suite check as deferred to the supervisor.
+
+## Breadth Task 3 skipped MGSM agreement test compares different gold types
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 3.
+
+The prescribed generic loader assigns `row[spec.gold_field]` directly to `Item.gold`, but the
+frozen MGSM loader applies `int(row["answer_number"])`. Existing
+`test_load_mgsm_parses_answer_number_as_int` explicitly models MGSM `answer_number` values as
+strings, including `"0042"`, and verifies normalization to `42`. Therefore Task 3's skipped
+agreement test would compare string generic golds with integer frozen-loader golds and fail if
+the dataset-backed test were enabled. The plan's test and implementation were kept verbatim as
+required; the supervisor must decide whether generic loading should normalize by `answer_kind`
+or the comparison should use answer-grammar-aware equality.
