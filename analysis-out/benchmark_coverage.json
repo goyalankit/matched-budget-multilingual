@@ -1,0 +1,261 @@
+{
+  "purpose": "breadth design §3 — verify coverage rather than assume it",
+  "note": "MMATH is NOT probed: no dataset identifier resolves to the multilingual math benchmark EXPERIMENTS.md §E5 intends, and its per-language item count is already flagged unverified there. Substituting a similarly-named dataset would silently change the benchmark. Supervisor decision required.",
+  "benchmarks": [
+    {
+      "name": "global_mmlu_lite",
+      "dataset": "CohereLabs/Global-MMLU-Lite",
+      "expected_answer_kind": "choice",
+      "languages": {
+        "de": {
+          "config": "de",
+          "available": true,
+          "n_items": 400,
+          "fields": [
+            "answer",
+            "country",
+            "cultural_sensitivity_label",
+            "culture",
+            "is_annotated",
+            "option_a",
+            "option_b",
+            "option_c",
+            "option_d",
+            "question",
+            "reference",
+            "region",
+            "required_knowledge",
+            "sample_id",
+            "subject",
+            "subject_category",
+            "time_sensitive"
+          ],
+          "first_row_preview": {
+            "sample_id": "astronomy/test/58",
+            "subject": "astronomy",
+            "subject_category": "STEM",
+            "question": "Wenn Sie von den Vereinigten Staaten nach Norden in Richtung Kanada reisen, sehen Sie, wie der Polarstern (Polaris) ____",
+            "option_a": "heller",
+            "option_b": "dunkler",
+            "option_c": "höher am Himmel",
+            "option_d": "tiefer am Himmel",
+            "answer": "C",
+            "required_knowledge": "['regional', 'regional', 'regional', 'regional']",
+            "time_sensitive": "['No', 'No', 'No', 'No']",
+            "reference": "[{'end': 55, 'label': 'Geographic', 'score': None, 'start': 5}, {'end': 43, 'label': 'Geographic', 'score': None, 'start",
+            "culture": "[]",
+            "region": "['North America', 'North America', 'North America', 'North America']",
+            "country": "['United States of America (USA)', 'United States of America (USA)', 'United States of America (USA)', 'United States of",
+            "cultural_sensitivity_label": "CS",
+            "is_annotated": "True"
+          }
+        },
+        "th": {
+          "config": "th",
+          "available": false,
+          "error": "ValueError: BuilderConfig 'th' not found. Available: ['ar', 'bn', 'cs', 'cy', 'de', 'en', 'es', 'fr', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'my', 'or', 'pt', 'sk', 'sq', 'sw', 'tg', 'yo', 'zh']",
+          "traceback_tail": "ValueError: BuilderConfig 'th' not found. Available: ['ar', 'bn', 'cs', 'cy', 'de', 'en', 'es', 'fr', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'my', 'or', 'pt', 'sk', 'sq', 'sw', 'tg', 'yo', 'zh']"
+        },
+        "sw": {
+          "config": "sw",
+          "available": true,
+          "n_items": 400,
+          "fields": [
+            "answer",
+            "country",
+            "cultural_sensitivity_label",
+            "culture",
+            "is_annotated",
+            "option_a",
+            "option_b",
+            "option_c",
+            "option_d",
+            "question",
+            "reference",
+            "region",
+            "required_knowledge",
+            "sample_id",
+            "subject",
+            "subject_category",
+            "time_sensitive"
+          ],
+          "first_row_preview": {
+            "sample_id": "astronomy/test/58",
+            "subject": "astronomy",
+            "subject_category": "STEM",
+            "question": "Unapotembea kaskazini kutoka Marekani kwenda Canada utaona Nyota ya Kaskazini (kaskazini) inavyoongezeka _______________",
+            "option_a": "Mwangaza zaid",
+            "option_b": "Kidogo chenyewe",
+            "option_c": "Juukwa zaidi angani",
+            "option_d": "Chini zaidi angani",
+            "answer": "C",
+            "required_knowledge": "['regional', 'regional', 'regional', 'regional']",
+            "time_sensitive": "['No', 'No', 'No', 'No']",
+            "reference": "[{'end': 55, 'label': 'Geographic', 'score': None, 'start': 5}, {'end': 43, 'label': 'Geographic', 'score': None, 'start",
+            "culture": "[]",
+            "region": "['North America', 'North America', 'North America', 'North America']",
+            "country": "['United States of America (USA)', 'United States of America (USA)', 'United States of America (USA)', 'United States of",
+            "cultural_sensitivity_label": "CS",
+            "is_annotated": "True"
+          }
+        }
+      },
+      "item_counts_agree_across_languages": true
+    },
+    {
+      "name": "xcopa",
+      "dataset": "cambridgeltl/xcopa",
+      "expected_answer_kind": "choice",
+      "languages": {
+        "th": {
+          "config": "th",
+          "available": true,
+          "n_items": 500,
+          "fields": [
+            "changed",
+            "choice1",
+            "choice2",
+            "idx",
+            "label",
+            "premise",
+            "question"
+          ],
+          "first_row_preview": {
+            "premise": "สิ่งของถูกห่อไว้ในพลาสติก",
+            "choice1": "มันบอบบาง",
+            "choice2": "มันเล็ก",
+            "question": "effect",
+            "label": "0",
+            "idx": "0",
+            "changed": "False"
+          }
+        },
+        "sw": {
+          "config": "sw",
+          "available": true,
+          "n_items": 500,
+          "fields": [
+            "changed",
+            "choice1",
+            "choice2",
+            "idx",
+            "label",
+            "premise",
+            "question"
+          ],
+          "first_row_preview": {
+            "premise": "Kifaa kilikuwa kimefungwa kwenye mfuko vibofu.",
+            "choice1": "Kikuwa nyepesi kuvunjika.",
+            "choice2": "Kilikuwa kidogo.",
+            "question": "cause",
+            "label": "0",
+            "idx": "0",
+            "changed": "False"
+          }
+        }
+      },
+      "item_counts_agree_across_languages": true
+    },
+    {
+      "name": "belebele",
+      "dataset": "facebook/belebele",
+      "expected_answer_kind": "choice",
+      "languages": {
+        "de": {
+          "config": "deu_Latn",
+          "available": true,
+          "n_items": 900,
+          "fields": [
+            "correct_answer_num",
+            "dialect",
+            "ds",
+            "flores_passage",
+            "link",
+            "mc_answer1",
+            "mc_answer2",
+            "mc_answer3",
+            "mc_answer4",
+            "question",
+            "question_number"
+          ],
+          "first_row_preview": {
+            "link": "https://en.wikivoyage.org/wiki/Safaris",
+            "question_number": "2",
+            "flores_passage": "Safaris sind vielleicht die größte Touristenattraktion in Afrika und der Höhepunkt für viele Besucher. Der Begriff Safar",
+            "question": "Welche Tiere können Besucher dem Abschnitt nach wahrscheinlich während einer Safari im Auto beobachten?",
+            "mc_answer1": "Löwen",
+            "mc_answer2": "Giraffen ",
+            "mc_answer3": "Leoparden",
+            "mc_answer4": "Geparden",
+            "correct_answer_num": "2",
+            "dialect": "deu_Latn",
+            "ds": "2023-06-23 00:00:00"
+          }
+        },
+        "th": {
+          "config": "tha_Thai",
+          "available": true,
+          "n_items": 900,
+          "fields": [
+            "correct_answer_num",
+            "dialect",
+            "ds",
+            "flores_passage",
+            "link",
+            "mc_answer1",
+            "mc_answer2",
+            "mc_answer3",
+            "mc_answer4",
+            "question",
+            "question_number"
+          ],
+          "first_row_preview": {
+            "link": "https://en.wikibooks.org/wiki/Accordion/Right_hand",
+            "question_number": "1",
+            "flores_passage": "ปล่อยให้มือของคุณผ่อนคลายที่สุดเท่าที่จะทำได้ขณะที่ยังคงเล่นโน้ตทุกตัวได้อย่างถูกต้อง พยายามไม่เคลื่อนไหวนิ้วมือมากเกินไ",
+            "question": "จากบทความ ข้อใดไม่ใช่เคล็ดลับที่ถูกต้องสำหรับการเล่นหีบเพลงให้ประสบความสำเร็จ",
+            "mc_answer1": "หากต้องการให้เสียงดังขึ้น ให้เพิ่มแรงดันตอนเล่นตัวโน้ต",
+            "mc_answer2": "พยายามไม่เคลื่อนไหวนิ้วมือมากเกินไปเพื่อไม่ให้ออกแรงมากเกินไป",
+            "mc_answer3": "ระวังตอนเล่นตัวโน้ตขณะที่ปล่อยให้มือผ่อนคลายที่สุดไปด้วย",
+            "mc_answer4": "เพิ่มความเร็วของที่สูบลมเพื่อทำให้เสียงดังขึ้น",
+            "correct_answer_num": "1",
+            "dialect": "tha_Thai",
+            "ds": "2023-06-01 00:00:00"
+          }
+        },
+        "sw": {
+          "config": "swh_Latn",
+          "available": true,
+          "n_items": 900,
+          "fields": [
+            "correct_answer_num",
+            "dialect",
+            "ds",
+            "flores_passage",
+            "link",
+            "mc_answer1",
+            "mc_answer2",
+            "mc_answer3",
+            "mc_answer4",
+            "question",
+            "question_number"
+          ],
+          "first_row_preview": {
+            "link": "https://en.wikibooks.org/wiki/Accordion/Right_hand",
+            "question_number": "1",
+            "flores_passage": "Hakikisha mkono wako umetulia iwezekanavyo huku ukicheza sauti zote kwa usahihi - pia jaribu usifanye misogeo yoyote isi",
+            "question": "Kwa mujibu wa kifungu hiki, ni kipi ambacho hakiwezi kuchukuliwa kama kidokezo sahihi cha kufaulu katika kucheza kodiani",
+            "mc_answer1": "Ili kutoa sauti kubwa, ongeza nguvu ya kugonga vibonye",
+            "mc_answer2": "Punguza kabisa misogeo ili udumishe uthabiti wako",
+            "mc_answer3": "Kuwa makini unapocheza sauti huku mkono wako ukiwa umetulia",
+            "mc_answer4": "Ongeza kasi unapotumia viriba ili kupata sauti ya ziada",
+            "correct_answer_num": "1",
+            "dialect": "swh_Latn",
+            "ds": "2023-07-21 00:00:00"
+          }
+        }
+      },
+      "item_counts_agree_across_languages": true
+    }
+  ]
+}
