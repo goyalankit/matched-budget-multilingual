@@ -4,7 +4,7 @@ import pytest
 from src.emission_prediction import (
     predict_curve,
     predict_delta,
-    product_form_delta,
+    _product_form_delta,
     sub_cdf,
 )
 
@@ -104,14 +104,14 @@ def test_product_form_understates_when_emission_is_rare():
     correct = [False] * 90 + [True] * 10
 
     sub = predict_delta(emissions, correct, budget=150, premium_cap=250)
-    product = product_form_delta(emissions, correct, budget=150, premium_cap=250)
+    product = _product_form_delta(emissions, correct, budget=150, premium_cap=250)
 
     assert sub == pytest.approx(10.0)
     assert product == pytest.approx(1.0)
     assert sub > product
 
 
-def test_the_two_forms_agree_only_under_independence():
+def test_the_two_forms_can_agree_when_correctness_is_flat_in_emission_time():
     """When correctness does not depend on emission time, they coincide.
 
     Every trace emits, and correctness is spread evenly across the window and
@@ -121,16 +121,16 @@ def test_the_two_forms_agree_only_under_independence():
     correct = [True, False, True, False]
 
     sub = predict_delta(emissions, correct, budget=0, premium_cap=40)
-    product = product_form_delta(emissions, correct, budget=0, premium_cap=40)
+    product = _product_form_delta(emissions, correct, budget=0, premium_cap=40)
     assert sub == pytest.approx(product)
 
 
-def test_product_form_is_wrong_whenever_any_trace_never_emits():
+def test_product_form_understates_this_case_with_a_never_emitter():
     """Non-emitters are 0% correct by construction, so independence fails."""
     emissions = [10, None]
     correct = [True, False]
 
     sub = predict_delta(emissions, correct, budget=0, premium_cap=10**9)
-    product = product_form_delta(emissions, correct, budget=0, premium_cap=10**9)
+    product = _product_form_delta(emissions, correct, budget=0, premium_cap=10**9)
     assert sub == pytest.approx(50.0)
     assert product == pytest.approx(25.0)

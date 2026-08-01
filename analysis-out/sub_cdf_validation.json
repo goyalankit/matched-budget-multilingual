@@ -13,10 +13,10 @@
       "p_correct_pct": 79.0,
       "window": "(192, 299]",
       "observed_delta": 34.65,
-      "sub_cdf_prediction": 33.65,
-      "sub_cdf_error": -1.0,
-      "product_form_prediction": 29.94,
-      "product_form_error": -4.71
+      "sub_cdf_prediction": 34.2,
+      "sub_cdf_error": -0.45,
+      "product_form_prediction": 30.41,
+      "product_form_error": -4.23
     },
     {
       "language": "th",
@@ -37,14 +37,14 @@
       "p_correct_pct": 33.75,
       "window": "(128, 247]",
       "observed_delta": 13.7,
-      "sub_cdf_prediction": 14.9,
-      "sub_cdf_error": 1.2,
-      "product_form_prediction": 10.48,
-      "product_form_error": -3.22
+      "sub_cdf_prediction": 14.95,
+      "sub_cdf_error": 1.25,
+      "product_form_prediction": 10.53,
+      "product_form_error": -3.17
     }
   ],
   "mean_abs_error": {
-    "sub_cdf": 0.82,
-    "product_form": 3.28
+    "sub_cdf": 0.65,
+    "product_form": 3.1
   }
 }

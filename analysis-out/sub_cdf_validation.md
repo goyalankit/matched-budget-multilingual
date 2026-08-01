@@ -5,10 +5,10 @@ Predictor from `runs/` (long-cap). Observed peaks from the independent sweep.
 
 | Lang | Window | Observed | Sub-CDF | Err | Product form | Err |
 |---|---|---:|---:|---:|---:|---:|
-| de | (192, 299] | 34.65 | 33.65 | -1.00 | 29.94 | -4.71 |
+| de | (192, 299] | 34.65 | 34.20 | -0.45 | 30.41 | -4.23 |
 | th | (256, 652] | 38.60 | 38.85 | +0.25 | 36.69 | -1.91 |
-| sw | (128, 247] | 13.70 | 14.90 | +1.20 | 10.48 | -3.22 |
+| sw | (128, 247] | 13.70 | 14.95 | +1.25 | 10.53 | -3.17 |
 
-Mean |error|: sub-CDF 0.82 pts, product form 3.28 pts.
+Mean |error|: sub-CDF 0.65 pts, product form 3.10 pts.
 
 Llama skipped: tokenizer not cached locally.

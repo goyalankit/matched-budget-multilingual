@@ -123,7 +123,7 @@ def predict_curve(
     return rows
 
 
-def product_form_delta(
+def _product_form_delta(
     emissions: Sequence[int | None],
     correct: Sequence[bool],
     budget: int,
@@ -131,11 +131,18 @@ def product_form_delta(
 ) -> float:
     """The REJECTED predictor, kept only to quantify how wrong it is.
 
+    PRIVATE ON PURPOSE. It is a known-wrong estimator living beside the accepted
+    one; a public name invites accidental use.
+
     ``p_correct * [F_E(premium_cap) - F_E(budget)]``. Retained so the comparison
     against :func:`predict_delta` can be recomputed rather than cited, and so a
     future reader can see the failure mode rather than the conclusion. Do not
     use it to predict anything.
     """
+    if len(emissions) != len(correct):
+        raise ValueError("emissions and correct must be the same length")
+    if not emissions:
+        raise ValueError("at least one trace is required")
     emitted = _emission_array(emissions)
     is_correct = np.asarray(correct, dtype=bool)
     total = float(emitted.size)

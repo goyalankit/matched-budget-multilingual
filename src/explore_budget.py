@@ -99,6 +99,7 @@ def _emission_indices(
     language: str,
     arm: str,
     decode: Decode,
+    required_lengths: Sequence[int] = (),
 ) -> list[int | None]:
     full_texts = analyze_real._decode_sequences(decode, list(output_ids))
     completed_answers = [parse_answer(text, language, arm) for text in full_texts]
@@ -111,7 +112,7 @@ def _emission_indices(
     ):
         if completed_answer is None:
             continue
-        for length in emission_grid(len(ids)):
+        for length in emission_grid(len(ids), required_lengths):
             requests.append((record_index, length))
             sequences.append(ids[:length])
 
@@ -124,7 +125,7 @@ def _emission_indices(
     return indices
 
 
-def emission_grid(length: int) -> list[int]:
+def emission_grid(length: int, required: Sequence[int] = ()) -> list[int]:
     """Candidate prefix lengths for locating the emission index.
 
     Fine resolution up to ``_EMISSION_FINE_UNTIL_TOKENS`` so a multiple-choice
@@ -132,21 +133,27 @@ def emission_grid(length: int) -> list[int]:
     4096-token math trace does not cost 4096 detokenize calls. The final length
     is always included, so a trace shorter than one coarse step is still probed
     at its full length.
+
+    ``required`` forces exact probe points. **Any analysis endpoint must be
+    passed here.** The emission index is rounded UP to the next probe point, so
+    an off-grid endpoint silently excludes traces: with the coarse step of 16, a
+    trace emitting at 290 is recorded at 304 and drops out of the window
+    ``(192, 299]``, biasing G downward at exactly the checkpoints under test.
     """
     if length <= 0:
         return []
     fine_limit = min(length, _EMISSION_FINE_UNTIL_TOKENS)
-    lengths = list(range(_EMISSION_GRID_TOKENS, fine_limit + 1, _EMISSION_GRID_TOKENS))
-    lengths.extend(
+    lengths = set(range(_EMISSION_GRID_TOKENS, fine_limit + 1, _EMISSION_GRID_TOKENS))
+    lengths.update(
         range(
             fine_limit + _EMISSION_COARSE_GRID_TOKENS,
             length + 1,
             _EMISSION_COARSE_GRID_TOKENS,
         )
     )
-    if lengths[-1] != length:
-        lengths.append(length)
-    return lengths
+    lengths.update(point for point in required if 0 < point <= length)
+    lengths.add(length)
+    return sorted(lengths)
 
 
 def classify_non_emission(eos: bool) -> str:

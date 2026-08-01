@@ -185,3 +185,26 @@ def test_delta_vs_budget_has_expected_small_budget_sign_and_ci(
         "8": 0.0,
         "16": 100.0,
     }
+
+
+def test_emission_grid_includes_required_endpoints(tmp_path):
+    """Off-grid analysis endpoints must be probed exactly.
+
+    The index rounds UP to the next probe point, so without this a trace
+    emitting at 290 is recorded at 304 and drops out of the window (192, 299],
+    biasing G downward at precisely the checkpoints under test.
+    """
+    from src.explore_budget import emission_grid
+
+    assert 299 not in emission_grid(4096)
+    grid = emission_grid(4096, required=(192, 299))
+    assert 192 in grid and 299 in grid
+    assert grid == sorted(set(grid))  # still sorted and deduplicated
+
+
+def test_required_endpoints_beyond_the_trace_are_ignored(tmp_path):
+    from src.explore_budget import emission_grid
+
+    grid = emission_grid(50, required=(10, 5000))
+    assert 10 in grid
+    assert max(grid) == 50

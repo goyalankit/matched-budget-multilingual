@@ -2,8 +2,15 @@
 
 Breadth design §6.1, Task 5 Step 5. Predictor comes from the long-cap replay
 ledger (`runs/`); the observed peaks come from the independent-decoding sweep
-(`analysis-out/independent_scoring.json`). That pairing is the point: predict a
-sweep you have not run, from one long-cap run.
+(`analysis-out/independent_scoring.json`).
+
+This is a CROSS-LEDGER CONSISTENCY CHECK, not a prediction of an unrun sweep and
+not an out-of-sample test of E6. Under absorbing correctness, replay
+G(H) - G(B) is algebraically the replay accuracy difference, so agreement with
+the replay frame is guaranteed by construction. What is actually earned is
+stability against separately generated capped traces, on three cells whose
+endpoints were themselves selected from the replay results. The E6 test is
+tranche 2, after the freeze.
 
 This is a MEASUREMENT, not a fit. Nothing here is tuned to improve agreement.
 Any correction to the predictor belongs in Phase 3, after the freeze.
@@ -21,7 +28,7 @@ from pathlib import Path
 _ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_ROOT))
 
-from src.emission_prediction import predict_delta, product_form_delta  # noqa: E402
+from src.emission_prediction import predict_delta, _product_form_delta  # noqa: E402
 from src.explore_budget import _emission_indices, _validated_output_ids  # noqa: E402
 from src.generate import read_ledger  # noqa: E402
 from src.mgsm import load_mgsm  # noqa: E402
@@ -49,7 +56,9 @@ def _decoder():
     return Decoder()
 
 
-def _cell(language: str, decode) -> tuple[list[int | None], list[bool]]:
+def _cell(
+    language: str, decode, required_lengths: tuple[int, ...]
+) -> tuple[list[int | None], list[bool]]:
     """Per-record emission index and full-trace correctness for one cell."""
     shard = _ROOT / "runs" / _MODEL / language / _ARM / "shard.jsonl"
     records = read_ledger(shard)
@@ -69,7 +78,11 @@ def _cell(language: str, decode) -> tuple[list[int | None], list[bool]]:
             )
             for record in batch
         ]
-        emissions.extend(_emission_indices(batch, ids, language, _ARM, decode))
+        emissions.extend(
+            _emission_indices(
+                batch, ids, language, _ARM, decode, required_lengths
+            )
+        )
         for record, text in zip(batch, decode.decode_many(ids)):
             correct.append(
                 parse_answer(text, language, _ARM) == gold[record["item_id"]]
@@ -92,12 +105,15 @@ def main() -> None:
     decode = _decoder()
     rows = []
     for language, test in observed.items():
-        emissions, correct = _cell(language, decode)
         budget, premium_cap = int(test["budget"]), int(test["premium_cap"])
+        # Probe EXACTLY at the analysis endpoints: the emission index rounds up
+        # to the next probe point, so an off-grid endpoint silently excludes
+        # traces emitting just below it.
+        emissions, correct = _cell(language, decode, (budget, premium_cap))
         sub = predict_delta(
             emissions, correct, budget, premium_cap, generation_cap=_GENERATION_CAP
         )
-        product = product_form_delta(emissions, correct, budget, premium_cap)
+        product = _product_form_delta(emissions, correct, budget, premium_cap)
         n_emitted = sum(1 for value in emissions if value is not None)
         rows.append(
             {
