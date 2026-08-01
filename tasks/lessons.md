@@ -357,3 +357,13 @@ error was found" when it meant "I could not check", and the plan's test was in f
 This splits the TDD loop, which is a real cost. It is tolerable here because the plan already
 contains the exact test and implementation code, so the executor is largely transcribing. If a
 future plan leaves genuine design latitude, run that task inline instead of delegating it.
+
+## Breadth Task 2 test-command ambiguity — the execution brief controls
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 2.
+
+The plan lists pytest commands in Steps 2, 4, 5, and 6, while the Task 2 execution brief
+explicitly says to attempt the Step 2 and Step 4 invocations once each and not to work around
+the interpreter block. Follow the narrower execution brief: make exactly those two attempts,
+confirm the frozen parser by read-only inspection and by not editing it, and report the
+full-suite check as deferred to the supervisor.

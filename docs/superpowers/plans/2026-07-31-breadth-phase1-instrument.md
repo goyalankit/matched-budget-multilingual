@@ -350,8 +350,10 @@ def test_integer_kind_preserves_locale_digit_handling():
 
 
 def test_numeric_parses_decimal_and_fraction_to_the_same_value():
-    assert parse_for_kind("#### 0.5", "de", "native", "numeric", NUMERIC) == Fraction(1, 2)
+    # The decimal form uses the ANSWER LANGUAGE's separator: "," in German.
+    assert parse_for_kind("#### 0,5", "de", "native", "numeric", NUMERIC) == Fraction(1, 2)
     assert parse_for_kind("#### 1/2", "de", "native", "numeric", NUMERIC) == Fraction(1, 2)
+    assert parse_for_kind("#### 0.5", "en", "native", "numeric", NUMERIC) == Fraction(1, 2)
 
 
 def test_numeric_rejects_non_numeric():
@@ -415,8 +417,6 @@ from typing import Any, Mapping
 from src.parser import parse_answer
 
 _ANSWER_LINE = re.compile(r"^[ \t]*####[ \t]+(.*?)[ \t]*$")
-_DECIMAL = re.compile(r"^[+-]?\d+(?:\.\d+)?$")
-_FRACTION = re.compile(r"^([+-]?\d+)/(\d+)$")
 
 
 def _last_answer_line(text: str) -> str | None:
@@ -428,13 +428,30 @@ def _last_answer_line(text: str) -> str | None:
     return candidate
 
 
-def _parse_numeric(candidate: str) -> Fraction | None:
-    if _DECIMAL.fullmatch(candidate):
-        return Fraction(candidate)
-    match = _FRACTION.fullmatch(candidate)
-    if match and int(match.group(2)) != 0:
-        return Fraction(int(match.group(1)), int(match.group(2)))
-    return None
+**The numeric kind MUST be locale-aware.** An ASCII regex here is not merely
+incomplete, it silently mis-parses: German uses "," as the decimal separator and
+"." as the *grouping* separator, so `1.234` is 1234 and `0.5` is malformed. The
+frozen integer path already encodes this in `configs/locales/*.json`; the numeric
+path must reuse the same grammars, or one string parses to two different values
+depending on `answer_kind`.
+
+Reuse the frozen helpers rather than duplicating locale logic — `src/parser.py`
+is frozen, so importing its private helpers is safe and keeps one source of truth:
+
+```python
+from src.parser import (
+    _answer_language, _integer_digits, _load_grammar, _normalize_digits, parse_answer,
+)
+```
+
+Implement `_unsigned_decimal(value, grammar)` (normalise digits, split on the
+grammar's `decimal_separator` at most once, validate the integer part through
+`_integer_digits`, build an exact `Fraction`) and `_parse_numeric(candidate,
+input_language, arm)` (select the grammar via `_answer_language`, handle a
+leading sign from `sign_characters` including "−", support `a/b` fractions with
+the same locale rules, reject a zero denominator).
+
+See the committed `src/answer_grammar.py` for the exact implementation.
 
 
 def _parse_choice(candidate: str, labels: list[str]) -> str | None:
@@ -473,7 +490,7 @@ def answers_equal(parsed: Any, gold: Any, kind: str) -> bool:
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `.venv/bin/python -m pytest tests/test_answer_grammar.py -v`
-Expected: PASS, 11 tests
+Expected: PASS, 21 tests
 
 - [ ] **Step 5: Confirm the frozen parser is untouched**
 

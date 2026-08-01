@@ -143,3 +143,21 @@
   `sha256sum` and wrote the exact sorted/indented `write_manifest` output shape.
 - Deferred: targeted and full-suite pytest validation must be run by the
   supervisor in an environment that permits `.venv/bin/python` execution.
+
+## Breadth Phase 1 — Task 2: Answer-grammar dispatch
+
+- Built `src/answer_grammar.py` with frozen-parser delegation for integer answers,
+  exact-rational decimal/fraction parsing, declared-label choice parsing, and
+  kind-aware answer equality. Added the plan's 11 tests in
+  `tests/test_answer_grammar.py`.
+- Tests not run — interpreter blocked. The required Step 2 and Step 4 commands
+  each refused before process launch with
+  `Permission denied and could not request permission from user`.
+- Decisions: used the plan's implementation and tests verbatim; left
+  `src/parser.py` untouched; treated the execution brief's exactly-two-attempt
+  instruction as controlling over the plan's additional Step 5 and Step 6 pytest
+  commands. This ambiguity is recorded in `tasks/lessons.md`.
+- Static review found no contradiction between the 11 tests and the specified
+  implementation, but runtime behavior could not be checked.
+- Deferred: targeted parser-audit and full-suite pytest validation must be run by
+  the supervisor in an environment that permits `.venv/bin/python` execution.
