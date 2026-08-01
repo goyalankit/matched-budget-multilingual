@@ -1,0 +1,4 @@
+{
+  "kind": "choice",
+  "labels": ["A", "B", "C", "D"]
+}

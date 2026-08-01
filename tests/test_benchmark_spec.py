@@ -16,6 +16,7 @@ def test_load_mgsm_spec_has_frozen_fields():
     assert spec.dataset == "juletxara/mgsm"
     assert spec.expected_items == 250
     assert spec.answer_kind == "integer"
+    assert spec.gold_encoding == "value"
     assert spec.languages == ("de", "sw", "th")
 
 
@@ -79,6 +80,7 @@ def test_missing_placeholder_is_rejected(tmp_path):
                 "question_field": "question",
                 "gold_field": "answer_number",
                 "answer_kind": "integer",
+                "gold_encoding": "value",
                 "generation_caps": {"qwen3_8b": 4096},
             }
         ),
@@ -91,3 +93,64 @@ def test_missing_placeholder_is_rejected(tmp_path):
     (root / "manifest.json").write_text(json.dumps({"files": {}}), encoding="utf-8")
     with pytest.raises(ValueError, match=r"\{problem\}"):
         load_spec("broken", root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("name", "languages", "gold_encoding"),
+    [
+        ("global_mmlu_lite", ("de", "sw"), "letter"),
+        ("xcopa", ("sw", "th"), "index0"),
+        ("belebele", ("de", "sw", "th"), "index1"),
+    ],
+)
+def test_load_choice_specs_without_templates(name, languages, gold_encoding):
+    spec = load_spec(name)
+    assert spec.languages == languages
+    assert spec.gold_encoding == gold_encoding
+
+
+def test_gold_encoding_is_required(tmp_path):
+    root = tmp_path / "missing_encoding"
+    root.mkdir()
+    (root / "spec.json").write_text(
+        json.dumps(
+            {
+                "name": "missing_encoding",
+                "dataset": "x",
+                "language_configs": {},
+                "split": "test",
+                "expected_items": 1,
+                "question_field": "question",
+                "gold_field": "answer",
+                "answer_kind": "choice",
+                "generation_caps": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="gold_encoding"):
+        load_spec("missing_encoding", root=tmp_path)
+
+
+def test_gold_encoding_must_match_the_answer_kind(tmp_path):
+    root = tmp_path / "bad_encoding"
+    root.mkdir()
+    (root / "spec.json").write_text(
+        json.dumps(
+            {
+                "name": "bad_encoding",
+                "dataset": "x",
+                "language_configs": {},
+                "split": "test",
+                "expected_items": 1,
+                "question_field": "question",
+                "gold_field": "answer",
+                "answer_kind": "choice",
+                "gold_encoding": "value",
+                "generation_caps": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="invalid for answer_kind"):
+        load_spec("bad_encoding", root=tmp_path)

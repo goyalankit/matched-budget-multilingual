@@ -15,9 +15,15 @@ _ROOT = Path(__file__).resolve().parents[1]
 _DEFAULT_ROOT = _ROOT / "benchmarks"
 _REQUIRED = {
     "name", "dataset", "language_configs", "split", "expected_items",
-    "question_field", "gold_field", "answer_kind", "generation_caps",
+    "question_field", "gold_field", "answer_kind", "gold_encoding",
+    "generation_caps",
 }
 _KINDS = {"integer", "numeric", "choice"}
+_ENCODINGS_BY_KIND = {
+    "integer": {"value"},
+    "numeric": {"value"},
+    "choice": {"letter", "index0", "index1"},
+}
 
 
 class ManifestError(ValueError):
@@ -34,6 +40,7 @@ class BenchmarkSpec:
     question_field: str
     gold_field: str
     answer_kind: str
+    gold_encoding: str
     generation_caps: dict[str, int]
     root: Path
 
@@ -51,6 +58,13 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
         raise ValueError(f"{name}: spec.json missing fields {sorted(missing)}")
     if payload["answer_kind"] not in _KINDS:
         raise ValueError(f"{name}: unknown answer_kind {payload['answer_kind']!r}")
+    allowed_encodings = _ENCODINGS_BY_KIND[payload["answer_kind"]]
+    if payload["gold_encoding"] not in allowed_encodings:
+        raise ValueError(
+            f"{name}: gold_encoding {payload['gold_encoding']!r} is invalid for "
+            f"answer_kind {payload['answer_kind']!r}; expected "
+            f"{sorted(allowed_encodings)}"
+        )
 
     spec = BenchmarkSpec(
         name=payload["name"],
@@ -61,14 +75,17 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
         question_field=payload["question_field"],
         gold_field=payload["gold_field"],
         answer_kind=payload["answer_kind"],
+        gold_encoding=payload["gold_encoding"],
         generation_caps=dict(payload["generation_caps"]),
         root=directory,
     )
-    for language in spec.languages:
-        if "{problem}" not in template_text(spec, language):
-            raise ValueError(
-                f"{name}/templates/{language}.txt has no {{problem}} placeholder"
-            )
+    templates = spec.root / "templates"
+    if templates.exists():
+        for language in spec.languages:
+            if "{problem}" not in template_text(spec, language):
+                raise ValueError(
+                    f"{name}/templates/{language}.txt has no {{problem}} placeholder"
+                )
     return spec
 
 

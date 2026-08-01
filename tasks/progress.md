@@ -240,3 +240,35 @@
   prefix. These issues and the unspecified fraction denominator are recorded in
   `tasks/lessons.md`.
 - Stopped at Task 6 Step 4. Task 8 was not started.
+
+## Breadth Phase 1 — Task 8: Remaining benchmark specs
+
+- Added template-less, manifest-less data specs and choice grammars for
+  Global-MMLU-Lite (de/sw, 400, letter gold), XCOPA (th/sw, 500, 0-based gold),
+  and Belebele (de/th/sw, 900, 1-based string gold). MMATH remains omitted as
+  directed because its dataset triple is unresolved. New `generation_caps`
+  mappings are empty.
+- Made `gold_encoding` required and answer-kind validated. Choice gold
+  normalization now maps `letter`, `index0`, and `index1` through grammar
+  labels; integer/numeric specs require `value`. The generic loader passes the
+  spec encoding and grammar into normalization.
+- Updated MGSM to `gold_encoding: "value"` and regenerated its manifest hash;
+  its integer normalization and frozen parser path are unchanged.
+- Added coverage for template-less spec loading, required/compatible encodings,
+  letter passthrough, both index conventions, and their different labels for
+  the same raw value.
+- Tests not run — interpreter blocked. Targeted invocation
+  `.venv/bin/python -m pytest tests/test_benchmark_spec.py tests/test_answer_grammar.py tests/test_benchmark_data.py -v`
+  and full-suite invocation `.venv/bin/python -m pytest -q` were each attempted
+  once and each refused with the exact text
+  `Permission denied and could not request permission from user`.
+- Task 7 STOP remains: no new `templates/` or manifests were written. The
+  supplied option/context fields cannot yet be represented by the singular
+  `question_field`/`Item.question` path; this Task 8 brief ambiguity and its
+  consequence are recorded in `tasks/lessons.md`.
+- The requested confirmation that no prior-task file changed cannot be made:
+  Task 3's `src/benchmark_data.py` is the production caller of the newly
+  required four-argument `normalize_gold` API and had to pass the encoding and
+  grammar. Leaving it unchanged would break item loading. No other prior-task
+  implementation file and no frozen file was modified.
+- Stopped after Task 8. Task 9 was not started.

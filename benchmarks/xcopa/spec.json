@@ -1,0 +1,12 @@
+{
+  "name": "xcopa",
+  "dataset": "cambridgeltl/xcopa",
+  "language_configs": {"th": "th", "sw": "sw"},
+  "split": "test",
+  "expected_items": 500,
+  "question_field": "premise",
+  "gold_field": "label",
+  "answer_kind": "choice",
+  "gold_encoding": "index0",
+  "generation_caps": {}
+}

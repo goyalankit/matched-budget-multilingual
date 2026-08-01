@@ -115,7 +115,9 @@ def parse_for_kind(
     raise ValueError(f"unknown answer kind: {kind!r}")
 
 
-def normalize_gold(value: Any, kind: str) -> Any:
+def normalize_gold(
+    value: Any, kind: str, encoding: str, grammar: Mapping[str, Any]
+) -> Any:
     """Coerce a dataset's raw gold field into the kind's canonical type.
 
     Datasets are not consistent about this: MGSM ships ``answer_number`` as a
@@ -125,11 +127,30 @@ def normalize_gold(value: Any, kind: str) -> Any:
     shape as the Llama 0%-everywhere bug.
     """
     if kind == "integer":
+        if encoding != "value":
+            raise ValueError(f"integer gold requires value encoding, got {encoding!r}")
         return int(value)
     if kind == "numeric":
+        if encoding != "value":
+            raise ValueError(f"numeric gold requires value encoding, got {encoding!r}")
         return Fraction(str(value))
     if kind == "choice":
-        return str(value).strip().upper()
+        labels = list(grammar["labels"])
+        if encoding == "letter":
+            normalized = str(value).strip().upper()
+            by_upper = {str(label).upper(): label for label in labels}
+            if normalized not in by_upper:
+                raise ValueError(f"choice gold {value!r} is not in labels {labels!r}")
+            return by_upper[normalized]
+        if encoding in {"index0", "index1"}:
+            index = int(value) - (1 if encoding == "index1" else 0)
+            if index < 0 or index >= len(labels):
+                raise ValueError(
+                    f"choice gold {value!r} is out of range for "
+                    f"{encoding} labels {labels!r}"
+                )
+            return labels[index]
+        raise ValueError(f"unknown choice gold encoding: {encoding!r}")
     raise ValueError(f"unknown answer kind: {kind!r}")
 
 

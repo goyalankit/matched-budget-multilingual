@@ -1,0 +1,12 @@
+{
+  "name": "global_mmlu_lite",
+  "dataset": "CohereLabs/Global-MMLU-Lite",
+  "language_configs": {"de": "de", "sw": "sw"},
+  "split": "test",
+  "expected_items": 400,
+  "question_field": "question",
+  "gold_field": "answer",
+  "answer_kind": "choice",
+  "gold_encoding": "letter",
+  "generation_caps": {}
+}

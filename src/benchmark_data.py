@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -26,6 +27,7 @@ def load_items(spec: BenchmarkSpec, language: str) -> list[Item]:
     """Load one language's split in canonical row order."""
     config = spec.language_configs[language]
     rows = _load_split(spec.dataset, config, spec.split)
+    grammar = json.loads((spec.root / "grammar.json").read_text(encoding="utf-8"))
     if len(rows) != spec.expected_items:
         raise ValueError(
             f"{spec.name}/{language}: expected {spec.expected_items} items, "
@@ -35,7 +37,12 @@ def load_items(spec: BenchmarkSpec, language: str) -> list[Item]:
         Item(
             item_id=str(index),
             question=row[spec.question_field],
-            gold=normalize_gold(row[spec.gold_field], spec.answer_kind),
+            gold=normalize_gold(
+                row[spec.gold_field],
+                spec.answer_kind,
+                spec.gold_encoding,
+                grammar,
+            ),
         )
         for index, row in enumerate(rows)
     ]

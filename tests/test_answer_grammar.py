@@ -159,7 +159,32 @@ def test_normalize_gold_coerces_per_kind():
 
     from src.answer_grammar import normalize_gold
 
-    assert normalize_gold("0042", "integer") == 42
-    assert normalize_gold(42, "integer") == 42
-    assert normalize_gold("0.5", "numeric") == F(1, 2)
-    assert normalize_gold(" c ", "choice") == "C"
+    assert normalize_gold("0042", "integer", "value", INTEGER) == 42
+    assert normalize_gold(42, "integer", "value", INTEGER) == 42
+    assert normalize_gold("0.5", "numeric", "value", NUMERIC) == F(1, 2)
+    assert normalize_gold(" c ", "choice", "letter", CHOICE) == "C"
+
+
+def test_normalize_gold_passes_through_a_letter_label():
+    from src.answer_grammar import normalize_gold
+
+    assert normalize_gold("C", "choice", "letter", CHOICE) == "C"
+
+
+def test_normalize_gold_maps_a_zero_based_index_to_a_label():
+    from src.answer_grammar import normalize_gold
+
+    assert normalize_gold(1, "choice", "index0", CHOICE) == "B"
+
+
+def test_normalize_gold_maps_a_one_based_string_index_to_a_label():
+    from src.answer_grammar import normalize_gold
+
+    assert normalize_gold("1", "choice", "index1", CHOICE) == "A"
+
+
+def test_zero_and_one_based_encodings_disagree_on_the_same_raw_gold():
+    from src.answer_grammar import normalize_gold
+
+    assert normalize_gold(1, "choice", "index0", CHOICE) == "B"
+    assert normalize_gold(1, "choice", "index1", CHOICE) == "A"

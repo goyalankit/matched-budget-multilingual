@@ -426,3 +426,24 @@ Task 6 does not state the denominator for `fraction_correctness_changed`. The sc
 NATIVE records, matching the plan's record-level approximation claim; non-emitting records remain
 in the denominator and cannot contribute a correctness transition. The report states this
 definition explicitly.
+
+## Breadth Task 8 specs cannot represent complete multiple-choice inputs
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 8.
+
+The benchmark schema has one `question_field`, and `benchmark_data.load_items` reads only that
+field. The verified inputs require more: XCOPA needs `premise`, the cause/effect `question`, and
+two choices; Belebele needs `flores_passage`, `question`, and four choices; Global-MMLU-Lite also
+needs four option fields. The Task 8 brief supplies these field names but requests only a
+`gold_encoding` schema extension, so adding a multi-field prompt representation would exceed the
+specified change and pre-empt the blocked Task 7 template design. The shipped specs use
+`question` for Global-MMLU-Lite and Belebele and `premise` for XCOPA, but generic `Item.question`
+is not yet a complete renderable multiple-choice problem. This must be resolved with the Task 7
+template contract before generation.
+
+The final-summary request also asks for confirmation that no prior-task file was touched, but the
+required `normalize_gold(value, kind, encoding, grammar)` signature changes the function called by
+Task 3's `src/benchmark_data.py`. Leaving that call unchanged would raise `TypeError` for MGSM and
+every future benchmark; retaining a two-argument fallback would prevent the loader from applying
+the explicit non-inferable encoding. Therefore `src/benchmark_data.py` is a necessary integration
+change. No other prior-task implementation file was modified.
