@@ -176,6 +176,36 @@ benchmarks/<name>/
   manifest.json    SHA-256 over spec.json, every template, and grammar.json
 ```
 
+### 5.1 The multiple-choice contract
+
+The four new benchmarks need NATIVE prompts in German, Thai and Swahili, and **no speaker is
+available to verify them**. That is exactly how E2 shipped six unaudited sentences and lost the
+Swahili instrument across four phrasings. The contract below exists to shrink the unverifiable
+surface to the minimum.
+
+All three audited templates share one structure: task framing / reasoning instruction / answer
+format / field label / `{problem}`. Parts 2–4 are reused **verbatim**:
+
+- **Options are numbered 1–4, not lettered A–D**, and the model answers `#### 3`. This reuses
+  the audited answer-format sentence *unchanged* — the fiddliest and most audit-critical prose
+  in the template, and precisely the sentence E2 got wrong by rewriting. It also collapses the
+  benchmark back onto the frozen `integer` parser: `answer_kind: "integer"`,
+  `gold_encoding: "index1"` mapping 1–4 onto the options.
+- **The loader assembles** passage, question and numbered options into a single `{problem}`
+  string using only newlines and digits — language-neutral formatting — so the audited field
+  label is reused and no localised `Passage:` / `Options:` labels are needed.
+- **Only the task-framing sentence is new**: one per language, shared across all
+  multiple-choice benchmarks. Three sentences, against E2's six.
+
+**Validation gate.** Each new sentence must survive round-trip back-translation through *both*
+served models before any generation. This is the strongest check available without a speaker.
+It needs 9002, which is currently down.
+
+The `choice` answer kind and its grammar remain implemented and tested, but are unused by these
+benchmarks under this contract. They are kept rather than deleted: a future benchmark whose gold
+is genuinely a letter would need them, and removing tested code to re-add it later is worse than
+carrying it.
+
 Three answer kinds, each with its own golden-case test set: **`integer`** (existing locale
 grammars, unchanged — MGSM's parsing path stays byte-for-byte what it is today); **`numeric`**
 (MMATH — decimals and fractions, equality rule stated in the grammar, not inferred at scoring
