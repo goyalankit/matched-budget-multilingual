@@ -1,11 +1,19 @@
 {
-  "forward_gate_passes": true,
+  "forward_gate_passes": false,
   "gate": "forward translation carries the intended task meaning",
   "gate_note": "Post-hoc redefinition; the original round-trip criterion failed 2 of 6. The backward leg tests the MODEL's generation fluency, not our sentence. Round-trip results are retained as diagnostic and do not gate.",
-  "intended_english": "Answer the following multiple-choice question.",
+  "intended_english": {
+    "mc_de_framing": "Answer the following multiple-choice question.",
+    "mc_sw_framing": "Answer the following multiple-choice question.",
+    "mc_th_framing": "Answer the following multiple-choice question.",
+    "mmath_fr_answer_format": "Write the final answer on the last line as four hash marks, one space, then the integer answer in ASCII digits only — no words, no bold or Markdown, no currency symbol, and no units. Example: #### 42",
+    "mmath_fr_framing": "Solve the following math problem.",
+    "mmath_zh_answer_format": "Write the final answer on the last line as four hash marks, one space, then the integer answer in ASCII digits only — no words, no bold or Markdown, no currency symbol, and no units. Example: #### 42",
+    "mmath_zh_framing": "Solve the following math problem."
+  },
   "models": {
     "llama_3_1_8b_instruct": {
-      "de": {
+      "mc_de_framing": {
         "english": "Answer the following multiple-choice question.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -15,7 +23,7 @@
         "round_trip_verdict_text": "YES",
         "source": "Beantworte die folgende Multiple-Choice-Frage."
       },
-      "sw": {
+      "mc_sw_framing": {
         "english": "Answer a multiple-choice question.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -25,7 +33,7 @@
         "round_trip_verdict_text": "YES",
         "source": "Jibu swali lifuatalo la chaguo nyingi."
       },
-      "th": {
+      "mc_th_framing": {
         "english": "Please answer the following multiple-choice questions.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -34,10 +42,50 @@
         "round_trip_meaning_survives": false,
         "round_trip_verdict_text": "NO",
         "source": "จงตอบคำถามแบบปรนัยต่อไปนี้"
+      },
+      "mmath_fr_answer_format": {
+        "english": "Write the final answer on the last line in the form of four hash signs, a space, then the answer which is an integer, using only ASCII digits — no words, no bold, no Markdown, no currency symbol, and no unit. Example: #### 42",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "Écrivez la réponse finale sur la dernière ligne sous la forme de quatre signes de hachage, d'un espace, puis la réponse qui est un entier, en utilisant uniquement des chiffres ASCII — pas de mots, pas de gras, pas de Markdown, pas de symbole de devise et pas d'unité. Exemple : #### 42",
+        "round_trip_meaning_survives": false,
+        "round_trip_verdict_text": "Oui",
+        "source": "Écrivez la réponse finale sur la dernière ligne sous la forme de quatre signes dièse, d’une espace, puis de la réponse qui est un nombre entier, en utilisant uniquement des chiffres ASCII — sans mots, sans gras ni Markdown, sans symbole monétaire et sans unité. Exemple : #### 42"
+      },
+      "mmath_fr_framing": {
+        "english": "Solve the following math problem.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "Résolvez le problème mathématique suivant.",
+        "round_trip_meaning_survives": false,
+        "round_trip_verdict_text": "Oui.",
+        "source": "Résolvez le problème de mathématiques suivant."
+      },
+      "mmath_zh_answer_format": {
+        "english": "Please write the final answer on the last line: four hash signs, a space, and then just the integer answer in ASCII digits - do not use text, do not use bold or Markdown, do not use currency symbols, and do not use units. For example: #### 42",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "请在最后一行写上答案：四个井号，一个空格，接着是答案的整数值，使用ASCII数字，不使用文本，不使用粗体或Markdown，不使用货币符号，不使用单位。例如：#### 42",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "请在最后一行写出最终答案：四个井号、一个空格，然后仅用 ASCII 数字写出整数答案——不要使用文字，不要使用粗体或 Markdown，不要使用货币符号，也不要使用单位。例如：#### 42"
+      },
+      "mmath_zh_framing": {
+        "english": "Solve the following math problems.",
+        "forward_meaning_survives": false,
+        "forward_verdict_text": "NO",
+        "judged_by": "qwen3_8b",
+        "round_trip": "解决以下数学问题。",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "解决以下数学问题。"
       }
     },
     "qwen3_8b": {
-      "de": {
+      "mc_de_framing": {
         "english": "Answer the following multiple-choice question.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -47,7 +95,7 @@
         "round_trip_verdict_text": "YES",
         "source": "Beantworte die folgende Multiple-Choice-Frage."
       },
-      "sw": {
+      "mc_sw_framing": {
         "english": "Answer the following multiple-choice question.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -57,7 +105,7 @@
         "round_trip_verdict_text": "NO",
         "source": "Jibu swali lifuatalo la chaguo nyingi."
       },
-      "th": {
+      "mc_th_framing": {
         "english": "Answer the following multiple-choice question.",
         "forward_meaning_survives": true,
         "forward_verdict_text": "YES",
@@ -66,6 +114,46 @@
         "round_trip_meaning_survives": true,
         "round_trip_verdict_text": "YES",
         "source": "จงตอบคำถามแบบปรนัยต่อไปนี้"
+      },
+      "mmath_fr_answer_format": {
+        "english": "Write the final answer on the last line in the form of four hash signs, followed by a space, then the answer which is an integer, using only ASCII digits — no words, no bold, no Markdown, no currency symbol and no unit. Example: #### 42",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "Écrivez la réponse finale sur la dernière ligne sous la forme de quatre tirets, suivis d'un espace, puis la réponse qui est un entier, utilisant uniquement des chiffres ASCII — aucun mot, aucun gras, aucun Markdown, aucun symbole monétaire et aucune unité. Exemple : #### 42",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "Écrivez la réponse finale sur la dernière ligne sous la forme de quatre signes dièse, d’une espace, puis de la réponse qui est un nombre entier, en utilisant uniquement des chiffres ASCII — sans mots, sans gras ni Markdown, sans symbole monétaire et sans unité. Exemple : #### 42"
+      },
+      "mmath_fr_framing": {
+        "english": "Solve the following math problem.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "Résolvez le problème mathématique suivant.",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "Résolvez le problème de mathématiques suivant."
+      },
+      "mmath_zh_answer_format": {
+        "english": "Please write the final answer on the last line: four number signs, a space, then only use ASCII digits to write the integer answer—do not use text, do not use bold or Markdown, do not use currency symbols, and do not use units. For example: #### 42",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "请将以下任务说明翻译成中文。仅返回翻译内容。\n\n请在最后一行写出最终答案：四个井号，一个空格，然后仅使用ASCII数字写出整数答案——不要使用文字，不要使用粗体或Markdown，不要使用货币符号，也不要使用单位。例如：#### 42",
+        "round_trip_meaning_survives": false,
+        "round_trip_verdict_text": "NO",
+        "source": "请在最后一行写出最终答案：四个井号、一个空格，然后仅用 ASCII 数字写出整数答案——不要使用文字，不要使用粗体或 Markdown，不要使用货币符号，也不要使用单位。例如：#### 42"
+      },
+      "mmath_zh_framing": {
+        "english": "Solve the following math problem.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "解决以下数学问题。",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "解决以下数学问题。"
       }
     }
   },
