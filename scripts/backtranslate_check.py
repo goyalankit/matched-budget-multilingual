@@ -1,4 +1,4 @@
-"""Round-trip the three new task-framing sentences through both served models.
+"""Round-trip new prompt sentences through both served models.
 
 This is a pre-generation validation gate. It intentionally performs live model
 calls only when invoked; importing the module has no side effects.
@@ -19,11 +19,66 @@ sys.path.insert(0, str(_ROOT))
 from src.engine import VLLMEngine  # noqa: E402
 
 _SENTENCES = {
-    "de": "Beantworte die folgende Multiple-Choice-Frage.",
-    "th": "จงตอบคำถามแบบปรนัยต่อไปนี้",
-    "sw": "Jibu swali lifuatalo la chaguo nyingi.",
+    "mc_de_framing": {
+        "language": "de",
+        "source": "Beantworte die folgende Multiple-Choice-Frage.",
+        "intended_english": "Answer the following multiple-choice question.",
+    },
+    "mc_th_framing": {
+        "language": "th",
+        "source": "จงตอบคำถามแบบปรนัยต่อไปนี้",
+        "intended_english": "Answer the following multiple-choice question.",
+    },
+    "mc_sw_framing": {
+        "language": "sw",
+        "source": "Jibu swali lifuatalo la chaguo nyingi.",
+        "intended_english": "Answer the following multiple-choice question.",
+    },
+    "mmath_zh_framing": {
+        "language": "zh",
+        "source": "解决以下数学问题。",
+        "intended_english": "Solve the following math problem.",
+    },
+    "mmath_zh_answer_format": {
+        "language": "zh",
+        "source": (
+            "请在最后一行写出最终答案：四个井号、一个空格，然后仅用 ASCII 数字写出"
+            "整数答案——不要使用文字，不要使用粗体或 Markdown，不要使用货币符号，也不"
+            "要使用单位。例如：#### 42"
+        ),
+        "intended_english": (
+            "Write the final answer on the last line as four hash marks, one space, "
+            "then the integer answer in ASCII digits only — no words, no bold or "
+            "Markdown, no currency symbol, and no units. Example: #### 42"
+        ),
+    },
+    "mmath_fr_framing": {
+        "language": "fr",
+        "source": "Résolvez le problème de mathématiques suivant.",
+        "intended_english": "Solve the following math problem.",
+    },
+    "mmath_fr_answer_format": {
+        "language": "fr",
+        "source": (
+            "Écrivez la réponse finale sur la dernière ligne sous la forme de quatre "
+            "signes dièse, d’une espace, puis de la réponse qui est un nombre entier, "
+            "en utilisant uniquement des chiffres ASCII — sans mots, sans gras ni "
+            "Markdown, sans symbole monétaire et sans unité. Exemple : #### 42"
+        ),
+        "intended_english": (
+            "Write the final answer on the last line as four hash marks, one space, "
+            "then the integer answer in ASCII digits only — no words, no bold or "
+            "Markdown, no currency symbol, and no units. Example: #### 42"
+        ),
+    },
 }
-_LANGUAGE_NAMES = {"de": "German", "th": "Thai", "sw": "Swahili"}
+_LANGUAGE_NAMES = {
+    "de": "German",
+    "fr": "French",
+    "sw": "Swahili",
+    "th": "Thai",
+    "zh": "Chinese",
+}
 _MODEL_KEYS = ("llama_3_1_8b_instruct", "qwen3_8b")
 
 # The gate is on the FORWARD leg. Rationale, recorded because this is a
@@ -40,9 +95,6 @@ _MODEL_KEYS = ("llama_3_1_8b_instruct", "qwen3_8b")
 # is still computed and reported as diagnostic; it no longer gates.
 #
 # Adjudication is CROSS-MODEL: no model judges its own translation.
-_INTENDED_ENGLISH = "Answer the following multiple-choice question."
-
-
 def _configured_endpoints(path: Path) -> dict[str, str]:
     config = yaml.safe_load(path.read_text(encoding="utf-8"))
     return {
@@ -91,7 +143,9 @@ def _is_yes(text: str) -> bool:
     return text.strip().rstrip(".").upper() == "YES"
 
 
-def _adjudicate_forward(judge: VLLMEngine, english: str) -> dict[str, object]:
+def _adjudicate_forward(
+    judge: VLLMEngine, english: str, intended_english: str
+) -> dict[str, object]:
     """Does the forward translation carry the intended task meaning?
 
     Judged by the OTHER model, so no model marks its own homework.
@@ -100,10 +154,13 @@ def _adjudicate_forward(judge: VLLMEngine, english: str) -> dict[str, object]:
         judge,
         "Do these two instructions ask for the same task? Ignore wording, "
         "politeness and singular/plural. Answer exactly YES or NO.\n\n"
-        f"Instruction 1: {_INTENDED_ENGLISH}\nInstruction 2: {english}",
+        f"Instruction 1: {intended_english}\nInstruction 2: {english}",
         seed=3,
     )
-    return {"forward_verdict_text": verdict, "forward_meaning_survives": _is_yes(verdict)}
+    return {
+        "forward_verdict_text": verdict,
+        "forward_meaning_survives": _is_yes(verdict),
+    }
 
 
 def main() -> None:
@@ -120,18 +177,26 @@ def main() -> None:
 
     model_reports: dict[str, dict[str, dict[str, object]]] = {
         model: {
-            language: _check_sentence(engine, language, sentence)
-            for language, sentence in _SENTENCES.items()
+            sentence_id: _check_sentence(
+                engine, sentence["language"], sentence["source"]
+            )
+            for sentence_id, sentence in _SENTENCES.items()
         }
         for model, engine in engines.items()
     }
 
     # Cross-model adjudication of the forward leg: each model's English
     # translation is judged by the OTHER model.
-    for model, report_by_language in model_reports.items():
+    for model, report_by_sentence in model_reports.items():
         judge_key = next(key for key in engines if key != model)
-        for check in report_by_language.values():
-            check.update(_adjudicate_forward(engines[judge_key], str(check["english"])))
+        for sentence_id, check in report_by_sentence.items():
+            check.update(
+                _adjudicate_forward(
+                    engines[judge_key],
+                    str(check["english"]),
+                    _SENTENCES[sentence_id]["intended_english"],
+                )
+            )
             check["judged_by"] = judge_key
 
     checks = [
@@ -146,7 +211,10 @@ def main() -> None:
             "The backward leg tests the MODEL's generation fluency, not our sentence. "
             "Round-trip results are retained as diagnostic and do not gate."
         ),
-        "intended_english": _INTENDED_ENGLISH,
+        "intended_english": {
+            sentence_id: sentence["intended_english"]
+            for sentence_id, sentence in _SENTENCES.items()
+        },
         "models": model_reports,
         "forward_gate_passes": all(check["forward_meaning_survives"] for check in checks),
         "round_trip_diagnostic_passes": all(

@@ -499,3 +499,13 @@ the loader numbers every actual option from 1, so XCOPA renders options 1–2.
 - The brief calls the exclusion "content-based", while the executable rule is metadata-based
   (`data_source == "CNMO"`). Its substantive requirement is clear: freeze an item property before
   generation rather than filtering according to parser acceptance.
+# MMATH template contract ambiguity
+
+The template brief requires the final answer to be an integer written only in ASCII
+digits. However, `benchmarks/mmath/spec.json` declares `answer_kind` as `numeric`,
+`benchmarks/mmath/grammar.json` uses exact-rational equality, and design §5.1 says
+MMATH answers include decimals and fractions.
+
+The templates implement the brief's integer-only wording without silently changing
+the benchmark or grammar. This conflict must be resolved before generation because
+non-integer gold answers cannot satisfy the requested prompt contract.

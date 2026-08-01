@@ -50,7 +50,13 @@ def test_load_mmath_spec_declares_local_json_and_fixed_cnmo_exclusion():
     assert spec.gold_encoding == "value"
     assert spec.exclusion_field == "data_source"
     assert spec.exclusion_values == ("CNMO",)
-    assert not (spec.root / "templates").exists()
+    assert (spec.root / "templates").exists()
+
+
+def test_mmath_thai_template_matches_the_audited_prompt_byte_for_byte():
+    assert Path("benchmarks/mmath/templates/th.txt").read_bytes() == Path(
+        "prompts/native/th.txt"
+    ).read_bytes()
 
 
 def test_verify_manifest_accepts_shipped_mmath_spec():

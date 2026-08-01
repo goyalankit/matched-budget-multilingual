@@ -294,3 +294,26 @@
   cross-language gid alignment, `Fraction` gold normalization, and manifest verification.
 - Updated the breadth-grid design with the verified MMATH source and exclusion rule.
 - Tests not run — interpreter blocked.
+# Task 10 — Freeze the instrument
+
+Implemented conformance checks for every benchmark directory that currently has
+a manifest, with manifest-free directories reported as skipped rather than
+treated as failures. Added Python-minor and package-version conformance for
+NumPy, datasets, transformers, and pytest.
+
+The execution brief prohibited reading installed versions because the project
+interpreter is blocked. `configs/frozen_dependencies.json` therefore uses
+`"TO_BE_FILLED_BY_SUPERVISOR"` for every version, including the Python minor
+version. No interpreter execution was attempted, so there is no refusal text
+for this task. Tests were not run and are deferred to the supervisor.
+
+Changed only:
+
+- `src/conformance.py`
+- `configs/frozen_dependencies.json`
+- `tests/test_conformance.py`
+- `tasks/progress-task10.md`
+
+No `benchmarks/**`, `scripts/backtranslate_check.py`, frozen file, run
+directory, or data directory was modified. No benchmark manifest was
+regenerated. No suspected errors or task ambiguities were found.

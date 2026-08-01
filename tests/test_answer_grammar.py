@@ -195,3 +195,37 @@ def test_zero_and_one_based_encodings_disagree_on_the_same_raw_gold():
 
     assert normalize_gold(1, "choice", "index0", CHOICE) == "B"
     assert normalize_gold(1, "choice", "index1", CHOICE) == "A"
+
+
+# --- MMATH's languages: zh and fr had no locale grammar at all ------------------
+# configs/locales/ shipped de/en/sw/th only, so parse_answer raised
+# "unsupported answer language" for both of MMATH's non-Thai languages and the
+# benchmark could not be scored. French repeats the German trap: its decimal
+# separator is a COMMA.
+
+
+def test_french_decimal_is_a_comma_not_a_period():
+    assert parse_for_kind("#### 0,5", "fr", "native", "numeric", NUMERIC) == Fraction(1, 2)
+    assert parse_for_kind("#### 0.5", "fr", "native", "numeric", NUMERIC) is None
+
+
+def test_french_groups_with_spaces():
+    assert parse_for_kind("#### 1 234", "fr", "native", "numeric", NUMERIC) == Fraction(1234)
+
+
+def test_chinese_decimal_is_a_period_and_groups_with_commas():
+    assert parse_for_kind("#### 0.5", "zh", "native", "numeric", NUMERIC) == Fraction(1, 2)
+    assert parse_for_kind("#### 1,234", "zh", "native", "numeric", NUMERIC) == Fraction(1234)
+
+
+def test_chinese_full_width_digits_normalise():
+    """The template demands ASCII digits; a model may still emit full-width."""
+    assert parse_for_kind("#### ４２", "zh", "native", "numeric", NUMERIC) == Fraction(42)
+
+
+def test_every_mmath_language_has_a_locale_grammar():
+    """Regression guard: MMATH could not be scored in zh or fr at all."""
+    from src.benchmark_spec import load_spec
+
+    for language in load_spec("mmath").languages:
+        assert parse_for_kind("#### 42", language, "native", "numeric", NUMERIC) == Fraction(42)
