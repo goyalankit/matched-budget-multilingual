@@ -1,0 +1,88 @@
+{
+  "aggregate": {
+    "correct_to_correct": 452,
+    "correct_to_correct_changed": 0,
+    "correct_to_wrong": 31,
+    "fraction_correctness_changed": 0.46316666666666667,
+    "n_answer_changed": 4790,
+    "n_correctness_changed": 2779,
+    "n_digit_prefix_artifact": 4709,
+    "n_emitted": 5380,
+    "n_genuine_revision": 81,
+    "n_records": 6000,
+    "wrong_to_correct": 2748,
+    "wrong_to_wrong": 2149,
+    "wrong_to_wrong_changed": 2011
+  },
+  "analysis_label": "MEASUREMENT, not a fit (breadth design \u00a76.1)",
+  "cells": [
+    {
+      "correct_to_correct": 253,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 8,
+      "fraction_correctness_changed": 0.6675,
+      "language": "de",
+      "model": "qwen3_8b",
+      "n_answer_changed": 1562,
+      "n_correctness_changed": 1335,
+      "n_digit_prefix_artifact": 1559,
+      "n_emitted": 1846,
+      "n_genuine_revision": 3,
+      "n_records": 2000,
+      "wrong_to_correct": 1327,
+      "wrong_to_wrong": 258,
+      "wrong_to_wrong_changed": 227
+    },
+    {
+      "correct_to_correct": 110,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 9,
+      "fraction_correctness_changed": 0.422,
+      "language": "th",
+      "model": "qwen3_8b",
+      "n_answer_changed": 1836,
+      "n_correctness_changed": 844,
+      "n_digit_prefix_artifact": 1823,
+      "n_emitted": 1972,
+      "n_genuine_revision": 13,
+      "n_records": 2000,
+      "wrong_to_correct": 835,
+      "wrong_to_wrong": 1018,
+      "wrong_to_wrong_changed": 992
+    },
+    {
+      "correct_to_correct": 89,
+      "correct_to_correct_changed": 0,
+      "correct_to_wrong": 14,
+      "fraction_correctness_changed": 0.3,
+      "language": "sw",
+      "model": "qwen3_8b",
+      "n_answer_changed": 1392,
+      "n_correctness_changed": 600,
+      "n_digit_prefix_artifact": 1327,
+      "n_emitted": 1562,
+      "n_genuine_revision": 65,
+      "n_records": 2000,
+      "wrong_to_correct": 586,
+      "wrong_to_wrong": 873,
+      "wrong_to_wrong_changed": 792
+    }
+  ],
+  "definition": "Emission-time answer is the parsed answer at the first output-token prefix for which parse_answer returns a value. Final answer is parse_answer on the full token-decoded trace.",
+  "fraction_denominator": "all NATIVE records",
+  "model": {
+    "display_name": "Qwen3-8B",
+    "key": "qwen3_8b"
+  },
+  "source": "runs/ NATIVE ledger",
+  "stops": [
+    {
+      "model": "llama_3_1_8b_instruct",
+      "status": "STOP \u2014 tokenizer not cached locally; no download permitted"
+    }
+  ],
+  "verdict": {
+    "band": ">5%",
+    "decision": "STOP and escalate; \u00a76.1 must be revisited before anything is frozen."
+  }
+}

@@ -36,6 +36,7 @@ _MODEL_DISPLAY = "Qwen3-8B"
 _TOKENIZER = "Qwen/Qwen3-8B"
 _LANGUAGES = ("de", "th", "sw")
 _ARM = "native"
+_SUFFIX: list[str] = []
 _BATCH_RECORDS = 64
 _LLAMA = "llama_3_1_8b_instruct"
 _LLAMA_STOP = "STOP — tokenizer not cached locally; no download permitted"
@@ -54,14 +55,14 @@ class _CachedDecoder:
     def __call__(self, ids: list[int]) -> str:
         key = tuple(ids)
         if key not in self._cache:
-            self._cache[key] = self._tokenizer.decode(
-                ids, skip_special_tokens=True
-            )
+            self._cache[key] = self._tokenizer.decode(ids, skip_special_tokens=True)
         return self._cache[key]
 
     def decode_many(self, sequences: list[list[int]]) -> list[str]:
         keys = [tuple(sequence) for sequence in sequences]
-        missing_keys = list(dict.fromkeys(key for key in keys if key not in self._cache))
+        missing_keys = list(
+            dict.fromkeys(key for key in keys if key not in self._cache)
+        )
         if missing_keys:
             decoded = self._tokenizer.batch_decode(
                 [list(key) for key in missing_keys],
@@ -69,6 +70,23 @@ class _CachedDecoder:
             )
             self._cache.update(zip(missing_keys, decoded))
         return [self._cache[key] for key in keys]
+
+
+_FINE_SCAN = False
+
+
+def _scan_lengths(scan_limit: int) -> list[int]:
+    """Prefix lengths to search for the first parsable answer.
+
+    The adaptive emission grid makes this a LOWER bound on instability: an
+    answer that appears and is revised entirely inside one 16-token coarse step
+    is invisible. ``--fine`` scans every token instead, which is exact. The scan
+    is bounded above by the final-answer emission index, so the cost is well
+    below a full 1-token sweep of the ledger.
+    """
+    if _FINE_SCAN:
+        return list(range(1, scan_limit + 1))
+    return emission_grid(scan_limit)
 
 
 def _first_parsed_answers(
@@ -102,7 +120,7 @@ def _first_parsed_answers(
         # If the full trace rejects, an earlier valid answer may still exist.
         scan_limit = len(ids) if final_emission is None else final_emission
         first_answer = None
-        for length in emission_grid(scan_limit):
+        for length in _scan_lengths(scan_limit):
             first_answer = parse_answer(decode(ids[:length]), language, _ARM)
             if first_answer is not None:
                 break
@@ -110,11 +128,31 @@ def _first_parsed_answers(
     return first_answers, full_answers
 
 
+def _is_digit_prefix(first: int | None, full: int | None) -> bool:
+    """Is the first parsed answer a partially-written form of the final one?
+
+    At 1-token resolution the scan catches the answer line MID-NUMBER: a prefix
+    ending after "#### 1" parses as 1 while the completed line reads "#### 18".
+    That is the parser reading a number being written, not the model revising
+    its answer, and it does NOT bias the estimand -- at such a checkpoint the
+    frozen parser scores the truncated number wrong, and G says wrong too,
+    because E is the first prefix matching the COMPLETED final answer.
+
+    Separating this out is the difference between a 46% instability rate and a
+    0.5% one. Reported alongside the raw counts rather than silently netted.
+    """
+    if first is None or full is None:
+        return False
+    return str(full).startswith(str(first)) and first != full
+
+
 def _empty_counts() -> dict[str, int]:
     return {
         "n_records": 0,
         "n_emitted": 0,
         "n_answer_changed": 0,
+        "n_digit_prefix_artifact": 0,
+        "n_genuine_revision": 0,
         "n_correctness_changed": 0,
         "correct_to_wrong": 0,
         "wrong_to_correct": 0,
@@ -141,6 +179,10 @@ def _record_transition(
     changed = first_answer != full_answer
     if changed:
         counts["n_answer_changed"] += 1
+        if _is_digit_prefix(first_answer, full_answer):
+            counts["n_digit_prefix_artifact"] += 1
+        else:
+            counts["n_genuine_revision"] += 1
 
     if first_correct and full_correct:
         counts["correct_to_correct"] += 1
@@ -164,8 +206,7 @@ def _finalize(counts: dict[str, int]) -> dict[str, int | float]:
         raise ValueError("cannot summarize an empty cell")
     return {
         **counts,
-        "fraction_correctness_changed": counts["n_correctness_changed"]
-        / n_records,
+        "fraction_correctness_changed": counts["n_correctness_changed"] / n_records,
     }
 
 
@@ -230,9 +271,7 @@ def _measure_language(
                 raise LedgerVerificationError(
                     f"{shard} contains unknown MGSM item {item_id}"
                 )
-            _record_transition(
-                counts, first_answer, full_answer, gold[item_id]
-            )
+            _record_transition(counts, first_answer, full_answer, gold[item_id])
 
     return {
         "model": _MODEL,
@@ -247,15 +286,16 @@ def _markdown(report: Mapping[str, Any]) -> str:
         "",
         "Existing `runs/` NATIVE records only; no generation or model inference.",
         "",
-        "| Model | Language | N | Emitted | Answer changed | Correct→wrong | "
+        "| Model | Language | N | Emitted | Answer changed | Digit-prefix artifact | Genuine revision | Correct→wrong | "
         "Wrong→correct | Correct→correct changed | Wrong→wrong changed | "
         "Correctness changed |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for cell in report["cells"]:
         lines.append(
             f"| {cell['model']} | {cell['language']} | {cell['n_records']} | "
             f"{cell['n_emitted']} | {cell['n_answer_changed']} | "
+            f"{cell['n_digit_prefix_artifact']} | {cell['n_genuine_revision']} | "
             f"{cell['correct_to_wrong']} | {cell['wrong_to_correct']} | "
             f"{cell['correct_to_correct_changed']} | "
             f"{cell['wrong_to_wrong_changed']} | "
@@ -268,6 +308,8 @@ def _markdown(report: Mapping[str, Any]) -> str:
         [
             f"| **Aggregate** | all | {aggregate['n_records']} | "
             f"{aggregate['n_emitted']} | {aggregate['n_answer_changed']} | "
+            f"{aggregate['n_digit_prefix_artifact']} | "
+            f"{aggregate['n_genuine_revision']} | "
             f"{aggregate['correct_to_wrong']} | "
             f"{aggregate['wrong_to_correct']} | "
             f"{aggregate['correct_to_correct_changed']} | "
@@ -292,6 +334,20 @@ def _markdown(report: Mapping[str, Any]) -> str:
 
 
 def main() -> None:
+    global _FINE_SCAN
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--fine",
+        action="store_true",
+        help="scan every token (exact) rather than the adaptive grid (lower bound)",
+    )
+    parser.add_argument("--out-suffix", default="")
+    args = parser.parse_args()
+    _FINE_SCAN = args.fine
+    _SUFFIX.append(args.out_suffix)
+
     from transformers import AutoTokenizer
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -320,12 +376,12 @@ def main() -> None:
 
     output_root = _ROOT / "analysis-out"
     output_root.mkdir(parents=True, exist_ok=True)
-    (output_root / "answer_stability.json").write_text(
+    (output_root / f"answer_stability{_SUFFIX[0] if _SUFFIX else ''}.json").write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     markdown = _markdown(report)
-    (output_root / "answer_stability.md").write_text(
+    (output_root / f"answer_stability{_SUFFIX[0] if _SUFFIX else ''}.md").write_text(
         markdown,
         encoding="utf-8",
     )
