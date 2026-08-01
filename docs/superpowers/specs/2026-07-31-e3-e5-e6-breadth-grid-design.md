@@ -54,8 +54,38 @@ benchmarks, at most 25 interactions**. Hundreds of items reduce within-cell meas
 they do not create model or benchmark replication. An ordinary 70-row regression would be
 pseudoreplication. See §6.5 for the resampling scheme.
 
-Per-language coverage and item counts are **verified in Phase 1**, not assumed. XCOPA's
-missing German is known; MMATH and Global-MMLU-Lite coverage are catalogue assertions.
+### 3.1 Verified coverage (Phase 1, `analysis-out/benchmark_coverage.json`)
+
+Coverage was verified against the real datasets rather than assumed, and the catalogue was
+wrong in one place.
+
+| Benchmark | Languages | Items/lang | Gold field | Gold encoding |
+|---|---|---:|---|---|
+| MGSM | de, th, sw | 250 | `answer_number` | integer (string, zero-padded) |
+| MMATH | **UNRESOLVED** | — | — | — |
+| Global-MMLU-Lite | de, sw — **no Thai** | 400 | `answer` | letter (`"C"`) |
+| XCOPA | th, sw — no German | 500 | `label` | **0-based** index |
+| Belebele | de, th, sw | 900 | `correct_answer_num` | **1-based** index (string) |
+
+**Global-MMLU-Lite has no Thai.** `EXPERIMENTS.md` §E5 lists it as de/th/sw; the dataset ships
+23 configs and Thai is not among them. Unlike XCOPA's missing German this was not known.
+
+**The grid is therefore ragged: 3 / 3 / 2 / 2 / 3 language-cells per model = 13**, so 65 units
+rather than 70 (50 if MMATH does not resolve). This is accepted rather than forced into
+balance: the crossed resampling of §6.5 already handles unbalanced cells, and discarding real
+data for symmetry would be worse. It is a stated limitation that **Thai is absent from both
+multiple-choice benchmarks that were expected to carry it**, which thins the early-emission end
+of the predictor range specifically for Thai.
+
+**Three incompatible gold encodings.** A single `choice` grammar cannot absorb a letter, a
+0-based index and a 1-based index, so `spec.json` carries an explicit `gold_encoding` field.
+The 0-based/1-based split between XCOPA and Belebele is the kind of off-by-one that scores a
+whole benchmark wrong while looking entirely plausible; it is pinned in data, not inferred.
+
+**MMATH is unresolved.** No Hub identifier matches the multilingual math benchmark §E5
+describes, and its item count was already flagged unverified there. It is the only long-CoT
+addition and the only `numeric` benchmark. Blocking on a supervisor-supplied identifier;
+substituting a similarly-named dataset would be a silent benchmark swap.
 
 ---
 
