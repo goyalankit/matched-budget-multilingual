@@ -157,9 +157,32 @@ create, and it is a property of the templates, not of the benchmark.
 
 ---
 
-## 6. E6 — the prediction
+## 6. E6 — the mechanism
 
-### 6.1 The corrected predictor
+### 6.0 What E6 claims, and what it does not
+
+**Revised after the predictor review** (`analysis-out/sub_cdf_predictor_review.md`).
+
+On a long-cap ledger the exact Δ is simply **prefix-scored accuracy at B and at ⌊rB⌋**.
+That is simpler than the sub-CDF, exact, and immune both to probe-grid quantisation and to
+non-absorbing parsing. It is therefore the **definition of observed Δ** in this campaign.
+
+That has a consequence worth stating plainly rather than eliding: *"predict the sweep
+without running it"* is **E1's result restated**, not a new one. E1 already established
+that replay and independent decoding agree on peak size and location, and prefix-slicing a
+long-cap ledger has always given the whole curve.
+
+**E6's new content is mechanistic.** The claim under test is that the answer-emission
+distribution *explains* the budget-binding regime — that G predicts **where** the peak sits
+and **how tall** it is, across models and benchmarks. That is what turns a cautionary
+measurement into an explanation, and it is the cheap diagnostic a practitioner can use:
+measure emission timing once, know whether your budget binds.
+
+So the sub-CDF is evaluated as a **model of** observed Δ, never as its definition. One
+direct benefit: Task 6's non-absorbing-correctness finding can only affect the model's fit,
+never the ground truth it is fitted against.
+
+### 6.1 The mechanistic predictor
 
 Eq. (1) gives Δ_L(B) = acc_N(⌊rB⌋) − acc_N(B). With correctness absorbing once the final
 answer is emitted at time E,
@@ -194,6 +217,8 @@ E is the first grid prefix that parses as the trace's final answer
   from token 16, which is exactly the range where multiple-choice emission lives.
 
 ### 6.3 Scoring rule
+
+Observed Δ is **prefix-scored accuracy** at B and ⌊rB⌋, never the sub-CDF.
 
 The primary outcome is a **prespecified weighted RMSE over the full Δ curve**, not peak
 height or argmax. `max_B Δ(B)` carries a winner's curse, and argmax is undefined wherever Δ is
