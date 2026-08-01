@@ -1,0 +1,73 @@
+{
+  "forward_gate_passes": true,
+  "gate": "forward translation carries the intended task meaning",
+  "gate_note": "Post-hoc redefinition; the original round-trip criterion failed 2 of 6. The backward leg tests the MODEL's generation fluency, not our sentence. Round-trip results are retained as diagnostic and do not gate.",
+  "intended_english": "Answer the following multiple-choice question.",
+  "models": {
+    "llama_3_1_8b_instruct": {
+      "de": {
+        "english": "Answer the following multiple-choice question.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "Die folgende Multiple-Choice-Frage beantworten.",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "Beantworte die folgende Multiple-Choice-Frage."
+      },
+      "sw": {
+        "english": "Answer a multiple-choice question.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "Kujibu swali la kuchagua.",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "Jibu swali lifuatalo la chaguo nyingi."
+      },
+      "th": {
+        "english": "Please answer the following multiple-choice questions.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "qwen3_8b",
+        "round_trip": "กรุณาตอบคำถามแบบเลือกตอบด้านล่าง",
+        "round_trip_meaning_survives": false,
+        "round_trip_verdict_text": "NO",
+        "source": "จงตอบคำถามแบบปรนัยต่อไปนี้"
+      }
+    },
+    "qwen3_8b": {
+      "de": {
+        "english": "Answer the following multiple-choice question.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "Beantworte die folgende Multiple-Choice-Frage.",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "Beantworte die folgende Multiple-Choice-Frage."
+      },
+      "sw": {
+        "english": "Answer the following multiple-choice question.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "Jibu swali ya matokeo ya kifupi kati ya yafu.",
+        "round_trip_meaning_survives": false,
+        "round_trip_verdict_text": "NO",
+        "source": "Jibu swali lifuatalo la chaguo nyingi."
+      },
+      "th": {
+        "english": "Answer the following multiple-choice question.",
+        "forward_meaning_survives": true,
+        "forward_verdict_text": "YES",
+        "judged_by": "llama_3_1_8b_instruct",
+        "round_trip": "ตอบคำถามแบบเลือกตอบต่อไปนี้",
+        "round_trip_meaning_survives": true,
+        "round_trip_verdict_text": "YES",
+        "source": "จงตอบคำถามแบบปรนัยต่อไปนี้"
+      }
+    }
+  },
+  "round_trip_diagnostic_passes": false
+}

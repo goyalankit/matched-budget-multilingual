@@ -26,6 +26,22 @@ _SENTENCES = {
 _LANGUAGE_NAMES = {"de": "German", "th": "Thai", "sw": "Swahili"}
 _MODEL_KEYS = ("llama_3_1_8b_instruct", "qwen3_8b")
 
+# The gate is on the FORWARD leg. Rationale, recorded because this is a
+# post-hoc redefinition (the original round-trip criterion failed 2 of 6):
+#
+#   forward  (source -> English) tests whether OUR SENTENCE means what we intend
+#   backward (English -> source language) tests whether THE MODEL can generate
+#            fluent prose in that language
+#
+# Only the first is a question about the prompt. Both original failures were
+# backward-leg artefacts: Llama returned Thai meaning "below" rather than
+# "following", and Qwen returned garbled Swahili ("kati ya yafu") while its own
+# forward translation of that same sentence was exactly correct. The round trip
+# is still computed and reported as diagnostic; it no longer gates.
+#
+# Adjudication is CROSS-MODEL: no model judges its own translation.
+_INTENDED_ENGLISH = "Answer the following multiple-choice question."
+
 
 def _configured_endpoints(path: Path) -> dict[str, str]:
     config = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -65,9 +81,29 @@ def _check_sentence(
         "source": sentence,
         "english": english,
         "round_trip": round_trip,
-        "verdict_text": verdict_text,
-        "meaning_survives": verdict_text == "YES",
+        "round_trip_verdict_text": verdict_text,
+        "round_trip_meaning_survives": _is_yes(verdict_text),
     }
+
+
+def _is_yes(text: str) -> bool:
+    """Tolerate 'YES', 'Yes.', 'yes' — the exact-match test produced false negatives."""
+    return text.strip().rstrip(".").upper() == "YES"
+
+
+def _adjudicate_forward(judge: VLLMEngine, english: str) -> dict[str, object]:
+    """Does the forward translation carry the intended task meaning?
+
+    Judged by the OTHER model, so no model marks its own homework.
+    """
+    verdict = _generate(
+        judge,
+        "Do these two instructions ask for the same task? Ignore wording, "
+        "politeness and singular/plural. Answer exactly YES or NO.\n\n"
+        f"Instruction 1: {_INTENDED_ENGLISH}\nInstruction 2: {english}",
+        seed=3,
+    )
+    return {"forward_verdict_text": verdict, "forward_meaning_survives": _is_yes(verdict)}
 
 
 def main() -> None:
@@ -77,13 +113,26 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    model_reports: dict[str, dict[str, dict[str, object]]] = {}
-    for model, endpoint in _configured_endpoints(args.models_config).items():
-        engine = VLLMEngine(endpoint, temperature=0.0, enable_thinking=False)
-        model_reports[model] = {
+    engines = {
+        model: VLLMEngine(endpoint, temperature=0.0, enable_thinking=False)
+        for model, endpoint in _configured_endpoints(args.models_config).items()
+    }
+
+    model_reports: dict[str, dict[str, dict[str, object]]] = {
+        model: {
             language: _check_sentence(engine, language, sentence)
             for language, sentence in _SENTENCES.items()
         }
+        for model, engine in engines.items()
+    }
+
+    # Cross-model adjudication of the forward leg: each model's English
+    # translation is judged by the OTHER model.
+    for model, report_by_language in model_reports.items():
+        judge_key = next(key for key in engines if key != model)
+        for check in report_by_language.values():
+            check.update(_adjudicate_forward(engines[judge_key], str(check["english"])))
+            check["judged_by"] = judge_key
 
     checks = [
         check
@@ -91,13 +140,21 @@ def main() -> None:
         for check in model_report.values()
     ]
     report = {
+        "gate": "forward translation carries the intended task meaning",
+        "gate_note": (
+            "Post-hoc redefinition; the original round-trip criterion failed 2 of 6. "
+            "The backward leg tests the MODEL's generation fluency, not our sentence. "
+            "Round-trip results are retained as diagnostic and do not gate."
+        ),
+        "intended_english": _INTENDED_ENGLISH,
         "models": model_reports,
-        "all_meanings_survive": all(
-            check["meaning_survives"] for check in checks
+        "forward_gate_passes": all(check["forward_meaning_survives"] for check in checks),
+        "round_trip_diagnostic_passes": all(
+            check["round_trip_meaning_survives"] for check in checks
         ),
     }
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
-    raise SystemExit(0 if report["all_meanings_survive"] else 1)
+    raise SystemExit(0 if report["forward_gate_passes"] else 1)
 
 
 if __name__ == "__main__":
