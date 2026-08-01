@@ -5,8 +5,11 @@
   "split": "test",
   "expected_items": 900,
   "question_field": "question",
+  "passage_field": "flores_passage",
+  "option_fields": ["mc_answer1", "mc_answer2", "mc_answer3", "mc_answer4"],
   "gold_field": "correct_answer_num",
-  "answer_kind": "choice",
+  "answer_kind": "integer",
   "gold_encoding": "index1",
+  "gold_source_encoding": "index1",
   "generation_caps": {}
 }

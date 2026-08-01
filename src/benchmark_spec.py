@@ -20,10 +20,11 @@ _REQUIRED = {
 }
 _KINDS = {"integer", "numeric", "choice"}
 _ENCODINGS_BY_KIND = {
-    "integer": {"value"},
+    "integer": {"value", "index1"},
     "numeric": {"value"},
     "choice": {"letter", "index0", "index1"},
 }
+_GOLD_SOURCE_ENCODINGS = {"value", "letter", "index0", "index1"}
 
 
 class ManifestError(ValueError):
@@ -38,9 +39,12 @@ class BenchmarkSpec:
     split: str
     expected_items: int
     question_field: str
+    passage_field: str | None
+    option_fields: tuple[str, ...]
     gold_field: str
     answer_kind: str
     gold_encoding: str
+    gold_source_encoding: str
     generation_caps: dict[str, int]
     root: Path
 
@@ -65,6 +69,14 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
             f"answer_kind {payload['answer_kind']!r}; expected "
             f"{sorted(allowed_encodings)}"
         )
+    gold_source_encoding = payload.get("gold_source_encoding", payload["gold_encoding"])
+    if gold_source_encoding not in _GOLD_SOURCE_ENCODINGS:
+        raise ValueError(
+            f"{name}: unknown gold_source_encoding {gold_source_encoding!r}"
+        )
+    option_fields = tuple(payload.get("option_fields", ()))
+    if payload["gold_encoding"] == "index1" and not option_fields:
+        raise ValueError(f"{name}: index1 gold requires option_fields")
 
     spec = BenchmarkSpec(
         name=payload["name"],
@@ -73,9 +85,12 @@ def load_spec(name: str, root: Path | None = None) -> BenchmarkSpec:
         split=payload["split"],
         expected_items=int(payload["expected_items"]),
         question_field=payload["question_field"],
+        passage_field=payload.get("passage_field"),
+        option_fields=option_fields,
         gold_field=payload["gold_field"],
         answer_kind=payload["answer_kind"],
         gold_encoding=payload["gold_encoding"],
+        gold_source_encoding=gold_source_encoding,
         generation_caps=dict(payload["generation_caps"]),
         root=directory,
     )

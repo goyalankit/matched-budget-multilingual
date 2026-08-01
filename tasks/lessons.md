@@ -447,3 +447,27 @@ Task 3's `src/benchmark_data.py`. Leaving that call unchanged would raise `TypeE
 every future benchmark; retaining a two-argument fallback would prevent the loader from applying
 the explicit non-inferable encoding. Therefore `src/benchmark_data.py` is a necessary integration
 change. No other prior-task implementation file was modified.
+
+## Multiple-choice `index1` needs a separate raw-gold encoding
+
+**Discovered:** 2026-08-01, breadth Phase 1 Task 7.
+
+The Task 7 contract changes all multiple-choice benchmarks to canonical integer
+answers numbered from 1, and mandates `gold_encoding: "index1"`. The measured
+datasets do not all store gold that way: Global-MMLU-Lite stores letters and
+XCOPA stores a 0-based index. Treating the mandated field as the raw encoding
+would map XCOPA label 0 out of range and would reject Global-MMLU's letters.
+Specs therefore retain the canonical `gold_encoding` and separately declare
+`gold_source_encoding`, which the loader maps to the displayed 1-based option
+before integer normalization.
+
+The brief also says to copy template "lines 2–4" and then `{problem}`, while
+design §5.1 explicitly says the audited field label is reused. The templates
+follow the fuller contract: physical lines 2–4 are byte-identical, and the
+audited field label is retained before `{problem}`.
+
+The same design section retains stale text at lines 209–212 saying the
+multiple-choice trio uses the `choice` answer kind and a single-letter answer,
+contradicting the controlling numbered-integer decision at lines 189–205.
+Also, "options are numbered 1–4" cannot literally apply to two-option XCOPA;
+the loader numbers every actual option from 1, so XCOPA renders options 1–2.

@@ -23,6 +23,38 @@ def _load_split(dataset: str, config: str, split: str):
     return load_dataset(dataset, config, split=split)
 
 
+def _assemble_problem(row: Any, spec: BenchmarkSpec) -> str:
+    sections = []
+    if spec.passage_field is not None:
+        sections.append(str(row[spec.passage_field]))
+    sections.append(str(row[spec.question_field]))
+    if spec.option_fields:
+        sections.append(
+            "\n".join(
+                f"{index}. {row[field]}"
+                for index, field in enumerate(spec.option_fields, start=1)
+            )
+        )
+    return "\n\n".join(sections)
+
+
+def _canonical_gold(value: Any, spec: BenchmarkSpec) -> Any:
+    if spec.gold_encoding != "index1":
+        return value
+    if spec.gold_source_encoding == "index1":
+        return int(value)
+    if spec.gold_source_encoding == "index0":
+        return int(value) + 1
+    if spec.gold_source_encoding == "letter":
+        label = str(value).strip().upper()
+        if len(label) != 1 or not label.isascii() or not label.isalpha():
+            raise ValueError(f"{spec.name}: invalid letter gold {value!r}")
+        return ord(label) - ord("A") + 1
+    raise ValueError(
+        f"{spec.name}: cannot map {spec.gold_source_encoding!r} gold to index1"
+    )
+
+
 def load_items(spec: BenchmarkSpec, language: str) -> list[Item]:
     """Load one language's split in canonical row order."""
     config = spec.language_configs[language]
@@ -36,9 +68,9 @@ def load_items(spec: BenchmarkSpec, language: str) -> list[Item]:
     return [
         Item(
             item_id=str(index),
-            question=row[spec.question_field],
+            question=_assemble_problem(row, spec),
             gold=normalize_gold(
-                row[spec.gold_field],
+                _canonical_gold(row[spec.gold_field], spec),
                 spec.answer_kind,
                 spec.gold_encoding,
                 grammar,

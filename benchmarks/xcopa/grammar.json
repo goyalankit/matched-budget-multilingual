@@ -1,4 +1,5 @@
 {
-  "kind": "choice",
-  "labels": ["A", "B"]
+  "kind": "integer",
+  "minimum": 1,
+  "maximum": 2
 }

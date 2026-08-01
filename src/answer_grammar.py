@@ -127,9 +127,19 @@ def normalize_gold(
     shape as the Llama 0%-everywhere bug.
     """
     if kind == "integer":
-        if encoding != "value":
-            raise ValueError(f"integer gold requires value encoding, got {encoding!r}")
-        return int(value)
+        if encoding == "value":
+            return int(value)
+        if encoding == "index1":
+            index = int(value)
+            minimum = int(grammar.get("minimum", 1))
+            maximum = int(grammar["maximum"])
+            if index < minimum or index > maximum:
+                raise ValueError(
+                    f"integer gold {value!r} is out of range for "
+                    f"index1 options {minimum}..{maximum}"
+                )
+            return index
+        raise ValueError(f"unknown integer gold encoding: {encoding!r}")
     if kind == "numeric":
         if encoding != "value":
             raise ValueError(f"numeric gold requires value encoding, got {encoding!r}")

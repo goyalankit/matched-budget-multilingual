@@ -31,6 +31,13 @@ def test_verify_manifest_accepts_the_shipped_spec():
     verify_manifest(load_spec("mgsm"))
 
 
+@pytest.mark.parametrize(
+    "benchmark", ["global_mmlu_lite", "xcopa", "belebele"]
+)
+def test_verify_manifest_accepts_shipped_multiple_choice_specs(benchmark):
+    verify_manifest(load_spec(benchmark))
+
+
 def test_verify_manifest_rejects_a_tampered_template(tmp_path):
     spec = load_spec("mgsm")
     copied = tmp_path / "mgsm"
@@ -96,17 +103,61 @@ def test_missing_placeholder_is_rejected(tmp_path):
 
 
 @pytest.mark.parametrize(
-    ("name", "languages", "gold_encoding"),
+    ("name", "languages", "source_encoding", "passage_field", "option_fields"),
     [
-        ("global_mmlu_lite", ("de", "sw"), "letter"),
-        ("xcopa", ("sw", "th"), "index0"),
-        ("belebele", ("de", "sw", "th"), "index1"),
+        (
+            "global_mmlu_lite",
+            ("de", "sw"),
+            "letter",
+            None,
+            ("option_a", "option_b", "option_c", "option_d"),
+        ),
+        ("xcopa", ("sw", "th"), "index0", None, ("choice1", "choice2")),
+        (
+            "belebele",
+            ("de", "sw", "th"),
+            "index1",
+            "flores_passage",
+            ("mc_answer1", "mc_answer2", "mc_answer3", "mc_answer4"),
+        ),
     ],
 )
-def test_load_choice_specs_without_templates(name, languages, gold_encoding):
+def test_load_multiple_choice_specs(
+    name, languages, source_encoding, passage_field, option_fields
+):
     spec = load_spec(name)
     assert spec.languages == languages
-    assert spec.gold_encoding == gold_encoding
+    assert spec.answer_kind == "integer"
+    assert spec.gold_encoding == "index1"
+    assert spec.gold_source_encoding == source_encoding
+    assert spec.passage_field == passage_field
+    assert spec.option_fields == option_fields
+
+
+@pytest.mark.parametrize(
+    ("benchmark", "language"),
+    [
+        ("global_mmlu_lite", "de"),
+        ("global_mmlu_lite", "sw"),
+        ("xcopa", "sw"),
+        ("xcopa", "th"),
+        ("belebele", "de"),
+        ("belebele", "sw"),
+        ("belebele", "th"),
+    ],
+)
+def test_multiple_choice_templates_reuse_audited_lines_2_to_4(
+    benchmark, language
+):
+    audited = Path(f"prompts/native/{language}.txt").read_bytes().splitlines(
+        keepends=True
+    )
+    template = (
+        Path(f"benchmarks/{benchmark}/templates/{language}.txt")
+        .read_bytes()
+        .splitlines(keepends=True)
+    )
+    assert template[1:4] == audited[1:4]
 
 
 def test_gold_encoding_is_required(tmp_path):

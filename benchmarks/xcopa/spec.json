@@ -5,8 +5,11 @@
   "split": "test",
   "expected_items": 500,
   "question_field": "premise",
+  "passage_field": null,
+  "option_fields": ["choice1", "choice2"],
   "gold_field": "label",
-  "answer_kind": "choice",
-  "gold_encoding": "index0",
+  "answer_kind": "integer",
+  "gold_encoding": "index1",
+  "gold_source_encoding": "index0",
   "generation_caps": {}
 }

@@ -183,6 +183,13 @@ def test_normalize_gold_maps_a_one_based_string_index_to_a_label():
     assert normalize_gold("1", "choice", "index1", CHOICE) == "A"
 
 
+def test_normalize_integer_gold_maps_index1_to_the_numbered_option():
+    from src.answer_grammar import normalize_gold
+
+    grammar = {"kind": "integer", "minimum": 1, "maximum": 4}
+    assert normalize_gold("3", "integer", "index1", grammar) == 3
+
+
 def test_zero_and_one_based_encodings_disagree_on_the_same_raw_gold():
     from src.answer_grammar import normalize_gold
 

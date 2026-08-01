@@ -207,11 +207,21 @@ is genuinely a letter would need them, and removing tested code to re-add it lat
 carrying it.
 
 Three answer kinds, each with its own golden-case test set: **`integer`** (existing locale
-grammars, unchanged — MGSM's parsing path stays byte-for-byte what it is today); **`numeric`**
+grammars, unchanged — MGSM's parsing path stays byte-for-byte what it is today, and **the
+multiple-choice trio also uses this kind** under §5.1's numbered-option contract); **`numeric`**
 (MMATH — decimals and fractions, equality rule stated in the grammar, not inferred at scoring
-time); **`choice`** (the multiple-choice trio — a single letter).
+time); **`choice`** (implemented and tested, currently unused — see §5.1).
 
-The `choice` grammar must also record **whether its templates elicit reasoning before the
+Gold arrives in whatever encoding the dataset chose, which is not the encoding the prompt
+displays. Specs therefore carry **both**: `gold_source_encoding` (`letter` / `index0` /
+`index1`, as shipped) and `gold_encoding` (`index1`, always, because the prompt numbers every
+option from 1). The loader maps source to displayed. Conflating them would map XCOPA's 0-based
+label out of range and reject Global-MMLU's letters outright.
+
+"Numbered 1–4" is shorthand: the loader numbers **every actual option** from 1, so two-option
+XCOPA renders 1–2.
+
+The spec must also record **whether its templates elicit reasoning before the
 answer line or permit an immediate answer** — §6.4 depends on which regime the templates
 create, and it is a property of the templates, not of the benchmark.
 

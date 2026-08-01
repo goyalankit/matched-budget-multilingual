@@ -82,3 +82,60 @@ def test_gold_is_normalised_to_the_answer_kind(monkeypatch):
     assert items[0].gold == 42
     assert isinstance(items[0].gold, int)
     assert answers_equal(42, items[0].gold, "integer")
+
+
+def test_multiple_choice_fields_are_assembled_with_one_indexed_options(monkeypatch):
+    spec = dataclasses.replace(load_spec("belebele"), expected_items=1)
+    rows = [{
+        "flores_passage": "passage",
+        "question": "question",
+        "mc_answer1": "first",
+        "mc_answer2": "second",
+        "mc_answer3": "third",
+        "mc_answer4": "fourth",
+        "correct_answer_num": "3",
+    }]
+    monkeypatch.setattr("src.benchmark_data._load_split", _fake_loader(rows))
+
+    item = load_items(spec, "de")[0]
+
+    assert item.question == (
+        "passage\n\nquestion\n\n"
+        "1. first\n2. second\n3. third\n4. fourth"
+    )
+    assert item.gold == 3
+
+
+def test_zero_based_dataset_gold_maps_to_the_numbered_option(monkeypatch):
+    spec = dataclasses.replace(load_spec("xcopa"), expected_items=1)
+    rows = [{
+        "premise": "question",
+        "choice1": "first",
+        "choice2": "second",
+        "label": 1,
+    }]
+    monkeypatch.setattr("src.benchmark_data._load_split", _fake_loader(rows))
+
+    item = load_items(spec, "sw")[0]
+
+    assert item.question == "question\n\n1. first\n2. second"
+    assert item.gold == 2
+
+
+def test_letter_dataset_gold_maps_to_the_numbered_option(monkeypatch):
+    spec = dataclasses.replace(load_spec("global_mmlu_lite"), expected_items=1)
+    rows = [
+        {
+            "question": "question",
+            "option_a": "first",
+            "option_b": "second",
+            "option_c": "third",
+            "option_d": "fourth",
+            "answer": "C",
+        }
+    ]
+    monkeypatch.setattr("src.benchmark_data._load_split", _fake_loader(rows))
+
+    item = load_items(spec, "de")[0]
+
+    assert item.gold == 3

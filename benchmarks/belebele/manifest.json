@@ -1,0 +1,9 @@
+{
+  "files": {
+    "grammar.json": "89773845e608ad60c0bd392c9506a34e9ad69a8c915bc9277a7430d45f90787c",
+    "spec.json": "f8922b7904184b7b84a572874caa685eb591add291a7675a53e9cec9437b220c",
+    "templates/de.txt": "eeab09f664a4349dc1bd1ac8f7a7fcb6ab9948f5e0f21f89f96e4a12878efb0e",
+    "templates/sw.txt": "388cc5ad3ec2b7538afb5acf5ef5f8ec51ed6a1875738a161b83ac12e2d3c5c2",
+    "templates/th.txt": "7195c3ebdd7874eeffb77eeead43125a583e1b01be0e12a92e054ba836bc91a7"
+  }
+}
