@@ -207,6 +207,32 @@ correctness — but so did p_correct.
 so a later answer can change correctness and correctness is not strictly absorbing. Quantify
 this on the existing ledger in Phase 1 and state it as a limitation.
 
+### 6.1a Non-absorbing correctness — measured, and how to band it
+
+**Measured in Phase 1** (`analysis-out/answer_stability{,_fine}.md`), Qwen NATIVE, 6,000
+records. Llama is a STOP: its tokenizer is not cached.
+
+Correctness is not strictly absorbing, because `parse_answer` returns the *last* answer line.
+The raw instability rate is, however, **an artefact of probe resolution**: it moves 4.40% →
+46.3% purely by refining the scan from the adaptive grid to every token, because a finer scan
+catches more prefixes ending **mid-number** (`#### 1` while the completed line reads
+`#### 18`). 98% of all observed "changes" are of this kind on both grids.
+
+A mid-number prefix **cannot bias Δ**, and provably so: at such a checkpoint the frozen parser
+scores the truncated value wrong, and G says wrong too, since E is the first prefix matching
+the *completed* final answer. The two frames agree — which is why the sub-CDF reproduces the
+prefix-scored replay deltas exactly.
+
+On the statistics that do track the estimand, at exact resolution: **correct→wrong 0.52%**,
+**genuine revision 1.35%**.
+
+**Rule change, made after seeing this data and recorded as such.** `prereg-e6.md` must band on
+`correct→wrong` and `genuine revision`, not on `fraction_correctness_changed`. The original
+banding made the decision a function of probe-grid resolution — a property of the instrument,
+not of the phenomenon. The justification is the mechanism above, not the fact that the change
+permits proceeding; under the original rule the same data escalates, and that escalation was
+raised rather than absorbed.
+
 ### 6.2 Emission definition
 
 E is the first grid prefix that parses as the trace's final answer
