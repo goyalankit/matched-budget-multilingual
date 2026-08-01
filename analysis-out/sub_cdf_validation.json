@@ -1,0 +1,50 @@
+{
+  "analysis_label": "MEASUREMENT, not a fit (breadth design \u00a76.1)",
+  "model_id": "qwen3_8b",
+  "predictor_ledger": "runs/ (long-cap replay)",
+  "outcome_source": "analysis-out/independent_scoring.json (independent sweep)",
+  "generation_cap": 4096,
+  "llama_status": "SKIPPED \u2014 tokenizer not cached locally",
+  "cells": [
+    {
+      "language": "de",
+      "n_records": 2000,
+      "n_emitted": 1844,
+      "p_correct_pct": 79.0,
+      "window": "(192, 299]",
+      "observed_delta": 34.65,
+      "sub_cdf_prediction": 33.65,
+      "sub_cdf_error": -1.0,
+      "product_form_prediction": 29.94,
+      "product_form_error": -4.71
+    },
+    {
+      "language": "th",
+      "n_records": 2000,
+      "n_emitted": 1961,
+      "p_correct_pct": 47.25,
+      "window": "(256, 652]",
+      "observed_delta": 38.6,
+      "sub_cdf_prediction": 38.85,
+      "sub_cdf_error": 0.25,
+      "product_form_prediction": 36.69,
+      "product_form_error": -1.91
+    },
+    {
+      "language": "sw",
+      "n_records": 2000,
+      "n_emitted": 1498,
+      "p_correct_pct": 33.75,
+      "window": "(128, 247]",
+      "observed_delta": 13.7,
+      "sub_cdf_prediction": 14.9,
+      "sub_cdf_error": 1.2,
+      "product_form_prediction": 10.48,
+      "product_form_error": -3.22
+    }
+  ],
+  "mean_abs_error": {
+    "sub_cdf": 0.82,
+    "product_form": 3.28
+  }
+}
