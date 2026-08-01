@@ -515,6 +515,8 @@ Expected: PASS, unchanged counts
 
 ```python
 # tests/test_benchmark_data.py
+import dataclasses
+
 import pytest
 
 from src.benchmark_spec import load_spec
@@ -548,7 +550,10 @@ def test_wrong_item_count_is_rejected(monkeypatch):
 
 
 def test_verify_parallelism_detects_a_gold_mismatch(monkeypatch):
-    spec = load_spec("mgsm")
+    # BenchmarkSpec is a frozen dataclass, so build a variant with
+    # dataclasses.replace -- monkeypatch.setattr on the instance raises
+    # FrozenInstanceError.
+    spec = dataclasses.replace(load_spec("mgsm"), expected_items=1)
     by_language = {
         "de": [{"question": "a", "answer_number": 1}],
         "th": [{"question": "b", "answer_number": 1}],
@@ -559,7 +564,6 @@ def test_verify_parallelism_detects_a_gold_mismatch(monkeypatch):
         return _FakeDataset(by_language[config])
 
     monkeypatch.setattr("src.benchmark_data._load_split", load)
-    monkeypatch.setattr(spec, "expected_items", 1, raising=False)
     report = verify_parallelism(spec)
     assert report["parallel"] is False
     assert report["n_mismatches"] == 1
