@@ -1,0 +1,7 @@
+Resuelve el siguiente problema de matemáticas.
+
+Piensa paso a paso y escribe todo tu razonamiento en español.
+Escribe la respuesta final en la última línea: cuatro almohadillas, un espacio y luego la respuesta entera escrita únicamente con dígitos ASCII — sin palabras, sin negrita ni Markdown, sin símbolo de moneda y sin unidades. Ejemplo: #### 42
+
+Problema:
+{problem}

@@ -1,0 +1,14 @@
+{
+  "language": "es",
+  "grouping": {
+    "separators": [".", " ", " ", " "],
+    "first_group_min_digits": 1,
+    "first_group_max_digits": 3,
+    "following_group_digits": 3
+  },
+  "decimal_separator": ",",
+  "digit_ranges": [
+    {"start": "0", "end": "9", "ascii_start": "0"}
+  ],
+  "sign_characters": ["+", "-", "−"]
+}
