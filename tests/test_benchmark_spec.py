@@ -43,7 +43,7 @@ def test_load_mmath_spec_declares_local_json_and_fixed_cnmo_exclusion():
     assert spec.dataset == "RUCAIBox/MMATH"
     assert spec.loader == "local_json"
     assert spec.path_template == "data/mmath/{language}.json"
-    assert spec.languages == ("fr", "th", "zh")
+    assert spec.languages == ("es", "th", "zh")
     assert spec.expected_items == 356
     assert spec.item_id_field == "gid"
     assert spec.answer_kind == "numeric"

@@ -110,13 +110,13 @@ def test_mmath_languages_remain_gid_aligned_after_exclusion():
     spec = load_spec("mmath")
     ids_by_language = [
         [item.item_id for item in load_items(spec, language)]
-        for language in ("zh", "fr", "th")
+        for language in ("zh", "es", "th")
     ]
     assert ids_by_language[0] == ids_by_language[1] == ids_by_language[2]
 
 
 def test_mmath_numeric_gold_is_normalised_to_fraction():
-    items = load_items(load_spec("mmath"), "fr")
+    items = load_items(load_spec("mmath"), "es")
     assert all(isinstance(item.gold, Fraction) for item in items)
     assert items[0].gold == Fraction(204)
 
