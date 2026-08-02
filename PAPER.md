@@ -112,6 +112,8 @@ TRANSLATE-ACT's median emission is earlier than NATIVE's in German and Thai. The
 
 At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered budgets.
 
+A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation (1) then gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. At the three Qwen peak cells, this predicts 34.20, 38.85, and 14.95 points; against the separately generated independent sweep, the mean absolute error is 0.65 points, with residuals 0.21, 0.11, and 0.91 outcome SEs (Appendix I). This is a consistency check over three cells from one model and one benchmark, not evidence beyond Qwen; Llama was not computed.
+
 ### 3.4 Announcing the budget changes behavior
 
 Every budget so far is enforced but never disclosed: `max_tokens` stops decoding and does not enter the prompt. A third frozen family separates enforcement from disclosure. It is specified in `prereg-budget-aware.md` at git tag `budget-aware-protocol-freeze`, frozen before any of its 876,000 records existed, and it decouples the announcement from the cap: every cell decodes at a real cap of 2048, non-binding for these cells, and only the *announced* number varies over {128, 256, 2048}. Truncation is constant by construction, so nothing here can be a truncation artifact; what varies is what the model was told. The confirmatory family is four two-sided announcement dose contrasts on Qwen3-8B, NATIVE and TRANSLATE-ACT crossed with German and Thai, Holm-corrected at family-wise \(\alpha=0.05\) with first-step local \(\alpha_1=0.0125\) (Appendix G).
@@ -265,3 +267,29 @@ No Holm decision changes between instruments, and the formal outcome is unchange
 The pilot isolates why v0 failed. Under v0 the translation segment did not respond to the announced budget at all, holding at 57 tokens in German and 76 in Thai across announced values (0.0% response). Under v1 it responds by 5.3% (de) and 16.0% (th), and total median-length response rises from 14.6% to 34.1% for German and from 9.9% to 36.8% for Thai. Two further variants (v2, v3) shorten the baseline without producing a dose response and were not adopted.
 
 Llama-3.1-8B-Instruct fails the gate in all four cells under both instruments, at 5.7% / 2.4% / 7.5% / 8.6% (v0) and 5.7% / 2.4% / 8.3% / 9.3% (v1), against Qwen's 34-43%. Every Llama estimate in this family is therefore uninformative about budget sensitivity, including its two rejections (NATIVE de -4.35 and NATIVE th +2.50), which we do not read as budget findings. Llama carries no confirmatory claim anywhere in the paper.
+
+I. Correct-emission sub-CDF consistency check.
+
+For NATIVE, define the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(E\) is answer-emission position and \(C\) is correctness of the completed trace. Under Equation (1),
+\[
+\Delta_L(B)=G(\lfloor rB\rfloor)-G(B).
+\]
+Both terms are estimated from the same stored 4096-cap ledger. The peak budgets were selected from the discovery sweep, so this three-cell comparison is a consistency check rather than a new test.
+
+| lang | window | observed independent \(\Delta_L(B)\) | sub-CDF prediction | error |
+|---|---|---:|---:|---:|
+| de | (192, 299] | 34.65 | 34.20 | -0.45 |
+| th | (256, 652] | 38.60 | 38.85 | +0.25 |
+| sw | (128, 247] | 13.70 | 14.95 | +1.25 |
+
+The mean absolute error against the separately generated independent-decoding sweep is 0.65 points. The R1 standard errors are 2.10 / 2.26 / 1.37, making the absolute residuals 0.21 / 0.11 / 0.91 outcome SEs. Agreement with REPLAY deltas is not evidence: under absorbing correctness, the sub-CDF on a replay ledger is algebraically identical to the replay accuracy difference and therefore agrees by construction.
+
+For contrast, the naive factorization \(p_{\mathrm{correct}}\times[F_E(\lfloor rB\rfloor)-F_E(B)]\) predicts 30.41 / 36.69 / 10.53, for a mean absolute error of 3.10 points. It incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 620 never emit a parseable answer; these non-emitters are 0% correct by construction, against 59.5% correctness among emitters.
+
+Correctness is not strictly absorbing because `parse_answer` reads the last answer line. On the same ledger, genuine answer revision occurs in 1.35% of records and correct-to-wrong revision in 0.52%. Of apparent instability, 98% is the parser reading a number mid-write; this cannot bias \(\Delta_L(B)\) because such a prefix scores wrong under both frames.
+
+This calculation covers only three cells from Qwen3-8B on MGSM. It was not computed for Llama because its tokenizer is not cached locally, and it supports no claim across models or benchmarks.
+
+Additional crossover context: At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered budgets.
+
+Related failure-tail diagnostic: Qwen Swahili NATIVE has a heavy tail: 10.6% hit the 4096 cap and 25.1% never emit a parseable answer. This mixes truncation, non-integer or multiple answers, and format noncompliance, cautioning against interpreting native accuracy as pure reasoning ability.

@@ -160,6 +160,8 @@ The p10 ordering is timing-consistent with the crossover: Swahili has a 74.7-tok
 
 At \(B=128\), Qwen German NATIVE scores 2.55\% versus 1.15\% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead, and no Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1\% never emit a parseable answer. The frozen H3 test did not detect these reversals because it examined only the looser pre-specified budgets.
 
+A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation~(1) then gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. At the three Qwen peak cells, this predicts 34.20, 38.85, and 14.95 points; against the separately generated independent sweep, the mean absolute error is 0.65 points, with residuals 0.21, 0.11, and 0.91 outcome SEs (Appendix~\ref{app:subcdf}). This is a consistency check over three cells from one model and one benchmark, not evidence beyond Qwen; Llama was not computed.
+
 \subsection{Announcing the budget changes behavior}
 \label{subsec:announce}
 
@@ -630,5 +632,73 @@ Every Llama estimate in this family is therefore uninformative about budget
 sensitivity, including its two rejections (NATIVE de \(-4.35\), NATIVE th
 \(+2.50\)), which we do not read as budget findings. Llama carries no
 confirmatory claim here.
+
+\section{Correct-emission sub-CDF consistency check}
+\label{app:subcdf}
+
+For NATIVE, define the correct-emission sub-CDF
+\(G(t)=P(C=1,E\le t)\), where \(E\) is answer-emission position and \(C\) is
+correctness of the completed trace. Under Equation~(1),
+\[
+\Delta_L(B)=G(\lfloor rB\rfloor)-G(B).
+\]
+Both terms are estimated from the same stored 4096-cap ledger. The peak
+budgets were selected from the discovery sweep, so this three-cell comparison
+is a consistency check rather than a new test.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Correct-emission sub-CDF predictions from the Qwen3-8B NATIVE MGSM
+ledger and observed deltas from the separately generated independent sweep.
+Values are percentage points.}
+\label{tab:subcdf}
+\begin{tabular}{llrrr}
+\toprule
+lang & window & observed & predicted & error \\
+\midrule
+de & \((192,299]\) & 34.65 & 34.20 & \(-0.45\) \\
+th & \((256,652]\) & 38.60 & 38.85 & \(+0.25\) \\
+sw & \((128,247]\) & 13.70 & 14.95 & \(+1.25\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The mean absolute error against the separately generated independent-decoding
+sweep is 0.65 points. The R1 standard errors are 2.10 / 2.26 / 1.37, making
+the absolute residuals 0.21 / 0.11 / 0.91 outcome SEs. Agreement with REPLAY
+deltas is not evidence: under absorbing correctness, the sub-CDF on a replay
+ledger is algebraically identical to the replay accuracy difference and
+therefore agrees by construction.
+
+For contrast, the naive factorization
+\(p_{\mathrm{correct}}\times[F_E(\lfloor rB\rfloor)-F_E(B)]\) predicts
+30.41 / 36.69 / 10.53, for a mean absolute error of 3.10 points. It
+incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 620 never emit a parseable answer; these non-emitters are 0% correct by construction, against 59.5% correctness among emitters.
+
+Correctness is not strictly absorbing because \texttt{parse\_answer} reads the
+last answer line. On the same ledger, genuine answer revision occurs in
+1.35\% of records and correct-to-wrong revision in 0.52\%. Of apparent
+instability, 98\% is the parser reading a number mid-write; this cannot bias
+\(\Delta_L(B)\) because such a prefix scores wrong under both frames.
+
+This calculation covers only three cells from Qwen3-8B on MGSM. It was not
+computed for Llama because its tokenizer is not cached locally, and it
+supports no claim across models or benchmarks.
+
+\textbf{Additional crossover context.} At \(B=128\), Qwen German NATIVE
+scores 2.55\% versus 1.15\% for TRANSLATE-ACT; Swahili NATIVE leads with
+bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German
+leads with probability 0.958 at 128 (transition [128,192]). Thai has no native
+lead, and no Llama language crosses because native accuracy remains near
+floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail
+cell: NATIVE output-length p90 is 4096 and 25.1\% never emit a parseable
+answer. The frozen H3 test did not detect these reversals because it examined
+only the looser pre-specified budgets.
+
+\textbf{Related failure-tail diagnostic.} Qwen Swahili NATIVE has a heavy
+tail: 10.6\% hit the 4096 cap and 25.1\% never emit a parseable answer. This
+mixes truncation, non-integer or multiple answers, and format noncompliance,
+cautioning against interpreting native accuracy as pure reasoning ability.
 
 \end{document}
