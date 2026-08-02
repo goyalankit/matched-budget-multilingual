@@ -1,0 +1,18 @@
+  qwen3_8b  mmath             fr  n= 12 parse=  0.0% acc=  0.0% eos=  8.3% len=1004.4
+  qwen3_8b  mmath             th  n= 12 parse=  0.0% acc=  0.0% eos=  0.0% len=1024.0
+  qwen3_8b  mmath             zh  n= 12 parse=  8.3% acc=  0.0% eos=  8.3% len=1015.4
+  qwen3_8b  belebele          de  n= 12 parse=100.0% acc= 91.7% eos=100.0% len= 463.8
+  qwen3_8b  belebele          sw  n= 12 parse=100.0% acc= 66.7% eos= 75.0% len= 344.1
+  qwen3_8b  belebele          th  n= 12 parse= 83.3% acc= 41.7% eos= 83.3% len= 628.8
+  qwen3_8b  global_mmlu_lite  de  n= 12 parse=100.0% acc= 91.7% eos=100.0% len= 442.4
+  qwen3_8b  global_mmlu_lite  sw  n= 12 parse= 83.3% acc= 41.7% eos= 75.0% len= 305.3
+  llama_3_1 mmath             fr  n= 12 parse=100.0% acc=  8.3% eos=100.0% len= 612.8
+  llama_3_1 mmath             th  n= 12 parse=  0.0% acc=  0.0% eos= 83.3% len= 756.6
+  llama_3_1 mmath             zh  n= 12 parse= 66.7% acc=  0.0% eos= 75.0% len= 708.7
+  llama_3_1 belebele          de  n= 12 parse= 50.0% acc= 41.7% eos=100.0% len= 301.0
+  llama_3_1 belebele          sw  n= 12 parse=  8.3% acc=  8.3% eos= 91.7% len= 452.9
+  llama_3_1 belebele          th  n= 12 parse=  0.0% acc=  0.0% eos=100.0% len= 344.9
+  llama_3_1 global_mmlu_lite  de  n= 12 parse= 41.7% acc= 41.7% eos=100.0% len= 395.3
+  llama_3_1 global_mmlu_lite  sw  n= 12 parse= 16.7% acc=  0.0% eos=100.0% len= 451.2
+
+lowest parse rate across cells: 0.0%

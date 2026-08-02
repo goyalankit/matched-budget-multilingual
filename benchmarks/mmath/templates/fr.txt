@@ -1,7 +1,7 @@
 Résolvez le problème de mathématiques suivant.
 
 Réfléchissez étape par étape et écrivez tout votre raisonnement en français.
-Écrivez la réponse finale sur la dernière ligne sous la forme de quatre signes dièse, d’une espace, puis de la réponse qui est un nombre entier, en utilisant uniquement des chiffres ASCII — sans mots, sans gras ni Markdown, sans symbole monétaire et sans unité. Exemple : #### 42
+Écrivez la réponse finale sur la dernière ligne : quatre signes dièse, une espace, puis la réponse entière écrite uniquement avec des chiffres ASCII — sans mots, sans gras ni Markdown, sans symbole monétaire et sans unité. Exemple : #### 42
 
 Problème :
 {problem}

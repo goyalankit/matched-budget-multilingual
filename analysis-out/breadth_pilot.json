@@ -1,0 +1,169 @@
+{
+  "purpose": "does the instrument elicit a parseable answer at all",
+  "note": "EXPLORATORY pilot; small n; not a study result",
+  "items_per_cell": 6,
+  "samples_per_item": 2,
+  "max_tokens": 1024,
+  "cells": [
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "fr",
+      "n": 12,
+      "parse_rate": 0.0,
+      "accuracy": 0.0,
+      "eos_rate": 8.3,
+      "mean_len": 1004.4
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "th",
+      "n": 12,
+      "parse_rate": 0.0,
+      "accuracy": 0.0,
+      "eos_rate": 0.0,
+      "mean_len": 1024.0
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "zh",
+      "n": 12,
+      "parse_rate": 8.3,
+      "accuracy": 0.0,
+      "eos_rate": 8.3,
+      "mean_len": 1015.4
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "de",
+      "n": 12,
+      "parse_rate": 100.0,
+      "accuracy": 91.7,
+      "eos_rate": 100.0,
+      "mean_len": 463.8
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "sw",
+      "n": 12,
+      "parse_rate": 100.0,
+      "accuracy": 66.7,
+      "eos_rate": 75.0,
+      "mean_len": 344.1
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "th",
+      "n": 12,
+      "parse_rate": 83.3,
+      "accuracy": 41.7,
+      "eos_rate": 83.3,
+      "mean_len": 628.8
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "global_mmlu_lite",
+      "language": "de",
+      "n": 12,
+      "parse_rate": 100.0,
+      "accuracy": 91.7,
+      "eos_rate": 100.0,
+      "mean_len": 442.4
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "global_mmlu_lite",
+      "language": "sw",
+      "n": 12,
+      "parse_rate": 83.3,
+      "accuracy": 41.7,
+      "eos_rate": 75.0,
+      "mean_len": 305.3
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "mmath",
+      "language": "fr",
+      "n": 12,
+      "parse_rate": 100.0,
+      "accuracy": 8.3,
+      "eos_rate": 100.0,
+      "mean_len": 612.8
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "mmath",
+      "language": "th",
+      "n": 12,
+      "parse_rate": 0.0,
+      "accuracy": 0.0,
+      "eos_rate": 83.3,
+      "mean_len": 756.6
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "mmath",
+      "language": "zh",
+      "n": 12,
+      "parse_rate": 66.7,
+      "accuracy": 0.0,
+      "eos_rate": 75.0,
+      "mean_len": 708.7
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "belebele",
+      "language": "de",
+      "n": 12,
+      "parse_rate": 50.0,
+      "accuracy": 41.7,
+      "eos_rate": 100.0,
+      "mean_len": 301.0
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "belebele",
+      "language": "sw",
+      "n": 12,
+      "parse_rate": 8.3,
+      "accuracy": 8.3,
+      "eos_rate": 91.7,
+      "mean_len": 452.9
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "belebele",
+      "language": "th",
+      "n": 12,
+      "parse_rate": 0.0,
+      "accuracy": 0.0,
+      "eos_rate": 100.0,
+      "mean_len": 344.9
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "global_mmlu_lite",
+      "language": "de",
+      "n": 12,
+      "parse_rate": 41.7,
+      "accuracy": 41.7,
+      "eos_rate": 100.0,
+      "mean_len": 395.3
+    },
+    {
+      "model": "llama_3_1_8b_instruct",
+      "benchmark": "global_mmlu_lite",
+      "language": "sw",
+      "n": 12,
+      "parse_rate": 16.7,
+      "accuracy": 0.0,
+      "eos_rate": 100.0,
+      "mean_len": 451.2
+    }
+  ]
+}
