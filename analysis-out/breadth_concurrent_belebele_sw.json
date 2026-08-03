@@ -1,0 +1,10 @@
+{
+  "model": "qwen3_8b",
+  "benchmark": "belebele",
+  "language": "sw",
+  "max_tokens": 4096,
+  "concurrency": 64,
+  "written": 4809,
+  "total": 7267,
+  "note": "concurrency is not estimand-affecting; seeds are per (item, sample) and independent of completion order"
+}

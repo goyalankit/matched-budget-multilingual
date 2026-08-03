@@ -112,7 +112,7 @@ TRANSLATE-ACT's median emission is earlier than NATIVE's in German and Thai. The
 
 At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered budgets.
 
-A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation (1) gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. This is a consistency check, not a test. For the three Qwen MGSM peak cells, predictions against independent-decoding outcomes have mean absolute error 0.65 points (Appendix I). Across three added benchmarks, an exploratory Qwen-only, item-level split-half analysis in the replay frame has MAE 1.00 points on held-out items and locates the peak exactly in four of six cells (Appendix I).
+A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation (1) gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. This is a consistency check, not a test. For the three Qwen MGSM peak cells, predictions against independent-decoding outcomes have mean absolute error 0.65 points (Appendix I). Across three added benchmarks, an exploratory Qwen-only, item-level split-half analysis in the replay frame has MAE 0.92 points on held-out items and locates the peak exactly in five of seven cells (Appendix I).
 
 ### 3.4 Announcing the budget changes behavior
 
@@ -296,10 +296,11 @@ An exploratory replay-frame breadth analysis applies the same construction to Qw
 | MMATH | th | 2.551 | 1.15 | 36.45 @384 | 35.95 @384 |
 | Belebele | de | 1.559 | 0.67 | 40.31 @256 | 36.64 @256 |
 | Belebele | th | 2.551 | 0.37 | 21.11 @384 | 21.39 @384 |
+| Belebele | sw | 1.936 | 0.44 | 10.83 @64 | 12.53 @64 |
 | Global-MMLU-Lite | de | 1.559 | 0.81 | 32.94 @384 | 31.81 @384 |
 | Global-MMLU-Lite | sw | 1.936 | 1.22 | 7.50 @64 | 5.94 @128 |
 
-Across these six cells, the mean absolute error is 1.00 points on held-out items. Peak location is exact in four of six; the other two differ by one grid point. This design differs from MGSM: there the predictor comes from the replay ledger and the outcome from a separately generated independent sweep, whereas here both halves come from one ledger. The 1.00 and 0.65 errors are therefore not like-for-like and do not establish a trend.
+Across these seven cells, the mean absolute error is 0.92 points on held-out items. Peak location is exact in five of seven; the other two differ by one grid point. This design differs from MGSM: there the predictor comes from the replay ledger and the outcome from a separately generated independent sweep, whereas here both halves come from one ledger. The 0.92 and 0.65 errors are therefore not like-for-like and do not establish a trend.
 
 MMATH zh is separate and is not counted among the six. Its premium is \(r=1.003\), so \((B,\lfloor rB\rfloor]\) is about one token wide and \(\Delta_L(B)\) is approximately zero throughout by construction (observed peak 0.14; MAE 0.05). This is a structural check that the estimand vanishes without a premium, not a successful prediction of the mechanism.
 
