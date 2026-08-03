@@ -26,3 +26,12 @@ runs-e2/
 runs-e2-pilot-swv*/
 runs-e2b-pilot-v*/
 runs-e2b/
+
+# Breadth-campaign ledgers (E3/E5a). Local only, like every other runs-* tree;
+# SHA-256 manifests go in analysis-out/ instead.
+runs-breadth/
+runs-breadth-sw4096/
+runs-breadth-pilot/
+runs-breadth-pilot-4096/
+runs-breadth-pilot-fr2/
+runs-breadth-pilot-es/
