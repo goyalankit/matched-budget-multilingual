@@ -1,0 +1,75 @@
+{
+  "model": "qwen3_8b",
+  "caps": {
+    "mmath": 4096,
+    "belebele": 2048,
+    "global_mmlu_lite": 2048
+  },
+  "frame": "long-cap replay (exploratory)",
+  "cells": [
+    {
+      "benchmark": "mmath",
+      "language": "es",
+      "cap": 4096,
+      "items": 356,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/mmath/es/native/shard.jsonl"
+    },
+    {
+      "benchmark": "mmath",
+      "language": "th",
+      "cap": 4096,
+      "items": 356,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/mmath/th/native/shard.jsonl"
+    },
+    {
+      "benchmark": "mmath",
+      "language": "zh",
+      "cap": 4096,
+      "items": 356,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/mmath/zh/native/shard.jsonl"
+    },
+    {
+      "benchmark": "belebele",
+      "language": "de",
+      "cap": 2048,
+      "items": 900,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/belebele/de/native/shard.jsonl"
+    },
+    {
+      "benchmark": "belebele",
+      "language": "sw",
+      "cap": 2048,
+      "items": 900,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/belebele/sw/native/shard.jsonl"
+    },
+    {
+      "benchmark": "belebele",
+      "language": "th",
+      "cap": 2048,
+      "items": 900,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/belebele/th/native/shard.jsonl"
+    },
+    {
+      "benchmark": "global_mmlu_lite",
+      "language": "de",
+      "cap": 2048,
+      "items": 400,
+      "written": 0,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/global_mmlu_lite/de/native/shard.jsonl"
+    },
+    {
+      "benchmark": "global_mmlu_lite",
+      "language": "sw",
+      "cap": 2048,
+      "items": 400,
+      "written": 2926,
+      "shard": "/home/angoyal/ws/language-research/runs-breadth/qwen3_8b/global_mmlu_lite/sw/native/shard.jsonl"
+    }
+  ]
+}

@@ -1,0 +1,687 @@
+{
+  "analysis_label": "EXPLORATORY \u2014 replay frame, not the frozen E6 test",
+  "note": "predictor and outcome come from the SAME ledger; this tests whether emission timing EXPLAINS the curve, not whether it forecasts an unseen one",
+  "budget_grid": [
+    64,
+    128,
+    192,
+    256,
+    384,
+    512,
+    768,
+    1024
+  ],
+  "caps": {
+    "mmath": 4096,
+    "belebele": 2048,
+    "global_mmlu_lite": 2048
+  },
+  "cells": [
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "es",
+      "cap": 4096,
+      "premium": 1.5224,
+      "n_records": 2848,
+      "parse_rate_pct": 96.8,
+      "accuracy_pct": 74.8,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 97,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 128,
+          "premium_cap": 194,
+          "observed_delta": 4.354,
+          "predicted_delta": 4.424,
+          "error": 0.07
+        },
+        {
+          "budget": 192,
+          "premium_cap": 292,
+          "observed_delta": 13.834,
+          "predicted_delta": 17.135,
+          "error": 3.301
+        },
+        {
+          "budget": 256,
+          "premium_cap": 389,
+          "observed_delta": 17.767,
+          "predicted_delta": 19.031,
+          "error": 1.264
+        },
+        {
+          "budget": 384,
+          "premium_cap": 584,
+          "observed_delta": 20.646,
+          "predicted_delta": 15.379,
+          "error": -5.267
+        },
+        {
+          "budget": 512,
+          "premium_cap": 779,
+          "observed_delta": 14.466,
+          "predicted_delta": 14.045,
+          "error": -0.421
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1169,
+          "observed_delta": 8.708,
+          "predicted_delta": 10.253,
+          "error": 1.545
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1558,
+          "observed_delta": 4.705,
+          "predicted_delta": 7.022,
+          "error": 2.317
+        }
+      ],
+      "mean_abs_error": 1.773,
+      "max_abs_error": 5.267,
+      "observed_peak": {
+        "budget": 384,
+        "premium_cap": 584,
+        "observed_delta": 20.646,
+        "predicted_delta": 15.379,
+        "error": -5.267
+      },
+      "predicted_peak": {
+        "budget": 256,
+        "premium_cap": 389,
+        "observed_delta": 17.767,
+        "predicted_delta": 19.031,
+        "error": 1.264
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "th",
+      "cap": 4096,
+      "premium": 2.5508,
+      "n_records": 2848,
+      "parse_rate_pct": 96.1,
+      "accuracy_pct": 56.5,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 163,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.211,
+          "error": 0.211
+        },
+        {
+          "budget": 128,
+          "premium_cap": 326,
+          "observed_delta": 3.933,
+          "predicted_delta": 4.354,
+          "error": 0.421
+        },
+        {
+          "budget": 192,
+          "premium_cap": 489,
+          "observed_delta": 18.048,
+          "predicted_delta": 17.907,
+          "error": -0.14
+        },
+        {
+          "budget": 256,
+          "premium_cap": 652,
+          "observed_delta": 30.197,
+          "predicted_delta": 28.371,
+          "error": -1.826
+        },
+        {
+          "budget": 384,
+          "premium_cap": 979,
+          "observed_delta": 36.447,
+          "predicted_delta": 35.955,
+          "error": -0.492
+        },
+        {
+          "budget": 512,
+          "premium_cap": 1305,
+          "observed_delta": 30.899,
+          "predicted_delta": 30.899,
+          "error": 0.0
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1958,
+          "observed_delta": 16.292,
+          "predicted_delta": 19.874,
+          "error": 3.581
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 2611,
+          "observed_delta": 8.848,
+          "predicted_delta": 11.376,
+          "error": 2.528
+        }
+      ],
+      "mean_abs_error": 1.15,
+      "max_abs_error": 3.581,
+      "observed_peak": {
+        "budget": 384,
+        "premium_cap": 979,
+        "observed_delta": 36.447,
+        "predicted_delta": 35.955,
+        "error": -0.492
+      },
+      "predicted_peak": {
+        "budget": 384,
+        "premium_cap": 979,
+        "observed_delta": 36.447,
+        "predicted_delta": 35.955,
+        "error": -0.492
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "mmath",
+      "language": "zh",
+      "cap": 4096,
+      "premium": 1.003,
+      "n_records": 2848,
+      "parse_rate_pct": 82.1,
+      "accuracy_pct": 63.7,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 64,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 128,
+          "premium_cap": 128,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 192,
+          "premium_cap": 192,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 256,
+          "premium_cap": 256,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 384,
+          "premium_cap": 385,
+          "observed_delta": 0.14,
+          "predicted_delta": 0.0,
+          "error": -0.14
+        },
+        {
+          "budget": 512,
+          "premium_cap": 513,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.14,
+          "error": 0.14
+        },
+        {
+          "budget": 768,
+          "premium_cap": 770,
+          "observed_delta": 0.07,
+          "predicted_delta": 0.07,
+          "error": 0.0
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1027,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.14,
+          "error": 0.14
+        }
+      ],
+      "mean_abs_error": 0.053,
+      "max_abs_error": 0.14,
+      "observed_peak": {
+        "budget": 384,
+        "premium_cap": 385,
+        "observed_delta": 0.14,
+        "predicted_delta": 0.0,
+        "error": -0.14
+      },
+      "predicted_peak": {
+        "budget": 512,
+        "premium_cap": 513,
+        "observed_delta": 0.0,
+        "predicted_delta": 0.14,
+        "error": 0.14
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "de",
+      "cap": 2048,
+      "premium": 1.5589,
+      "n_records": 7200,
+      "parse_rate_pct": 99.3,
+      "accuracy_pct": 88.7,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 99,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 128,
+          "premium_cap": 199,
+          "observed_delta": 4.722,
+          "predicted_delta": 5.472,
+          "error": 0.75
+        },
+        {
+          "budget": 192,
+          "premium_cap": 299,
+          "observed_delta": 24.194,
+          "predicted_delta": 24.028,
+          "error": -0.167
+        },
+        {
+          "budget": 256,
+          "premium_cap": 399,
+          "observed_delta": 40.306,
+          "predicted_delta": 36.639,
+          "error": -3.667
+        },
+        {
+          "budget": 384,
+          "premium_cap": 598,
+          "observed_delta": 33.972,
+          "predicted_delta": 34.0,
+          "error": 0.028
+        },
+        {
+          "budget": 512,
+          "premium_cap": 798,
+          "observed_delta": 10.389,
+          "predicted_delta": 11.111,
+          "error": 0.722
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1197,
+          "observed_delta": 0.167,
+          "predicted_delta": 0.194,
+          "error": 0.028
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1596,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        }
+      ],
+      "mean_abs_error": 0.67,
+      "max_abs_error": 3.667,
+      "observed_peak": {
+        "budget": 256,
+        "premium_cap": 399,
+        "observed_delta": 40.306,
+        "predicted_delta": 36.639,
+        "error": -3.667
+      },
+      "predicted_peak": {
+        "budget": 256,
+        "premium_cap": 399,
+        "observed_delta": 40.306,
+        "predicted_delta": 36.639,
+        "error": -3.667
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "sw",
+      "cap": 2048,
+      "premium": 1.9363,
+      "n_records": 1394,
+      "parse_rate_pct": 85.4,
+      "accuracy_pct": 38.5,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 123,
+          "observed_delta": 12.356,
+          "predicted_delta": 14.9,
+          "error": 2.543
+        },
+        {
+          "budget": 128,
+          "premium_cap": 247,
+          "observed_delta": 3.305,
+          "predicted_delta": 3.438,
+          "error": 0.134
+        },
+        {
+          "budget": 192,
+          "premium_cap": 371,
+          "observed_delta": 2.299,
+          "predicted_delta": 1.576,
+          "error": -0.723
+        },
+        {
+          "budget": 256,
+          "premium_cap": 495,
+          "observed_delta": 1.58,
+          "predicted_delta": 0.86,
+          "error": -0.721
+        },
+        {
+          "budget": 384,
+          "premium_cap": 743,
+          "observed_delta": 0.287,
+          "predicted_delta": 0.573,
+          "error": 0.286
+        },
+        {
+          "budget": 512,
+          "premium_cap": 991,
+          "observed_delta": 0.144,
+          "predicted_delta": 0.143,
+          "error": -0.0
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1487,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.143,
+          "error": 0.143
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1982,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.287,
+          "error": 0.287
+        }
+      ],
+      "mean_abs_error": 0.605,
+      "max_abs_error": 2.543,
+      "observed_peak": {
+        "budget": 64,
+        "premium_cap": 123,
+        "observed_delta": 12.356,
+        "predicted_delta": 14.9,
+        "error": 2.543
+      },
+      "predicted_peak": {
+        "budget": 64,
+        "premium_cap": 123,
+        "observed_delta": 12.356,
+        "predicted_delta": 14.9,
+        "error": 2.543
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "belebele",
+      "language": "th",
+      "cap": 2048,
+      "premium": 2.5508,
+      "n_records": 7200,
+      "parse_rate_pct": 95.2,
+      "accuracy_pct": 28.5,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 163,
+          "observed_delta": 0.306,
+          "predicted_delta": 0.361,
+          "error": 0.056
+        },
+        {
+          "budget": 128,
+          "premium_cap": 326,
+          "observed_delta": 3.917,
+          "predicted_delta": 3.25,
+          "error": -0.667
+        },
+        {
+          "budget": 192,
+          "premium_cap": 489,
+          "observed_delta": 12.5,
+          "predicted_delta": 11.556,
+          "error": -0.944
+        },
+        {
+          "budget": 256,
+          "premium_cap": 652,
+          "observed_delta": 18.639,
+          "predicted_delta": 18.556,
+          "error": -0.083
+        },
+        {
+          "budget": 384,
+          "premium_cap": 979,
+          "observed_delta": 21.111,
+          "predicted_delta": 21.389,
+          "error": 0.278
+        },
+        {
+          "budget": 512,
+          "premium_cap": 1305,
+          "observed_delta": 14.472,
+          "predicted_delta": 14.694,
+          "error": 0.222
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1958,
+          "observed_delta": 4.306,
+          "predicted_delta": 4.639,
+          "error": 0.333
+        }
+      ],
+      "mean_abs_error": 0.369,
+      "max_abs_error": 0.944,
+      "observed_peak": {
+        "budget": 384,
+        "premium_cap": 979,
+        "observed_delta": 21.111,
+        "predicted_delta": 21.389,
+        "error": 0.278
+      },
+      "predicted_peak": {
+        "budget": 384,
+        "premium_cap": 979,
+        "observed_delta": 21.111,
+        "predicted_delta": 21.389,
+        "error": 0.278
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "global_mmlu_lite",
+      "language": "de",
+      "cap": 2048,
+      "premium": 1.5589,
+      "n_records": 3200,
+      "parse_rate_pct": 97.9,
+      "accuracy_pct": 65.4,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 99,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        },
+        {
+          "budget": 128,
+          "premium_cap": 199,
+          "observed_delta": 1.062,
+          "predicted_delta": 1.5,
+          "error": 0.438
+        },
+        {
+          "budget": 192,
+          "premium_cap": 299,
+          "observed_delta": 6.25,
+          "predicted_delta": 8.688,
+          "error": 2.438
+        },
+        {
+          "budget": 256,
+          "premium_cap": 399,
+          "observed_delta": 19.625,
+          "predicted_delta": 20.437,
+          "error": 0.812
+        },
+        {
+          "budget": 384,
+          "premium_cap": 598,
+          "observed_delta": 32.938,
+          "predicted_delta": 31.812,
+          "error": -1.125
+        },
+        {
+          "budget": 512,
+          "premium_cap": 798,
+          "observed_delta": 19.375,
+          "predicted_delta": 18.625,
+          "error": -0.75
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1197,
+          "observed_delta": 2.312,
+          "predicted_delta": 2.813,
+          "error": 0.5
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1596,
+          "observed_delta": 0.5,
+          "predicted_delta": 0.125,
+          "error": -0.375
+        }
+      ],
+      "mean_abs_error": 0.805,
+      "max_abs_error": 2.438,
+      "observed_peak": {
+        "budget": 384,
+        "premium_cap": 598,
+        "observed_delta": 32.938,
+        "predicted_delta": 31.812,
+        "error": -1.125
+      },
+      "predicted_peak": {
+        "budget": 384,
+        "premium_cap": 598,
+        "observed_delta": 32.938,
+        "predicted_delta": 31.812,
+        "error": -1.125
+      }
+    },
+    {
+      "model": "qwen3_8b",
+      "benchmark": "global_mmlu_lite",
+      "language": "sw",
+      "cap": 2048,
+      "premium": 1.9363,
+      "n_records": 3200,
+      "parse_rate_pct": 82.0,
+      "accuracy_pct": 22.7,
+      "curve": [
+        {
+          "budget": 64,
+          "premium_cap": 123,
+          "observed_delta": 7.5,
+          "predicted_delta": 5.625,
+          "error": -1.875
+        },
+        {
+          "budget": 128,
+          "premium_cap": 247,
+          "observed_delta": 2.938,
+          "predicted_delta": 5.938,
+          "error": 3.0
+        },
+        {
+          "budget": 192,
+          "premium_cap": 371,
+          "observed_delta": 1.625,
+          "predicted_delta": 4.0,
+          "error": 2.375
+        },
+        {
+          "budget": 256,
+          "premium_cap": 495,
+          "observed_delta": 0.937,
+          "predicted_delta": 2.063,
+          "error": 1.125
+        },
+        {
+          "budget": 384,
+          "premium_cap": 743,
+          "observed_delta": 1.375,
+          "predicted_delta": 0.625,
+          "error": -0.75
+        },
+        {
+          "budget": 512,
+          "premium_cap": 991,
+          "observed_delta": 0.812,
+          "predicted_delta": 0.25,
+          "error": -0.562
+        },
+        {
+          "budget": 768,
+          "premium_cap": 1487,
+          "observed_delta": 0.125,
+          "predicted_delta": 0.063,
+          "error": -0.062
+        },
+        {
+          "budget": 1024,
+          "premium_cap": 1982,
+          "observed_delta": 0.0,
+          "predicted_delta": 0.0,
+          "error": 0.0
+        }
+      ],
+      "mean_abs_error": 1.219,
+      "max_abs_error": 3.0,
+      "observed_peak": {
+        "budget": 64,
+        "premium_cap": 123,
+        "observed_delta": 7.5,
+        "predicted_delta": 5.625,
+        "error": -1.875
+      },
+      "predicted_peak": {
+        "budget": 128,
+        "premium_cap": 247,
+        "observed_delta": 2.938,
+        "predicted_delta": 5.938,
+        "error": 3.0
+      }
+    }
+  ],
+  "overall_mean_abs_error": 0.831
+}

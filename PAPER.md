@@ -112,7 +112,7 @@ TRANSLATE-ACT's median emission is earlier than NATIVE's in German and Thai. The
 
 At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered budgets.
 
-A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation (1) then gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. At the three Qwen peak cells, this predicts 34.20, 38.85, and 14.95 points; against the separately generated independent sweep, the mean absolute error is 0.65 points, with residuals 0.21, 0.11, and 0.91 outcome SEs (Appendix I). This is a consistency check over three cells from one model and one benchmark, not evidence beyond Qwen; Llama was not computed.
+A sharper consistency check uses the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(C\) is completed-trace correctness. Equation (1) gives \(\Delta_L(B)=G(\lfloor rB\rfloor)-G(B)\) from one long-cap NATIVE ledger. For the three Qwen MGSM peak cells, predictions against the separately generated independent sweep have mean absolute error 0.65 points (Appendix I). This spans one model and benchmark; Llama was not computed. Across three further benchmarks, a split-half replay-frame exploration over six Qwen-only cells has MAE 1.00 points on held-out items and locates the peak exactly in four of six (Appendix I).
 
 ### 3.4 Announcing the budget changes behavior
 
@@ -274,7 +274,7 @@ For NATIVE, define the correct-emission sub-CDF \(G(t)=P(C=1,E\le t)\), where \(
 \[
 \Delta_L(B)=G(\lfloor rB\rfloor)-G(B).
 \]
-Both terms are estimated from the same stored 4096-cap ledger. The peak budgets were selected from the discovery sweep, so this three-cell comparison is a consistency check rather than a new test.
+Both terms are estimated from the same stored 4096-cap ledger. The peak budgets were selected from the discovery sweep, so this three-cell comparison is exploratory.
 
 | lang | window | observed independent \(\Delta_L(B)\) | sub-CDF prediction | error |
 |---|---|---:|---:|---:|
@@ -284,11 +284,28 @@ Both terms are estimated from the same stored 4096-cap ledger. The peak budgets 
 
 The mean absolute error against the separately generated independent-decoding sweep is 0.65 points. The R1 standard errors are 2.10 / 2.26 / 1.37, making the absolute residuals 0.21 / 0.11 / 0.91 outcome SEs. Agreement with REPLAY deltas is not evidence: under absorbing correctness, the sub-CDF on a replay ledger is algebraically identical to the replay accuracy difference and therefore agrees by construction.
 
-For contrast, the naive factorization \(p_{\mathrm{correct}}\times[F_E(\lfloor rB\rfloor)-F_E(B)]\) predicts 30.41 / 36.69 / 10.53, for a mean absolute error of 3.10 points. It incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 620 never emit a parseable answer; these non-emitters are 0% correct by construction, against 59.5% correctness among emitters.
+An exploratory replay-frame breadth analysis applies the same construction to Qwen3-8B NATIVE long-cap ledgers on three further benchmarks. Within each cell, \(G\) is estimated on even-indexed items and \(\Delta_L(B)\) is scored on odd-indexed items, making the halves disjoint. Same-item scoring would be circular: under absorbing correctness, \(G(\lfloor rB\rfloor)-G(B)\) is the prefix-scored accuracy difference itself, so agreement would be guaranteed.
 
-Correctness is not strictly absorbing because `parse_answer` reads the last answer line. On the same ledger, genuine answer revision occurs in 1.35% of records and correct-to-wrong revision in 0.52%. Of apparent instability, 98% is the parser reading a number mid-write; this cannot bias \(\Delta_L(B)\) because such a prefix scores wrong under both frames.
+| benchmark | lang | \(r\) | MAE | observed peak | predicted peak |
+|---|---|---:|---:|---:|---:|
+| MMATH | es | 1.522 | 1.77 | 20.65 @384 | 19.03 @256 |
+| MMATH | th | 2.551 | 1.15 | 36.45 @384 | 35.95 @384 |
+| Belebele | de | 1.559 | 0.67 | 40.31 @256 | 36.64 @256 |
+| Belebele | th | 2.551 | 0.37 | 21.11 @384 | 21.39 @384 |
+| Global-MMLU-Lite | de | 1.559 | 0.81 | 32.94 @384 | 31.81 @384 |
+| Global-MMLU-Lite | sw | 1.936 | 1.22 | 7.50 @64 | 5.94 @128 |
 
-This calculation covers only three cells from Qwen3-8B on MGSM. It was not computed for Llama because its tokenizer is not cached locally, and it supports no claim across models or benchmarks.
+Across these six cells, the mean absolute error is 1.00 points on held-out items. Peak location is exact in four of six; the other two differ by one grid point. This design differs from MGSM: there the predictor comes from the replay ledger and the outcome from a separately generated independent sweep, whereas here both halves come from one ledger. The 1.00 and 0.65 errors are therefore not like-for-like and do not establish a trend.
+
+MMATH zh is separate and is not counted among the six. Its premium is \(r=1.003\), so \((B,\lfloor rB\rfloor]\) is about one token wide and \(\Delta_L(B)\) is approximately zero throughout by construction (observed peak 0.14; MAE 0.05). This is a structural check that the estimand vanishes without a premium, not a successful prediction of the mechanism.
+
+These results are Qwen-only. Llama parse rates on these benchmarks ranged from 0.1% to 29%, producing one usable cell of eight: it writes answers as prose rather than in the required `####` form, so it could not be scored here.
+
+For MGSM, the naive factorization \(p_{\mathrm{correct}}\times[F_E(\lfloor rB\rfloor)-F_E(B)]\) predicts 30.41 / 36.69 / 10.53, for a mean absolute error of 3.10 points. It incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 620 never emit a parseable answer; these non-emitters are 0% correct by construction, against 59.5% correctness among emitters.
+
+In MGSM, correctness is not strictly absorbing because `parse_answer` reads the last answer line. On the same ledger, genuine answer revision occurs in 1.35% of records and correct-to-wrong revision in 0.52%. Of apparent instability, 98% is the parser reading a number mid-write; this cannot bias \(\Delta_L(B)\) because such a prefix scores wrong under both frames.
+
+The MGSM calculation covers only three cells from Qwen3-8B. It was not computed for Llama because its tokenizer is not cached locally, and it supports no claim across models or benchmarks.
 
 Additional crossover context: At \(B=128\), Qwen German NATIVE scores 2.55% versus 1.15% for TRANSLATE-ACT; Swahili NATIVE leads with bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German leads with probability 0.958 at 128 (transition [128,192]). Thai has no native lead. No Llama language crosses because native accuracy remains near floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail cell: NATIVE output-length p90 is 4096 and 25.1% never emit a parseable answer. The frozen H3 test missed these reversals because it examined only the looser registered budgets.
 
