@@ -705,7 +705,7 @@ ledger and the outcome from a separately generated independent sweep, whereas
 here both halves come from one ledger. The 0.92 and 0.65 errors are therefore
 not like-for-like and do not establish a trend.
 
-MMATH zh is separate and is not counted among the six. Its premium is
+MMATH zh is separate and is not counted among the seven. Its premium is
 \(r=1.003\), so \((B,\lfloor rB\rfloor]\) is about one token wide and
 \(\Delta_L(B)\) is approximately zero throughout by construction (observed
 peak 0.14; MAE 0.05). This is a structural check that the estimand vanishes
@@ -720,7 +720,7 @@ unavailable, so Llama could not be scored on these added benchmarks.
 For MGSM, the naive factorization
 \(p_{\mathrm{correct}}\times[F_E(\lfloor rB\rfloor)-F_E(B)]\) predicts
 30.41 / 36.69 / 10.53, for a mean absolute error of 3.10 points. It
-incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 620 never emit a parseable answer; these non-emitters are 0% correct by construction, against 59.5% correctness among emitters.
+incorrectly assumes that correctness and emission time are independent. Of 6,000 records, 697 never emit a parseable answer at this analysis's probe resolution; these non-emitters are 0\% correct by construction, against 60.3\% correctness among emitters.
 
 In MGSM, correctness is not strictly absorbing because \texttt{parse\_answer} reads the
 last answer line. On the same ledger, genuine answer revision occurs in
@@ -731,19 +731,6 @@ instability, 98\% is the parser reading a number mid-write; this cannot bias
 The MGSM calculation covers only three Qwen3-8B cells and supports no claim
 across models or benchmarks.
 
-\textbf{Additional crossover context.} At \(B=128\), Qwen German NATIVE
-scores 2.55\% versus 1.15\% for TRANSLATE-ACT; Swahili NATIVE leads with
-bootstrap probability 1.00 at 128 and 192 (transition [192,256]), while German
-leads with probability 0.958 at 128 (transition [128,192]). Thai has no native
-lead, and no Llama language crosses because native accuracy remains near
-floor. The Qwen Swahili crossover also comes from a degenerate heavy-tail
-cell: NATIVE output-length p90 is 4096 and 25.1\% never emit a parseable
-answer. The frozen H3 test did not detect these reversals because it examined
-only the looser pre-specified budgets.
 
-\textbf{Related failure-tail diagnostic.} Qwen Swahili NATIVE has a heavy
-tail: 10.6\% hit the 4096 cap and 25.1\% never emit a parseable answer. This
-mixes truncation, non-integer or multiple answers, and format noncompliance,
-cautioning against interpreting native accuracy as pure reasoning ability.
 
 \end{document}
