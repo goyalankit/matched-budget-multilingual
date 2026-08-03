@@ -99,11 +99,31 @@ def main() -> int:
             f"words {len(after.split())} (was {len(before.split())})"
         )
 
-    # the seven limitations must all survive
+    # Every limitation must survive. These were enumerated (i)-(vii) until the
+    # EACL restructure moved them into an unnumbered \section*{Limitations} as
+    # prose, so check the SUBSTANCE rather than the numerals -- the numerals were
+    # a proxy for the content, and the proxy broke while the content did not.
     md = open("PAPER.md", encoding="utf-8").read()
-    for numeral in ("(i)", "(ii)", "(iii)", "(iv)", "(v)", "(vi)", "(vii)"):
-        if numeral not in md:
-            failures.append(f"PAPER.md: limitation {numeral} missing")
+    tex = open("paper/main.tex", encoding="utf-8").read()
+    LIMITATIONS = {
+        "sweep beyond the frozen cells is exploratory": "retrospective and exploratory",
+        "engine determinism": "46",
+        "scope: MGSM, three languages, two models": "three languages, and two 8B models",
+        "human GlotLID validation outstanding": "GlotLID",
+        "same-content trace-premium not performed": "trace-premium",
+        "calibration only approximately nominal": "0.00917",
+        "vocabulary extension is a counterfactual": "counterfactual",
+    }
+    for label, probe in LIMITATIONS.items():
+        for name, text in (("PAPER.md", md), ("paper/main.tex", tex)):
+            if probe not in text:
+                failures.append(f"{name}: limitation dropped -- {label}")
+
+    # The Limitations section itself must remain a standalone unnumbered section:
+    # ARR requires it, and it does not count toward the page limit only if it is
+    # outside the numbered body.
+    if "\\section*{Limitations}" not in tex:
+        failures.append("paper/main.tex: Limitations is not a standalone \\section*")
 
     print()
     if failures:
