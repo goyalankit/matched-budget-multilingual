@@ -52,7 +52,7 @@ def render(input_path: Path, output_path: Path) -> None:
     import matplotlib.pyplot as plt
 
     budgets, curves = parse_native_curves(input_path)
-    colors = {"de": "#4C78A8", "th": "#F58518", "sw": "#54A24B"}
+    colors = {"de": "#0072B2", "th": "#D55E00", "sw": "#009E73"}
     fig, axes = plt.subplots(1, 3, figsize=(10.5, 3.4), sharey=True)
 
     for axis, language in zip(axes, ("de", "th", "sw")):

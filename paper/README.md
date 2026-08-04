@@ -1,1 +1,1 @@
-Build from this directory with `latexmk -pdf main.tex`, or run `pdflatex main.tex`, `bibtex main`, and `pdflatex main.tex` twice. All entries in `custom.bib` are compile-ready placeholders and must be replaced with verified citations before submission.
+Build from this directory with `latexmk -pdf main.tex`, or run `pdflatex main.tex`, `bibtex main`, and `pdflatex main.tex` twice. `main.bbl` is included so the source also builds where BibTeX is unavailable (e.g., arXiv).
