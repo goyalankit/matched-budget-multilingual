@@ -1,181 +1,251 @@
-# Mind the Cap — a primer for graduate students
+# Mind the Cap — a primer for new graduate students
 
-*Assumes you know what a transformer, a tokenizer and a bootstrap are. Assumes you know nothing
-about this paper. Written so you could extend the work, not just follow it.*
+*You know what a language model is and roughly how it generates text. That's enough. Everything
+else is defined as it comes up.*
 
-For a gentler version aimed at a general technical reader, see `EXPLAINER.md`. This one goes
-after the estimand, the statistics, and the mechanism.
+There are three documents about this study. `EXPLAINER.md` is for a general audience. This one is
+for someone starting a PhD who might want to build on the work. `PAPER.md` is the real thing.
 
 ---
 
-## 1. The claim in the literature, and the crack in it
+## 1. The setup
 
-Ask a model a maths problem in Swahili. You can let it reason in Swahili (**NATIVE**), or tell it
-to translate to English first and reason there (**TRANSLATE-ACT**). Translating wins, often by
-tens of accuracy points, and the standard reading is that models genuinely reason worse outside
-English.
+Give a model a maths problem written in Swahili. There are two sensible ways to ask for an answer:
 
-Here is the crack. Every one of those evaluations reports accuracy at a **single output-token
-cap** — `max_tokens=512`, say. But tokenizers are trained mostly on English, so the same content
-costs more tokens in other languages. On FLORES-200 parallel sentences with Qwen3-8B's own
-tokenizer:
+- **NATIVE** — "think in Swahili, answer in Swahili"
+- **TRANSLATE-ACT** — "translate this to English, then solve it in English"
 
-| language | tokens per English token |
+Translating first usually wins, sometimes by tens of accuracy points. The standard explanation is
+that models genuinely reason better in English, because English dominates their training data.
+
+That explanation might be right. This study asks a narrower question: **how much of that measured
+gap is caused by how we run the evaluation?**
+
+## 2. Tokens, and why they cause trouble here
+
+Models don't read letters or words. They read **tokens** — chunks of text produced by a
+*tokenizer*. In English, a common word is usually one token. Rarer text gets chopped into pieces.
+
+Tokenizers are trained mostly on English, so English is cheap and other languages are expensive.
+You can measure this precisely. Take sentences that mean exactly the same thing in two languages
+(the FLORES-200 dataset provides these), tokenize both, and take the ratio. For Qwen3-8B:
+
+| language | tokens needed per English token |
 |---|---:|
 | German | 1.559 |
 | Swahili | 1.936 |
 | Thai | **2.551** |
 
-A Thai trace needs ~2.55× the tokens to say the same thing. So a fixed cap is **not a fixed
-amount of reasoning** — it is a different amount per language. The cap is a hidden independent
-variable, and nobody was reporting it as one.
+Call this number the **premium**. Thai costs about 2.55× as many tokens to say the same thing.
 
-## 2. The estimand, and why it is defined this way
+Now here's the problem. When you evaluate a model you set a limit on how much it can write — a
+cap like `max_tokens=512`. That's a limit on **tokens**, not on **content**.
 
-Define, for model *m* and language *L*, the FLORES premium \(r_{m,L}\). Then compare NATIVE
-accuracy at a budget against NATIVE accuracy at the **premium-scaled** budget:
+> A 512-token cap gives English 512 tokens' worth of thinking.
+> It gives Thai about 200 tokens' worth of thinking, because Thai spends 2.55 tokens
+> to say what English says in one.
 
-> **Δ_L(B) = acc_NATIVE(⌊r·B⌋) − acc_NATIVE(B)**
+So the cap silently gives different languages different amounts of room. Every paper reporting
+"accuracy at 512 tokens" across languages is comparing things that aren't comparable — and nobody
+was reporting the cap as something that mattered.
 
-Read it as: *how much accuracy was the language losing purely because the cap was quoted in
-tokens rather than in content?*
+## 3. The core idea: measure the same thing twice, fairly
 
-Three things fall out of this definition, and they matter more than they look:
+Here's the trick the study uses. Instead of comparing Swahili-to-English (which mixes lots of
+things together), compare **Swahili to itself under two different budgets**:
 
-1. **Δ is an increment of one curve, not a comparison between arms.** It is NATIVE against
-   NATIVE. TRANSLATE-ACT cancels. That makes it far cleaner than a cross-arm gap, which mixes
-   translation quality, instruction-following and reasoning.
-2. **Its peak should follow the answer-emission distribution** — the window (B, ⌊rB⌋] only
-   captures traces that finish inside it.
-3. **Δ → 0 once accuracy saturates.** Above saturation there is nothing left for extra tokens to
-   recover, so a near-zero Δ at a generous budget is *analytically expected*, not a null result.
+- run NATIVE Swahili with a budget of **B** tokens
+- run NATIVE Swahili again with **B × premium** tokens — the *fair* budget, the one that gives
+  Swahili the same amount of *content* that B gives English
 
-Point 3 is the whole reason the paper's headline is regime-dependence rather than a single
-number.
+The difference between those two accuracies is what the paper calls **Δ** (delta):
 
-## 3. What the study actually did
+> **Δ = (accuracy at the fair budget) − (accuracy at the plain budget)**
 
-Four prompting strategies × 3 languages (de/th/sw) × 2 models (Qwen3-8B, Llama-3.1-8B) on MGSM,
-with the full budget sweep rather than one cap.
+In words: **how much accuracy was this language losing purely because the cap was counted in
+tokens instead of content?**
 
-**Result: Δ is large in one regime and vanishes in another.** For Qwen, at the peak budgets:
+Why is this a good way to measure it? Three reasons, and they're worth sitting with:
 
-| language | window (B, ⌊rB⌋] | Δ |
+**It compares one thing to itself.** Swahili-NATIVE versus Swahili-NATIVE. Translation quality,
+instruction-following, and reasoning ability are all held constant, because it's the same setup
+both times. Only the budget changed.
+
+**It predicts where the effect should live.** Extra tokens only help a trace that was about to
+finish. So Δ should be biggest at budgets where lots of traces are *just* running out of room.
+
+**It predicts where the effect should vanish.** If the model already has plenty of room, extra
+tokens do nothing. So Δ should go to zero at large budgets — not as a surprise, but automatically.
+
+That last point matters enormously for reading the paper, so hold onto it.
+
+## 4. What they found
+
+They ran the full sweep — many budgets instead of one — for 3 languages and 2 models on MGSM
+(grade-school maths problems, translated into many languages).
+
+**Δ is huge in one range of budgets and zero in another.** For Qwen:
+
+| language | budget → fair budget | Δ |
 |---|---|---:|
-| German | (192, 299] | 34.65 |
-| Thai | (256, 652] | 38.60 |
-| Swahili | (128, 247] | 13.70 |
+| German | 192 → 299 | 34.65 points |
+| Thai | 256 → 652 | 38.60 points |
+| Swahili | 128 → 247 | 13.70 points |
 
-By B\* = 1024 all three are ≈ 0. Same models, same data, same prompts — the measured contrast
-moves by ~35 points depending purely on where you set the cap.
+By a budget of 1024, all three are essentially zero.
 
-## 4. The bit that is actually about doing science
+Same model, same data, same prompts. The measured effect swings by ~35 accuracy points depending
+only on where you set the cap. That's the paper's headline: **the cap is an experimental variable,
+and you have to report results across it, not at one value.**
 
-Here is the part worth internalising if you are early in a PhD.
+## 5. The part about how to do science
 
-The team **froze the primary protocol before generating any data** — hypotheses, budgets,
-correction, exclusion rules — and tagged it in git. That frozen test was evaluated at B\* = 1024,
-and **it failed to reject.** All six Holm-corrected tests, no support.
+This section is the one to actually remember.
 
-They reported that. Prominently. The sweep that *does* show the effect came afterwards and is
-labelled retrospective throughout.
+Before generating any data, the team wrote down exactly what they would test, at which budget,
+with which statistical correction — and locked it (they used a git tag, so the timestamp is
+verifiable). This is called **freezing a protocol**. The point is that you can't quietly change
+your hypothesis after seeing the results.
 
-Then they did the thing that makes it credible: **froze a second protocol** predicting the
-sweep's peaks, and tested it on 540,000 freshly generated hard-capped decodes. All six rejected;
-the peaks replicated in size *and* location.
+Their frozen test was at a budget of 1024. **It failed.** No effect. Nothing.
 
-The lesson is not "pre-registration good". It is subtler:
+And they published that, prominently, in the abstract.
 
-> A frozen test that fails, plus a *separately* frozen test that succeeds, is far stronger
-> evidence than either alone — because the first proves you were willing to lose.
+Now — remember §3, where we said Δ automatically goes to zero at large budgets? 1024 was a large
+budget. The frozen test was aimed at a place where, by the logic of the measure itself, there was
+nothing to find. That's an honest mistake, made before anyone had seen data.
 
-Note the vocabulary: these are **internal freezes recorded as git tags**, not public registry
-filings. The paper says "prospectively frozen", not "pre-registered", because the words mean
-different things and only one of them is true here.
+So here's what they did next. They wrote down a *second* frozen protocol predicting exactly where
+the effect should appear, locked that too, and generated **540,000 fresh model outputs** to test
+it. All six predictions held — the effect appeared at the predicted budgets, with the predicted
+sizes.
 
-## 5. The mechanism — and why it is the interesting part
+Why this sequence is much stronger than just reporting the win:
 
-Regime-dependence is a *warning*. The newer result is an *explanation*.
+> A frozen prediction that **failed**, followed by a separately frozen prediction that
+> **succeeded**, is far better evidence than one success on its own — because the failure proves
+> they were willing to lose.
 
-Let **E** be the token position where a trace emits its final answer, and **C** whether that
-answer is correct. Define the **correct-emission sub-CDF**:
+One vocabulary note, because it's a real distinction. "Pre-registered" usually means filed with a
+public registry. This study froze protocols internally with git tags. The paper says
+"prospectively frozen", not "pre-registered", because only one of those is true.
 
-> **G(t) = P(C = 1, E ≤ t)**
+## 6. Why the effect happens
 
-Then Δ_L(B) = G(⌊rB⌋) − G(B). That is not a fitted model — it is the same identity from §2,
-rewritten. Both terms come from **one long-cap run**, so the entire budget-dependence curve is
-determined by *when the model commits to an answer*.
+Everything above says budgets matter. The newer result says **why**, and it's simpler than you'd
+expect.
 
-Checked against the three frozen MGSM peaks: predicted 34.20 / 38.85 / 14.95 against observed
-34.65 / 38.60 / 13.70 — mean absolute error **0.65 points**.
+Watch a model solve a problem. It reasons for a while, then writes its answer. Call the position
+where it writes the answer the **emission point**.
 
-### The subtlety that nearly sank this
+Now think about what a budget cut does. If you stop the model *before* its emission point, you get
+nothing — no answer at all, scored wrong. If you stop it *after*, you get the answer and the cut
+made no difference.
 
-The naive version factorises into marginals: p_correct × [F_E(⌊rB⌋) − F_E(B)]. That assumes
-correctness and emission timing are independent. **They cannot be** — a trace that never emits an
-answer is wrong *by construction*, so the non-emitting subpopulation is 0% correct while emitters
-are ~60%. On the same data that factorisation is off by 3.10 points, five to fifteen times worse
-in the cells where emission is rare.
+So budget dependence is entirely about **which traces have written their answer yet**.
 
-If you take one methodological habit from this paper, take this one: **before trusting a
-factorisation, ask whether one factor is degenerate on a subpopulation.**
+That gives a way to predict Δ without running the sweep. From a single long run, record for each
+trace: (a) where it emitted its answer, and (b) whether that answer was right. Then
 
-### Circularity, and how it was avoided
+> **Δ between two budgets = the fraction of traces that are correct AND emit between those two
+> budgets.**
 
-Estimating G and measuring Δ on the *same* items is circular — under absorbing correctness they
-are algebraically the same quantity, so agreement is guaranteed and means nothing. The extension
-to three further benchmarks (MMATH, Belebele, Global-MMLU-Lite) therefore estimates G on
-even-indexed items and scores Δ on odd-indexed ones. Result: **MAE 0.92 points on held-out items,
-peak located exactly in five of seven cells.**
+That's it. No fitting, no free parameters. Just counting.
 
-That is generalisation across *items*. Not across models or benchmarks — the analysis is Qwen
-only, in the replay frame, and labelled exploratory.
+**Does it work?** Against the three frozen MGSM predictions:
 
-## 6. Things that went wrong, which is where the real lessons live
+| language | actually observed | predicted from emission points |
+|---|---:|---:|
+| German | 34.65 | 34.20 |
+| Thai | 38.60 | 38.85 |
+| Swahili | 13.70 | 14.95 |
 
-**A shared seed made "independent" decodes identical.** `max_tokens` is a stopping condition; it
-never conditions the model. So reusing one seed across budgets replays a single trajectory —
-75% of capped decodes came back bitwise identical to the truncated long decode. The fix was a
-budget-dependent seed. *If your "independent" replications share a seed, check they are actually
-independent.*
+Average error: **0.65 points**.
 
-**A one-cell pilot generalised to a four-cell family.** An instrument was validated in one
-condition and deployed in four; two of them silently failed. The nulls looked like findings.
-*A null is only interpretable once you have shown the manipulation arrived.*
+### A mistake that nearly happened here — and the lesson in it
 
-**An instrument was measuring probe resolution, not the phenomenon.** A stability statistic moved
-from 4.4% to 46.3% purely by refining the measurement grid — because a finer scan catches more
-prefixes ending mid-number (`#### 1` before `#### 18` is written). 98% of the apparent
-"instability" was that artefact. *If your headline number changes when you change the instrument's
-resolution, it is measuring the instrument.*
+The first version of this prediction did something that looks harmless. It multiplied two
+averages together:
 
-**A benchmark's difficulty was misread from its first six items.** MMATH's items are ordered, and
-the first thirty are AIME. Sampling `[:6]` suggested 8–17% accuracy; the full set gives 57–75%.
-*Ordered benchmarks do not yield random samples from the head.*
+> (fraction of traces that are correct) × (fraction that emit in the window)
 
-## 7. Where you could take this
+This assumes being *correct* and *when you emit* are unrelated. They are not — and the reason is
+almost silly once you see it:
 
-- **Test the mechanism across models.** Everything mechanistic here is Qwen-only. Does G predict
-  the regime on a checkpoint with a different tokenizer and a different premium structure?
-- **The prediction should be falsifiable prospectively.** Freeze the functional form, then test on
-  a model and a benchmark never used to fit it. That is designed but not run.
-- **Multiple-choice sits at the far end of the predictor range** and mostly shows flat Δ. A
-  correctly predicted zero is weak evidence; an equivalence test with a stated margin would make
-  it real.
-- **Emission timing is a cheap diagnostic.** If it predicts the binding regime reliably,
-  practitioners could measure it once and know whether their evaluation budget distorts language
-  comparisons — without running a sweep at all.
+> **A trace that never writes an answer is automatically wrong.**
+
+So among traces that never emit, accuracy is 0%. Among traces that do emit, it's about 60%. Those
+two groups are wildly different, so you cannot treat "correct" and "emits" as independent.
+
+That mistake costs 3.10 points of error instead of 0.65 — five to fifteen times worse in the cases
+where few traces emit at all.
+
+**The habit to steal:** before you multiply two probabilities together, ask whether one of them
+collapses to zero for some subgroup. If it does, they aren't independent and you can't factorise.
+
+### Checking it on other benchmarks — and avoiding a trap
+
+They extended this to three more benchmarks (MMATH, Belebele, Global-MMLU-Lite).
+
+Here they had to be careful about something subtle. If you work out the emission points *and*
+measure Δ using **the same problems**, you'll get near-perfect agreement — but only because
+you've computed the same quantity twice. It would look like a triumph and mean nothing.
+
+So they split the problems in half: emission points from one half, Δ measured on the other half.
+Now agreement has to be earned.
+
+Result: **average error 0.92 points, and the peak budget located exactly in 5 of 7 cases.**
+
+Honest scope: this is one model (Qwen), and the split is across *problems*, not across models or
+benchmarks. It's a real check, not a final proof.
+
+## 7. Four things that went wrong, and what to learn
+
+These are more useful than the results.
+
+**"Independent" runs that weren't.** They generated outputs at different budgets using the same
+random seed, assuming that made them comparable. It made them *identical* — 75% came back
+bitwise the same, because the budget never affects generation, it just stops it early.
+→ *If you call something an independent replication, verify it actually is.*
+
+**A test that couldn't fail.** One measurement was set up so the answer was guaranteed by how it
+was computed. It would have reported a beautiful result that meant nothing.
+→ *Ask of any strong result: could this have come out differently?*
+
+**A number that measured the ruler.** A stability statistic read 4.4% or 46.3% depending purely on
+how finely they scanned the traces — because a finer scan catches half-written numbers (`#### 1`
+on the way to `#### 18`). 98% of the apparent "instability" was that artefact.
+→ *If your number changes when you change the instrument's precision, it's measuring the
+instrument.*
+
+**Judging a benchmark by its first few items.** They sampled the first 6 problems from MMATH to
+estimate difficulty, and got 8–17% accuracy. The benchmark is ordered, and the first 30 problems
+are competition-level. The full set gives 57–75%.
+→ *Ordered datasets don't give you a random sample from the front.*
+
+## 8. Where you could take this
+
+- **Try it on other models.** The mechanism has only been checked on Qwen. Does it hold for a
+  model with a very different tokenizer?
+- **Make it a real prediction.** Lock the method down, then test it on a model *and* a benchmark
+  never used to develop it. Designed, not yet run.
+- **Multiple-choice is the weak spot.** Those benchmarks mostly show Δ ≈ 0, and "we correctly
+  predicted zero" is weak evidence. Testing it properly needs a stated margin for what counts as
+  "close enough to zero".
+- **The practical payoff.** If emission points reliably predict where budgets distort things, you
+  could measure them once, cheaply, and know whether your evaluation is in the danger zone —
+  without running a full sweep.
 
 ---
 
-## Reading order
+## What to read next
 
-1. `EXPLAINER.md` — the general-audience version
-2. This file
-3. `PAPER.md` — the full argument in markdown
-4. `prereg-matched-budgets.md`, `prereg-independent-decoding.md` — the frozen protocols
-5. `analysis-out/*.md` — every result, with its artifact
+1. This file
+2. `EXPLAINER.md` — same story, less machinery
+3. `PAPER.md` — the full argument
+4. `prereg-matched-budgets.md` — what a frozen protocol actually looks like
+5. `analysis-out/*.md` — every result, next to the file that produced it
 
-**One habit worth stealing before you go:** the commit messages in this repository record what
-was *wrong* and how it was found, not just what changed. Several of the most useful things above
-exist only there.
+**One last thing.** The commit messages in this repository record what was *wrong* and how it was
+caught, not just what changed. Several lessons in §7 exist nowhere else. That's a habit worth
+copying.
