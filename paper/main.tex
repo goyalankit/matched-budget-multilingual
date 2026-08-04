@@ -335,7 +335,7 @@ At the larger evaluated budgets the residual native-vs-translate difference is l
 
 Future work should test prompt interventions that elicit earlier answer emission---which would shrink NATIVE's budget-binding regime---and extend the protocol beyond MGSM numeric exact match to longer-form and non-numeric tasks.
 
-\textbf{Data and code availability.} The full ledger of stored generations and all analysis code will be released.
+\textbf{Data and code availability.} The full ledger of stored generations and all analysis code will be released. All benchmarks (MGSM, FLORES-200, Belebele, Global-MMLU-Lite, MMATH) and both models are publicly released artifacts used under their respective licenses; the ledger consists of model generations and scores derived from them, and its release will carry attribution and the corresponding license notices.
 
 \textbf{Takeaway.} When comparing language strategies under a token cap, treat the cap as an independent variable rather than a background constant. Report accuracy across a budget sweep with a length-normalized comparison, mark the region in which answer emission binds, and do not let a single budget carry the claim.
 
@@ -353,6 +353,25 @@ The scope is MGSM, three languages, and two 8B models, plus exploratory Qwen-onl
 \label{app:curves}
 
 The complete curves use \(B\in\{64,128,192,256,384,512,768,1024\}\). Qwen NATIVE accuracy rises from 0.0/0.0/0.2\% at \(B=64\) to 79.0/47.1/33.7\% at \(B=1024\) for de/th/sw; Llama NATIVE rises from 0.0/0.0/0.0\% to 13.6/3.9/29.0\%. The Qwen curves climb sharply through the peak intervals in Figure~\ref{fig:native-curves} and then flatten, whereas the Llama de/th curves remain near floor. The supplementary material reports every model--language--arm value at all eight budgets.
+
+\section{Serving and decoding configuration}
+\label{app:compute}
+
+Both models are 8B-parameter instruction-tuned checkpoints served with vLLM
+0.17.0 in bfloat16, without quantization, on NVIDIA H100 hardware. Decoding
+samples at temperature 0.6 with \(k=8\) samples per item under a 4096-token
+generation cap, and Qwen3's thinking mode is disabled
+(\texttt{enable\_thinking=false}) so that all reasoning occupies the visible,
+budgeted channel. Seeds are item- and sample-specific---the first 64 bits of
+SHA-256(base\_seed \(\|\) item\_id \(\|\) sample index)---reused across arms,
+languages, and models for pairing and never reused across item--sample pairs;
+in the independent-decoding sample they additionally vary by cap
+(\S\ref{sec:design}). Truncation is taken from the engine's
+\texttt{finish\_reason}, never inferred from the final token id. The stored
+experiments total roughly 466M output tokens; at the measured serving
+throughput of 5{,}893 output tokens per second this is approximately 22
+H100-hours of decoding, with the instrument-validity rerun priced from v0
+token totals as an upper bound and pilot runs excluded.
 
 \section{Best-English-arm}
 \label{app:bestarm}
