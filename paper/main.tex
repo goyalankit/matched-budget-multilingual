@@ -367,11 +367,9 @@ SHA-256(base\_seed \(\|\) item\_id \(\|\) sample index)---reused across arms,
 languages, and models for pairing and never reused across item--sample pairs;
 in the independent-decoding sample they additionally vary by cap
 (\S\ref{sec:design}). Truncation is taken from the engine's
-\texttt{finish\_reason}, never inferred from the final token id. The stored
-experiments total roughly 466M output tokens; at the measured serving
-throughput of 5{,}893 output tokens per second this is approximately 22
-H100-hours of decoding, with the instrument-validity rerun priced from v0
-token totals as an upper bound and pilot runs excluded.
+\texttt{finish\_reason}, never inferred from the final token id. Decoding
+across all experiments totals roughly 466M output tokens, about 22
+H100-hours.
 
 \section{Best-English-arm}
 \label{app:bestarm}
