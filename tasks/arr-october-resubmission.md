@@ -20,9 +20,18 @@ of the paper was desk rejected."*
 So the submission form **must** carry a link to the previous submission and a
 note on what changed. Missing this is an automatic second desk reject.
 
-- [ ] **Previous ARR submission ID / OpenReview link — NEEDED FROM AUTHOR.**
+**Confirmed: the desk rejection does not exempt us.** The submission form asks for
+prior versions *"reviewed at ARR"*, and a desk reject produces no reviews, so the
+field reads as optional. It is not. The CFP closes that loophole in as many words:
+*"This applies even if the previous version of the paper was desk rejected."*
+Leaving it blank is the one remaining route to a second desk reject.
+
+- [ ] **Previous ARR submission URL — NEEDED FROM AUTHOR.**
       Not recorded anywhere in this repo; retrieve it from the OpenReview
       author console for the August 2026 cycle.
+      Format exactly `https://openreview.net/forum?id=<id>` — truncate at the
+      first `&`. A copied address bar usually carries a `&noteId=...` tail that
+      must be removed.
 - [ ] Paste the note below into the "changes since previous submission" field.
 
 ## Draft note for the form
